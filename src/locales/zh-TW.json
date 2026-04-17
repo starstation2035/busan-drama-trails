@@ -1,6 +1,16 @@
 {
-  "common": { "appName": "釜山劇場 & 風格", "back": "上一題", "retake": "再測一次", "share": "分享結果", "copied": "已複製連結！" },
-  "nav": { "home": "首頁", "spots": "拍攝地", "myCourse": "我的行程" },
+  "common": {
+    "appName": "釜山劇場 & 風格",
+    "back": "上一題",
+    "retake": "再測一次",
+    "share": "分享結果",
+    "copied": "已複製連結！"
+  },
+  "nav": {
+    "home": "首頁",
+    "spots": "拍攝地",
+    "myCourse": "我的行程"
+  },
   "language": {
     "choose": "選擇您的語言",
     "subtitle": "請選擇您偏好的語言以開始旅程",
@@ -95,6 +105,28 @@
         "name": "韓劇魂",
         "tagline": "你想親自走進每一幕喜歡的場景"
       }
+    }
+  },
+  "spots": {
+    "searchPlaceholder": "搜尋地點或韓劇",
+    "addedToCourse": "已加入我的行程 ❤",
+    "styleBanner": "正在顯示「{{style}}」風格的拍攝地",
+    "clearStyle": "清除篩選",
+    "count": "{{count}} 個拍攝地",
+    "filters": {
+      "drama": "韓劇",
+      "region": "區域",
+      "type": "類型"
+    },
+    "sort": {
+      "popular": "熱門",
+      "newest": "最新",
+      "nearest": "最近"
+    },
+    "empty": {
+      "title": "找不到符合的拍攝地",
+      "subtitle": "試著調整搜尋或篩選條件吧",
+      "reset": "重設所有篩選"
     }
   }
 }

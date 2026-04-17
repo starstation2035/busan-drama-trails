@@ -1,6 +1,16 @@
 {
-  "common": { "appName": "Busan Drama Spot & Style", "back": "Back", "retake": "Retake", "share": "Share result", "copied": "Link copied!" },
-  "nav": { "home": "Home", "spots": "Spots", "myCourse": "My Course" },
+  "common": {
+    "appName": "Busan Drama Spot & Style",
+    "back": "Back",
+    "retake": "Retake",
+    "share": "Share result",
+    "copied": "Link copied!"
+  },
+  "nav": {
+    "home": "Home",
+    "spots": "Spots",
+    "myCourse": "My Course"
+  },
   "language": {
     "choose": "Choose your language",
     "subtitle": "Select your preferred language to start your journey",
@@ -38,12 +48,36 @@
     },
     "progress": "{{current}} / {{total}}",
     "questions": {
-      "q1": { "title": "Your ideal Busan moment?", "a": "Sunset at a quiet beach", "b": "Exploring a lively market" },
-      "q2": { "title": "Your perfect photo spot?", "a": "Colorful village with murals", "b": "Iconic drama scene" },
-      "q3": { "title": "After a long day, you want…", "a": "A cozy cafe with ocean view", "b": "Street food at a night market" },
-      "q4": { "title": "Your travel photos are usually…", "a": "Aesthetic minimal landscapes", "b": "Action shots and candids" },
-      "q5": { "title": "At a filming location, you…", "a": "Recreate the exact scene pose", "b": "Hunt the best photo angle" },
-      "q6": { "title": "Your ideal travel pace?", "a": "Slow and relaxed, fewer places", "b": "Maximize the day, see it all" }
+      "q1": {
+        "title": "Your ideal Busan moment?",
+        "a": "Sunset at a quiet beach",
+        "b": "Exploring a lively market"
+      },
+      "q2": {
+        "title": "Your perfect photo spot?",
+        "a": "Colorful village with murals",
+        "b": "Iconic drama scene"
+      },
+      "q3": {
+        "title": "After a long day, you want…",
+        "a": "A cozy cafe with ocean view",
+        "b": "Street food at a night market"
+      },
+      "q4": {
+        "title": "Your travel photos are usually…",
+        "a": "Aesthetic minimal landscapes",
+        "b": "Action shots and candids"
+      },
+      "q5": {
+        "title": "At a filming location, you…",
+        "a": "Recreate the exact scene pose",
+        "b": "Hunt the best photo angle"
+      },
+      "q6": {
+        "title": "Your ideal travel pace?",
+        "a": "Slow and relaxed, fewer places",
+        "b": "Maximize the day, see it all"
+      }
     },
     "result": {
       "yourStyle": "Your travel style is",
@@ -55,10 +89,44 @@
       "shareText": "My Busan travel style is \"{{type}}\" {{icon}} — try it!"
     },
     "types": {
-      "healing": { "name": "Healing Traveler", "tagline": "You crave peaceful beaches and slow cafes" },
-      "active": { "name": "Active Explorer", "tagline": "You love markets, alleys, and vibrant streets" },
-      "insta": { "name": "Insta Photographer", "tagline": "You live for aesthetic photos and unique views" },
-      "kdrama": { "name": "K-Drama Devotee", "tagline": "You want to step into your favorite scenes" }
+      "healing": {
+        "name": "Healing Traveler",
+        "tagline": "You crave peaceful beaches and slow cafes"
+      },
+      "active": {
+        "name": "Active Explorer",
+        "tagline": "You love markets, alleys, and vibrant streets"
+      },
+      "insta": {
+        "name": "Insta Photographer",
+        "tagline": "You live for aesthetic photos and unique views"
+      },
+      "kdrama": {
+        "name": "K-Drama Devotee",
+        "tagline": "You want to step into your favorite scenes"
+      }
+    }
+  },
+  "spots": {
+    "searchPlaceholder": "Search by location or drama",
+    "addedToCourse": "Added to My Course ❤",
+    "styleBanner": "Showing spots for {{style}}",
+    "clearStyle": "Clear filter",
+    "count": "{{count}} locations",
+    "filters": {
+      "drama": "Drama",
+      "region": "Region",
+      "type": "Type"
+    },
+    "sort": {
+      "popular": "Popular",
+      "newest": "Newest",
+      "nearest": "Nearest"
+    },
+    "empty": {
+      "title": "No spots match",
+      "subtitle": "Try adjusting your search or filters",
+      "reset": "Reset filters"
     }
   }
 }
