@@ -29,6 +29,8 @@ const searchSchema = z.object({
   sort: fallback(z.enum(SORT_KEYS), "popular").default("popular"),
 });
 
+type SpotsSearch = z.infer<typeof searchSchema>;
+
 export const Route = createFileRoute("/spots")({
   component: Spots,
   validateSearch: zodValidator(searchSchema),
