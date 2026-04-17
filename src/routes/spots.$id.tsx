@@ -121,7 +121,7 @@ function pickLang<T extends LocalizedString>(s: T | undefined, lang: LangCode): 
 function SpotDetail() {
   const { t, i18n } = useTranslation();
   const router = useRouter();
-  const { spot } = Route.useLoaderData();
+  const { spot } = Route.useLoaderData() as { spot: SpotFull };
   const lang = (i18n.language as LangCode) || "ko";
   const favorites = useAppStore((s) => s.favorites);
   const toggleFavorite = useAppStore((s) => s.toggleFavorite);
