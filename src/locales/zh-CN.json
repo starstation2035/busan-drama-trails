@@ -1,0 +1,16 @@
+{
+  "common": { "appName": "釜山剧场 & 风格" },
+  "nav": { "home": "首页", "spots": "拍摄地", "myCourse": "我的行程" },
+  "language": {
+    "choose": "选择您的语言",
+    "subtitle": "请选择您偏好的语言以开始旅程",
+    "continue": "继续"
+  },
+  "pages": {
+    "landing": "欢迎来到釜山",
+    "styleTest": "旅游风格测验",
+    "spots": "拍摄地点",
+    "spotDetail": "地点详情",
+    "myCourse": "我的行程"
+  }
+}
