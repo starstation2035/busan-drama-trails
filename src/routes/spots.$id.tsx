@@ -606,6 +606,3 @@ function NearbyList({ title, items }: { title: string; items: NearbyItem[] }) {
     </section>
   );
 }
-
-// silence unused
-void useEffect;
