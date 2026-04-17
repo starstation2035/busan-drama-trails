@@ -127,7 +127,7 @@ function nearestNeighborOrder(spotsIn: SpotItem[]): SpotItem[] {
   return ordered;
 }
 
-function addMinutes(hhmm: string, mins: number): string {
+export function addMinutes(hhmm: string, mins: number): string {
   const [h, m] = hhmm.split(":").map(Number);
   const total = h * 60 + m + mins;
   const hh = Math.floor(total / 60) % 24;
@@ -135,7 +135,7 @@ function addMinutes(hhmm: string, mins: number): string {
   return `${String(hh).padStart(2, "0")}:${String(mm).padStart(2, "0")}`;
 }
 
-function timeToMinutes(hhmm: string): number {
+export function timeToMinutes(hhmm: string): number {
   const [h, m] = hhmm.split(":").map(Number);
   return h * 60 + m;
 }

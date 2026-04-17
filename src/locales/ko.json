@@ -227,7 +227,16 @@
       "copyLink": "링크 복사"
     },
     "share": {
-      "header": "나의 부산 K-드라마 코스 🎬"
+      "header": "나의 부산 K-드라마 코스 🎬",
+      "layoutTitle": "부산 여행 코스"
+    },
+    "memo": {
+      "placeholder": "여행 메모를 남겨보세요...",
+      "label": "메모"
+    },
+    "customTravel": {
+      "edit": "이동 시간 수정",
+      "unit": "분"
     }
   }
 }
