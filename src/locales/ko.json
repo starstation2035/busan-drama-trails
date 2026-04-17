@@ -178,7 +178,56 @@
     },
     "cta": {
       "add": "내 코스에 추가",
-      "added": "내 코스 보기 →"
+    "added": "내 코스 보기 →"
+    }
+  },
+  "myCourse": {
+    "title": "나의 부산 코스",
+    "subtitle": "스팟 {{spots}}・맛집 {{restaurants}}・카페 {{cafes}}",
+    "removed": "삭제되었습니다",
+    "empty": {
+      "message": "좋아하는 장소를 담아 나만의 부산 하루 코스를 만들어보세요",
+      "cta": "촬영지 둘러보기"
+    },
+    "tabs": {
+      "course": "스마트 코스",
+      "list": "리스트 보기"
+    },
+    "groups": {
+      "spots": "촬영지",
+      "restaurants": "맛집",
+      "cafes": "카페"
+    },
+    "kinds": {
+      "spot": "스팟",
+      "restaurant": "식사",
+      "cafe": "카페 타임"
+    },
+    "travel": {
+      "walk": "도보",
+      "taxi": "택시",
+      "subway": "지하철"
+    },
+    "totals": {
+      "distance": "총 약 {{km}} km",
+      "stops": "총 {{count}}곳"
+    },
+    "warnings": {
+      "tooFar": "장소가 멀리 떨어져 있어요 ({{km}} km). 2일로 나누는 걸 추천!"
+    },
+    "single": {
+      "label": "오늘의 유일한 일정",
+      "hint": "몇 곳 더 추가하면 자동 코스가 생성돼요!"
+    },
+    "actions": {
+      "share": "공유",
+      "regen": "다시 짜기",
+      "export": "내보내기",
+      "exportSoon": "PDF 내보내기는 곧 제공돼요 ✨",
+      "copyLink": "링크 복사"
+    },
+    "share": {
+      "header": "나의 부산 K-드라마 코스 🎬"
     }
   }
 }
