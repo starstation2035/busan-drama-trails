@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -13,15 +13,30 @@ import {
   TrainFront,
   Clock,
   AlertTriangle,
+  Pencil,
+  Timer,
+  X,
+  Instagram,
+  MessageCircle,
 } from "lucide-react";
 import { useAppStore, type LangCode } from "@/stores/useAppStore";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import {
   classifyFavorites,
   generateCourse,
   totalRouteKm,
-  type TimelineEntry,
 } from "@/lib/course";
+import { type EditableTimelineEntry } from "@/domain/course";
+import { courseService } from "@/application/courseService";
 
 export const Route = createFileRoute("/my-course")({
   head: () => ({
@@ -54,11 +69,20 @@ function MyCoursePage() {
   const [tab, setTab] = useState<"list" | "course">("course");
   const [seed, setSeed] = useState(0);
 
-  const course = useMemo<TimelineEntry[]>(
-    () => (favorites.length ? generateCourse(favorites) : []),
-    [favorites, seed],
-  );
-  const totalKm = useMemo(() => totalRouteKm(course), [course]);
+  // Editable local state
+  const [editableCourse, setEditableCourse] = useState<EditableTimelineEntry[]>([]);
+
+  // Sync with auto-generated course if favorites change or seed changes
+  useEffect(() => {
+    if (favorites.length > 0) {
+      const generated = generateCourse(favorites) as EditableTimelineEntry[];
+      setEditableCourse(generated);
+    } else {
+      setEditableCourse([]);
+    }
+  }, [favorites, seed]);
+
+  const totalKm = useMemo(() => totalRouteKm(editableCourse), [editableCourse]);
 
   // Empty state
   if (favorites.length === 0) {
@@ -77,7 +101,7 @@ function MyCoursePage() {
   }
 
   const handleShare = async () => {
-    const lines = course
+    const lines = editableCourse
       .map((e, i) => `${i + 1}. ${e.time} ${e.item.name[lang] ?? e.item.name["en"]}`)
       .join("\n");
     const text = `${t("myCourse.share.header")}\n${lines}\n${window.location.origin}/my-course`;
@@ -149,15 +173,32 @@ function MyCoursePage() {
           }}
         />
       ) : (
-        <CourseView course={course} totalKm={totalKm} lang={lang} />
+        <CourseView
+          course={editableCourse}
+          totalKm={totalKm}
+          lang={lang}
+          onUpdateMemo={(idx, val) =>
+            setEditableCourse((cur) => courseService.updateMemo(cur, idx, val))
+          }
+          onUpdateTravelTime={(idx, val) =>
+            setEditableCourse((cur) => courseService.updateTravelTime(cur, idx, val))
+          }
+        />
       )}
 
       {/* Bottom action bar */}
       {tab === "course" && (
         <div className="sticky bottom-20 z-10 grid grid-cols-3 gap-2 rounded-2xl border border-border/60 bg-background/95 p-2 shadow-lg backdrop-blur md:bottom-4">
-          <Button variant="default" onClick={handleShare} className="gap-1">
-            <Share2 className="h-4 w-4" /> {t("myCourse.actions.share")}
-          </Button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="default" className="gap-1">
+                <Share2 className="h-4 w-4" /> {t("myCourse.actions.share")}
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-[400px] overflow-hidden p-0 sm:rounded-3xl">
+              <ShareLayout course={editableCourse} lang={lang} />
+            </DialogContent>
+          </Dialog>
           <Button variant="outline" onClick={() => setSeed((s) => s + 1)} className="gap-1">
             <Shuffle className="h-4 w-4" /> {t("myCourse.actions.regen")}
           </Button>
@@ -255,10 +296,14 @@ function CourseView({
   course,
   totalKm,
   lang,
+  onUpdateMemo,
+  onUpdateTravelTime,
 }: {
-  course: TimelineEntry[];
+  course: EditableTimelineEntry[];
   totalKm: number;
   lang: LangCode;
+  onUpdateMemo: (index: number, val: string) => void;
+  onUpdateTravelTime: (index: number, val: number) => void;
 }) {
   const { t } = useTranslation();
 
@@ -335,15 +380,46 @@ function CourseView({
                     </p>
                   </div>
                 </div>
+
+                {/* Travel Memo Input */}
+                <div className="mt-3 space-y-1">
+                  <div className="flex items-center gap-1.5 px-1 text-[10px] font-medium text-muted-foreground/80">
+                    <Pencil className="h-2.5 w-2.5" />
+                    {t("myCourse.memo.label")}
+                  </div>
+                  <Textarea
+                    placeholder={t("myCourse.memo.placeholder")}
+                    value={entry.memo || ""}
+                    onChange={(e) => onUpdateMemo(i, e.target.value)}
+                    className="min-h-[40px] resize-none border-none bg-muted/30 text-xs placeholder:text-muted-foreground/50 focus-visible:ring-1 focus-visible:ring-primary/30"
+                  />
+                </div>
               </ItemLink>
+
               {/* travel */}
               {entry.travelToNext && !isLast && (
-                <div className="ml-1 mt-2 flex items-center gap-1 text-xs text-muted-foreground">
-                  <ModeIcon mode={entry.travelToNext.mode} />
-                  <span>
-                    {entry.travelToNext.minutes} min{" "}
-                    {t(`myCourse.travel.${entry.travelToNext.mode}`)}
-                  </span>
+                <div className="group mt-2">
+                  <div className="ml-1 flex items-center gap-2">
+                    <div className="flex items-center gap-1 rounded-full bg-muted/50 px-2 py-1 text-[10px] text-muted-foreground transition-colors group-hover:bg-muted">
+                      <ModeIcon mode={entry.travelToNext.mode} />
+                      <span className="font-medium">
+                        {entry.travelToNext.minutes} {t("myCourse.customTravel.unit")}{" "}
+                        {t(`myCourse.travel.${entry.travelToNext.mode}`)}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100">
+                      <Input
+                        type="number"
+                        min="1"
+                        max="300"
+                        value={entry.travelToNext.minutes}
+                        onChange={(e) => onUpdateTravelTime(i, parseInt(e.target.value) || 1)}
+                        className="h-6 w-14 rounded-md border-border/40 bg-background px-1.5 py-0 text-[10px] focus-visible:ring-primary/30"
+                      />
+                      <Timer className="h-3 w-3 text-muted-foreground/60" />
+                    </div>
+                  </div>
                 </div>
               )}
             </li>
@@ -357,6 +433,91 @@ function CourseView({
           {t("myCourse.totals.distance", { km: totalKm.toFixed(1) })}
         </span>
         <span>{t("myCourse.totals.stops", { count: course.length })}</span>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- Social Share View (Instagram/Line Style) ---------- */
+function ShareLayout({ course, lang }: { course: EditableTimelineEntry[]; lang: LangCode }) {
+  const { t } = useTranslation();
+  
+  return (
+    <div className="relative aspect-[9/16] w-full overflow-hidden bg-gradient-to-br from-[#003d99] via-[#0077cc] to-[#33ccff] p-6 text-white shadow-2xl">
+      {/* Decorative Blur Spheres */}
+      <div className="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-white/10 blur-3xl" />
+      <div className="absolute top-1/2 -left-20 h-60 w-60 rounded-full bg-blue-400/20 blur-3xl" />
+
+      {/* Header */}
+      <div className="relative z-10 space-y-2 pt-8 text-center">
+        <div className="mx-auto w-fit rounded-full bg-white/20 px-3 py-1 text-[10px] font-bold uppercase tracking-widest backdrop-blur-md">
+          Personal Trip
+        </div>
+        <h2 className="text-3xl font-black tracking-tight drop-shadow-lg">
+          {t("myCourse.share.layoutTitle")}
+        </h2>
+        <div className="flex items-center justify-center gap-2 text-[10px] font-medium opacity-80">
+          <span>{new Date().toLocaleDateString(lang === "ko" ? "ko-KR" : "en-US")}</span>
+          <span>•</span>
+          <span>{course.length} Spots</span>
+        </div>
+      </div>
+
+      {/* Timeline */}
+      <div className="relative z-10 mt-10 h-[65%] overflow-hidden">
+        <div className="absolute left-[2.25rem] top-4 bottom-4 w-px bg-white/30" />
+        
+        <div className="space-y-6">
+          {course.slice(0, 5).map((entry, idx) => (
+            <div key={idx} className="flex gap-4">
+              <div className="relative flex-none">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-[10px] font-bold backdrop-blur-md border border-white/20">
+                  {entry.time}
+                </div>
+              </div>
+              
+              <div className="flex-1 space-y-1 pt-1">
+                <h3 className="line-clamp-1 text-sm font-bold tracking-tight">
+                  {entry.item.name[lang] ?? entry.item.name["en"]}
+                </h3>
+                <div className="flex items-center gap-1 text-[9px] font-medium opacity-70">
+                  <span className="rounded-sm bg-white/20 px-1 py-0.5">
+                    {t(`myCourse.kinds.${entry.item.kind}`)}
+                  </span>
+                  {entry.memo && (
+                    <span className="line-clamp-1 italic italic-medium">— {entry.memo}</span>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+          {course.length > 5 && (
+            <div className="pl-16 text-[10px] font-medium opacity-60">
+              + {course.length - 5} more places...
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Footer Branding */}
+      <div className="absolute bottom-10 left-0 w-full px-6">
+        <div className="flex flex-col items-center justify-center gap-3">
+          <div className="h-px w-20 bg-white/30" />
+          <p className="text-[10px] font-bold leading-none tracking-widest opacity-80">
+            {t("common.appName")}
+          </p>
+          <div className="flex gap-4 opacity-50">
+            <Instagram className="h-4 w-4" />
+            <MessageCircle className="h-4 w-4" />
+          </div>
+        </div>
+      </div>
+
+      {/* Instructions Overlay */}
+      <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/40 opacity-0 transition-opacity hover:opacity-100">
+        <p className="rounded-xl bg-white/90 px-4 py-2 text-xs font-bold text-black shadow-lg">
+          📸 Screenshot to share!
+        </p>
       </div>
     </div>
   );
