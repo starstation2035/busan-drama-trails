@@ -1,5 +1,5 @@
 {
-  "common": { "appName": "Busan Drama Spot & Style" },
+  "common": { "appName": "Busan Drama Spot & Style", "back": "Back", "retake": "Retake", "share": "Share result", "copied": "Link copied!" },
   "nav": { "home": "Home", "spots": "Spots", "myCourse": "My Course" },
   "language": {
     "choose": "Choose your language",
@@ -28,5 +28,37 @@
       "style": "Find My Travel Style"
     },
     "stats": "50+ Spots・200+ Restaurants・5 Languages"
+  },
+  "quiz": {
+    "intro": {
+      "badge": "6 questions・about 1 min",
+      "title": "Find Your Busan Travel Style ✨",
+      "subtitle": "Six quick questions to match you with the perfect Busan itinerary",
+      "start": "Start the quiz"
+    },
+    "progress": "{{current}} / {{total}}",
+    "questions": {
+      "q1": { "title": "Your ideal Busan moment?", "a": "Sunset at a quiet beach", "b": "Exploring a lively market" },
+      "q2": { "title": "Your perfect photo spot?", "a": "Colorful village with murals", "b": "Iconic drama scene" },
+      "q3": { "title": "After a long day, you want…", "a": "A cozy cafe with ocean view", "b": "Street food at a night market" },
+      "q4": { "title": "Your travel photos are usually…", "a": "Aesthetic minimal landscapes", "b": "Action shots and candids" },
+      "q5": { "title": "At a filming location, you…", "a": "Recreate the exact scene pose", "b": "Hunt the best photo angle" },
+      "q6": { "title": "Your ideal travel pace?", "a": "Slow and relaxed, fewer places", "b": "Maximize the day, see it all" }
+    },
+    "result": {
+      "yourStyle": "Your travel style is",
+      "recommendedTitle": "3 spots picked for you",
+      "seeAll": "See all spots for me",
+      "shareLine": "Share to LINE",
+      "shareIG": "Share to IG Story",
+      "copyLink": "Copy link",
+      "shareText": "My Busan travel style is \"{{type}}\" {{icon}} — try it!"
+    },
+    "types": {
+      "healing": { "name": "Healing Traveler", "tagline": "You crave peaceful beaches and slow cafes" },
+      "active": { "name": "Active Explorer", "tagline": "You love markets, alleys, and vibrant streets" },
+      "insta": { "name": "Insta Photographer", "tagline": "You live for aesthetic photos and unique views" },
+      "kdrama": { "name": "K-Drama Devotee", "tagline": "You want to step into your favorite scenes" }
+    }
   }
 }
