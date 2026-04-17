@@ -128,5 +128,57 @@
       "subtitle": "Try adjusting your search or filters",
       "reset": "Reset filters"
     }
+  },
+  "detail": {
+    "back": "Back",
+    "share": "Share",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "info": {
+      "address": "Address",
+      "hours": "Hours",
+      "admission": "Admission",
+      "bestTime": "Best time"
+    },
+    "bestTime": {
+      "morning": "Morning",
+      "sunset": "Sunset",
+      "night": "Night",
+      "anytime": "Anytime"
+    },
+    "scene": {
+      "title": "Scene comparison",
+      "drama": "Drama scene",
+      "real": "Real location"
+    },
+    "description": "About this spot",
+    "map": {
+      "title": "Location",
+      "google": "Google Maps",
+      "kakao": "KakaoMap",
+      "copyAddr": "Copy address"
+    },
+    "restaurants": {
+      "title": "Where to Eat Nearby 🍜",
+      "distance": "{{m}} m",
+      "price": "Price",
+      "signature": "Signature",
+      "directions": "Directions"
+    },
+    "cafes": {
+      "title": "Cafes with a View ☕"
+    },
+    "photoTips": {
+      "title": "Perfect Instagram Shots 📸"
+    },
+    "visitTips": {
+      "title": "Visit tips ⚠️",
+      "show": "Show",
+      "hide": "Hide"
+    },
+    "cta": {
+      "add": "Add to My Course",
+      "added": "View My Course →"
+    }
   }
 }

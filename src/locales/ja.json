@@ -128,5 +128,57 @@
       "subtitle": "検索やフィルターを調整してみてください",
       "reset": "フィルターをリセット"
     }
+  },
+  "detail": {
+    "back": "戻る",
+    "share": "シェア",
+    "copy": "コピー",
+    "copied": "コピーしました!",
+    "info": {
+      "address": "住所",
+      "hours": "営業時間",
+      "admission": "入場料",
+      "bestTime": "おすすめ時間"
+    },
+    "bestTime": {
+      "morning": "午前",
+      "sunset": "夕焼け",
+      "night": "夜",
+      "anytime": "いつでも"
+    },
+    "scene": {
+      "title": "シーン比較",
+      "drama": "ドラマシーン",
+      "real": "実際の場所"
+    },
+    "description": "スポット紹介",
+    "map": {
+      "title": "地図",
+      "google": "Google Maps",
+      "kakao": "KakaoMap",
+      "copyAddr": "住所コピー"
+    },
+    "restaurants": {
+      "title": "周辺グルメ 🍜",
+      "distance": "{{m}} m",
+      "price": "価格",
+      "signature": "看板",
+      "directions": "道順"
+    },
+    "cafes": {
+      "title": "絶景カフェ ☕"
+    },
+    "photoTips": {
+      "title": "映え撮影ガイド 📸"
+    },
+    "visitTips": {
+      "title": "訪問のコツ ⚠️",
+      "show": "開く",
+      "hide": "閉じる"
+    },
+    "cta": {
+      "add": "マイコースに追加",
+      "added": "マイコースを見る →"
+    }
   }
 }
