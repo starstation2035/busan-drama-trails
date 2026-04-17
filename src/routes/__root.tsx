@@ -35,6 +35,13 @@ export const Route = createRootRoute({
         name: "description",
         content: "Discover K-drama filming locations, restaurants, and cafes in Busan.",
       },
+      { property: "og:title", content: "Busan Drama Spot & Style" },
+      { name: "twitter:title", content: "Busan Drama Spot & Style" },
+      { name: "description", content: "Busan Drama Trails is a mobile-first tourism guide for K-drama and movie fans." },
+      { property: "og:description", content: "Busan Drama Trails is a mobile-first tourism guide for K-drama and movie fans." },
+      { name: "twitter:description", content: "Busan Drama Trails is a mobile-first tourism guide for K-drama and movie fans." },
+      { name: "twitter:card", content: "summary" },
+      { property: "og:type", content: "website" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
