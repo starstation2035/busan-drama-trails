@@ -12,5 +12,21 @@
     "spots": "촬영 장소",
     "spotDetail": "장소 상세",
     "myCourse": "내 코스"
+  },
+  "landing": {
+    "tagline": "드라마 장면 속으로, 부산의 이야기를 만나다 ✨",
+    "valueProp": {
+      "spotsTitle": "드라마 촬영지",
+      "spotsDesc": "50+ 명장면을 한 곳에",
+      "foodTitle": "주변 맛집 큐레이션",
+      "foodDesc": "현지인이 사랑하는 숨은 명소",
+      "routeTitle": "스마트 코스 추천",
+      "routeDesc": "나만의 부산 여행 코스 한 번에"
+    },
+    "cta": {
+      "explore": "촬영지 둘러보기",
+      "style": "내 여행 스타일 찾기"
+    },
+    "stats": "50+ 촬영지・200+ 맛집・5개 언어"
   }
 }

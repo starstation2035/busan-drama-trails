@@ -12,5 +12,21 @@
     "spots": "拍摄地点",
     "spotDetail": "地点详情",
     "myCourse": "我的行程"
+  },
+  "landing": {
+    "tagline": "走进韩剧场景,感受釜山的小确幸 ✨",
+    "valueProp": {
+      "spotsTitle": "韩剧拍摄地",
+      "spotsDesc": "50+ 经典场景一次收藏",
+      "foodTitle": "周边美食精选",
+      "foodDesc": "本地人推荐的隐藏名店",
+      "routeTitle": "智能行程规划",
+      "routeDesc": "一键生成你的釜山路线"
+    },
+    "cta": {
+      "explore": "开始探索拍摄地",
+      "style": "找出我的旅游风格"
+    },
+    "stats": "50+ 拍摄地・200+ 美食・5 种语言"
   }
 }
