@@ -1,0 +1,16 @@
+{
+  "common": { "appName": "Busan Drama Spot & Style" },
+  "nav": { "home": "Home", "spots": "Spots", "myCourse": "My Course" },
+  "language": {
+    "choose": "Choose your language",
+    "subtitle": "Select your preferred language to start your journey",
+    "continue": "Continue"
+  },
+  "pages": {
+    "landing": "Welcome to Busan",
+    "styleTest": "Travel Style Test",
+    "spots": "Filming Locations",
+    "spotDetail": "Location Detail",
+    "myCourse": "My Course"
+  }
+}

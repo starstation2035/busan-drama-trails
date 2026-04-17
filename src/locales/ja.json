@@ -1,0 +1,16 @@
+{
+  "common": { "appName": "釜山ドラマスポット & スタイル" },
+  "nav": { "home": "ホーム", "spots": "撮影地", "myCourse": "マイコース" },
+  "language": {
+    "choose": "言語を選択してください",
+    "subtitle": "旅を始めるためのお好みの言語を選んでください",
+    "continue": "続ける"
+  },
+  "pages": {
+    "landing": "釜山へようこそ",
+    "styleTest": "旅行スタイル診断",
+    "spots": "撮影スポット",
+    "spotDetail": "スポット詳細",
+    "myCourse": "マイコース"
+  }
+}
