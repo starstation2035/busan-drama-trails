@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Header } from "./Header";
 import { BottomNav } from "./BottomNav";
 import { LanguageModal } from "./LanguageModal";
+import { Toaster } from "@/components/ui/sonner";
 import { useAppStore } from "@/stores/useAppStore";
 import "@/lib/i18n";
 
@@ -38,6 +39,7 @@ export function Layout() {
       </main>
       <BottomNav />
       <LanguageModal open={modalOpen} onClose={() => setModalOpen(false)} />
+      <Toaster position="top-center" />
     </div>
   );
 }
