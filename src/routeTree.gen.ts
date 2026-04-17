@@ -9,38 +9,98 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as StyleTestRouteImport } from './routes/style-test'
+import { Route as SpotsRouteImport } from './routes/spots'
+import { Route as MyCourseRouteImport } from './routes/my-course'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SpotsIdRouteImport } from './routes/spots.$id'
 
+const StyleTestRoute = StyleTestRouteImport.update({
+  id: '/style-test',
+  path: '/style-test',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SpotsRoute = SpotsRouteImport.update({
+  id: '/spots',
+  path: '/spots',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MyCourseRoute = MyCourseRouteImport.update({
+  id: '/my-course',
+  path: '/my-course',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SpotsIdRoute = SpotsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => SpotsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/my-course': typeof MyCourseRoute
+  '/spots': typeof SpotsRouteWithChildren
+  '/style-test': typeof StyleTestRoute
+  '/spots/$id': typeof SpotsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/my-course': typeof MyCourseRoute
+  '/spots': typeof SpotsRouteWithChildren
+  '/style-test': typeof StyleTestRoute
+  '/spots/$id': typeof SpotsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/my-course': typeof MyCourseRoute
+  '/spots': typeof SpotsRouteWithChildren
+  '/style-test': typeof StyleTestRoute
+  '/spots/$id': typeof SpotsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/my-course' | '/spots' | '/style-test' | '/spots/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/my-course' | '/spots' | '/style-test' | '/spots/$id'
+  id: '__root__' | '/' | '/my-course' | '/spots' | '/style-test' | '/spots/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  MyCourseRoute: typeof MyCourseRoute
+  SpotsRoute: typeof SpotsRouteWithChildren
+  StyleTestRoute: typeof StyleTestRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/style-test': {
+      id: '/style-test'
+      path: '/style-test'
+      fullPath: '/style-test'
+      preLoaderRoute: typeof StyleTestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/spots': {
+      id: '/spots'
+      path: '/spots'
+      fullPath: '/spots'
+      preLoaderRoute: typeof SpotsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-course': {
+      id: '/my-course'
+      path: '/my-course'
+      fullPath: '/my-course'
+      preLoaderRoute: typeof MyCourseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +108,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/spots/$id': {
+      id: '/spots/$id'
+      path: '/$id'
+      fullPath: '/spots/$id'
+      preLoaderRoute: typeof SpotsIdRouteImport
+      parentRoute: typeof SpotsRoute
+    }
   }
 }
 
+interface SpotsRouteChildren {
+  SpotsIdRoute: typeof SpotsIdRoute
+}
+
+const SpotsRouteChildren: SpotsRouteChildren = {
+  SpotsIdRoute: SpotsIdRoute,
+}
+
+const SpotsRouteWithChildren = SpotsRoute._addFileChildren(SpotsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  MyCourseRoute: MyCourseRoute,
+  SpotsRoute: SpotsRouteWithChildren,
+  StyleTestRoute: StyleTestRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
