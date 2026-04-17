@@ -77,7 +77,9 @@ function Spots() {
   useEffect(() => {
     const id = window.setTimeout(() => {
       if (searchInput !== q) {
-        void navigate({ search: (prev) => ({ ...prev, q: searchInput }) });
+        void navigate({
+          search: (prev: SpotsSearch) => ({ ...prev, q: searchInput }),
+        });
       }
     }, 300);
     return () => window.clearTimeout(id);
@@ -87,9 +89,11 @@ function Spots() {
   // Apply style preset on first mount when style param is present and no type filters yet
   useEffect(() => {
     if (style && types.length === 0) {
-      const preset = STYLE_PRESET[style].types;
+      const preset = STYLE_PRESET[style as StyleKey].types;
       if (preset.length > 0) {
-        void navigate({ search: (prev) => ({ ...prev, types: preset }) });
+        void navigate({
+          search: (prev: SpotsSearch) => ({ ...prev, types: preset }),
+        });
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -127,7 +131,7 @@ function Spots() {
 
   const toggleIn = (key: "regions" | "types" | "dramas", value: string) => {
     void navigate({
-      search: (prev) => {
+      search: (prev: SpotsSearch) => {
         const cur = (prev[key] as string[] | undefined) ?? [];
         const next = cur.includes(value)
           ? cur.filter((v) => v !== value)
@@ -138,7 +142,9 @@ function Spots() {
   };
 
   const clearStyle = () =>
-    void navigate({ search: (prev) => ({ ...prev, style: undefined, types: [] }) });
+    void navigate({
+      search: (prev: SpotsSearch) => ({ ...prev, style: undefined, types: [] }),
+    });
 
   const resetAll = () => {
     setSearchInput("");
@@ -147,8 +153,8 @@ function Spots() {
     });
   };
 
-  const styleColor = style ? STYLE_META[style].colorVar : null;
-  const styleIcon = style ? STYLE_META[style].icon : null;
+  const styleColor = style ? STYLE_META[style as StyleKey].colorVar : null;
+  const styleIcon = style ? STYLE_META[style as StyleKey].icon : null;
 
   return (
     <div className="space-y-4 pb-6">
@@ -225,7 +231,10 @@ function Spots() {
           value={sort}
           onValueChange={(v) =>
             void navigate({
-              search: (prev) => ({ ...prev, sort: v as (typeof SORT_KEYS)[number] }),
+              search: (prev: SpotsSearch) => ({
+                ...prev,
+                sort: v as (typeof SORT_KEYS)[number],
+              }),
             })
           }
         >
