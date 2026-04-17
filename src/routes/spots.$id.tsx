@@ -407,7 +407,7 @@ function SpotDetail() {
 
         {/* 9. VISIT TIPS (collapsible) */}
         {visitTips && (
-          <section className="rounded-2xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-900/40 dark:bg-amber-950/30">
+          <section className="rounded-2xl border border-accent/40 bg-accent/20 p-4">
             <button
               onClick={() => setTipsOpen((o) => !o)}
               className="flex w-full items-center justify-between text-left"
