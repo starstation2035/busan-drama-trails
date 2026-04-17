@@ -12,5 +12,21 @@
     "spots": "Filming Locations",
     "spotDetail": "Location Detail",
     "myCourse": "My Course"
+  },
+  "landing": {
+    "tagline": "Step into K-drama scenes and discover the story of Busan ✨",
+    "valueProp": {
+      "spotsTitle": "Drama Filming Spots",
+      "spotsDesc": "50+ iconic scenes in one place",
+      "foodTitle": "Curated Local Eats",
+      "foodDesc": "Hidden gems loved by locals",
+      "routeTitle": "Smart Route Planning",
+      "routeDesc": "Build your Busan trip in one tap"
+    },
+    "cta": {
+      "explore": "Explore Filming Locations",
+      "style": "Find My Travel Style"
+    },
+    "stats": "50+ Spots・200+ Restaurants・5 Languages"
   }
 }

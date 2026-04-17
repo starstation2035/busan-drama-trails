@@ -12,5 +12,21 @@
     "spots": "撮影スポット",
     "spotDetail": "スポット詳細",
     "myCourse": "マイコース"
+  },
+  "landing": {
+    "tagline": "ドラマの世界へ、釜山の物語を歩く ✨",
+    "valueProp": {
+      "spotsTitle": "ドラマ撮影地",
+      "spotsDesc": "50以上の名シーンを一挙紹介",
+      "foodTitle": "周辺グルメ厳選",
+      "foodDesc": "地元で愛される隠れた名店",
+      "routeTitle": "スマートコース提案",
+      "routeDesc": "あなただけの釜山プランをワンタップで"
+    },
+    "cta": {
+      "explore": "撮影地を見る",
+      "style": "私の旅スタイル診断"
+    },
+    "stats": "50+ スポット・200+ グルメ・5言語"
   }
 }
