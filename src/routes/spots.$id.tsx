@@ -578,8 +578,8 @@ function NearbyList({ title, items }: { title: string; items: NearbyItem[] }) {
                 </h3>
                 <p className="text-xs text-muted-foreground">{it.subtitle}</p>
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <span className="inline-flex items-center gap-0.5 text-amber-500">
-                    <Star className="size-3 fill-current" />
+                  <span className="inline-flex items-center gap-0.5 text-accent-foreground">
+                    <Star className="size-3 fill-accent-foreground" />
                     <span className="font-semibold">{it.rating.toFixed(1)}</span>
                   </span>
                   <span>·</span>
