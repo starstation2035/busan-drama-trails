@@ -128,5 +128,57 @@
       "subtitle": "试着调整搜索或筛选条件吧",
       "reset": "重置所有筛选"
     }
+  },
+  "detail": {
+    "back": "返回",
+    "share": "分享",
+    "copy": "复制",
+    "copied": "已复制!",
+    "info": {
+      "address": "地址",
+      "hours": "营业时间",
+      "admission": "门票",
+      "bestTime": "最佳时间"
+    },
+    "bestTime": {
+      "morning": "上午",
+      "sunset": "日落",
+      "night": "夜晚",
+      "anytime": "任何时间"
+    },
+    "scene": {
+      "title": "场景对照",
+      "drama": "韩剧场景",
+      "real": "实景"
+    },
+    "description": "地点介绍",
+    "map": {
+      "title": "位置地图",
+      "google": "Google Maps",
+      "kakao": "KakaoMap",
+      "copyAddr": "复制地址"
+    },
+    "restaurants": {
+      "title": "附近必吃 🍜",
+      "distance": "{{m}} m",
+      "price": "消费",
+      "signature": "招牌",
+      "directions": "前往这里"
+    },
+    "cafes": {
+      "title": "绝美咖啡馆 ☕"
+    },
+    "photoTips": {
+      "title": "IG 必拍角度 📸"
+    },
+    "visitTips": {
+      "title": "旅游小提醒 ⚠️",
+      "show": "展开",
+      "hide": "收起"
+    },
+    "cta": {
+      "add": "加入我的行程",
+      "added": "查看我的行程 →"
+    }
   }
 }

@@ -1,0 +1,338 @@
+[
+  {
+    "id": "r1",
+    "name": {
+      "ko": "청사포 회센터",
+      "zh-TW": "青沙浦海鮮中心",
+      "en": "Cheongsapo Fish Center",
+      "ja": "青沙浦魚センター",
+      "zh-CN": "青沙浦海鲜中心"
+    },
+    "food": {
+      "ko": "활어회",
+      "zh-TW": "生魚片",
+      "en": "Sashimi",
+      "ja": "刺身",
+      "zh-CN": "生鱼片"
+    },
+    "thumbnail": "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600",
+    "distance": 120,
+    "rating": 4.6,
+    "price": "$$",
+    "signature": {
+      "ko": "광어회",
+      "zh-TW": "比目魚生魚片",
+      "en": "Flounder sashimi",
+      "ja": "ヒラメ刺身",
+      "zh-CN": "比目鱼生鱼片"
+    }
+  },
+  {
+    "id": "r2",
+    "name": {
+      "ko": "감천 보리밥집",
+      "zh-TW": "甘川大麥飯",
+      "en": "Gamcheon Barley Rice",
+      "ja": "甘川麦ご飯",
+      "zh-CN": "甘川大麦饭"
+    },
+    "food": {
+      "ko": "한정식",
+      "zh-TW": "韓式定食",
+      "en": "Korean set",
+      "ja": "韓定食",
+      "zh-CN": "韩式定食"
+    },
+    "thumbnail": "https://images.unsplash.com/photo-1583224994076-ae7f1c1c6e3a?w=600",
+    "distance": 80,
+    "rating": 4.4,
+    "price": "$",
+    "signature": {
+      "ko": "보리비빔밥",
+      "zh-TW": "大麥拌飯",
+      "en": "Barley bibimbap",
+      "ja": "麦ビビンバ",
+      "zh-CN": "大麦拌饭"
+    }
+  },
+  {
+    "id": "r3",
+    "name": {
+      "ko": "해운대 밀면",
+      "zh-TW": "海雲台小麥麵",
+      "en": "Haeundae Milmyeon",
+      "ja": "海雲台ミルミョン",
+      "zh-CN": "海云台小麦面"
+    },
+    "food": {
+      "ko": "밀면",
+      "zh-TW": "小麥冷麵",
+      "en": "Cold noodles",
+      "ja": "冷麺",
+      "zh-CN": "小麦冷面"
+    },
+    "thumbnail": "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600",
+    "distance": 250,
+    "rating": 4.7,
+    "price": "$",
+    "signature": {
+      "ko": "물밀면",
+      "zh-TW": "湯小麥麵",
+      "en": "Soup milmyeon",
+      "ja": "スープ冷麺",
+      "zh-CN": "汤小麦面"
+    }
+  },
+  {
+    "id": "r4",
+    "name": {
+      "ko": "흰여울 멸치쌈밥",
+      "zh-TW": "白險灘鯷魚包飯",
+      "en": "Anchovy Wraps",
+      "ja": "イワシ包みご飯",
+      "zh-CN": "白险滩鳀鱼包饭"
+    },
+    "food": {
+      "ko": "쌈밥",
+      "zh-TW": "包飯",
+      "en": "Korean wraps",
+      "ja": "包みご飯",
+      "zh-CN": "包饭"
+    },
+    "thumbnail": "https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=600",
+    "distance": 150,
+    "rating": 4.5,
+    "price": "$$",
+    "signature": {
+      "ko": "멸치쌈정식",
+      "zh-TW": "鯷魚包飯定食",
+      "en": "Anchovy wrap set",
+      "ja": "イワシ包み定食",
+      "zh-CN": "鳀鱼包饭定食"
+    }
+  },
+  {
+    "id": "r5",
+    "name": {
+      "ko": "자갈치 곰장어",
+      "zh-TW": "札嘎其烤盲鰻",
+      "en": "Jagalchi Hagfish",
+      "ja": "チャガルチ穴子",
+      "zh-CN": "札嘎其烤盲鳗"
+    },
+    "food": {
+      "ko": "곰장어구이",
+      "zh-TW": "烤盲鰻",
+      "en": "Grilled hagfish",
+      "ja": "穴子焼き",
+      "zh-CN": "烤盲鳗"
+    },
+    "thumbnail": "https://images.unsplash.com/photo-1555126634-323283e090fa?w=600",
+    "distance": 50,
+    "rating": 4.8,
+    "price": "$$",
+    "signature": {
+      "ko": "양념곰장어",
+      "zh-TW": "辣醬盲鰻",
+      "en": "Spicy hagfish",
+      "ja": "ヤンニョム穴子",
+      "zh-CN": "辣酱盲鳗"
+    }
+  },
+  {
+    "id": "r6",
+    "name": {
+      "ko": "광안리 조개찜",
+      "zh-TW": "廣安里蒸蛤蜊",
+      "en": "Gwangalli Clams",
+      "ja": "広安里蒸し貝",
+      "zh-CN": "广安里蒸蛤蜊"
+    },
+    "food": {
+      "ko": "조개찜",
+      "zh-TW": "蒸貝類",
+      "en": "Steamed clams",
+      "ja": "貝の蒸し物",
+      "zh-CN": "蒸贝类"
+    },
+    "thumbnail": "https://images.unsplash.com/photo-1572441713132-c542fc4fe282?w=600",
+    "distance": 300,
+    "rating": 4.5,
+    "price": "$$",
+    "signature": {
+      "ko": "모듬조개찜",
+      "zh-TW": "綜合蒸貝",
+      "en": "Mixed clam pot",
+      "ja": "貝盛り合わせ",
+      "zh-CN": "综合蒸贝"
+    }
+  },
+  {
+    "id": "r7",
+    "name": {
+      "ko": "기장 곰장어",
+      "zh-TW": "機張盲鰻",
+      "en": "Gijang Hagfish",
+      "ja": "機張穴子",
+      "zh-CN": "机张盲鳗"
+    },
+    "food": {
+      "ko": "해산물",
+      "zh-TW": "海鮮",
+      "en": "Seafood",
+      "ja": "海鮮",
+      "zh-CN": "海鲜"
+    },
+    "thumbnail": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600",
+    "distance": 400,
+    "rating": 4.6,
+    "price": "$$",
+    "signature": {
+      "ko": "소금구이",
+      "zh-TW": "鹽烤",
+      "en": "Salt grilled",
+      "ja": "塩焼き",
+      "zh-CN": "盐烤"
+    }
+  },
+  {
+    "id": "r8",
+    "name": {
+      "ko": "남포동 떡볶이",
+      "zh-TW": "南浦洞辣炒年糕",
+      "en": "Nampo Tteokbokki",
+      "ja": "南浦洞トッポギ",
+      "zh-CN": "南浦洞辣炒年糕"
+    },
+    "food": {
+      "ko": "분식",
+      "zh-TW": "小吃",
+      "en": "Street food",
+      "ja": "屋台",
+      "zh-CN": "小吃"
+    },
+    "thumbnail": "https://images.unsplash.com/photo-1635363638580-c2809d049eee?w=600",
+    "distance": 200,
+    "rating": 4.3,
+    "price": "$",
+    "signature": {
+      "ko": "매운떡볶이",
+      "zh-TW": "辣炒年糕",
+      "en": "Spicy tteokbokki",
+      "ja": "激辛トッポギ",
+      "zh-CN": "辣炒年糕"
+    }
+  },
+  {
+    "id": "r9",
+    "name": {
+      "ko": "서면 돼지국밥",
+      "zh-TW": "西面豬肉湯飯",
+      "en": "Seomyeon Dwaeji",
+      "ja": "西面テジクッパ",
+      "zh-CN": "西面猪肉汤饭"
+    },
+    "food": {
+      "ko": "국밥",
+      "zh-TW": "湯飯",
+      "en": "Pork rice soup",
+      "ja": "クッパ",
+      "zh-CN": "汤饭"
+    },
+    "thumbnail": "https://images.unsplash.com/photo-1547592180-85f173990554?w=600",
+    "distance": 350,
+    "rating": 4.7,
+    "price": "$",
+    "signature": {
+      "ko": "돼지국밥",
+      "zh-TW": "豬肉湯飯",
+      "en": "Pork rice soup",
+      "ja": "テジクッパ",
+      "zh-CN": "猪肉汤饭"
+    }
+  },
+  {
+    "id": "r10",
+    "name": {
+      "ko": "해운대 씨앗호떡",
+      "zh-TW": "海雲台種子糖餅",
+      "en": "Seed Hotteok",
+      "ja": "種ホットク",
+      "zh-CN": "海云台种子糖饼"
+    },
+    "food": {
+      "ko": "길거리 디저트",
+      "zh-TW": "街頭甜點",
+      "en": "Street dessert",
+      "ja": "屋台スイーツ",
+      "zh-CN": "街头甜点"
+    },
+    "thumbnail": "https://images.unsplash.com/photo-1517433367423-c7e5b0f35086?w=600",
+    "distance": 180,
+    "rating": 4.6,
+    "price": "$",
+    "signature": {
+      "ko": "씨앗호떡",
+      "zh-TW": "種子糖餅",
+      "en": "Seed hotteok",
+      "ja": "種ホットク",
+      "zh-CN": "种子糖饼"
+    }
+  },
+  {
+    "id": "r11",
+    "name": {
+      "ko": "감천 비빔당면",
+      "zh-TW": "甘川拌冬粉",
+      "en": "Bibim Glass Noodles",
+      "ja": "ビビム春雨",
+      "zh-CN": "甘川拌粉丝"
+    },
+    "food": {
+      "ko": "분식",
+      "zh-TW": "小吃",
+      "en": "Street food",
+      "ja": "屋台",
+      "zh-CN": "小吃"
+    },
+    "thumbnail": "https://images.unsplash.com/photo-1572020165864-43afa4ccdce4?w=600",
+    "distance": 90,
+    "rating": 4.4,
+    "price": "$",
+    "signature": {
+      "ko": "비빔당면",
+      "zh-TW": "拌冬粉",
+      "en": "Bibim noodles",
+      "ja": "ビビム春雨",
+      "zh-CN": "拌粉丝"
+    }
+  },
+  {
+    "id": "r12",
+    "name": {
+      "ko": "청사포 조개구이",
+      "zh-TW": "青沙浦烤貝",
+      "en": "Cheongsapo Grill",
+      "ja": "青沙浦貝焼き",
+      "zh-CN": "青沙浦烤贝"
+    },
+    "food": {
+      "ko": "조개구이",
+      "zh-TW": "烤貝",
+      "en": "Grilled clams",
+      "ja": "貝焼き",
+      "zh-CN": "烤贝"
+    },
+    "thumbnail": "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600",
+    "distance": 160,
+    "rating": 4.5,
+    "price": "$$",
+    "signature": {
+      "ko": "모듬조개",
+      "zh-TW": "綜合烤貝",
+      "en": "Mixed clam grill",
+      "ja": "貝盛り合わせ",
+      "zh-CN": "综合烤贝"
+    }
+  }
+]

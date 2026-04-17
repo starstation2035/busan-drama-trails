@@ -128,5 +128,57 @@
       "subtitle": "검색어나 필터를 조정해보세요",
       "reset": "필터 초기화"
     }
+  },
+  "detail": {
+    "back": "뒤로",
+    "share": "공유",
+    "copy": "복사",
+    "copied": "복사됨!",
+    "info": {
+      "address": "주소",
+      "hours": "운영시간",
+      "admission": "입장료",
+      "bestTime": "추천 시간"
+    },
+    "bestTime": {
+      "morning": "오전",
+      "sunset": "노을",
+      "night": "밤",
+      "anytime": "언제든"
+    },
+    "scene": {
+      "title": "장면 비교",
+      "drama": "드라마 장면",
+      "real": "실제 장소"
+    },
+    "description": "장소 소개",
+    "map": {
+      "title": "지도",
+      "google": "Google Maps",
+      "kakao": "카카오맵",
+      "copyAddr": "주소 복사"
+    },
+    "restaurants": {
+      "title": "근처 맛집 🍜",
+      "distance": "{{m}} m",
+      "price": "가격",
+      "signature": "시그니처",
+      "directions": "길찾기"
+    },
+    "cafes": {
+      "title": "뷰 맛집 카페 ☕"
+    },
+    "photoTips": {
+      "title": "인생샷 가이드 📸"
+    },
+    "visitTips": {
+      "title": "방문 팁 ⚠️",
+      "show": "펼치기",
+      "hide": "접기"
+    },
+    "cta": {
+      "add": "내 코스에 추가",
+      "added": "내 코스 보기 →"
+    }
   }
 }
