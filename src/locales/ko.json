@@ -1,6 +1,16 @@
 {
-  "common": { "appName": "부산 드라마 스팟 & 스타일", "back": "이전", "retake": "다시 하기", "share": "결과 공유", "copied": "링크가 복사되었어요!" },
-  "nav": { "home": "홈", "spots": "촬영지", "myCourse": "내 코스" },
+  "common": {
+    "appName": "부산 드라마 스팟 & 스타일",
+    "back": "이전",
+    "retake": "다시 하기",
+    "share": "결과 공유",
+    "copied": "링크가 복사되었어요!"
+  },
+  "nav": {
+    "home": "홈",
+    "spots": "촬영지",
+    "myCourse": "내 코스"
+  },
   "language": {
     "choose": "언어를 선택하세요",
     "subtitle": "여행을 시작하기 위해 선호하는 언어를 선택해주세요",
@@ -79,10 +89,44 @@
       "shareText": "내 부산 여행 스타일은 「{{type}}」 {{icon}} 너도 해봐!"
     },
     "types": {
-      "healing": { "name": "힐링 여행자", "tagline": "조용한 바다와 느린 카페를 좋아해요" },
-      "active": { "name": "액티브 탐험가", "tagline": "시장과 골목, 활기찬 거리를 사랑해요" },
-      "insta": { "name": "인스타 감성러", "tagline": "감성 사진을 위한 여행을 즐겨요" },
-      "kdrama": { "name": "K-드라마 덕후", "tagline": "좋아하는 장면 속으로 들어가요" }
+      "healing": {
+        "name": "힐링 여행자",
+        "tagline": "조용한 바다와 느린 카페를 좋아해요"
+      },
+      "active": {
+        "name": "액티브 탐험가",
+        "tagline": "시장과 골목, 활기찬 거리를 사랑해요"
+      },
+      "insta": {
+        "name": "인스타 감성러",
+        "tagline": "감성 사진을 위한 여행을 즐겨요"
+      },
+      "kdrama": {
+        "name": "K-드라마 덕후",
+        "tagline": "좋아하는 장면 속으로 들어가요"
+      }
+    }
+  },
+  "spots": {
+    "searchPlaceholder": "장소 또는 드라마 검색",
+    "addedToCourse": "내 코스에 추가되었어요 ❤",
+    "styleBanner": "「{{style}}」스타일 촬영지 보기",
+    "clearStyle": "필터 초기화",
+    "count": "{{count}}개 촬영지",
+    "filters": {
+      "drama": "드라마",
+      "region": "지역",
+      "type": "유형"
+    },
+    "sort": {
+      "popular": "인기순",
+      "newest": "최신순",
+      "nearest": "가까운순"
+    },
+    "empty": {
+      "title": "조건에 맞는 촬영지가 없어요",
+      "subtitle": "검색어나 필터를 조정해보세요",
+      "reset": "필터 초기화"
     }
   }
 }
