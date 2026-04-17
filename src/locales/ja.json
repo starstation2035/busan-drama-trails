@@ -178,7 +178,56 @@
     },
     "cta": {
       "add": "マイコースに追加",
-      "added": "マイコースを見る →"
+    "added": "マイコースを見る →"
+    }
+  },
+  "myCourse": {
+    "title": "私の釜山コース",
+    "subtitle": "スポット{{spots}}・グルメ{{restaurants}}・カフェ{{cafes}}",
+    "removed": "削除しました",
+    "empty": {
+      "message": "お気に入りを集めて、あなただけの釜山1日プランを作ろう",
+      "cta": "撮影地を見る"
+    },
+    "tabs": {
+      "course": "スマートコース",
+      "list": "リスト表示"
+    },
+    "groups": {
+      "spots": "撮影地",
+      "restaurants": "グルメ",
+      "cafes": "カフェ"
+    },
+    "kinds": {
+      "spot": "スポット",
+      "restaurant": "食事",
+      "cafe": "カフェタイム"
+    },
+    "travel": {
+      "walk": "徒歩",
+      "taxi": "タクシー",
+      "subway": "地下鉄"
+    },
+    "totals": {
+      "distance": "全長約 {{km}} km",
+      "stops": "全{{count}}スポット"
+    },
+    "warnings": {
+      "tooFar": "スポットが離れています（約{{km}}km）。2日に分けるのがおすすめ"
+    },
+    "single": {
+      "label": "今日の唯一の予定",
+      "hint": "もう数か所追加すると自動コースが作れます!"
+    },
+    "actions": {
+      "share": "シェア",
+      "regen": "作り直す",
+      "export": "エクスポート",
+      "exportSoon": "PDF出力は近日公開 ✨",
+      "copyLink": "リンクをコピー"
+    },
+    "share": {
+      "header": "私の釜山ドラマ巡り 🎬"
     }
   }
 }

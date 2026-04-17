@@ -178,7 +178,56 @@
     },
     "cta": {
       "add": "Add to My Course",
-      "added": "View My Course →"
+    "added": "View My Course →"
+    }
+  },
+  "myCourse": {
+    "title": "My Busan Course",
+    "subtitle": "{{spots}} spots・{{restaurants}} restaurants・{{cafes}} cafes",
+    "removed": "Removed",
+    "empty": {
+      "message": "Start building your perfect Busan day trip",
+      "cta": "Browse Filming Locations"
+    },
+    "tabs": {
+      "course": "Smart Course",
+      "list": "List View"
+    },
+    "groups": {
+      "spots": "Spots",
+      "restaurants": "Restaurants",
+      "cafes": "Cafes"
+    },
+    "kinds": {
+      "spot": "Spot",
+      "restaurant": "Meal",
+      "cafe": "Cafe break"
+    },
+    "travel": {
+      "walk": "walk",
+      "taxi": "taxi",
+      "subway": "subway"
+    },
+    "totals": {
+      "distance": "Total ~{{km}} km",
+      "stops": "{{count}} stops"
+    },
+    "warnings": {
+      "tooFar": "Spots are spread out (~{{km}} km). Consider splitting into 2 days."
+    },
+    "single": {
+      "label": "Today's only stop",
+      "hint": "Add a few more spots to auto-generate a route!"
+    },
+    "actions": {
+      "share": "Share",
+      "regen": "Regenerate",
+      "export": "Export",
+      "exportSoon": "PDF export coming soon ✨",
+      "copyLink": "Copy course link"
+    },
+    "share": {
+      "header": "My Busan K-Drama Course 🎬"
     }
   }
 }

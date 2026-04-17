@@ -178,7 +178,56 @@
     },
     "cta": {
       "add": "加入我的行程",
-      "added": "查看我的行程 →"
+    "added": "查看我的行程 →"
+    }
+  },
+  "myCourse": {
+    "title": "我的釜山行程",
+    "subtitle": "{{spots}} 个景点・{{restaurants}} 间餐厅・{{cafes}} 间咖啡馆",
+    "removed": "已移除",
+    "empty": {
+      "message": "开始打造你的釜山一日游，把喜欢的地点加进来吧!",
+      "cta": "去逛拍摄地"
+    },
+    "tabs": {
+      "course": "智能行程",
+      "list": "清单视图"
+    },
+    "groups": {
+      "spots": "拍摄地",
+      "restaurants": "餐厅",
+      "cafes": "咖啡馆"
+    },
+    "kinds": {
+      "spot": "景点",
+      "restaurant": "用餐",
+      "cafe": "咖啡时间"
+    },
+    "travel": {
+      "walk": "步行",
+      "taxi": "出租车",
+      "subway": "地铁"
+    },
+    "totals": {
+      "distance": "全长约 {{km}} km",
+      "stops": "共 {{count}} 站"
+    },
+    "warnings": {
+      "tooFar": "景点分布较广(约 {{km}} km)，建议分两天游玩"
+    },
+    "single": {
+      "label": "今日唯一行程",
+      "hint": "再加几个地点就能自动生成路线!"
+    },
+    "actions": {
+      "share": "分享",
+      "regen": "重新规划",
+      "export": "导出",
+      "exportSoon": "PDF 导出即将推出 ✨",
+      "copyLink": "复制行程链接"
+    },
+    "share": {
+      "header": "我的釜山韩剧之旅 🎬"
     }
   }
 }
