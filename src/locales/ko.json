@@ -9,7 +9,8 @@
   "nav": {
     "home": "홈",
     "spots": "촬영지",
-    "myCourse": "내 코스"
+    "myCourse": "내 코스",
+    "styleTest": "스타일 테스트"
   },
   "language": {
     "choose": "언어를 선택하세요",
@@ -35,7 +36,7 @@
     },
     "cta": {
       "explore": "촬영지 둘러보기",
-      "style": "내 여행 스타일 찾기"
+      "style": "스마트 코스 추천"
     },
     "stats": "50+ 촬영지・200+ 맛집・5개 언어"
   },

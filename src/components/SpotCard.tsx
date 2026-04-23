@@ -1,4 +1,4 @@
-import { Heart } from "lucide-react";
+import { Heart, MapPin, ChevronRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
@@ -30,39 +30,54 @@ export function SpotCard({ spot }: { spot: Spot }) {
     }
   };
 
+  // Mock heart count
+  const baseCount = spot.id.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0) % 500 + 100;
+  const displayCount = isFav ? baseCount + 1 : baseCount;
+
   return (
     <Link
       to="/spots/$id"
       params={{ id: spot.id }}
-      className="group block overflow-hidden rounded-2xl bg-card shadow-sm transition active:scale-[0.99] hover:shadow-lg"
+      className="group block overflow-hidden rounded-2xl bg-card shadow-sm transition active:scale-[0.98] hover:shadow-xl border border-border/40"
     >
-      <div className="relative aspect-square overflow-hidden bg-muted">
+      <div className="relative aspect-[3/4] overflow-hidden bg-muted">
         <img
           src={spot.thumbnail}
           alt={name}
-          className="h-full w-full object-cover transition-transform group-hover:scale-105"
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
           loading="lazy"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
+        
         <button
           onClick={handleFav}
-          className="absolute right-2 top-2 flex size-8 items-center justify-center rounded-full bg-background/90 shadow backdrop-blur transition active:scale-90"
+          className="absolute right-3 top-3 flex flex-col items-center gap-0.5 rounded-full bg-background/80 px-2 py-1.5 shadow-lg backdrop-blur-md transition active:scale-90 border border-white/20"
           aria-label={isFav ? "Remove favorite" : "Add favorite"}
         >
           <Heart
-            className={`size-4 ${isFav ? "fill-primary text-primary" : "text-foreground"}`}
+            className={`size-4 transition-colors ${isFav ? "fill-red-500 text-red-500" : "text-foreground/70"}`}
           />
+          <span className="text-[10px] font-bold text-foreground/80">{displayCount}</span>
         </button>
-        {spot.drama[0] && (
-          <span className="absolute bottom-2 left-2 max-w-[85%] truncate rounded-full bg-black/60 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur">
-            🎬 {spot.drama[0]}
-          </span>
-        )}
+
+        <div className="absolute bottom-3 left-3 right-3">
+          {spot.drama[0] && (
+            <span className="inline-block rounded-md bg-primary/90 px-2 py-1 text-[10px] font-bold text-primary-foreground backdrop-blur shadow-sm mb-2">
+              🎬 {spot.drama[0]}
+            </span>
+          )}
+          <h3 className="line-clamp-2 text-base font-bold leading-tight text-white drop-shadow-md">
+            {name}
+          </h3>
+        </div>
       </div>
-      <div className="p-3">
-        <h3 className="line-clamp-2 text-sm font-semibold leading-snug text-foreground">
-          {name}
-        </h3>
-        <p className="mt-1 text-xs text-muted-foreground">📍 {spot.region}</p>
+      <div className="p-3 bg-card flex items-center justify-between">
+        <p className="text-xs text-muted-foreground flex items-center gap-1">
+          <MapPin className="size-3" /> {spot.region}
+        </p>
+        <div className="size-6 rounded-full bg-muted grid place-items-center">
+          <ChevronRight className="size-3 text-muted-foreground" />
+        </div>
       </div>
     </Link>
   );

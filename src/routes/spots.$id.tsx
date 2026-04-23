@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState } from "react";
-import { createFileRoute, Link, useRouter, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, useRouter, notFound, Outlet, useChildMatches } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import {
@@ -14,6 +14,7 @@ import {
   ExternalLink,
   ChevronDown,
   ChevronUp,
+  ChevronRight,
   Star,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -22,6 +23,7 @@ import { useInView } from "@/hooks/useInView";
 import spotsRaw from "@/data/spots.json";
 import restaurantsRaw from "@/data/restaurants.json";
 import cafesRaw from "@/data/cafes.json";
+import { triggerHeartFly } from "@/components/HeartEffect";
 
 type LocalizedString = Partial<Record<LangCode, string>>;
 
@@ -121,7 +123,10 @@ function pickLang<T extends LocalizedString>(s: T | undefined, lang: LangCode): 
 function SpotDetail() {
   const { t, i18n } = useTranslation();
   const router = useRouter();
+  const childMatches = useChildMatches();
+
   const { spot } = Route.useLoaderData() as { spot: SpotFull };
+
   const lang = (i18n.language as LangCode) || "ko";
   const favorites = useAppStore((s) => s.favorites);
   const toggleFavorite = useAppStore((s) => s.toggleFavorite);
@@ -149,6 +154,12 @@ function SpotDetail() {
     [spot.nearby_cafes],
   );
 
+  // If we are on a sub-route (like /nearby), show the child content
+  // THIS MUST BE AFTER ALL HOOKS
+  if (childMatches.length > 0) {
+    return <Outlet />;
+  }
+
   const goBack = () => {
     if (window.history.length > 1) router.history.back();
     else void router.navigate({ to: "/spots" });
@@ -175,14 +186,17 @@ function SpotDetail() {
     toast.success(t("detail.copied"));
   };
 
-  const handleFav = () => {
+  const handleFav = (e: React.MouseEvent) => {
     const wasFav = isFav;
     toggleFavorite(spot.id);
-    if (!wasFav) toast.success(t("spots.addedToCourse"), { duration: 1500 });
+    if (!wasFav) {
+      triggerHeartFly(e.clientX, e.clientY);
+      toast.success(t("spots.addedToCourse"), { duration: 1500 });
+    }
   };
 
   return (
-    <div className="-mx-4 -mt-6 pb-28">
+    <div className="pb-28">
       {/* 1. HERO */}
       <section className="relative h-[55vh] min-h-[360px] w-full overflow-hidden">
         <img
@@ -211,7 +225,7 @@ function SpotDetail() {
               <Share2 className="size-4" />
             </button>
             <button
-              onClick={handleFav}
+              onClick={(e) => handleFav(e)}
               aria-label="favorite"
               className="grid size-10 place-items-center rounded-full bg-white/95 shadow-lg backdrop-blur transition active:scale-90"
             >
@@ -240,38 +254,6 @@ function SpotDetail() {
       </section>
 
       <div className="mx-auto max-w-screen-md space-y-8 px-4 pt-6">
-        {/* 2. SCENE COMPARISON */}
-        {spot.drama_scenes && spot.drama_scenes[0] && (
-          <section>
-            <h2 className="mb-3 text-base font-semibold text-foreground">
-              {t("detail.scene.title")}
-            </h2>
-            <div className="grid grid-cols-2 gap-2">
-              <figure>
-                <img
-                  src={spot.drama_scenes[0].scene_image}
-                  alt={spot.drama_scenes[0].title}
-                  className="aspect-video w-full rounded-2xl object-cover shadow-sm"
-                  loading="lazy"
-                />
-                <figcaption className="mt-1.5 text-center text-[11px] text-muted-foreground">
-                  🎬 {t("detail.scene.drama")} · ep.{spot.drama_scenes[0].episode}
-                </figcaption>
-              </figure>
-              <figure>
-                <img
-                  src={spot.thumbnail}
-                  alt={name}
-                  className="aspect-video w-full rounded-2xl object-cover shadow-sm"
-                  loading="lazy"
-                />
-                <figcaption className="mt-1.5 text-center text-[11px] text-muted-foreground">
-                  📸 {t("detail.scene.real")}
-                </figcaption>
-              </figure>
-            </div>
-          </section>
-        )}
 
         {/* 3. QUICK INFO CARD */}
         <section className="rounded-3xl border border-border bg-card p-5 shadow-sm">
@@ -326,57 +308,50 @@ function SpotDetail() {
           </ul>
         </section>
 
-        {/* 4. DESCRIPTION */}
-        <section>
-          <h2 className="mb-2 text-base font-semibold text-foreground">
-            {t("detail.description")}
-          </h2>
-          <p className="whitespace-pre-line text-sm leading-relaxed text-muted-foreground">
-            {description}
-          </p>
+        {/* 4. DESCRIPTION & MAP (Side-by-side on larger screens) */}
+        <div className="grid gap-10 md:grid-cols-2 md:items-start">
+          <section className="space-y-4">
+            <div className="inline-block rounded-lg bg-primary/5 px-3 py-1 text-xs font-bold text-primary">
+              ABOUT THE SPOT
+            </div>
+            <h2 className="text-2xl font-black tracking-tight text-foreground">
+              {t("detail.description")}
+            </h2>
+            <p className="whitespace-pre-line text-base leading-relaxed text-muted-foreground/90">
+              {description}
+            </p>
+          </section>
+
+          {/* 5. MAP (lazy) */}
+          <div className="rounded-3xl bg-muted/30 p-2 border border-border/40">
+            <MapSection
+              coords={spot.coords}
+              name={name}
+              address={address}
+              onCopyAddress={copyAddress}
+            />
+          </div>
+        </div>
+
+        {/* 6. INTEGRATED NEARBY CTA */}
+        <section className="pt-4">
+          <Link
+            to="/spots/$id/nearby"
+            params={{ id: spot.id }}
+            className="flex items-center justify-center w-full h-16 rounded-3xl text-lg font-bold bg-primary text-primary-foreground shadow-xl hover:bg-primary/90 transition-all hover:scale-[1.02] active:scale-95 group no-underline"
+          >
+            ✨ {name} 근처 맛집 & 카페 탐방하기
+            <ChevronRight className="ml-2 size-5 transition-transform group-hover:translate-x-1" />
+          </Link>
+          <Link
+            to="/spots/$id/nearby"
+            params={{ id: spot.id }}
+            className="mt-3 flex items-center justify-center gap-4 text-xs text-muted-foreground font-medium hover:text-primary transition-colors cursor-pointer"
+          >
+            <span className="flex items-center gap-1">🍽️ 주변 식당 {restaurants.length}곳</span>
+            <span className="flex items-center gap-1">☕ 추천 카페 {cafes.length}곳</span>
+          </Link>
         </section>
-
-        {/* 5. MAP (lazy) */}
-        <MapSection
-          coords={spot.coords}
-          name={name}
-          address={address}
-          onCopyAddress={copyAddress}
-        />
-
-        {/* 6. RESTAURANTS */}
-        {restaurants.length > 0 && (
-          <NearbyList
-            title={t("detail.restaurants.title")}
-            items={restaurants.map((r) => ({
-              id: r.id,
-              name: pickLang(r.name, lang),
-              subtitle: pickLang(r.food, lang),
-              thumbnail: r.thumbnail,
-              distance: r.distance,
-              rating: r.rating,
-              meta: r.price,
-              expandedLabel: pickLang(r.signature, lang),
-            }))}
-          />
-        )}
-
-        {/* 7. CAFES */}
-        {cafes.length > 0 && (
-          <NearbyList
-            title={t("detail.cafes.title")}
-            items={cafes.map((c) => ({
-              id: c.id,
-              name: pickLang(c.name, lang),
-              subtitle: pickLang(c.vibe, lang),
-              thumbnail: c.thumbnail,
-              distance: c.distance,
-              rating: c.rating,
-              meta: undefined,
-              expandedLabel: pickLang(c.signature, lang),
-            }))}
-          />
-        )}
 
         {/* 8. PHOTO TIPS */}
         {spot.photo_tips && spot.photo_tips.length > 0 && (
@@ -431,33 +406,6 @@ function SpotDetail() {
         )}
       </div>
 
-      {/* 10. STICKY CTA */}
-      <div
-        className="fixed bottom-16 left-0 right-0 z-30 border-t border-border bg-background/95 px-4 py-3 backdrop-blur md:bottom-0"
-        style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 12px)" }}
-      >
-        <div className="mx-auto max-w-screen-md">
-          {isFav ? (
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="h-12 w-full rounded-2xl text-base font-semibold"
-            >
-              <Link to="/my-course">{t("detail.cta.added")}</Link>
-            </Button>
-          ) : (
-            <Button
-              size="lg"
-              onClick={handleFav}
-              className="h-12 w-full rounded-2xl text-base font-semibold shadow-lg active:scale-[0.99]"
-            >
-              <Heart className="size-4" />
-              {t("detail.cta.add")}
-            </Button>
-          )}
-        </div>
-      </div>
     </div>
   );
 }

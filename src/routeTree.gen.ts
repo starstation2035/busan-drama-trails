@@ -14,6 +14,8 @@ import { Route as SpotsRouteImport } from './routes/spots'
 import { Route as MyCourseRouteImport } from './routes/my-course'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SpotsIdRouteImport } from './routes/spots.$id'
+import { Route as SpotsIdNearbyRouteImport } from './routes/spots.$id.nearby'
+import { Route as SpotsIdNearbyItemIdRouteImport } from './routes/spots.$id.nearby.$itemId'
 
 const StyleTestRoute = StyleTestRouteImport.update({
   id: '/style-test',
@@ -40,20 +42,34 @@ const SpotsIdRoute = SpotsIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => SpotsRoute,
 } as any)
+const SpotsIdNearbyRoute = SpotsIdNearbyRouteImport.update({
+  id: '/nearby',
+  path: '/nearby',
+  getParentRoute: () => SpotsIdRoute,
+} as any)
+const SpotsIdNearbyItemIdRoute = SpotsIdNearbyItemIdRouteImport.update({
+  id: '/$itemId',
+  path: '/$itemId',
+  getParentRoute: () => SpotsIdNearbyRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/my-course': typeof MyCourseRoute
   '/spots': typeof SpotsRouteWithChildren
   '/style-test': typeof StyleTestRoute
-  '/spots/$id': typeof SpotsIdRoute
+  '/spots/$id': typeof SpotsIdRouteWithChildren
+  '/spots/$id/nearby': typeof SpotsIdNearbyRouteWithChildren
+  '/spots/$id/nearby/$itemId': typeof SpotsIdNearbyItemIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/my-course': typeof MyCourseRoute
   '/spots': typeof SpotsRouteWithChildren
   '/style-test': typeof StyleTestRoute
-  '/spots/$id': typeof SpotsIdRoute
+  '/spots/$id': typeof SpotsIdRouteWithChildren
+  '/spots/$id/nearby': typeof SpotsIdNearbyRouteWithChildren
+  '/spots/$id/nearby/$itemId': typeof SpotsIdNearbyItemIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -61,14 +77,38 @@ export interface FileRoutesById {
   '/my-course': typeof MyCourseRoute
   '/spots': typeof SpotsRouteWithChildren
   '/style-test': typeof StyleTestRoute
-  '/spots/$id': typeof SpotsIdRoute
+  '/spots/$id': typeof SpotsIdRouteWithChildren
+  '/spots/$id/nearby': typeof SpotsIdNearbyRouteWithChildren
+  '/spots/$id/nearby/$itemId': typeof SpotsIdNearbyItemIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/my-course' | '/spots' | '/style-test' | '/spots/$id'
+  fullPaths:
+    | '/'
+    | '/my-course'
+    | '/spots'
+    | '/style-test'
+    | '/spots/$id'
+    | '/spots/$id/nearby'
+    | '/spots/$id/nearby/$itemId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/my-course' | '/spots' | '/style-test' | '/spots/$id'
-  id: '__root__' | '/' | '/my-course' | '/spots' | '/style-test' | '/spots/$id'
+  to:
+    | '/'
+    | '/my-course'
+    | '/spots'
+    | '/style-test'
+    | '/spots/$id'
+    | '/spots/$id/nearby'
+    | '/spots/$id/nearby/$itemId'
+  id:
+    | '__root__'
+    | '/'
+    | '/my-course'
+    | '/spots'
+    | '/style-test'
+    | '/spots/$id'
+    | '/spots/$id/nearby'
+    | '/spots/$id/nearby/$itemId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -115,15 +155,52 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SpotsIdRouteImport
       parentRoute: typeof SpotsRoute
     }
+    '/spots/$id/nearby': {
+      id: '/spots/$id/nearby'
+      path: '/nearby'
+      fullPath: '/spots/$id/nearby'
+      preLoaderRoute: typeof SpotsIdNearbyRouteImport
+      parentRoute: typeof SpotsIdRoute
+    }
+    '/spots/$id/nearby/$itemId': {
+      id: '/spots/$id/nearby/$itemId'
+      path: '/$itemId'
+      fullPath: '/spots/$id/nearby/$itemId'
+      preLoaderRoute: typeof SpotsIdNearbyItemIdRouteImport
+      parentRoute: typeof SpotsIdNearbyRoute
+    }
   }
 }
 
+interface SpotsIdNearbyRouteChildren {
+  SpotsIdNearbyItemIdRoute: typeof SpotsIdNearbyItemIdRoute
+}
+
+const SpotsIdNearbyRouteChildren: SpotsIdNearbyRouteChildren = {
+  SpotsIdNearbyItemIdRoute: SpotsIdNearbyItemIdRoute,
+}
+
+const SpotsIdNearbyRouteWithChildren = SpotsIdNearbyRoute._addFileChildren(
+  SpotsIdNearbyRouteChildren,
+)
+
+interface SpotsIdRouteChildren {
+  SpotsIdNearbyRoute: typeof SpotsIdNearbyRouteWithChildren
+}
+
+const SpotsIdRouteChildren: SpotsIdRouteChildren = {
+  SpotsIdNearbyRoute: SpotsIdNearbyRouteWithChildren,
+}
+
+const SpotsIdRouteWithChildren =
+  SpotsIdRoute._addFileChildren(SpotsIdRouteChildren)
+
 interface SpotsRouteChildren {
-  SpotsIdRoute: typeof SpotsIdRoute
+  SpotsIdRoute: typeof SpotsIdRouteWithChildren
 }
 
 const SpotsRouteChildren: SpotsRouteChildren = {
-  SpotsIdRoute: SpotsIdRoute,
+  SpotsIdRoute: SpotsIdRouteWithChildren,
 }
 
 const SpotsRouteWithChildren = SpotsRoute._addFileChildren(SpotsRouteChildren)

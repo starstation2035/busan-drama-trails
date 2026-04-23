@@ -9,7 +9,8 @@
   "nav": {
     "home": "首頁",
     "spots": "拍攝地",
-    "myCourse": "我的行程"
+    "myCourse": "我的行程",
+    "styleTest": "風格測試"
   },
   "language": {
     "choose": "選擇您的語言",

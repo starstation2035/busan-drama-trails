@@ -3,515 +3,142 @@
     "id": "spot_001",
     "name": {
       "ko": "청사포 다릿돌전망대",
-      "zh-TW": "青沙浦踏石觀景台",
-      "en": "Cheongsapo Daritdol Observatory",
-      "ja": "青沙浦ダリッドル展望台",
-      "zh-CN": "青沙浦踏石观景台"
+      "en": "Cheongsapo Daritdol Observatory"
     },
-    "drama": [
-      "이상한 변호사 우영우"
-    ],
+    "drama": ["이상한 변호사 우영우"],
+    "category": "drama",
     "region": "해운대",
-    "type": [
-      "바다",
-      "포토스팟"
-    ],
-    "thumbnail": "https://images.unsplash.com/photo-1538485399081-7c8970d28933?w=800",
-    "coords": {
-      "lat": 35.1589,
-      "lng": 129.1992
-    },
-    "popularity": 95,
-    "description": {
-      "ko": "이상한 변호사 우영우의 명장면이 촬영된 투명 다리 전망대.",
-      "zh-TW": "電視劇《非常律師禹英禑》的經典場景拍攝地,透明步道觀景台。",
-      "en": "Glass-floor observatory featured in 'Extraordinary Attorney Woo'.",
-      "ja": "「ウ・ヨンウ弁護士は天才肌」の名場面ロケ地。",
-      "zh-CN": "电视剧《非常律师禹英禑》的经典场景拍摄地。"
-    },
-    "address": {
-      "ko": "부산 해운대구 청사포로 132번길",
-      "zh-TW": "釜山海雲台區青沙浦路132號",
-      "en": "132 Cheongsapo-ro, Haeundae-gu, Busan",
-      "ja": "釜山広域市海雲台区青沙浦路132",
-      "zh-CN": "釜山海云台区青沙浦路132号"
-    },
-    "hours": "09:00–22:00",
-    "admission": {
-      "ko": "무료",
-      "zh-TW": "免費",
-      "en": "Free",
-      "ja": "無料",
-      "zh-CN": "免费"
-    },
-    "best_time": "sunset",
-    "drama_scenes": [
-      {
-        "title": "이상한 변호사 우영우",
-        "episode": 13,
-        "scene_image": "https://images.unsplash.com/photo-1552084117-56a987666449?w=800"
-      }
-    ],
-    "nearby_restaurants": [
-      "r1",
-      "r12",
-      "r3"
-    ],
-    "nearby_cafes": [
-      "c1",
-      "c7",
-      "c4"
-    ],
-    "photo_tips": [
-      {
-        "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600",
-        "tip": {
-          "ko": "투명 다리 위에서 발 끝이 보이게 촬영",
-          "zh-TW": "站在透明步道上拍腳尖最有梗",
-          "en": "Shoot from above to capture the glass floor",
-          "ja": "ガラス床が見える角度で撮影",
-          "zh-CN": "站在透明步道上拍脚尖最有梗"
-        }
-      },
-      {
-        "image": "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600",
-        "tip": {
-          "ko": "노을 시간대 17:30~18:00이 베스트",
-          "zh-TW": "黃金時刻 17:30-18:00 拍剪影",
-          "en": "Golden hour 17:30–18:00",
-          "ja": "黄金時間17:30~18:00",
-          "zh-CN": "黄金时刻 17:30-18:00 拍剪影"
-        }
-      },
-      {
-        "image": "https://images.unsplash.com/photo-1502780402662-acc01917cf6f?w=600",
-        "tip": {
-          "ko": "오션 와이드 프레임 추천",
-          "zh-TW": "廣角拍整片海最美",
-          "en": "Wide-angle ocean shot",
-          "ja": "広角で海全体を",
-          "zh-CN": "广角拍整片海最美"
-        }
-      }
-    ],
-    "visit_tips": {
-      "ko": "주말 오후 매우 혼잡, 평일 오전 추천",
-      "zh-TW": "週末下午爆擠，建議平日上午前往",
-      "en": "Very crowded weekend afternoons; visit weekday mornings",
-      "ja": "週末午後は大混雑、平日午前推奨",
-      "zh-CN": "周末下午很挤，建议平日上午"
-    }
+    "thumbnail": "https://images.unsplash.com/photo-1620317510793-780965768f7b?w=1200",
+    "coords": { "lat": 35.1589, "lng": 129.1992 },
+    "description": { "ko": "드라마 '우영우'의 배경이 된 바다 위 투명 다리." },
+    "address": { "ko": "부산 해운대구 청사포로 132번길" },
+    "nearby_restaurants": ["r1", "r12"],
+    "nearby_cafes": ["c1", "c7"]
   },
   {
     "id": "spot_002",
     "name": {
       "ko": "감천문화마을",
-      "zh-TW": "甘川洞文化村",
-      "en": "Gamcheon Culture Village",
-      "ja": "甘川文化村",
-      "zh-CN": "甘川洞文化村"
+      "en": "Gamcheon Culture Village"
     },
-    "drama": [
-      "런닝맨"
-    ],
+    "drama": ["런닝맨"],
+    "category": "landmark",
     "region": "사하구",
-    "type": [
-      "마을",
-      "포토스팟"
-    ],
-    "thumbnail": "https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=800",
-    "coords": {
-      "lat": 35.0975,
-      "lng": 129.0107
-    },
-    "popularity": 92,
-    "description": {
-      "ko": "런닝맨에 등장한 알록달록한 산자락 마을.",
-      "zh-TW": "《Running Man》取景地,色彩繽紛的山坡村落。",
-      "en": "Colorful hillside village featured in 'Running Man'.",
-      "ja": "「ランニングマン」のロケ地、カラフルな山の村。",
-      "zh-CN": "《Running Man》取景地,色彩缤纷的山坡村落。"
-    },
-    "address": {
-      "ko": "부산 사하구 감내2로 203",
-      "zh-TW": "釜山沙下區甘內2路203",
-      "en": "203 Gamnae 2-ro, Saha-gu, Busan",
-      "ja": "釜山広域市沙下区甘内2路203",
-      "zh-CN": "釜山沙下区甘内2路203"
-    },
-    "hours": "09:00–18:00",
-    "admission": {
-      "ko": "무료",
-      "zh-TW": "免費（部分付費體驗）",
-      "en": "Free (paid experiences inside)",
-      "ja": "無料（一部体験有料）",
-      "zh-CN": "免费（部分付费体验）"
-    },
-    "best_time": "morning",
-    "drama_scenes": [
-      {
-        "title": "런닝맨",
-        "episode": 210,
-        "scene_image": "https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=800"
-      }
-    ],
-    "nearby_restaurants": [
-      "r2",
-      "r11",
-      "r8"
-    ],
-    "nearby_cafes": [
-      "c2",
-      "c10",
-      "c6"
-    ],
-    "photo_tips": [
-      {
-        "image": "https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=600",
-        "tip": {
-          "ko": "어린왕자와 사막여우 포토존",
-          "zh-TW": "小王子與狐狸一定要拍",
-          "en": "Iconic Little Prince statue",
-          "ja": "星の王子さま像で必撮",
-          "zh-CN": "小王子与狐狸一定要拍"
-        }
-      },
-      {
-        "image": "https://images.unsplash.com/photo-1518803194621-27188ba362c9?w=600",
-        "tip": {
-          "ko": "좁은 골목과 알록달록한 벽",
-          "zh-TW": "巷弄＋彩色牆是經典構圖",
-          "en": "Narrow alleys with colorful walls",
-          "ja": "狭い路地とカラフルな壁",
-          "zh-CN": "巷弄＋彩色墙是经典构图"
-        }
-      },
-      {
-        "image": "https://images.unsplash.com/photo-1535970793482-07de93762dc4?w=600",
-        "tip": {
-          "ko": "전망대에서 마을 전체샷",
-          "zh-TW": "觀景台俯瞰全村必拍",
-          "en": "Panoramic shot from observatory",
-          "ja": "展望台から村全景",
-          "zh-CN": "观景台俯瞰全村必拍"
-        }
-      }
-    ],
-    "visit_tips": {
-      "ko": "경사가 가파르니 편한 신발 필수",
-      "zh-TW": "坡很陡，請穿好走的鞋",
-      "en": "Steep slopes — wear comfy shoes",
-      "ja": "坂が急、歩きやすい靴必須",
-      "zh-CN": "坡很陡，请穿好走的鞋"
-    }
+    "thumbnail": "https://images.unsplash.com/photo-1544551763-47a0159f963f?w=1200",
+    "coords": { "lat": 35.0975, "lng": 129.0107 },
+    "description": { "ko": "부산의 마추픽추라 불리는 알록달록한 산자락 마을." },
+    "address": { "ko": "부산 사하구 감내2로 203" },
+    "nearby_restaurants": ["r2", "r11"],
+    "nearby_cafes": ["c2", "c10"]
   },
   {
     "id": "spot_003",
     "name": {
       "ko": "해운대 해수욕장",
-      "zh-TW": "海雲台海水浴場",
-      "en": "Haeundae Beach",
-      "ja": "海雲台ビーチ",
-      "zh-CN": "海云台海水浴场"
+      "en": "Haeundae Beach"
     },
-    "drama": [
-      "여러 드라마"
-    ],
+    "drama": ["해운대"],
+    "category": "landmark",
     "region": "해운대",
-    "type": [
-      "바다",
-      "산책"
-    ],
-    "thumbnail": "https://images.unsplash.com/photo-1548013146-72479768bada?w=800",
-    "coords": {
-      "lat": 35.1587,
-      "lng": 129.1604
-    },
-    "popularity": 98,
-    "description": {
-      "ko": "수많은 드라마와 영화의 배경이 된 부산의 대표 해변.",
-      "zh-TW": "眾多韓劇與電影取景的釜山代表海灘。",
-      "en": "Iconic Busan beach featured in countless dramas and films.",
-      "ja": "多くのドラマや映画の舞台となった釜山の代表的なビーチ。",
-      "zh-CN": "众多韩剧与电影取景的釜山代表海滩。"
-    },
-    "address": {
-      "ko": "부산 해운대구 해운대해변로 264",
-      "zh-TW": "釜山海雲台區海雲台海邊路264",
-      "en": "264 Haeundaehaebyeon-ro, Busan",
-      "ja": "釜山広域市海雲台区海雲台海辺路264",
-      "zh-CN": "釜山海云台区海云台海边路264"
-    },
-    "hours": "24/7",
-    "admission": {
-      "ko": "무료",
-      "zh-TW": "免費",
-      "en": "Free",
-      "ja": "無料",
-      "zh-CN": "免费"
-    },
-    "best_time": "sunset",
-    "drama_scenes": [
-      {
-        "title": "호텔 델루나",
-        "episode": 1,
-        "scene_image": "https://images.unsplash.com/photo-1548013146-72479768bada?w=800"
-      }
-    ],
-    "nearby_restaurants": [
-      "r3",
-      "r10",
-      "r6"
-    ],
-    "nearby_cafes": [
-      "c3",
-      "c11",
-      "c5"
-    ],
-    "photo_tips": [
-      {
-        "image": "https://images.unsplash.com/photo-1505761671935-60b3a7427bad?w=600",
-        "tip": {
-          "ko": "백사장 끝에서 와이드샷",
-          "zh-TW": "沙灘尾端拍廣角最遼闊",
-          "en": "Wide shot from beach end",
-          "ja": "砂浜の端から広角",
-          "zh-CN": "沙滩尾端拍广角最辽阔"
-        }
-      },
-      {
-        "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600",
-        "tip": {
-          "ko": "맨발 발자국 클로즈업",
-          "zh-TW": "赤腳腳印特寫超有感",
-          "en": "Footprint close-up",
-          "ja": "足跡のクローズアップ",
-          "zh-CN": "赤脚脚印特写超有感"
-        }
-      },
-      {
-        "image": "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600",
-        "tip": {
-          "ko": "광안대교 야경과 함께",
-          "zh-TW": "廣安大橋夜景一起入鏡",
-          "en": "With Gwangan Bridge night view",
-          "ja": "広安大橋の夜景と一緒に",
-          "zh-CN": "广安大桥夜景一起入镜"
-        }
-      }
-    ],
-    "visit_tips": {
-      "ko": "여름 성수기 매우 혼잡",
-      "zh-TW": "夏天旺季人潮非常多",
-      "en": "Very crowded in summer peak",
-      "ja": "夏のピーク時は大混雑",
-      "zh-CN": "夏天旺季人潮非常多"
-    }
+    "thumbnail": "https://images.unsplash.com/photo-1578326309852-f94d93077755?w=1200",
+    "coords": { "lat": 35.1587, "lng": 129.1604 },
+    "description": { "ko": "부산을 상징하는 대한민국 대표 해수욕장." },
+    "address": { "ko": "부산 해운대구 해운대해변로 264" },
+    "nearby_restaurants": ["r3", "r10"],
+    "nearby_cafes": ["c3", "c11"]
   },
   {
     "id": "spot_004",
     "name": {
       "ko": "흰여울문화마을",
-      "zh-TW": "白險灘文化村",
-      "en": "Huinnyeoul Culture Village",
-      "ja": "ヒニョウル文化村",
-      "zh-CN": "白险滩文化村"
+      "en": "Huinnyeoul Culture Village"
     },
-    "drama": [
-      "변호인"
-    ],
+    "drama": ["변호인"],
+    "category": "drama",
     "region": "영도구",
-    "type": [
-      "마을",
-      "바다"
-    ],
-    "thumbnail": "https://images.unsplash.com/photo-1580977251946-3acdb22ee70c?w=800",
-    "coords": {
-      "lat": 35.0786,
-      "lng": 129.0436
-    },
-    "popularity": 88,
-    "description": {
-      "ko": "영화 변호인의 배경이 된 절벽 위 마을.",
-      "zh-TW": "電影《辯護人》的取景地,懸崖上的小村莊。",
-      "en": "Cliffside village featured in the movie 'The Attorney'.",
-      "ja": "映画「弁護人」の舞台となった崖の上の村。",
-      "zh-CN": "电影《辩护人》的取景地,悬崖上的小村庄。"
-    },
-    "address": {
-      "ko": "부산 영도구 흰여울길 307",
-      "zh-TW": "釜山影島區白險灘路307",
-      "en": "307 Huinnyeoul-gil, Yeongdo-gu, Busan",
-      "ja": "釜山広域市影島区ヒニョウル路307",
-      "zh-CN": "釜山影岛区白险滩路307"
-    },
-    "hours": "09:00–18:00",
-    "admission": {
-      "ko": "무료",
-      "zh-TW": "免費",
-      "en": "Free",
-      "ja": "無料",
-      "zh-CN": "免费"
-    },
-    "best_time": "morning",
-    "drama_scenes": [
-      {
-        "title": "변호인",
-        "episode": 1,
-        "scene_image": "https://images.unsplash.com/photo-1580977251946-3acdb22ee70c?w=800"
-      }
-    ],
-    "nearby_restaurants": [
-      "r4",
-      "r5",
-      "r1"
-    ],
-    "nearby_cafes": [
-      "c4",
-      "c12",
-      "c7"
-    ],
-    "photo_tips": [
-      {
-        "image": "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600",
-        "tip": {
-          "ko": "좁은 계단길에서 인물 위주",
-          "zh-TW": "窄階梯拍人像最有韓劇感",
-          "en": "Narrow staircase portrait",
-          "ja": "狭い階段でポートレート",
-          "zh-CN": "窄阶梯拍人像最有韩剧感"
-        }
-      },
-      {
-        "image": "https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=600",
-        "tip": {
-          "ko": "바다 건너 부산항 풍경",
-          "zh-TW": "遠眺釜山港超有意境",
-          "en": "Busan port across the water",
-          "ja": "対岸の釜山港",
-          "zh-CN": "远眺釜山港超有意境"
-        }
-      },
-      {
-        "image": "https://images.unsplash.com/photo-1519302959554-a75be0afc82a?w=600",
-        "tip": {
-          "ko": "등대 앞 인생샷",
-          "zh-TW": "白色燈塔前的人生照",
-          "en": "By the white lighthouse",
-          "ja": "白い灯台の前で",
-          "zh-CN": "白色灯塔前的人生照"
-        }
-      }
-    ],
-    "visit_tips": {
-      "ko": "좁은 골목, 큰 소리 자제",
-      "zh-TW": "巷弄住人，請勿大聲喧嘩",
-      "en": "Quiet residential alleys — keep voices down",
-      "ja": "住宅地、静かに",
-      "zh-CN": "巷弄住人，请勿大声喧哗"
-    }
+    "thumbnail": "https://images.unsplash.com/photo-1610478050965-f485f4705500?w=1200",
+    "coords": { "lat": 35.0786, "lng": 129.0436 },
+    "description": { "ko": "영화 '변호인'의 배경이 된 아름다운 해안 절벽 마을." },
+    "address": { "ko": "부산 영도구 흰여울길 307" },
+    "nearby_restaurants": ["r4", "r8"],
+    "nearby_cafes": ["c4", "c12"]
   },
   {
     "id": "spot_005",
     "name": {
       "ko": "자갈치시장",
-      "zh-TW": "札嘎其市場",
-      "en": "Jagalchi Market",
-      "ja": "チャガルチ市場",
-      "zh-CN": "札嘎其市场"
+      "en": "Jagalchi Market"
     },
-    "drama": [
-      "친구"
-    ],
+    "drama": ["친구"],
+    "category": "drama",
     "region": "중구",
-    "type": [
-      "시장",
-      "맛집"
-    ],
-    "thumbnail": "https://images.unsplash.com/photo-1555992336-fb0d29498b13?w=800",
-    "coords": {
-      "lat": 35.0966,
-      "lng": 129.0306
+    "thumbnail": "https://images.unsplash.com/photo-1616110825704-57223b204683?w=1200",
+    "coords": { "lat": 35.0966, "lng": 129.0306 },
+    "description": { "ko": "영화 '친구'의 추격전이 벌어진 한국 최대 수산시장." },
+    "address": { "ko": "부산 중구 자갈치해안로 52" },
+    "nearby_restaurants": ["r5", "r8"],
+    "nearby_cafes": ["c9"]
+  },
+  {
+    "id": "pachinko",
+    "name": {
+      "ko": "영도 감지해변",
+      "en": "Yeongdo Gamji Beach"
     },
-    "popularity": 90,
-    "description": {
-      "ko": "영화 친구의 명장면이 촬영된 한국 최대의 수산시장.",
-      "zh-TW": "電影《朋友》的經典場景,韓國最大水產市場。",
-      "en": "Korea's largest seafood market featured in the film 'Friend'.",
-      "ja": "映画「友へ チング」の名場面、韓国最大の水産市場。",
-      "zh-CN": "电影《朋友》的经典场景,韩国最大水产市场。"
-    },
-    "address": {
-      "ko": "부산 중구 자갈치해안로 52",
-      "zh-TW": "釜山中區札嘎其海岸路52",
-      "en": "52 Jagalchihaean-ro, Jung-gu, Busan",
-      "ja": "釜山広域市中区チャガルチ海岸路52",
-      "zh-CN": "釜山中区札嘎其海岸路52"
-    },
-    "hours": "05:00–22:00",
-    "admission": {
-      "ko": "무료",
-      "zh-TW": "免費",
-      "en": "Free",
-      "ja": "無料",
-      "zh-CN": "免费"
-    },
-    "best_time": "morning",
+    "drama": ["파친코"],
+    "category": "drama",
+    "region": "영도구",
+    "thumbnail": "https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?w=1200",
+    "coords": { "lat": 35.0617, "lng": 129.0767 },
+    "description": { "ko": "드라마 '파칭코'의 오프닝과 선자의 어린 시절 주요 무대가 된 이곳은 실제 부산 영도의 '감지해변'입니다. 영화 속에서는 일제강점기 척박한 삶을 견뎌내는 선자의 강인한 생명력을 상징하는 장소로 그려졌습니다. 실제 감지해변은 파도에 부딪히는 자갈 소리가 아름다운 몽돌 해변이며, 지금도 해녀들이 갓 잡은 해산물을 파는 해녀촌이 운영되고 있어 영화 속 분위기와 현대의 정취를 동시에 느낄 수 있습니다." },
+    "address": { "ko": "부산광역시 영도구 동삼동 감지해변" },
     "drama_scenes": [
       {
-        "title": "친구",
+        "title": "Young Sunja at the beach",
         "episode": 1,
-        "scene_image": "https://images.unsplash.com/photo-1555992336-fb0d29498b13?w=800"
+        "scene_image": "https://images.unsplash.com/photo-1590274853856-f22d5ee3d228?w=1200"
       }
-    ],
-    "nearby_restaurants": [
-      "r5",
-      "r9",
-      "r8"
-    ],
-    "nearby_cafes": [
-      "c9",
-      "c6",
-      "c3"
     ],
     "photo_tips": [
       {
-        "image": "https://images.unsplash.com/photo-1555992336-fb0d29498b13?w=600",
-        "tip": {
-          "ko": "활기찬 시장 와이드샷",
-          "zh-TW": "市場全景超有臨場感",
-          "en": "Wide market shot",
-          "ja": "市場の活気を広角で",
-          "zh-CN": "市场全景超有临场感"
-        }
-      },
-      {
-        "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600",
-        "tip": {
-          "ko": "해산물 클로즈업",
-          "zh-TW": "海鮮特寫色彩繽紛",
-          "en": "Colorful seafood close-up",
-          "ja": "海鮮のクローズアップ",
-          "zh-CN": "海鲜特写色彩缤纷"
-        }
-      },
-      {
-        "image": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600",
-        "tip": {
-          "ko": "상인 아주머니와 인물샷",
-          "zh-TW": "和市場大嬸合照超親切",
-          "en": "With friendly market vendors",
-          "ja": "市場のおばちゃんと一緒に",
-          "zh-CN": "和市场大婶合照超亲切"
-        }
+        "image": "https://images.unsplash.com/photo-1544551763-47a0159f963f?w=1200",
+        "tip": { "ko": "해안가 바위 위에서 바다를 배경으로 찍어보세요." }
       }
     ],
-    "visit_tips": {
-      "ko": "흥정 시 정중하게, 사진은 양해 구하기",
-      "zh-TW": "殺價請有禮貌，拍照前先打聲招呼",
-      "en": "Be polite when bargaining; ask before photographing vendors",
-      "ja": "値切るときは礼儀正しく、撮影は一声",
-      "zh-CN": "杀价请有礼貌，拍照前先打声招呼"
-    }
+    "nearby_restaurants": ["r4", "r11"],
+    "nearby_cafes": ["c4", "c12"],
+    "visit_tips": { "ko": "해변을 따라 늘어선 해녀촌에서 신선한 해산물을 맛볼 수 있습니다. 자갈 해변이므로 편한 신발을 신는 것을 추천드려요!" }
+  },
+  {
+    "id": "spot_007",
+    "name": {
+      "ko": "광안리 해수욕장",
+      "en": "Gwangalli Beach"
+    },
+    "drama": ["블랙팬서"],
+    "category": "landmark",
+    "region": "수영구",
+    "thumbnail": "https://images.unsplash.com/photo-1541532713592-79a0317b6b77?w=1200",
+    "coords": { "lat": 35.1531, "lng": 129.1189 },
+    "description": { "ko": "광안대교의 야경이 환상적인 부산의 핫플레이스." },
+    "address": { "ko": "부산 수영구 광안해변로 219" },
+    "nearby_restaurants": ["r6", "r9"],
+    "nearby_cafes": ["c5"]
+  },
+  {
+    "id": "spot_008",
+    "name": {
+      "ko": "송도 해수욕장",
+      "en": "Songdo Beach"
+    },
+    "drama": ["마이네임"],
+    "category": "landmark",
+    "region": "서구",
+    "thumbnail": "https://images.unsplash.com/photo-1590274853856-f22d5ee3d228?w=1200",
+    "coords": { "lat": 35.0761, "lng": 129.0173 },
+    "description": { "ko": "한국 최초의 공설 해수욕장으로, 송도해상케이블카와 스카이워크가 유명합니다." },
+    "address": { "ko": "부산 서구 송도해변로 100" },
+    "nearby_restaurants": ["r5", "r8"],
+    "nearby_cafes": ["c9"]
   }
 ]

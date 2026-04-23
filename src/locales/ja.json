@@ -9,7 +9,8 @@
   "nav": {
     "home": "ホーム",
     "spots": "撮影地",
-    "myCourse": "マイコース"
+    "myCourse": "マイコース",
+    "styleTest": "スタイルテスト"
   },
   "language": {
     "choose": "言語を選択してください",

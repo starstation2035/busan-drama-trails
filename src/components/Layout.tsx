@@ -6,6 +6,7 @@ import { BottomNav } from "./BottomNav";
 import { LanguageModal } from "./LanguageModal";
 import { Toaster } from "@/components/ui/sonner";
 import { useAppStore } from "@/stores/useAppStore";
+import { HeartEffect } from "./HeartEffect";
 import "@/lib/i18n";
 
 export function Layout() {
@@ -33,6 +34,7 @@ export function Layout() {
 
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-0">
+      <HeartEffect />
       <Header onOpenLang={() => setModalOpen(true)} />
       <main className="mx-auto max-w-screen-md px-4 py-6">
         <Outlet />

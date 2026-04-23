@@ -1,32 +1,48 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { Home, MapPin, Heart } from "lucide-react";
+import { Home, MapPin, Heart, Sparkles } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useAppStore } from "@/stores/useAppStore";
 
 export function BottomNav() {
   const { t } = useTranslation();
   const { pathname } = useLocation();
+  const favorites = useAppStore((s) => s.favorites);
 
   const items = [
     { to: "/", icon: Home, label: t("nav.home"), match: (p: string) => p === "/" },
     { to: "/spots", icon: MapPin, label: t("nav.spots"), match: (p: string) => p.startsWith("/spots") },
-    { to: "/my-course", icon: Heart, label: t("nav.myCourse"), match: (p: string) => p.startsWith("/my-course") },
+    { to: "/my-course", icon: Heart, label: t("nav.myCourse"), match: (p: string) => p.startsWith("/my-course"), id: "bottom-nav-my-course" },
+    { to: "/style-test", icon: Sparkles, label: t("nav.styleTest"), match: (p: string) => p.startsWith("/style-test") },
   ] as const;
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-30 border-t border-border bg-background/95 backdrop-blur-md md:hidden">
-      <div className="mx-auto flex max-w-screen-md items-center justify-around px-2 py-2">
-        {items.map(({ to, icon: Icon, label, match }) => {
+    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-background/80 backdrop-blur-xl md:hidden safe-area-bottom">
+      <div className="mx-auto flex max-w-screen-md items-center justify-around px-4 py-3">
+        {items.map(({ to, icon: Icon, label, match, id }) => {
           const active = match(pathname);
+          const isMyCourse = to === "/my-course";
+          
           return (
             <Link
               key={to}
               to={to}
-              className={`flex flex-1 flex-col items-center gap-0.5 rounded-xl py-1.5 text-xs font-medium transition-colors ${
+              id={id}
+              className={`relative flex flex-1 flex-col items-center gap-1 py-1 text-[10px] font-bold tracking-tight transition-all active:scale-90 ${
                 active ? "text-primary" : "text-muted-foreground"
               }`}
             >
-              <Icon className="h-5 w-5" />
-              <span>{label}</span>
+              <div className="relative">
+                <Icon className={`h-6 w-6 transition-transform ${active ? "scale-110" : "scale-100"}`} />
+                {isMyCourse && favorites.length > 0 && (
+                  <span className="absolute -right-2 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500 text-[9px] font-black text-white ring-2 ring-background animate-in zoom-in duration-300">
+                    {favorites.length}
+                  </span>
+                )}
+              </div>
+              <span className={active ? "font-black" : "font-medium"}>{label}</span>
+              {active && (
+                <div className="absolute -bottom-1 h-1 w-1 rounded-full bg-primary" />
+              )}
             </Link>
           );
         })}

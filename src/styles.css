@@ -160,3 +160,39 @@
 .animate-slide-in {
   animation: slide-in-right 0.35s ease-out both;
 }
+
+@keyframes heart-fly {
+  0% {
+    transform: translate(var(--start-x), var(--start-y)) scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    transform: translate(var(--start-x), var(--start-y)) scale(1.4) rotate(15deg);
+    opacity: 1;
+  }
+  /* Spiral out and up */
+  30% {
+    transform: translate(calc(var(--start-x) - 40px), calc(var(--start-y) - 100px)) scale(1.6) rotate(-45deg);
+  }
+  50% {
+    transform: translate(calc(var(--start-x) + 40px), calc(var(--start-y) - 180px)) scale(1.4) rotate(-180deg);
+  }
+  /* Spiral in towards target */
+  75% {
+    transform: translate(calc(var(--start-x) + (var(--target-x) * 0.7)), calc(var(--start-y) + (var(--target-y) * 0.7))) scale(0.8) rotate(-360deg);
+    opacity: 0.9;
+  }
+  /* Perfect landing */
+  100% {
+    transform: translate(calc(var(--start-x) + var(--target-x)), calc(var(--start-y) + var(--target-y))) scale(0) rotate(-720deg);
+    opacity: 0;
+  }
+}
+
+.animate-heart-fly {
+  animation: heart-fly 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  position: fixed;
+  top: 0;
+  left: 0;
+  will-change: transform, opacity;
+}

@@ -9,7 +9,8 @@
   "nav": {
     "home": "Home",
     "spots": "Spots",
-    "myCourse": "My Course"
+    "myCourse": "My Course",
+    "styleTest": "Style Test"
   },
   "language": {
     "choose": "Choose your language",

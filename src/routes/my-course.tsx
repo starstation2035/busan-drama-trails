@@ -37,6 +37,8 @@ import {
 } from "@/lib/course";
 import { type EditableTimelineEntry } from "@/domain/course";
 import { courseService } from "@/application/courseService";
+import { STYLE_META, type StyleKey } from "@/data/quiz";
+import { RefreshCw } from "lucide-react";
 
 export const Route = createFileRoute("/my-course")({
   head: () => ({
@@ -58,6 +60,7 @@ function MyCoursePage() {
   const { t, i18n } = useTranslation();
   const lang = (i18n.language || "zh-TW") as LangCode;
   const favorites = useAppStore((s) => s.favorites);
+  const userStyle = useAppStore((s) => s.userStyle) as StyleKey | null;
   const toggleFavorite = useAppStore((s) => s.toggleFavorite);
   const navigate = useNavigate();
 
@@ -136,6 +139,36 @@ function MyCoursePage() {
         </p>
       </header>
 
+      {/* User Style Result */}
+      {userStyle && (
+        <div
+          className="relative overflow-hidden rounded-3xl p-6 text-center shadow-lg animate-fade-up"
+          style={{
+            background: `linear-gradient(135deg, ${STYLE_META[userStyle].colorVar}, color-mix(in oklab, ${STYLE_META[userStyle].colorVar} 60%, white))`,
+          }}
+        >
+          <div className="absolute top-3 right-4">
+            <Link
+              to="/style-test"
+              className="flex items-center gap-1 text-[10px] font-bold text-foreground/60 hover:text-foreground transition-colors"
+            >
+              <RefreshCw className="size-3" />
+              {t("common.retake")}
+            </Link>
+          </div>
+          <p className="text-[10px] font-bold uppercase tracking-widest text-foreground/60">
+            {t("quiz.result.yourStyle")}
+          </p>
+          <div className="mt-2 text-5xl animate-bounce-slow">{STYLE_META[userStyle].icon}</div>
+          <h2 className="mt-2 text-2xl font-black text-foreground">
+            {t(`quiz.types.${userStyle}.name`)}
+          </h2>
+          <p className="mt-1 text-xs font-medium text-foreground/70">
+            {t(`quiz.types.${userStyle}.tagline`)}
+          </p>
+        </div>
+      )}
+
       {/* Tabs */}
       <div className="grid grid-cols-2 rounded-xl bg-muted p-1">
         <button
@@ -173,17 +206,36 @@ function MyCoursePage() {
           }}
         />
       ) : (
-        <CourseView
-          course={editableCourse}
-          totalKm={totalKm}
-          lang={lang}
-          onUpdateMemo={(idx, val) =>
-            setEditableCourse((cur) => courseService.updateMemo(cur, idx, val))
-          }
-          onUpdateTravelTime={(idx, val) =>
-            setEditableCourse((cur) => courseService.updateTravelTime(cur, idx, val))
-          }
-        />
+        <div className="space-y-8">
+          {/* AI Optimization Banner */}
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-blue-600 to-indigo-700 p-6 text-white shadow-xl">
+            <div className="absolute top-0 right-0 p-4 opacity-10">
+              <Shuffle className="size-24" />
+            </div>
+            <div className="relative z-10">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-[10px] font-black uppercase tracking-widest backdrop-blur-md border border-white/10 mb-3">
+                <span className="size-2 rounded-full bg-green-400 animate-pulse" />
+                AI Optimized Path
+              </div>
+              <h2 className="text-2xl font-black mb-2 tracking-tight">AI 추천 최적 경로</h2>
+              <p className="text-white/80 text-xs leading-relaxed max-w-[80%]">
+                동선을 고려하여 가장 효율적인 방문 순서를 계산했습니다. {totalKm.toFixed(1)}km의 여정을 지금 확인해보세요!
+              </p>
+            </div>
+          </div>
+
+          <CourseView
+            course={editableCourse}
+            totalKm={totalKm}
+            lang={lang}
+            onUpdateMemo={(idx, val) =>
+              setEditableCourse((cur) => courseService.updateMemo(cur, idx, val))
+            }
+            onUpdateTravelTime={(idx, val) =>
+              setEditableCourse((cur) => courseService.updateTravelTime(cur, idx, val))
+            }
+          />
+        </div>
       )}
 
       {/* Bottom action bar */}
