@@ -13,7 +13,6 @@ import { Route as StyleTestRouteImport } from './routes/style-test'
 import { Route as SpotsRouteImport } from './routes/spots'
 import { Route as MyCourseRouteImport } from './routes/my-course'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as SpotsIdRouteImport } from './routes/spots_.$id'
 import { Route as SpotsIdRouteImport } from './routes/spots.$id'
 import { Route as SpotsIdNearbyRouteImport } from './routes/spots.$id.nearby'
 import { Route as SpotsIdNearbyItemIdRouteImport } from './routes/spots.$id.nearby.$itemId'
@@ -39,11 +38,6 @@ const IndexRoute = IndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const SpotsIdRoute = SpotsIdRouteImport.update({
-  id: '/spots_/$id',
-  path: '/spots/$id',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SpotsIdRoute = SpotsIdRouteImport.update({
   id: '/$id',
   path: '/$id',
   getParentRoute: () => SpotsRoute,
@@ -64,7 +58,7 @@ export interface FileRoutesByFullPath {
   '/my-course': typeof MyCourseRoute
   '/spots': typeof SpotsRouteWithChildren
   '/style-test': typeof StyleTestRoute
-  '/spots/$id': typeof SpotsIdRoute
+  '/spots/$id': typeof SpotsIdRouteWithChildren
   '/spots/$id/nearby': typeof SpotsIdNearbyRouteWithChildren
   '/spots/$id/nearby/$itemId': typeof SpotsIdNearbyItemIdRoute
 }
@@ -73,7 +67,7 @@ export interface FileRoutesByTo {
   '/my-course': typeof MyCourseRoute
   '/spots': typeof SpotsRouteWithChildren
   '/style-test': typeof StyleTestRoute
-  '/spots/$id': typeof SpotsIdRoute
+  '/spots/$id': typeof SpotsIdRouteWithChildren
   '/spots/$id/nearby': typeof SpotsIdNearbyRouteWithChildren
   '/spots/$id/nearby/$itemId': typeof SpotsIdNearbyItemIdRoute
 }
@@ -84,7 +78,6 @@ export interface FileRoutesById {
   '/spots': typeof SpotsRouteWithChildren
   '/style-test': typeof StyleTestRoute
   '/spots/$id': typeof SpotsIdRouteWithChildren
-  '/spots_/$id': typeof SpotsIdRoute
   '/spots/$id/nearby': typeof SpotsIdNearbyRouteWithChildren
   '/spots/$id/nearby/$itemId': typeof SpotsIdNearbyItemIdRoute
 }
@@ -114,7 +107,6 @@ export interface FileRouteTypes {
     | '/spots'
     | '/style-test'
     | '/spots/$id'
-    | '/spots_/$id'
     | '/spots/$id/nearby'
     | '/spots/$id/nearby/$itemId'
   fileRoutesById: FileRoutesById
@@ -124,7 +116,6 @@ export interface RootRouteChildren {
   MyCourseRoute: typeof MyCourseRoute
   SpotsRoute: typeof SpotsRouteWithChildren
   StyleTestRoute: typeof StyleTestRoute
-  SpotsIdRoute: typeof SpotsIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -155,13 +146,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/spots_/$id': {
-      id: '/spots_/$id'
-      path: '/spots/$id'
-      fullPath: '/spots/$id'
-      preLoaderRoute: typeof SpotsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/spots/$id': {
@@ -226,7 +210,6 @@ const rootRouteChildren: RootRouteChildren = {
   MyCourseRoute: MyCourseRoute,
   SpotsRoute: SpotsRouteWithChildren,
   StyleTestRoute: StyleTestRoute,
-  SpotsIdRoute: SpotsIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
