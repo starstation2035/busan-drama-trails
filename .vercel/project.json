@@ -1,0 +1,16 @@
+{
+  "projectId": "prj_uORG5RfRWCpMlG57ttFa9iivq5s5",
+  "orgId": "team_ruooSMpqpwmEe6xcWQKYaFFx",
+  "projectName": "busan-drama-trails",
+  "settings": {
+    "createdAt": 1776750346847,
+    "framework": "vite",
+    "devCommand": null,
+    "installCommand": null,
+    "buildCommand": null,
+    "outputDirectory": null,
+    "rootDirectory": null,
+    "directoryListing": false,
+    "nodeVersion": "24.x"
+  }
+}
