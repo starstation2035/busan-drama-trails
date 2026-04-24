@@ -1,5 +1,5 @@
 import { Heart } from "lucide-react";
-import { Link } from "@tanstack/react-router";
+import Link from "next/link";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import { useAppStore, type LangCode } from "@/stores/useAppStore";
@@ -32,8 +32,7 @@ export function SpotCard({ spot }: { spot: Spot }) {
 
   return (
     <Link
-      to="/spots/$id"
-      params={{ id: spot.id }}
+      href={`/spots/${spot.id}`}
       className="group block overflow-hidden rounded-2xl bg-card shadow-sm transition active:scale-[0.99] hover:shadow-lg"
     >
       <div className="relative aspect-square overflow-hidden bg-muted">

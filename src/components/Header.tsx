@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { Link } from "@tanstack/react-router";
+import Link from "next/link";
 import { Globe } from "lucide-react";
 import { useAppStore } from "@/stores/useAppStore";
 
@@ -23,7 +23,7 @@ export function Header({ onOpenLang }: Props) {
   return (
     <header className="sticky top-0 z-30 border-b border-border/60 bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-14 max-w-screen-md items-center justify-between px-4">
-        <Link to="/" className="font-bold text-primary tracking-tight">
+        <Link href="/" className="font-bold text-primary tracking-tight">
           {t("common.appName")}
         </Link>
         <button
