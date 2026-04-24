@@ -11,12 +11,22 @@ import { toast } from "sonner";
 import { triggerHeartFly } from "@/components/HeartEffect";
 import { Outlet, useChildMatches } from "@tanstack/react-router";
 
+interface NearbySearch {
+  type?: 'restaurant' | 'cafe';
+}
+
 export const Route = createFileRoute("/spots/$id/nearby")({
+  validateSearch: (search: Record<string, unknown>): NearbySearch => {
+    return {
+      type: (search.type as any) || undefined,
+    };
+  },
   component: NearbyDiscovery,
 });
 
 function NearbyDiscovery() {
   const { id } = Route.useParams();
+  const { type } = Route.useSearch();
   const { t } = useTranslation();
   const router = useRouter();
   const childMatches = useChildMatches();
@@ -35,8 +45,12 @@ function NearbyDiscovery() {
     const matchedRestaurants = (restaurantsRaw as any[]).filter((r) => rIds.includes(r.id));
     const matchedCafes = (cafesRaw as any[]).filter((c) => cIds.includes(c.id));
 
+    if (type === 'restaurant') return matchedRestaurants;
+    if (type === 'cafe') return matchedCafes;
     return [...matchedRestaurants, ...matchedCafes];
-  }, [spot]);
+  }, [spot, type]);
+
+  const titleSuffix = type === 'restaurant' ? ' 맛집' : type === 'cafe' ? ' 카페' : '';
 
   if (childMatches.length > 0) {
     return <Outlet />;
@@ -56,7 +70,7 @@ function NearbyDiscovery() {
             <ArrowLeft className="size-5" />
           </button>
           <div>
-            <h1 className="text-lg font-bold">{spot.name.ko} 주변 탐방</h1>
+            <h1 className="text-lg font-bold">{spot.name.ko} 주변{titleSuffix} 탐방</h1>
             <p className="text-xs text-muted-foreground flex items-center gap-1">
               <MapPin className="size-3" /> 반경 1km 이내 추천
             </p>
