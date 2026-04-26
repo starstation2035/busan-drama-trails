@@ -1,89 +1,60 @@
-import { cpSync, mkdirSync, writeFileSync, rmSync } from "fs";
+import { cpSync, mkdirSync, writeFileSync, rmSync, readdirSync } from "fs";
 import { execSync } from "child_process";
-import { buildSync } from "esbuild";
 
-console.log("Step 1: Vite build...");
+console.log("Building...");
 execSync("npx vite build", { stdio: "inherit" });
 
-console.log("Step 2: Creating .vercel/output structure...");
+// Find client entry from manifest
+const serverAssets = readdirSync("dist/server/assets");
+const manifestFile = serverAssets.find(f => f.includes("manifest"));
+const { tsrStartManifest } = await import(new URL(`../dist/server/assets/${manifestFile}`, import.meta.url).href);
+const manifest = tsrStartManifest();
+const clientEntry = manifest.clientEntry; // e.g. /assets/index-CxNlA28E.js
+
+// Find CSS file
+const clientAssets = readdirSync("dist/client/assets");
+const cssFile = clientAssets.find(f => f.endsWith(".css"));
+
+console.log("clientEntry:", clientEntry);
+console.log("css:", cssFile);
+
+// Generate index.html for SPA
+const html = `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Busan Drama Spot &amp; Style</title>
+    <meta name="description" content="Discover K-drama filming locations, restaurants, and cafes in Busan." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="/assets/${cssFile}" />
+  </head>
+  <body>
+    <script type="module">import("${clientEntry}")</script>
+  </body>
+</html>`;
+
+writeFileSync("dist/client/index.html", html);
+console.log("index.html created!");
+
+// Prepare clean .vercel/output
 rmSync(".vercel/output", { recursive: true, force: true });
 mkdirSync(".vercel/output/static", { recursive: true });
-mkdirSync(".vercel/output/functions/index.func", { recursive: true });
-
-// Static client assets
 cpSync("dist/client", ".vercel/output/static", { recursive: true });
 
-// Copy server assets (dynamic imports in server.js reference ./assets/*)
-cpSync("dist/server/assets", ".vercel/output/functions/index.func/assets", { recursive: true });
+// SPA routing config
+writeFileSync(".vercel/output/config.json", JSON.stringify({
+  version: 3,
+  routes: [
+    { src: "/assets/(.*)", dest: "/assets/$1" },
+    { handle: "filesystem" },
+    { src: "/(.*)", dest: "/index.html" }
+  ]
+}, null, 2));
 
-console.log("Step 3: Bundling SSR server with all dependencies...");
-buildSync({
-  entryPoints: ["dist/server/server.js"],
-  bundle: true,
-  platform: "node",
-  target: "node22",
-  format: "esm",
-  outfile: ".vercel/output/functions/index.func/server.bundle.js",
-  // Keep Node built-ins and local asset imports as-is
-  external: ["node:*", "./assets/*"],
-  allowOverwrite: true,
-});
+// Remove api folder (no longer needed)
+rmSync("api", { recursive: true, force: true });
 
-console.log("Step 4: Writing function handler...");
-writeFileSync(
-  ".vercel/output/functions/index.func/index.js",
-  `import server from "./server.bundle.js";
-
-export default async function handler(req, res) {
-  const url = new URL(req.url, "https://" + req.headers.host);
-  const chunks = [];
-  await new Promise((resolve) => {
-    req.on("data", (c) => chunks.push(c));
-    req.on("end", resolve);
-  });
-  const body = chunks.length ? Buffer.concat(chunks) : undefined;
-
-  const request = new Request(url.toString(), {
-    method: req.method,
-    headers: req.headers,
-    body: body && body.length > 0 ? body : undefined,
-  });
-
-  const response = await server.fetch(request);
-  res.statusCode = response.status;
-  for (const [k, v] of response.headers.entries()) res.setHeader(k, v);
-  if (response.body) {
-    const reader = response.body.getReader();
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      res.write(value);
-    }
-  }
-  res.end();
-}
-`
-);
-
-writeFileSync(
-  ".vercel/output/functions/index.func/package.json",
-  JSON.stringify({ type: "module" }, null, 2)
-);
-
-writeFileSync(
-  ".vercel/output/functions/index.func/.vc-config.json",
-  JSON.stringify({ runtime: "nodejs22.x", handler: "index.js", launcherType: "Nodejs" }, null, 2)
-);
-
-writeFileSync(
-  ".vercel/output/config.json",
-  JSON.stringify({
-    version: 3,
-    routes: [
-      { src: "/assets/(.*)", dest: "/assets/$1" },
-      { src: "/(.*)", dest: "/index" },
-    ],
-  }, null, 2)
-);
-
-console.log("Vercel output ready!");
+console.log("Done! Static SPA ready for Vercel.");
