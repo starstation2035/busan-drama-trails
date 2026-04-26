@@ -1,5 +1,4 @@
-
-import server from "./server.js";
+import server from "./server.bundle.js";
 
 export default async function handler(req, res) {
   const url = new URL(req.url, "https://" + req.headers.host);

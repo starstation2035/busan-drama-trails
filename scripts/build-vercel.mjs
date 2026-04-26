@@ -1,25 +1,38 @@
 import { cpSync, mkdirSync, writeFileSync, rmSync } from "fs";
 import { execSync } from "child_process";
+import { buildSync } from "esbuild";
 
-console.log("Building for Vercel...");
+console.log("Step 1: Vite build...");
 execSync("npx vite build", { stdio: "inherit" });
 
-console.log("Creating Vercel output structure...");
+console.log("Step 2: Creating .vercel/output structure...");
 rmSync(".vercel/output", { recursive: true, force: true });
 mkdirSync(".vercel/output/static", { recursive: true });
 mkdirSync(".vercel/output/functions/index.func", { recursive: true });
 
-// Copy static client assets
+// Static client assets
 cpSync("dist/client", ".vercel/output/static", { recursive: true });
 
-// Copy server files into the function directory
-cpSync("dist/server", ".vercel/output/functions/index.func", { recursive: true });
+// Copy server assets (dynamic imports in server.js reference ./assets/*)
+cpSync("dist/server/assets", ".vercel/output/functions/index.func/assets", { recursive: true });
 
-// Create function entrypoint
+console.log("Step 3: Bundling SSR server with all dependencies...");
+buildSync({
+  entryPoints: ["dist/server/server.js"],
+  bundle: true,
+  platform: "node",
+  target: "node22",
+  format: "esm",
+  outfile: ".vercel/output/functions/index.func/server.bundle.js",
+  // Keep Node built-ins and local asset imports as-is
+  external: ["node:*", "./assets/*"],
+  allowOverwrite: true,
+});
+
+console.log("Step 4: Writing function handler...");
 writeFileSync(
   ".vercel/output/functions/index.func/index.js",
-  `
-import server from "./server.js";
+  `import server from "./server.bundle.js";
 
 export default async function handler(req, res) {
   const url = new URL(req.url, "https://" + req.headers.host);
@@ -52,19 +65,16 @@ export default async function handler(req, res) {
 `
 );
 
-// ESM support for the function
 writeFileSync(
   ".vercel/output/functions/index.func/package.json",
   JSON.stringify({ type: "module" }, null, 2)
 );
 
-// Create function config
 writeFileSync(
   ".vercel/output/functions/index.func/.vc-config.json",
   JSON.stringify({ runtime: "nodejs22.x", handler: "index.js", launcherType: "Nodejs" }, null, 2)
 );
 
-// Create Vercel output config
 writeFileSync(
   ".vercel/output/config.json",
   JSON.stringify({
