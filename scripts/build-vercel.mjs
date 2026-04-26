@@ -52,6 +52,12 @@ export default async function handler(req, res) {
 `
 );
 
+// ESM support for the function
+writeFileSync(
+  ".vercel/output/functions/index.func/package.json",
+  JSON.stringify({ type: "module" }, null, 2)
+);
+
 // Create function config
 writeFileSync(
   ".vercel/output/functions/index.func/.vc-config.json",
