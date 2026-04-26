@@ -12,7 +12,8 @@ dist
 dist-ssr
 .output
 .vinxi
-.vercel
+.vercel/project.json
+.vercel/README.txt
 .tanstack/**
 .nitro
 *.local

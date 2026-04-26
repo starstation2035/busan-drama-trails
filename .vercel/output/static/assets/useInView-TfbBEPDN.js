@@ -1,0 +1,1 @@
+import{r as t}from"./index-CxNlA28E.js";function f(n){const r=t.useRef(null),[c,o]=t.useState(!1);return t.useEffect(()=>{const s=r.current;if(!s)return;const e=new IntersectionObserver(([i])=>{i.isIntersecting&&(o(!0),e.disconnect())},{threshold:.15,...n});return e.observe(s),()=>e.disconnect()},[n]),{ref:r,inView:c}}export{f as u};
