@@ -1,11 +1,11 @@
-import { cpSync, mkdirSync, writeFileSync, rmSync, readdirSync } from "fs";
+import { cpSync, mkdirSync, writeFileSync, rmSync } from "fs";
 import { execSync } from "child_process";
 import path from "path";
 
 const projectRoot = process.cwd();
 const vercelOutput = path.join(projectRoot, ".vercel/output");
 
-console.log("🚀 Starting Expert Vercel SSR Build...");
+console.log("🚀 Starting Expert Vercel SSR Build (CJS Edition)...");
 
 // 1. Clean up
 rmSync(vercelOutput, { recursive: true, force: true });
@@ -27,17 +27,15 @@ cpSync("dist/client", path.join(vercelOutput, "static"), { recursive: true });
 // 5. Create Bridge & Bundle Server
 console.log("🛠️ Bundling SSR Server with Bridge...");
 
-// Bridge code to convert Vercel (Node) req/res to Web Request/Response
 const bridgeCode = `
-import server from './server.raw.js';
+const server = require('./server.raw.js');
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   try {
     const protocol = req.headers['x-forwarded-proto'] || 'http';
     const host = req.headers.host;
     const url = new URL(req.url, \`\${protocol}://\${host}\`);
     
-    // Read body for non-GET requests
     let body = undefined;
     if (req.method !== 'GET' && req.method !== 'HEAD') {
       const chunks = [];
@@ -54,11 +52,11 @@ export default async function handler(req, res) {
       duplex: 'half'
     });
 
-    const response = await server.fetch(request);
+    const fetchHandler = server.default?.fetch || server.fetch;
+    const response = await fetchHandler(request);
     
     res.statusCode = response.status;
     response.headers.forEach((value, key) => {
-      // Avoid duplicate set-cookie headers if possible, or handle them
       if (key.toLowerCase() === 'set-cookie') {
         res.appendHeader(key, value);
       } else {
@@ -73,22 +71,14 @@ export default async function handler(req, res) {
     res.statusCode = 500;
     res.end('Internal Server Error (SSR Bridge)');
   }
-}
+};
 `;
 
-writeFileSync(path.join(functionDir, "bridge.js"), bridgeCode);
+writeFileSync(path.join(functionDir, "index.js"), bridgeCode);
 
-// Bundle the server + dependencies + manifest
-// We use esbuild to bundle EVERYTHING into a single file so Vercel doesn't need node_modules
 console.log("⚡ Running esbuild...");
-execSync(`npx esbuild dist/server/server.js --bundle --platform=node --target=node22 --format=esm --outfile=${path.join(functionDir, "server.raw.js")} --external:node:* --external:fsevents`, { stdio: "inherit" });
-
-// The entry point for Vercel is the bridge
-const indexJs = `
-import handler from './bridge.js';
-export default handler;
-`;
-writeFileSync(path.join(functionDir, "index.js"), indexJs);
+// Use CJS and PRODUCTION mode
+execSync(`npx esbuild dist/server/server.js --bundle --platform=node --target=node22 --format=cjs --outfile=${path.join(functionDir, "server.raw.js")} --define:process.env.NODE_ENV=\\"production\\" --external:fsevents`, { stdio: "inherit" });
 
 // 6. Create Vercel Configs
 writeFileSync(path.join(functionDir, ".vc-config.json"), JSON.stringify({
@@ -98,7 +88,7 @@ writeFileSync(path.join(functionDir, ".vc-config.json"), JSON.stringify({
   shouldAddHelpers: true
 }, null, 2));
 
-writeFileSync(path.join(functionDir, "package.json"), JSON.stringify({ type: "module" }));
+writeFileSync(path.join(functionDir, "package.json"), JSON.stringify({ }));
 
 // 7. Global Config for Routing
 writeFileSync(path.join(vercelOutput, "config.json"), JSON.stringify({
