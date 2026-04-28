@@ -5,6 +5,8 @@ import { useTranslation } from "react-i18next";
 import { Heart, MapPin, ArrowRight, MessageCircle, Map } from "lucide-react";
 import { MOCK_REVIEWS, type Review } from "@/data/mockReviews";
 
+import { useEffect, useRef, useState } from "react";
+
 const POSTERS = [
   { img: "https://upload.wikimedia.org/wikipedia/en/9/95/Train_to_Busan.jpg", link: "/spots?types=맛집" },
   { img: "https://upload.wikimedia.org/wikipedia/en/0/04/Ode_to_My_Father.jpg", link: "/spots?types=카페" },
@@ -18,6 +20,45 @@ const POSTERS = [
 export default function Landing() {
   const { t } = useTranslation();
   const recentReviews = MOCK_REVIEWS.slice(0, 3);
+  
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, w: 0 });
+  const requestRef = useRef<number>(null);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!scrollRef.current) return;
+    const rect = scrollRef.current.getBoundingClientRect();
+    setMousePos({
+      x: e.clientX - rect.left,
+      w: rect.width
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setMousePos({ x: 0, w: 0 });
+  };
+
+  useEffect(() => {
+    const animate = () => {
+      if (scrollRef.current && mousePos.w > 0) {
+        const center = mousePos.w / 2;
+        const diff = mousePos.x - center;
+        
+        // Only move if mouse is inside and not exactly at center
+        if (mousePos.x !== 0) {
+          // Speed scale: max speed around 5-10px per frame
+          const speed = (diff / center) * 10; 
+          scrollRef.current.scrollLeft += speed;
+        }
+      }
+      requestRef.current = requestAnimationFrame(animate);
+    };
+
+    requestRef.current = requestAnimationFrame(animate);
+    return () => {
+      if (requestRef.current) cancelAnimationFrame(requestRef.current);
+    };
+  }, [mousePos]);
 
   return (
     <div className="relative flex min-h-[calc(100vh-140px)] flex-col items-center justify-between pb-10 pt-4">
@@ -32,26 +73,33 @@ export default function Landing() {
         </Link>
       </div>
 
-      {/* 🎬 Movie Posters Marquee */}
-      <section className="w-full mb-10 overflow-hidden animate-fade-up mt-2">
-        <h2 className="mb-4 text-center text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-muted-foreground/80">
+      {/* 🎬 Movie Posters Cursor-Following Slider */}
+      <section className="w-full mb-10 animate-fade-up mt-2 px-4">
+        <h2 className="mb-4 text-left px-2 text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-muted-foreground/80">
           Busan in Cinema
         </h2>
-        <div className="relative flex w-full overflow-hidden">
-          <div className="flex w-max animate-marquee gap-5 pl-5 hover:[animation-play-state:paused] sm:gap-6 sm:pl-6">
-            {[...POSTERS, ...POSTERS].map((poster, i) => (
-              <Link key={i} href={poster.link} className="shrink-0 transition-transform duration-500 hover:scale-[1.03] active:scale-95">
+        <div 
+          ref={scrollRef}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          className="overflow-x-auto no-scrollbar scroll-smooth"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          <div className="flex gap-4 sm:gap-6 w-max px-2">
+            {POSTERS.map((poster, i) => (
+              <Link 
+                key={i} 
+                href={poster.link} 
+                className="shrink-0 transition-transform duration-500 hover:scale-[1.03] active:scale-95"
+              >
                 <img
                   src={poster.img}
                   alt="Busan Filming Location Poster"
-                  className="h-[360px] w-[240px] sm:h-[420px] sm:w-[280px] rounded-3xl object-cover shadow-2xl border border-white/10"
+                  className="h-[300px] w-[200px] sm:h-[420px] sm:w-[280px] rounded-3xl object-cover shadow-2xl border border-white/10"
                 />
               </Link>
             ))}
           </div>
-          {/* Gradient Edges */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-12 sm:w-20 bg-gradient-to-r from-background via-background/80 to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-12 sm:w-20 bg-gradient-to-l from-background via-background/80 to-transparent" />
         </div>
       </section>
 
