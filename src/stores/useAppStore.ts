@@ -11,6 +11,7 @@ interface AppState {
   setLang: (lang: LangCode) => void;
   setUserStyle: (style: UserStyle) => void;
   toggleFavorite: (id: string) => void;
+  setFavorites: (ids: string[]) => void;
 }
 
 export const useAppStore = create<AppState>()(
@@ -25,6 +26,7 @@ export const useAppStore = create<AppState>()(
         const f = get().favorites;
         set({ favorites: f.includes(id) ? f.filter((x) => x !== id) : [...f, id] });
       },
+      setFavorites: (ids) => set({ favorites: ids }),
     }),
     { name: "busan-app" },
   ),

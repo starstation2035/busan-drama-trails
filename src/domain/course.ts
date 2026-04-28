@@ -2,7 +2,7 @@ import { type AnyItem } from "@/lib/course";
 
 export interface TravelInfo {
   minutes: number;
-  mode: "walk" | "taxi" | "subway";
+  mode: "walk" | "taxi" | "subway" | "bus";
   km: number;
 }
 

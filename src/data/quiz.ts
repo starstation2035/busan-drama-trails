@@ -54,6 +54,34 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
       { key: "q6.b", style: "active", icon: "⚡" },
     ],
   },
+  {
+    id: "q7",
+    options: [
+      { key: "q7.a", style: "kdrama", icon: "☔" },
+      { key: "q7.b", style: "healing", icon: "🍵" },
+    ],
+  },
+  {
+    id: "q8",
+    options: [
+      { key: "q8.a", style: "insta", icon: "🏨" },
+      { key: "q8.b", style: "kdrama", icon: "🏡" },
+    ],
+  },
+  {
+    id: "q9",
+    options: [
+      { key: "q9.a", style: "active", icon: "👟" },
+      { key: "q9.b", style: "kdrama", icon: "🗺️" },
+    ],
+  },
+  {
+    id: "q10",
+    options: [
+      { key: "q10.a", style: "healing", icon: "🌿" },
+      { key: "q10.b", style: "insta", icon: "🌃" },
+    ],
+  },
 ];
 
 // Tie-breaker priority: kdrama > insta > healing > active
@@ -80,26 +108,34 @@ export function computeResult(answers: StyleKey[]): StyleKey {
 
 export const STYLE_META: Record<
   StyleKey,
-  { icon: string; colorVar: string; recommendedSpotIds: string[] }
+  { icon: string; colorVar: string; recommendedSpots: string[]; recommendedRestaurants: string[]; recommendedCafes: string[] }
 > = {
   healing: {
     icon: "🌊",
     colorVar: "var(--gamcheon-mint)",
-    recommendedSpotIds: ["spot_001", "spot_003", "spot_004"],
+    recommendedSpots: ["spot_001", "spot_003"],
+    recommendedRestaurants: ["r4"],
+    recommendedCafes: ["c4"],
   },
   active: {
     icon: "🏃",
     colorVar: "var(--busan-coral)",
-    recommendedSpotIds: ["spot_005", "spot_002", "spot_003"],
+    recommendedSpots: ["spot_005", "spot_002"],
+    recommendedRestaurants: ["r9"],
+    recommendedCafes: ["c6"],
   },
   insta: {
     icon: "📸",
     colorVar: "var(--drama-yellow)",
-    recommendedSpotIds: ["spot_002", "spot_004", "spot_001"],
+    recommendedSpots: ["spot_002", "spot_004"],
+    recommendedRestaurants: ["r12"],
+    recommendedCafes: ["c5"],
   },
   kdrama: {
     icon: "🎬",
     colorVar: "var(--style-purple)",
-    recommendedSpotIds: ["spot_001", "spot_004", "spot_005"],
+    recommendedSpots: ["spot_004", "spot_001"],
+    recommendedRestaurants: ["r5"],
+    recommendedCafes: ["c12"],
   },
 };

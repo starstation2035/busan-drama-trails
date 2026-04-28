@@ -34,7 +34,7 @@ export type TimelineEntry = {
   time: string;
   durationMin: number;
   item: AnyItem;
-  travelToNext?: { minutes: number; mode: "walk" | "taxi" | "subway"; km: number };
+  travelToNext?: { minutes: number; mode: "walk" | "taxi" | "subway" | "bus"; km: number };
 };
 
 const spots = spotsData as Array<{
@@ -97,12 +97,28 @@ function haversineKm(a: Coords, b: Coords): number {
 
 export function travelEstimate(km: number): {
   minutes: number;
-  mode: "walk" | "taxi" | "subway";
+  mode: "walk" | "taxi" | "subway" | "bus";
   km: number;
 } {
   if (km < 1) return { minutes: Math.max(3, Math.round(km * 12)), mode: "walk", km };
   if (km <= 5) return { minutes: Math.max(5, Math.round(km * 3)), mode: "taxi", km };
-  return { minutes: Math.round(km * 4) + 10, mode: "subway", km };
+  // Default to bus/subway for longer distances
+  return { minutes: Math.round(km * 4) + 10, mode: "bus", km };
+}
+
+export function modeSpecificEstimate(km: number, mode: "walk" | "taxi" | "subway" | "bus"): number {
+  switch (mode) {
+    case "walk":
+      return Math.max(3, Math.round(km * 12));
+    case "taxi":
+      return Math.max(5, Math.round(km * 3));
+    case "bus":
+      return Math.max(10, Math.round(km * 5) + 5);
+    case "subway":
+      return Math.max(15, Math.round(km * 4) + 10);
+    default:
+      return 10;
+  }
 }
 
 function nearestNeighborOrder(spotsIn: SpotItem[]): SpotItem[] {
@@ -121,6 +137,7 @@ function nearestNeighborOrder(spotsIn: SpotItem[]): SpotItem[] {
         bestKm = km;
         bestIdx = i;
       }
+
     }
     ordered.push(remaining.splice(bestIdx, 1)[0]);
   }

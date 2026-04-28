@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -18,6 +18,14 @@ import {
   X,
   Instagram,
   MessageCircle,
+  ChevronUp,
+  ChevronDown,
+  Bus,
+  Menu,
+  FolderOpen,
+  MapPin as MapPinIcon,
+  Utensils,
+  Coffee,
 } from "lucide-react";
 import { useAppStore, type LangCode } from "@/stores/useAppStore";
 import { Button } from "@/components/ui/button";
@@ -30,6 +38,19 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import {
   classifyFavorites,
   generateCourse,
@@ -72,11 +93,15 @@ function MyCoursePage() {
   const [tab, setTab] = useState<"list" | "course">("course");
   const [seed, setSeed] = useState(0);
 
-  // Editable local state
   const [editableCourse, setEditableCourse] = useState<EditableTimelineEntry[]>([]);
+  const skipRegenRef = useRef(false);
 
   // Sync with auto-generated course if favorites change or seed changes
   useEffect(() => {
+    if (skipRegenRef.current) {
+      skipRegenRef.current = false;
+      return;
+    }
     if (favorites.length > 0) {
       const generated = generateCourse(favorites) as EditableTimelineEntry[];
       setEditableCourse(generated);
@@ -125,11 +150,20 @@ function MyCoursePage() {
     toast.success(t("common.copied"));
   };
 
+  const handleRemoveItem = (index: number) => {
+    const itemToRemove = editableCourse[index].item;
+    skipRegenRef.current = true;
+    toggleFavorite(itemToRemove.id);
+    setEditableCourse((prev) => prev.filter((_, i) => i !== index));
+    toast(t("myCourse.removed"));
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
-      <header className="space-y-1">
-        <h1 className="text-3xl font-bold text-foreground">{t("myCourse.title")}</h1>
+      <header className="flex items-start justify-between">
+        <div className="space-y-1">
+          <h1 className="text-3xl font-bold text-foreground">{t("myCourse.title")}</h1>
         <p className="text-sm text-muted-foreground">
           {t("myCourse.subtitle", {
             spots: spots.length,
@@ -137,6 +171,116 @@ function MyCoursePage() {
             cafes: cafes.length,
           })}
         </p>
+        </div>
+        
+        {/* Explorer Drawer Trigger */}
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="outline" size="icon" className="shrink-0 h-10 w-10 rounded-full shadow-sm">
+              <Menu className="h-5 w-5" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="w-[300px] sm:w-[380px] p-0 flex flex-col">
+            <SheetHeader className="p-4 border-b bg-muted/20 text-left">
+              <SheetTitle className="flex items-center gap-2">
+                <FolderOpen className="h-5 w-5 text-primary" />
+                {t("myCourse.explorer.title", "Course Explorer")}
+              </SheetTitle>
+            </SheetHeader>
+            <div className="flex-1 overflow-y-auto p-4 space-y-6">
+              
+              {/* User Style Result (Minimal) */}
+              {userStyle && (
+                <div
+                  className="relative overflow-hidden rounded-2xl p-4 text-center shadow-md animate-fade-up"
+                  style={{
+                    background: `linear-gradient(135deg, ${STYLE_META[userStyle].colorVar}, color-mix(in oklab, ${STYLE_META[userStyle].colorVar} 60%, white))`,
+                  }}
+                >
+                  <p className="text-xs font-bold uppercase tracking-widest text-foreground/70 mb-1">
+                    {t("quiz.result.yourStyle")}
+                  </p>
+                  <div className="text-3xl">{STYLE_META[userStyle].icon}</div>
+                  <h2 className="mt-1 text-lg font-black text-foreground leading-tight">
+                    {t(`quiz.types.${userStyle}.name`)}
+                  </h2>
+                </div>
+              )}
+
+              {/* Tree View for Spots */}
+              <Accordion type="multiple" defaultValue={["spots", "restaurants", "cafes"]} className="w-full">
+                <AccordionItem value="spots" className="border-b-0">
+                  <AccordionTrigger className="hover:no-underline py-2">
+                    <div className="flex items-center gap-2 font-bold text-sm">
+                      <MapPinIcon className="h-4 w-4 text-blue-500" />
+                      {t("quiz.result.spots", "Spots")} ({spots.length})
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="pt-1 pb-3 space-y-1">
+                    {spots.length === 0 ? (
+                      <p className="text-xs text-muted-foreground px-6">{t("myCourse.emptyFolder", "No items")}</p>
+                    ) : (
+                      spots.map((spot) => (
+                        <div key={spot.id} className="flex items-center justify-between group rounded-md px-2 py-1.5 hover:bg-muted/50 transition-colors">
+                          <span className="text-xs font-medium truncate pr-2">{spot.name[lang]}</span>
+                          <Button variant="ghost" size="icon" className="h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity text-destructive hover:bg-destructive/10 hover:text-destructive" onClick={() => toggleFavorite(spot.id)}>
+                            <Trash2 className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      ))
+                    )}
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="restaurants" className="border-b-0">
+                  <AccordionTrigger className="hover:no-underline py-2">
+                    <div className="flex items-center gap-2 font-bold text-sm">
+                      <Utensils className="h-4 w-4 text-orange-500" />
+                      {t("quiz.result.restaurants", "Restaurants")} ({restaurants.length})
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="pt-1 pb-3 space-y-1">
+                    {restaurants.length === 0 ? (
+                      <p className="text-xs text-muted-foreground px-6">{t("myCourse.emptyFolder", "No items")}</p>
+                    ) : (
+                      restaurants.map((item) => (
+                        <div key={item.id} className="flex items-center justify-between group rounded-md px-2 py-1.5 hover:bg-muted/50 transition-colors">
+                          <span className="text-xs font-medium truncate pr-2">{item.name[lang]}</span>
+                          <Button variant="ghost" size="icon" className="h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity text-destructive hover:bg-destructive/10 hover:text-destructive" onClick={() => toggleFavorite(item.id)}>
+                            <Trash2 className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      ))
+                    )}
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="cafes" className="border-b-0">
+                  <AccordionTrigger className="hover:no-underline py-2">
+                    <div className="flex items-center gap-2 font-bold text-sm">
+                      <Coffee className="h-4 w-4 text-amber-600" />
+                      {t("quiz.result.cafes", "Cafes")} ({cafes.length})
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="pt-1 pb-3 space-y-1">
+                    {cafes.length === 0 ? (
+                      <p className="text-xs text-muted-foreground px-6">{t("myCourse.emptyFolder", "No items")}</p>
+                    ) : (
+                      cafes.map((item) => (
+                        <div key={item.id} className="flex items-center justify-between group rounded-md px-2 py-1.5 hover:bg-muted/50 transition-colors">
+                          <span className="text-xs font-medium truncate pr-2">{item.name[lang]}</span>
+                          <Button variant="ghost" size="icon" className="h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity text-destructive hover:bg-destructive/10 hover:text-destructive" onClick={() => toggleFavorite(item.id)}>
+                            <Trash2 className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      ))
+                    )}
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
+          </SheetContent>
+        </Sheet>
       </header>
 
       {/* User Style Result */}
@@ -150,13 +294,13 @@ function MyCoursePage() {
           <div className="absolute top-3 right-4">
             <Link
               to="/style-test"
-              className="flex items-center gap-1 text-[10px] font-bold text-foreground/60 hover:text-foreground transition-colors"
+              className="flex items-center gap-1.5 text-sm font-bold text-foreground/60 hover:text-foreground transition-colors"
             >
-              <RefreshCw className="size-3" />
+              <RefreshCw className="size-4" />
               {t("common.retake")}
             </Link>
           </div>
-          <p className="text-[10px] font-bold uppercase tracking-widest text-foreground/60">
+          <p className="text-sm font-bold uppercase tracking-widest text-foreground/60">
             {t("quiz.result.yourStyle")}
           </p>
           <div className="mt-2 text-5xl animate-bounce-slow">{STYLE_META[userStyle].icon}</div>
@@ -228,32 +372,87 @@ function MyCoursePage() {
             course={editableCourse}
             totalKm={totalKm}
             lang={lang}
+            isReordering={true}
             onUpdateMemo={(idx, val) =>
               setEditableCourse((cur) => courseService.updateMemo(cur, idx, val))
             }
             onUpdateTravelTime={(idx, val) =>
               setEditableCourse((cur) => courseService.updateTravelTime(cur, idx, val))
             }
+            onUpdateTravelMode={(idx, mode) =>
+              setEditableCourse((cur) => courseService.updateTravelMode(cur, idx, mode))
+            }
+            onMove={(idx, dir) =>
+              setEditableCourse((cur) => courseService.moveEntry(cur, idx, dir))
+            }
+            onRemove={handleRemoveItem}
           />
         </div>
       )}
 
       {/* Bottom action bar */}
       {tab === "course" && (
-        <div className="sticky bottom-20 z-10 grid grid-cols-3 gap-2 rounded-2xl border border-border/60 bg-background/95 p-2 shadow-lg backdrop-blur md:bottom-4">
+        <div className="sticky bottom-20 z-10 grid grid-cols-2 gap-2 rounded-2xl border border-border/60 bg-background/95 p-2 shadow-lg backdrop-blur md:bottom-4">
           <Dialog>
             <DialogTrigger asChild>
-              <Button variant="default" className="gap-1">
+              <Button variant="outline" className="gap-1 border-primary/30 text-primary hover:bg-primary/5">
                 <Share2 className="h-4 w-4" /> {t("myCourse.actions.share")}
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-[400px] overflow-hidden p-0 sm:rounded-3xl">
-              <ShareLayout course={editableCourse} lang={lang} />
+            <DialogContent className="max-w-[420px] overflow-hidden p-0 sm:rounded-3xl border-none shadow-2xl">
+              <div className="flex flex-col">
+                <ShareLayout course={editableCourse} lang={lang} />
+                <div className="bg-background p-6 space-y-4">
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="space-y-1">
+                      <p className="text-sm font-bold">{t("myCourse.share.modalTitle")}</p>
+                      <p className="text-[10px] text-muted-foreground">{t("myCourse.share.modalDesc")}</p>
+                    </div>
+                    <Button size="sm" variant="outline" className="h-8 rounded-full text-[11px]" onClick={handleCopy}>
+                      {t("myCourse.actions.copyLink")}
+                    </Button>
+                  </div>
+                  
+                  <div className="grid grid-cols-3 gap-3">
+                    <button 
+                      onClick={() => window.open(`https://line.me/R/msg/text/?${encodeURIComponent(t("myCourse.share.message") + "\n" + window.location.href)}`)}
+                      className="flex flex-col items-center gap-2 rounded-2xl bg-slate-50 py-3 transition hover:bg-slate-100"
+                    >
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#06C755] text-white">
+                        <MessageCircle className="h-5 w-5" />
+                      </div>
+                      <span className="text-[10px] font-bold text-slate-600">LINE</span>
+                    </button>
+                    <button 
+                      onClick={() => toast(t("myCourse.share.kakaoSoon"))}
+                      className="flex flex-col items-center gap-2 rounded-2xl bg-slate-50 py-3 transition hover:bg-slate-100"
+                    >
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#FEE500] text-black">
+                        <MessageCircle className="h-5 w-5 fill-black" />
+                      </div>
+                      <span className="text-[10px] font-bold text-slate-600">Kakao</span>
+                    </button>
+                    <button 
+                      onClick={() => toast(t("myCourse.share.instaHint"))}
+                      className="flex flex-col items-center gap-2 rounded-2xl bg-slate-50 py-3 transition hover:bg-slate-100"
+                    >
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] text-white">
+                        <Instagram className="h-5 w-5" />
+                      </div>
+                      <span className="text-[10px] font-bold text-slate-600">Instagram</span>
+                    </button>
+                  </div>
+                  
+                  <Button 
+                    className="w-full h-12 rounded-2xl bg-gradient-to-r from-primary to-indigo-600 text-white font-bold"
+                    onClick={() => toast(t("myCourse.share.imageSaveHint"))}
+                  >
+                    이미지로 저장하기
+                  </Button>
+                </div>
+              </div>
             </DialogContent>
           </Dialog>
-          <Button variant="outline" onClick={() => setSeed((s) => s + 1)} className="gap-1">
-            <Shuffle className="h-4 w-4" /> {t("myCourse.actions.regen")}
-          </Button>
           <Button
             variant="outline"
             onClick={() => toast(t("myCourse.actions.exportSoon"))}
@@ -343,19 +542,26 @@ function ListView({
   );
 }
 
-/* ---------- Course view ---------- */
 function CourseView({
   course,
   totalKm,
   lang,
+  isReordering = false,
   onUpdateMemo,
   onUpdateTravelTime,
+  onUpdateTravelMode,
+  onMove,
+  onRemove,
 }: {
   course: EditableTimelineEntry[];
   totalKm: number;
   lang: LangCode;
+  isReordering?: boolean;
   onUpdateMemo: (index: number, val: string) => void;
   onUpdateTravelTime: (index: number, val: number) => void;
+  onUpdateTravelMode: (index: number, mode: "walk" | "taxi" | "subway" | "bus") => void;
+  onMove?: (index: number, direction: "up" | "down") => void;
+  onRemove?: (index: number) => void;
 }) {
   const { t } = useTranslation();
 
@@ -394,82 +600,128 @@ function CourseView({
               ? { to: "/spots/$id", params: { id: item.id } }
               : ({} as Record<string, never>);
           return (
-            <li key={`${item.kind}-${item.id}-${i}`} className="relative pb-6 pl-16">
-              {/* time column */}
-              <div className="absolute left-0 top-0 w-12 text-right">
-                <span className="text-xs font-semibold text-foreground">{entry.time}</span>
-              </div>
+            <li key={`${item.kind}-${item.id}-${i}`} className="relative pb-6 pl-8">
               {/* dot + line */}
               <span
-                className="absolute left-[3.25rem] top-1.5 h-3 w-3 rounded-full border-2 border-background"
+                className="absolute left-[0.25rem] top-1.5 h-3 w-3 rounded-full border-2 border-background"
                 style={{ backgroundColor: dotColor(item.kind) }}
               />
               {!isLast && (
-                <span className="absolute left-[3.65rem] top-5 bottom-0 w-px bg-border" />
+                <span className="absolute left-[0.65rem] top-5 bottom-0 w-px bg-border" />
               )}
               {/* card */}
-              {/* @ts-expect-error dynamic element */}
-              <ItemLink
-                {...linkProps}
-                className="block rounded-2xl border border-border/60 bg-card p-3 shadow-sm transition hover:shadow-md"
-              >
-                <div className="flex items-center gap-3">
-                  <img
-                    src={item.thumbnail}
-                    alt=""
-                    className="h-14 w-14 rounded-xl object-cover"
-                    loading="lazy"
-                  />
-                  <div className="min-w-0 flex-1">
-                    <p className="text-[10px] uppercase tracking-wide text-muted-foreground">
-                      {kindLabel(item.kind, t)}
-                    </p>
-                    <h4 className="line-clamp-1 text-sm font-semibold text-foreground">
-                      {name}
-                    </h4>
-                    <p className="mt-0.5 flex items-center gap-1 text-xs text-muted-foreground">
-                      <Clock className="h-3 w-3" /> {entry.durationMin} min
-                    </p>
+              <div className="flex gap-2">
+                {/* Reorder Buttons */}
+                {isReordering && (
+                  <div className="flex flex-col gap-2 justify-center pr-1">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-8 w-8 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-sm transition-all hover:scale-105 hover:shadow-md active:scale-95 disabled:opacity-30 disabled:hover:scale-100"
+                      onClick={() => onMove?.(i, "up")}
+                      disabled={i === 0}
+                    >
+                      <ChevronUp className="h-5 w-5" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-8 w-8 rounded-xl bg-gradient-to-br from-indigo-600 to-violet-700 text-white shadow-sm transition-all hover:scale-105 hover:shadow-md active:scale-95 disabled:opacity-30 disabled:hover:scale-100"
+                      onClick={() => onMove?.(i, "down")}
+                      disabled={isLast}
+                    >
+                      <ChevronDown className="h-5 w-5" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-8 w-8 rounded-xl bg-gradient-to-br from-red-400 to-red-600 text-white shadow-sm transition-all hover:scale-105 hover:shadow-md active:scale-95"
+                      onClick={() => onRemove?.(i)}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
                   </div>
-                </div>
+                )}
 
-                {/* Travel Memo Input */}
-                <div className="mt-3 space-y-1">
-                  <div className="flex items-center gap-1.5 px-1 text-[10px] font-medium text-muted-foreground/80">
-                    <Pencil className="h-2.5 w-2.5" />
-                    {t("myCourse.memo.label")}
+                {/* @ts-expect-error dynamic element */}
+                <ItemLink
+                  {...linkProps}
+                  className="block flex-1 rounded-2xl border border-border/60 bg-card p-3 shadow-sm transition hover:shadow-md"
+                >
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={item.thumbnail}
+                      alt=""
+                      className="h-14 w-14 rounded-xl object-cover"
+                      loading="lazy"
+                    />
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[10px] uppercase tracking-wide text-muted-foreground">
+                        {kindLabel(item.kind, t)}
+                      </p>
+                      <h4 className="line-clamp-1 text-sm font-semibold text-foreground">
+                        {name}
+                      </h4>
+                    </div>
                   </div>
-                  <Textarea
-                    placeholder={t("myCourse.memo.placeholder")}
-                    value={entry.memo || ""}
-                    onChange={(e) => onUpdateMemo(i, e.target.value)}
-                    className="min-h-[40px] resize-none border-none bg-muted/30 text-xs placeholder:text-muted-foreground/50 focus-visible:ring-1 focus-visible:ring-primary/30"
-                  />
-                </div>
-              </ItemLink>
+
+                  {/* Travel Memo Input */}
+                  <div className="mt-3 space-y-1">
+                    <div className="flex items-center gap-1.5 px-1 text-[10px] font-medium text-muted-foreground/80">
+                      <Pencil className="h-2.5 w-2.5" />
+                      {t("myCourse.memo.label")}
+                    </div>
+                    <Textarea
+                      placeholder={t("myCourse.memo.placeholder")}
+                      value={entry.memo || ""}
+                      onChange={(e) => onUpdateMemo(i, e.target.value)}
+                      className="min-h-[40px] resize-none border-none bg-muted/30 text-xs placeholder:text-muted-foreground/50 focus-visible:ring-1 focus-visible:ring-primary/30"
+                    />
+                  </div>
+                </ItemLink>
+              </div>
 
               {/* travel */}
               {entry.travelToNext && !isLast && (
                 <div className="group mt-2">
-                  <div className="ml-1 flex items-center gap-2">
-                    <div className="flex items-center gap-1 rounded-full bg-muted/50 px-2 py-1 text-[10px] text-muted-foreground transition-colors group-hover:bg-muted">
-                      <ModeIcon mode={entry.travelToNext.mode} />
-                      <span className="font-medium">
-                        {entry.travelToNext.minutes} {t("myCourse.customTravel.unit")}{" "}
-                        {t(`myCourse.travel.${entry.travelToNext.mode}`)}
-                      </span>
+                  <div className="ml-1 flex flex-col gap-2">
+                    <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar">
+                      {(["walk", "taxi", "bus", "subway"] as const).map((m) => (
+                        <button
+                          key={m}
+                          onClick={() => onUpdateTravelMode(i, m)}
+                          className={`flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-bold transition-all ${
+                            entry.travelToNext?.mode === m
+                              ? "bg-primary text-white shadow-md ring-2 ring-primary/20 scale-105"
+                              : "bg-muted/50 text-muted-foreground hover:bg-muted"
+                          }`}
+                        >
+                          <ModeIcon mode={m} />
+                          <span className="uppercase">{t(`myCourse.travel.${m}`)}</span>
+                        </button>
+                      ))}
                     </div>
 
-                    <div className="flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100">
-                      <Input
-                        type="number"
-                        min="1"
-                        max="300"
-                        value={entry.travelToNext.minutes}
-                        onChange={(e) => onUpdateTravelTime(i, parseInt(e.target.value) || 1)}
-                        className="h-6 w-14 rounded-md border-border/40 bg-background px-1.5 py-0 text-[10px] focus-visible:ring-primary/30"
-                      />
-                      <Timer className="h-3 w-3 text-muted-foreground/60" />
+                    <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1 rounded-full bg-muted/30 px-2 py-0.5 text-[9px] text-muted-foreground/80">
+                        <span className="font-bold">
+                          {entry.travelToNext.minutes} {t("myCourse.customTravel.unit")}
+                        </span>
+                        <span>•</span>
+                        <span>{entry.travelToNext.km.toFixed(1)} km</span>
+                      </div>
+
+                      <div className="flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100">
+                        <Input
+                          type="number"
+                          min="1"
+                          max="300"
+                          value={entry.travelToNext.minutes}
+                          onChange={(e) => onUpdateTravelTime(i, parseInt(e.target.value) || 1)}
+                          className="h-5 w-12 rounded-md border-border/40 bg-background px-1 py-0 text-[10px] focus-visible:ring-primary/30"
+                        />
+                        <Timer className="h-3 w-3 text-muted-foreground/60" />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -585,8 +837,9 @@ function kindLabel(kind: "spot" | "restaurant" | "cafe", t: (k: string) => strin
   return t(`myCourse.kinds.${kind}`);
 }
 
-function ModeIcon({ mode }: { mode: "walk" | "taxi" | "subway" }) {
-  if (mode === "walk") return <Footprints className="h-3 w-3" />;
-  if (mode === "taxi") return <Car className="h-3 w-3" />;
-  return <TrainFront className="h-3 w-3" />;
+function ModeIcon({ mode }: { mode: "walk" | "taxi" | "subway" | "bus" }) {
+  if (mode === "walk") return <Footprints className="h-4 w-4" />;
+  if (mode === "taxi") return <Car className="h-4 w-4" />;
+  if (mode === "bus") return <Bus className="h-4 w-4" />;
+  return <TrainFront className="h-4 w-4" />;
 }
