@@ -244,7 +244,8 @@ function NearbyDiscovery() {
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
-                      const wasFav = isFav;
+                      
+                      const isCurrentlyFav = isFav;
                       const payload = {
                         id: item.id,
                         name: item.name.ko,
@@ -252,22 +253,28 @@ function NearbyDiscovery() {
                         longitude: item.longitude,
                         category: activeTab
                       };
-                      if (!wasFav) {
-                        console.log("마이코스에 추가된 데이터:", payload);
+                      
+                      if (!isCurrentlyFav) {
+                        toast("마이코스에 담겼습니다!");
                         triggerHeartFly(e.clientX, e.clientY);
-                        toast("마이코스에 추가되었습니다!");
                       } else {
                         toast("마이코스에서 삭제되었습니다.");
                       }
+                      
                       toggleMyCourseItem(payload);
                       toggleFavorite(item.id);
+                      
+                      // setTimeout을 이용해 상태 업데이트 후의 목록을 로깅 (근사치)
+                      setTimeout(() => {
+                        console.log("현재 마이코스 목록:", useAppStore.getState().myCourseItems);
+                      }, 100);
                     }}
                     className={`absolute top-4 right-4 z-10 p-3 rounded-2xl backdrop-blur-md transition-all active:scale-90 ${isFav
-                        ? "bg-rose-500 text-white shadow-lg shadow-rose-500/30"
+                        ? "bg-[#FF0000] text-white shadow-lg shadow-red-500/30"
                         : "bg-black/20 text-white hover:bg-black/40"
                       }`}
                   >
-                    <Heart className={`size-5 ${isFav ? "fill-current" : ""}`} />
+                    <Heart className={`size-5 ${isFav ? "fill-current text-[#FF0000]" : "text-white"}`} />
                   </button>
                 </div>
                 <div className="p-5">
