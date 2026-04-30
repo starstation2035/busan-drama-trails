@@ -144,11 +144,17 @@ export function getDistance(lat1: number, lon1: number, lat2: number, lon2: numb
 }
 
 export const Route = createFileRoute("/spots/$id/nearby")({
+  validateSearch: (search: Record<string, unknown>): NearbySearch => {
+    return {
+      type: (search.type as any) || undefined,
+    };
+  },
   component: NearbyDiscovery,
 });
 
 function NearbyDiscovery() {
   const { id } = Route.useParams();
+  const { type } = Route.useSearch();
   const { t } = useTranslation();
   const router = useRouter();
   const childMatches = useChildMatches();
@@ -193,7 +199,7 @@ function NearbyDiscovery() {
             <ArrowLeft className="size-5" />
           </button>
           <div>
-            <h1 className="text-lg font-bold">{spot.name.ko} 주변 탐방</h1>
+            <h1 className="text-lg font-bold">{spot.name.ko} 주변{titleSuffix} 탐방</h1>
             <p className="text-xs text-muted-foreground flex items-center gap-1">
               <MapPin className="size-3" /> 반경 {SPOT_CONFIGS[id as string]?.radius / 1000 || 1}km 이내 인기 장소
             </p>

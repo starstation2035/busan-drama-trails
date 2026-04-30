@@ -24,6 +24,7 @@ import spotsRaw from "@/data/spots.json";
 import restaurantsRaw from "@/data/restaurants.json";
 import cafesRaw from "@/data/cafes.json";
 import { triggerHeartFly } from "@/components/HeartEffect";
+import { cn } from "@/lib/utils";
 
 type LocalizedString = Partial<Record<LangCode, string>>;
 
@@ -74,6 +75,8 @@ interface SpotFull {
   nearby_cafes?: string[];
   photo_tips?: PhotoTip[];
   visit_tips?: LocalizedString;
+  status?: LocalizedString;
+  scene_description?: LocalizedString;
 }
 
 const SPOTS = spotsRaw as SpotFull[];
@@ -132,12 +135,15 @@ function SpotDetail() {
   const toggleFavorite = useAppStore((s) => s.toggleFavorite);
   const isFav = favorites.includes(spot.id);
   const [tipsOpen, setTipsOpen] = useState(false);
+  const [activeMap, setActiveMap] = useState<'google' | 'kakao'>('google');
 
   const name = pickLang(spot.name, lang);
   const description = pickLang(spot.description, lang);
   const address = pickLang(spot.address, lang);
   const admission = pickLang(spot.admission, lang);
   const visitTips = pickLang(spot.visit_tips, lang);
+  const statusInfo = pickLang(spot.status, lang);
+  const sceneDesc = pickLang(spot.scene_description, lang);
 
   const restaurants = useMemo(
     () =>
@@ -197,144 +203,239 @@ function SpotDetail() {
 
   return (
     <div className="pb-28">
-      {/* 1. HERO */}
-      <section className="relative h-[55vh] min-h-[360px] w-full overflow-hidden">
-        <img
-          src={spot.thumbnail}
-          alt={name}
-          className="absolute inset-0 h-full w-full object-cover"
-          fetchPriority="high"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/30" />
+      {/* 1. HERO (Airbnb Style 5:4 Forced) */}
+      <section className="relative px-0 md:px-6 md:pt-6">
+        <div 
+          className="group relative w-full max-h-[75vh] overflow-hidden md:rounded-3xl bg-muted shadow-2xl"
+          style={{ aspectRatio: '5/4' }}
+        >
+          <img
+            src={spot.thumbnail}
+            alt={name}
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            fetchPriority="high"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
-        {/* Floating top controls */}
-        <div className="absolute left-0 right-0 top-0 flex items-center justify-between p-4">
-          <button
-            onClick={goBack}
-            aria-label={t("detail.back")}
-            className="grid size-10 place-items-center rounded-full bg-white/95 text-foreground shadow-lg backdrop-blur transition active:scale-90"
-          >
-            <ArrowLeft className="size-5" />
-          </button>
-          <div className="flex gap-2">
+          {/* Floating top controls */}
+          <div className="absolute left-0 right-0 top-0 flex items-center justify-between p-4">
             <button
-              onClick={handleShare}
-              aria-label={t("detail.share")}
-              className="grid size-10 place-items-center rounded-full bg-white/95 text-foreground shadow-lg backdrop-blur transition active:scale-90"
+              onClick={goBack}
+              aria-label={t("detail.back")}
+              className="grid size-9 place-items-center rounded-full bg-white/95 text-foreground shadow-md backdrop-blur transition active:scale-90 hover:bg-white"
             >
-              <Share2 className="size-4" />
+              <ArrowLeft className="size-4" />
             </button>
-            <button
-              onClick={(e) => handleFav(e)}
-              aria-label="favorite"
-              className="grid size-10 place-items-center rounded-full bg-white/95 shadow-lg backdrop-blur transition active:scale-90"
-            >
-              <Heart
-                className={`size-4 ${isFav ? "fill-primary text-primary" : "text-foreground"}`}
-              />
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={handleShare}
+                aria-label={t("detail.share")}
+                className="grid size-9 place-items-center rounded-full bg-white/95 text-foreground shadow-md backdrop-blur transition active:scale-90 hover:bg-white"
+              >
+                <Share2 className="size-3.5" />
+              </button>
+              <button
+                onClick={(e) => handleFav(e)}
+                aria-label="favorite"
+                className="grid size-9 place-items-center rounded-full bg-white/95 shadow-md backdrop-blur transition active:scale-90 hover:bg-white"
+              >
+                <Heart
+                  className={`size-3.5 ${isFav ? "fill-primary text-primary" : "text-foreground"}`}
+                />
+              </button>
+            </div>
+          </div>
+
+          {/* Bottom Overlay Title (Optional, or keep it below) */}
+          <div className="absolute bottom-0 left-0 right-0 p-6 text-white md:hidden">
+            <p className="mb-1 text-[10px] font-bold uppercase tracking-wider opacity-90">📍 {spot.region}</p>
+            <h1 className="text-2xl font-bold leading-tight">{name}</h1>
           </div>
         </div>
+      </section>
 
-        {/* Title + drama tags */}
-        <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
-          <p className="mb-1 text-xs font-medium opacity-90">📍 {spot.region}</p>
-          <h1 className="text-3xl font-bold leading-tight drop-shadow-md">{name}</h1>
-          <div className="mt-3 flex flex-wrap gap-1.5">
+      <div className="mx-auto max-w-screen-xl px-4 pt-8">
+        {/* Header Section (Desktop & Info) */}
+        <div className="mb-8 hidden md:block border-b pb-8">
+          <div className="flex items-end justify-between">
+            <div>
+              <p className="mb-2 text-sm font-bold text-primary uppercase tracking-widest">📍 {spot.region}</p>
+              <h1 className="text-4xl font-black tracking-tight text-foreground">{name}</h1>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {spot.drama.map((d) => (
+                  <span
+                    key={d}
+                    className="rounded-lg bg-primary/10 px-3 py-1 text-xs font-bold text-primary"
+                  >
+                    🎬 {d}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+          {sceneDesc && (
+            <div className="mt-6 rounded-2xl bg-muted/30 p-5 border-l-4 border-primary">
+              <p className="text-lg font-medium text-foreground italic leading-relaxed">
+                "{sceneDesc}"
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* Mobile Title Section (below image) */}
+        <div className="md:hidden mb-6">
+          <div className="flex flex-wrap gap-1.5 mb-3">
             {spot.drama.map((d) => (
               <span
                 key={d}
-                className="rounded-full bg-white/20 px-2.5 py-1 text-xs font-medium backdrop-blur"
+                className="rounded-md bg-primary/10 px-2 py-0.5 text-[10px] font-bold text-primary"
               >
                 🎬 {d}
               </span>
             ))}
           </div>
-        </div>
-      </section>
-
-      <div className="mx-auto max-w-screen-md space-y-8 px-4 pt-6">
-
-        {/* 3. QUICK INFO CARD */}
-        <section className="rounded-3xl border border-border bg-card p-5 shadow-sm">
-          <ul className="space-y-3 text-sm">
-            {address && (
-              <li className="flex items-start gap-3">
-                <MapPin className="mt-0.5 size-4 shrink-0 text-primary" />
-                <div className="flex-1">
-                  <p className="text-xs text-muted-foreground">{t("detail.info.address")}</p>
-                  <p className="font-medium text-foreground">{address}</p>
-                </div>
-                <button
-                  onClick={copyAddress}
-                  className="rounded-md p-1.5 text-muted-foreground hover:bg-muted"
-                  aria-label={t("detail.copy")}
-                >
-                  <Copy className="size-4" />
-                </button>
-              </li>
-            )}
-            {spot.hours && (
-              <li className="flex items-center gap-3">
-                <Clock className="size-4 shrink-0 text-primary" />
-                <div className="flex-1">
-                  <p className="text-xs text-muted-foreground">{t("detail.info.hours")}</p>
-                  <p className="font-medium text-foreground">{spot.hours}</p>
-                </div>
-              </li>
-            )}
-            {admission && (
-              <li className="flex items-center gap-3">
-                <Ticket className="size-4 shrink-0 text-primary" />
-                <div className="flex-1">
-                  <p className="text-xs text-muted-foreground">{t("detail.info.admission")}</p>
-                  <p className="font-medium text-foreground">{admission}</p>
-                </div>
-              </li>
-            )}
-            {spot.best_time && (
-              <li className="flex items-center gap-3">
-                <Sun className="size-4 shrink-0 text-primary" />
-                <div className="flex-1">
-                  <p className="text-xs text-muted-foreground">
-                    {t("detail.info.bestTime")}
-                  </p>
-                  <p className="font-medium text-foreground">
-                    {t(`detail.bestTime.${spot.best_time}`)}
-                  </p>
-                </div>
-              </li>
-            )}
-          </ul>
-        </section>
-
-        {/* 4. DESCRIPTION & MAP (Side-by-side on larger screens) */}
-        <div className="grid gap-10 md:grid-cols-2 md:items-start">
-          <section className="space-y-4">
-            <div className="inline-block rounded-lg bg-primary/5 px-3 py-1 text-xs font-bold text-primary">
-              ABOUT THE SPOT
+          {sceneDesc && (
+            <div className="mb-6 border-l-2 border-primary pl-3">
+              <p className="text-sm font-medium text-muted-foreground italic">
+                "{sceneDesc}"
+              </p>
             </div>
-            <h2 className="text-2xl font-black tracking-tight text-foreground">
+          )}
+        </div>
+
+        {/* 3 & 4. DESCRIPTION & INFO (Side-by-side on desktop) */}
+        <div className="flex flex-col md:flex-row gap-12 items-start">
+          {/* Left Side: Description */}
+          <section className="flex-1 space-y-6">
+            <div className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-[11px] font-bold text-primary tracking-wider uppercase">
+              About The Spot
+            </div>
+            <h2 className="text-3xl font-black tracking-tight text-foreground leading-tight">
               {t("detail.description")}
             </h2>
-            <p className="whitespace-pre-line text-base leading-relaxed text-muted-foreground/90">
+            <p className="whitespace-pre-line text-lg leading-relaxed text-muted-foreground/90 font-medium">
               {description}
             </p>
           </section>
 
-          {/* 5. MAP (lazy) */}
-          <div className="rounded-3xl bg-muted/30 p-2 border border-border/40">
-            <MapSection
-              coords={spot.coords}
-              name={name}
-              address={address}
-              onCopyAddress={copyAddress}
-            />
-          </div>
+          {/* Right Side: Quick Info Card */}
+          <section className="w-full md:w-[320px] shrink-0 rounded-3xl border border-border bg-card p-8 shadow-lg space-y-8 sticky top-24">
+            <div className="flex items-center gap-3 border-b border-border pb-4">
+               <div className="size-2 rounded-full bg-primary animate-pulse" />
+               <h3 className="text-sm font-bold text-foreground uppercase tracking-widest">
+                 Spot Information
+               </h3>
+            </div>
+            <ul className="space-y-6 text-sm">
+              {address && (
+                <li className="flex items-start gap-4 group">
+                  <div className="mt-1 size-8 shrink-0 rounded-xl bg-primary/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                    <MapPin className="size-4" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter mb-0.5">{t("detail.info.address")}</p>
+                    <p className="font-bold text-foreground leading-snug break-words">{address}</p>
+                  </div>
+                  <button
+                    onClick={copyAddress}
+                    className="mt-1 rounded-lg p-2 text-muted-foreground hover:bg-muted hover:text-foreground transition-all active:scale-90"
+                    aria-label={t("detail.copy")}
+                  >
+                    <Copy className="size-4" />
+                  </button>
+                </li>
+              )}
+              {spot.hours && (
+                <li className="flex items-start gap-4">
+                  <div className="mt-1 size-8 shrink-0 rounded-xl bg-primary/5 flex items-center justify-center text-primary">
+                    <Clock className="size-4" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter mb-0.5">{t("detail.info.hours")}</p>
+                    <p className="font-bold text-foreground leading-snug">{spot.hours}</p>
+                  </div>
+                </li>
+              )}
+              {admission && (
+                <li className="flex items-start gap-4">
+                  <div className="mt-1 size-8 shrink-0 rounded-xl bg-primary/5 flex items-center justify-center text-primary">
+                    <Ticket className="size-4" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter mb-0.5">{t("detail.info.admission")}</p>
+                    <p className="font-bold text-foreground leading-snug">{admission}</p>
+                  </div>
+                </li>
+              )}
+              {statusInfo && (
+                <li className="flex items-start gap-4">
+                  <div className="mt-1 size-8 shrink-0 rounded-xl bg-primary/5 flex items-center justify-center text-primary">
+                    <Clock className="size-4" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter mb-0.5">운영 정보</p>
+                    <p className="font-bold text-foreground leading-snug">{statusInfo}</p>
+                  </div>
+                </li>
+              )}
+            </ul>
+          </section>
         </div>
 
+        {/* Divider */}
+        <div className="mt-8 mb-6 border-t border-border/60" />
+
+        {/* 5. FULL WIDTH MAP */}
+        <section className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-bold tracking-tight text-foreground">{t("detail.map.title")}</h2>
+            <div className="flex gap-3">
+               <Button 
+                 variant="ghost" 
+                 size="sm" 
+                 asChild
+                 onClick={() => setActiveMap('google')}
+                 className={cn(
+                   "text-xs h-9 font-bold transition-all",
+                   activeMap === 'google' 
+                    ? "text-primary bg-primary/10 hover:bg-primary/20 shadow-sm" 
+                    : "text-muted-foreground hover:bg-primary/5 hover:text-primary"
+                 )}
+               >
+                  <a href={`https://www.google.com/maps/search/?api=1&query=${spot.coords.lat},${spot.coords.lng}`} target="_blank" rel="noopener noreferrer">
+                    Google Maps <ExternalLink className="ml-1.5 size-3" />
+                  </a>
+               </Button>
+               <Button 
+                 variant="ghost" 
+                 size="sm" 
+                 asChild
+                 onClick={() => setActiveMap('kakao')}
+                 className={cn(
+                   "text-xs h-9 font-bold transition-all duration-200",
+                   activeMap === 'kakao' 
+                    ? "text-[#3C1E1E] bg-[#FAE100]/20 hover:bg-[#FAE100]/30 shadow-sm" 
+                    : "text-muted-foreground hover:bg-[#FAE100]/20 hover:text-[#3C1E1E]"
+                 )}
+               >
+                  <a href={`https://map.kakao.com/link/map/${encodeURIComponent(name)},${spot.coords.lat},${spot.coords.lng}`} target="_blank" rel="noopener noreferrer">
+                    Kakao Map <ExternalLink className="ml-1.5 size-3" />
+                  </a>
+               </Button>
+            </div>
+          </div>
+          <div className="rounded-2xl overflow-hidden border border-border shadow-md">
+            <MapSection
+              coords={spot.coords}
+            />
+          </div>
+        </section>
+
+        {/* Bottom Divider */}
+        <div className="mt-12 mb-8 border-t border-border/60" />
+
         {/* 6. INTEGRATED NEARBY CTA */}
-        <section className="pt-4">
+        <section className="pt-2">
           <Link
             to="/spots/$id/nearby"
             params={{ id: spot.id }}
@@ -343,14 +444,24 @@ function SpotDetail() {
             ✨ {name} 근처 맛집 & 카페 탐방하기
             <ChevronRight className="ml-2 size-5 transition-transform group-hover:translate-x-1" />
           </Link>
-          <Link
-            to="/spots/$id/nearby"
-            params={{ id: spot.id }}
-            className="mt-3 flex items-center justify-center gap-4 text-xs text-muted-foreground font-medium hover:text-primary transition-colors cursor-pointer"
-          >
-            <span className="flex items-center gap-1">🍽️ 주변 식당 {restaurants.length}곳</span>
-            <span className="flex items-center gap-1">☕ 추천 카페 {cafes.length}곳</span>
-          </Link>
+          <div className="mt-6 flex items-center justify-center gap-8 text-base text-muted-foreground font-extrabold">
+            <Link
+              to="/spots/$id/nearby"
+              params={{ id: spot.id }}
+              search={{ type: 'restaurant' }}
+              className="flex items-center gap-2 hover:text-primary transition-colors cursor-pointer no-underline"
+            >
+              🍽️ 주변 식당 {restaurants.length}곳
+            </Link>
+            <Link
+              to="/spots/$id/nearby"
+              params={{ id: spot.id }}
+              search={{ type: 'cafe' }}
+              className="flex items-center gap-2 hover:text-primary transition-colors cursor-pointer no-underline"
+            >
+              ☕ 추천 카페 {cafes.length}곳
+            </Link>
+          </div>
         </section>
 
         {/* 8. PHOTO TIPS */}
@@ -413,69 +524,34 @@ function SpotDetail() {
 /* ---------- Map (lazy iframe via IntersectionObserver) ---------- */
 function MapSection({
   coords,
-  name,
-  address,
-  onCopyAddress,
 }: {
   coords: { lat: number; lng: number };
-  name: string;
-  address: string;
-  onCopyAddress: () => void;
 }) {
   const { t } = useTranslation();
   const { ref, inView } = useInView<HTMLDivElement>({ threshold: 0.05 });
   const embed = `https://www.google.com/maps?q=${coords.lat},${coords.lng}&hl=en&z=16&output=embed`;
-  const gmaps = `https://www.google.com/maps/search/?api=1&query=${coords.lat},${coords.lng}`;
-  const kakao = `https://map.kakao.com/link/map/${encodeURIComponent(name)},${coords.lat},${coords.lng}`;
 
   return (
     <section>
-      <h2 className="mb-3 text-base font-semibold text-foreground">{t("detail.map.title")}</h2>
-      <div
-        ref={ref}
-        className="aspect-video overflow-hidden rounded-2xl border border-border bg-muted shadow-sm"
-      >
-        {inView ? (
-          <iframe
-            src={embed}
-            title="Map"
-            loading="lazy"
-            className="h-full w-full"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
-        ) : (
-          <div className="grid h-full place-items-center text-muted-foreground">
-            <MapPin className="size-8 opacity-40" />
-          </div>
-        )}
-      </div>
-      <div className="mt-3 grid grid-cols-3 gap-2">
-        <Button
-          variant="outline"
-          asChild
-          className="h-11 rounded-xl text-xs"
-        >
-          <a href={gmaps} target="_blank" rel="noopener noreferrer">
-            <ExternalLink className="size-3.5" />
-            {t("detail.map.google")}
-          </a>
-        </Button>
-        <Button
-          variant="outline"
-          onClick={onCopyAddress}
-          disabled={!address}
-          className="h-11 rounded-xl text-xs"
-        >
-          <Copy className="size-3.5" />
-          {t("detail.map.copyAddr")}
-        </Button>
-        <Button variant="outline" asChild className="h-11 rounded-xl text-xs">
-          <a href={kakao} target="_blank" rel="noopener noreferrer">
-            <ExternalLink className="size-3.5" />
-            {t("detail.map.kakao")}
-          </a>
-        </Button>
-      </div>
+    <div
+      ref={ref}
+      className="w-full overflow-hidden"
+      style={{ height: '350px' }}
+    >
+      {inView ? (
+        <iframe
+          src={embed}
+          title="Map"
+          loading="lazy"
+          className="h-full w-full border-0"
+          referrerPolicy="no-referrer-when-downgrade"
+        />
+      ) : (
+        <div className="grid h-full place-items-center bg-muted/30 text-muted-foreground">
+          <MapPin className="size-8 opacity-40 animate-pulse" />
+        </div>
+      )}
+    </div>
     </section>
   );
 }
