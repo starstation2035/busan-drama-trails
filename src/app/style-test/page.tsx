@@ -14,6 +14,8 @@ import {
   type StyleKey,
 } from "@/data/quiz";
 import spotsData from "@/data/spots.json";
+import restaurantsData from "@/data/restaurants.json";
+import cafesData from "@/data/cafes.json";
 
 type Phase = "intro" | "quiz" | "result";
 
@@ -102,9 +104,27 @@ export default function StyleTest() {
     const meta = STYLE_META[result];
     const typeName = t(`quiz.types.${result}.name`);
     const typeTagline = t(`quiz.types.${result}.tagline`);
-    const recSpots = meta.recommendedSpotIds
-      .map((id) => (spotsData as Spot[]).find((s) => s.id === id))
-      .filter((s): s is Spot => Boolean(s));
+
+    const courseItems = [];
+    if (meta.recommendedSpots[0]) {
+      courseItems.push({ type: 'spot', id: meta.recommendedSpots[0], data: spotsData.find(s => s.id === meta.recommendedSpots[0]) });
+    }
+    if (meta.recommendedRestaurants[0]) {
+      courseItems.push({ type: 'restaurant', id: meta.recommendedRestaurants[0], data: restaurantsData.find(s => s.id === meta.recommendedRestaurants[0]) });
+    }
+    if (meta.recommendedCafes[0]) {
+      courseItems.push({ type: 'cafe', id: meta.recommendedCafes[0], data: cafesData.find(s => s.id === meta.recommendedCafes[0]) });
+    }
+    if (meta.recommendedSpots[1]) {
+      courseItems.push({ type: 'spot', id: meta.recommendedSpots[1], data: spotsData.find(s => s.id === meta.recommendedSpots[1]) });
+    }
+
+    const handleStartCourse = (e: React.MouseEvent) => {
+      e.preventDefault();
+      const allIds = courseItems.map(item => item.id);
+      useAppStore.getState().setFavorites(allIds);
+      void navigate({ to: "/my-course" });
+    };
 
     const shareUrl = typeof window !== "undefined" ? window.location.origin : "";
     const shareText = t("quiz.result.shareText", { type: typeName, icon: meta.icon });
@@ -154,36 +174,50 @@ export default function StyleTest() {
           <h3 className="mb-3 text-lg font-semibold text-foreground">
             {t("quiz.result.recommendedTitle")}
           </h3>
-          <div className="space-y-3">
-            {recSpots.map((spot, i) => (
-              <a
-                key={spot.id}
-                href={`/spots/${spot.id}`}
-                className="flex items-center gap-3 rounded-2xl border border-border bg-card p-3 shadow-sm transition active:scale-[0.99] animate-slide-in"
-                style={{ animationDelay: `${i * 80}ms` }}
-              >
-                <img
-                  src={spot.thumbnail}
-                  alt={localizedName(spot)}
-                  className="size-16 shrink-0 rounded-xl object-cover"
-                  loading="lazy"
-                />
-                <div className="min-w-0 flex-1">
-                  <p className="truncate font-semibold text-foreground">
-                    {localizedName(spot)}
-                  </p>
-                  <p className="mt-0.5 truncate text-xs text-muted-foreground">
-                    🎬 {spot.drama.join(", ")}
-                  </p>
+          <div className="relative space-y-3 py-2 before:absolute before:inset-y-0 before:left-8 before:w-0.5 before:bg-border/50">
+            {courseItems.map((item, i) => {
+              if (!item.data) return null;
+              const typeIcon = item.type === 'spot' ? '📸' : item.type === 'restaurant' ? '🍜' : '☕';
+              return (
+                <div
+                  key={item.id}
+                  className="relative ml-4 flex items-center gap-4 rounded-2xl border border-border bg-card p-3 shadow-sm transition active:scale-[0.99] animate-slide-in"
+                  style={{ animationDelay: `${i * 80}ms` }}
+                >
+                  <div className="absolute -left-[21px] top-1/2 z-10 -translate-y-1/2 rounded-full border-2 border-primary bg-primary/20 p-1 ring-4 ring-background" />
+                  <img
+                    src={item.data.thumbnail}
+                    alt={localizedName(item.data as Spot)}
+                    className="size-16 shrink-0 rounded-xl object-cover"
+                    loading="lazy"
+                  />
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate font-semibold text-foreground">
+                      <span className="mr-1">{typeIcon}</span>
+                      {localizedName(item.data as Spot)}
+                    </p>
+                    <p className="mt-0.5 truncate text-xs text-muted-foreground">
+                      {item.type === 'spot'
+                        ? `🎬 ${((item.data as any).drama || []).join(", ")}`
+                        : (item.data as any).signature?.[lang] || (item.data as any).signature?.['ko'] || ''}
+                    </p>
+                  </div>
                 </div>
-              </a>
-            ))}
+              );
+            })}
           </div>
         </div>
 
+        <button
+          className="mt-8 flex h-14 w-full items-center justify-center rounded-2xl bg-primary text-base font-semibold text-primary-foreground shadow-lg transition active:scale-[0.98]"
+          onClick={handleStartCourse}
+        >
+          이 코스 그대로 내 여행 시작하기 ✨
+        </button>
+
         <a
           href={`/spots?style=${result}`}
-          className="mt-6 flex h-14 w-full items-center justify-center rounded-2xl bg-primary text-base font-semibold text-primary-foreground shadow-lg transition active:scale-[0.98]"
+          className="mt-3 flex h-14 w-full items-center justify-center rounded-2xl bg-secondary text-base font-semibold text-secondary-foreground transition active:scale-[0.98]"
           onClick={(e) => {
             e.preventDefault();
             router.push(`/spots?style=${result}`);

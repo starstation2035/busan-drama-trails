@@ -4,7 +4,8 @@
     "back": "Back",
     "retake": "Retake",
     "share": "Share result",
-    "copied": "Link copied!"
+    "copied": "Link copied!",
+    "save": "Done"
   },
   "nav": {
     "home": "Home",
@@ -42,9 +43,9 @@
   },
   "quiz": {
     "intro": {
-      "badge": "6 questions・about 1 min",
+      "badge": "10 questions・about 2 mins",
       "title": "Find Your Busan Travel Style ✨",
-      "subtitle": "Six quick questions to match you with the perfect Busan itinerary",
+      "subtitle": "Ten quick questions to match you with the perfect Busan itinerary",
       "start": "Start the quiz"
     },
     "progress": "{{current}} / {{total}}",
@@ -78,6 +79,26 @@
         "title": "Your ideal travel pace?",
         "a": "Slow and relaxed, fewer places",
         "b": "Maximize the day, see it all"
+      },
+      "q7": {
+        "title": "If it suddenly starts raining on your trip?",
+        "a": "Awesome! Enjoy the romance like a drama hero",
+        "b": "Retreat to a cozy ocean-view cafe with warm tea"
+      },
+      "q8": {
+        "title": "Most important thing when choosing accommodation?",
+        "a": "Views and interior! Must be an Insta-worthy hotel",
+        "b": "A cozy, vintage guesthouse with a story to tell"
+      },
+      "q9": {
+        "title": "You have a free afternoon, what do you do?",
+        "a": "Can't stay still! Explore unknown alleys",
+        "b": "Go on a pilgrimage to famous drama filming spots"
+      },
+      "q10": {
+        "title": "If you could keep one photo of this trip?",
+        "a": "A peaceful, serene nature landscape with no people",
+        "b": "A perfect shot of me with a dazzling night view"
       }
     },
     "result": {
@@ -91,20 +112,20 @@
     },
     "types": {
       "healing": {
-        "name": "Healing Traveler",
-        "tagline": "You crave peaceful beaches and slow cafes"
+        "name": "Seaside Healer (When the Camellia Blooms)",
+        "tagline": "You crave peaceful beaches and the warmth of a quiet coastal town."
       },
       "active": {
-        "name": "Active Explorer",
-        "tagline": "You love markets, alleys, and vibrant streets"
+        "name": "Action-Packed Explorer (Friend)",
+        "tagline": "Raw energy! You love running through Busan's authentic alleys."
       },
       "insta": {
-        "name": "Insta Photographer",
-        "tagline": "You live for aesthetic photos and unique views"
+        "name": "Luxury Trendsetter (Reborn Rich)",
+        "tagline": "You desire top-tier views and high-end vibes like a chaebol."
       },
       "kdrama": {
-        "name": "K-Drama Devotee",
-        "tagline": "You want to step into your favorite scenes"
+        "name": "Deep K-Romance (Pachinko)",
+        "tagline": "You immerse yourself in the deep history and emotions of Yeongdo."
       }
     }
   },
@@ -207,7 +228,8 @@
     "travel": {
       "walk": "walk",
       "taxi": "taxi",
-      "subway": "subway"
+      "subway": "subway",
+      "bus": "BUS"
     },
     "totals": {
       "distance": "Total ~{{km}} km",
@@ -228,7 +250,14 @@
       "copyLink": "Copy course link"
     },
     "share": {
-      "header": "My Busan K-Drama Course 🎬"
+      "header": "My Busan K-Drama Course 🎬",
+      "layoutTitle": "BUSAN DAY TRIP",
+      "modalTitle": "Share Your Course",
+      "modalDesc": "Show off your amazing travel plan!",
+      "message": "Check out my Busan trip itinerary!",
+      "kakaoSoon": "KakaoTalk share coming soon!",
+      "instaHint": "Save the image and upload to your Story!",
+      "imageSaveHint": "Please screenshot this page. Auto-save is under development!"
     }
   }
 }

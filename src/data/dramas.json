@@ -1,0 +1,23 @@
+[
+  {
+    "id": "drama_pachinko",
+    "title": "파친코",
+    "year": "2022",
+    "genre": "대하드라마",
+    "poster_image": "/images/posters/Pachinko.jpg"
+  },
+  {
+    "id": "drama_friend",
+    "title": "친구",
+    "year": "2001",
+    "genre": "범죄/액션",
+    "poster_image": "/images/posters/friend.jpg"
+  },
+  {
+    "id": "drama_gukje",
+    "title": "국제시장",
+    "year": "2014",
+    "genre": "드라마",
+    "poster_image": "/images/posters/gu_mt.jpg"
+  }
+]
