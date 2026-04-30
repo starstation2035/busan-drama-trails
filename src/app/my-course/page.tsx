@@ -159,7 +159,7 @@ export default function MyCoursePage() {
         <div className="grid grid-cols-3 gap-4">
           <div className="flex flex-col items-center gap-1 text-center">
             <div className="grid size-10 place-items-center rounded-2xl bg-primary/10 text-primary">
-              <MapPinIcon className="size-5" />
+              <MapPin className="size-5" />
             </div>
             <p className="text-[10px] font-bold text-muted-foreground uppercase">{t("myCourse.groups.spots")}</p>
             <p className="text-lg font-black">{spots.length}</p>
@@ -345,7 +345,7 @@ function ListView({
 }) {
   const { t } = useTranslation();
   const groups = [
-    { key: "spots", label: t("myCourse.groups.spots"), items: spots, icon: MapPinIcon, color: "text-primary bg-primary/10" },
+    { key: "spots", label: t("myCourse.groups.spots"), items: spots, icon: MapPin, color: "text-primary bg-primary/10" },
     { key: "restaurants", label: t("myCourse.groups.restaurants"), items: restaurants, icon: Utensils, color: "text-amber-500 bg-amber-500/10" },
     { key: "cafes", label: t("myCourse.groups.cafes"), items: cafes, icon: Coffee, color: "text-emerald-500 bg-emerald-500/10" },
   ] as const;
@@ -386,7 +386,9 @@ function ListView({
                         <span className="line-clamp-2 text-sm font-bold tracking-tight text-foreground">
                           {it.name[lang] ?? it.name["en"]}
                         </span>
-                        <span className="text-[10px] font-medium text-muted-foreground">{it.region}</span>
+                        {it.region && (
+                          <span className="text-[10px] font-medium text-muted-foreground">{it.region}</span>
+                        )}
                       </div>
                     </button>
                     <Button
@@ -425,6 +427,7 @@ function CourseView({
   onUpdateTravelMode: (idx: number, mode: "walk" | "taxi" | "subway" | "bus") => void;
 }) {
   const { t } = useTranslation();
+  const router = useRouter();
 
   if (course.length === 0) return null;
 
@@ -459,11 +462,6 @@ function CourseView({
           const item = entry.item;
           const name = item.name[lang] ?? item.name["en"];
           const isLast = i === course.length - 1;
-          const ItemLink = item.kind === "spot" ? Link : "div";
-          const linkProps =
-            item.kind === "spot"
-              ? { href: `/spots/${item.id}` }
-              : ({} as Record<string, any>);
 
           return (
             <li key={`${item.kind}-${item.id}-${i}`} className="relative pb-10 pl-16">
@@ -472,14 +470,14 @@ function CourseView({
               </div>
               
               <div 
-                className="absolute left-[2.9rem] top-1.5 z-10 grid size-3 place-items-center rounded-full border-2 border-background ring-2 shadow-sm"
-                style={{ backgroundColor: dotColor(item.kind), ringColor: `${dotColor(item.kind)}20` as any }}
+                className="absolute left-[2.9rem] top-1.5 z-10 grid size-3 place-items-center rounded-full border-2 border-background shadow-sm"
+                style={{ backgroundColor: dotColor(item.kind), boxShadow: `0 0 0 2px ${dotColor(item.kind)}20` }}
               />
 
               <div className="relative group">
-                <ItemLink
-                  {...linkProps}
-                  className="block rounded-3xl border border-border/40 bg-card p-4 shadow-sm transition-all hover:shadow-lg active:scale-[0.99] hover:-translate-y-1"
+                <div
+                  onClick={() => item.kind === "spot" && router.push(`/spots/${item.id}`)}
+                  className={`block rounded-3xl border border-border/40 bg-card p-4 shadow-sm transition-all hover:shadow-lg active:scale-[0.99] hover:-translate-y-1 ${item.kind === "spot" ? "cursor-pointer" : ""}`}
                 >
                   <div className="flex items-center gap-4">
                     <img
@@ -517,7 +515,7 @@ function CourseView({
                       className="min-h-[44px] rounded-xl border-none bg-muted/40 text-[11px] font-medium placeholder:text-muted-foreground/30 focus-visible:ring-1 focus-visible:ring-primary/20"
                     />
                   </div>
-                </ItemLink>
+                </div>
               </div>
 
               {/* Travel mode & time */}

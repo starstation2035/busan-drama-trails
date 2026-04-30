@@ -82,9 +82,9 @@ interface SpotFull {
   scene_description?: LocalizedString;
 }
 
-const SPOTS = spotsRaw as SpotFull[];
-const RESTAURANTS = restaurantsRaw as Restaurant[];
-const CAFES = cafesRaw as Cafe[];
+const SPOTS = spotsRaw as unknown as SpotFull[];
+const RESTAURANTS = restaurantsRaw as unknown as Restaurant[];
+const CAFES = cafesRaw as unknown as Cafe[];
 
 function pickLang<T extends LocalizedString>(s: T | undefined, lang: LangCode): string {
   if (!s) return "";
@@ -101,7 +101,7 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
 
   const favorites = useAppStore((s) => s.favorites);
   const toggleFavorite = useAppStore((s) => s.toggleFavorite);
-  const isFavorite = favorites.some((f) => f.id === id);
+  const isFavorite = favorites.includes(id);
 
   const [expandedTips, setExpandedTips] = useState(false);
   const [activeMap, setActiveMap] = useState<'google' | 'kakao'>('google');

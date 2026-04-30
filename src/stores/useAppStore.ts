@@ -20,6 +20,7 @@ interface AppState {
   setLang: (lang: LangCode) => void;
   setUserStyle: (style: UserStyle) => void;
   toggleFavorite: (id: string) => void;
+  setFavorites: (ids: string[]) => void;
   toggleMyCourseItem: (item: MyCourseItem) => void;
 }
 
@@ -36,6 +37,7 @@ export const useAppStore = create<AppState>()(
         const f = get().favorites;
         set({ favorites: f.includes(id) ? f.filter((x) => x !== id) : [...f, id] });
       },
+      setFavorites: (favorites) => set({ favorites }),
       toggleMyCourseItem: (item) => {
         const items = get().myCourseItems;
         const exists = items.some((x) => x.id === item.id);

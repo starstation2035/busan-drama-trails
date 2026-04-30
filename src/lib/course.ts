@@ -10,6 +10,7 @@ export type SpotItem = {
   name: Record<string, string>;
   thumbnail: string;
   coords: Coords;
+  region?: string;
 };
 
 export type RestaurantItem = {
@@ -18,6 +19,7 @@ export type RestaurantItem = {
   name: Record<string, string>;
   thumbnail: string;
   food?: Record<string, string>;
+  region?: string;
 };
 
 export type CafeItem = {
@@ -26,6 +28,7 @@ export type CafeItem = {
   name: Record<string, string>;
   thumbnail: string;
   vibe?: Record<string, string>;
+  region?: string;
 };
 
 export type AnyItem = SpotItem | RestaurantItem | CafeItem;
@@ -67,17 +70,17 @@ export function classifyFavorites(favIds: string[]): {
   for (const id of favIds) {
     const s = spots.find((x) => x.id === id);
     if (s) {
-      sp.push({ kind: "spot", id: s.id, name: s.name, thumbnail: s.thumbnail, coords: s.coords });
+      sp.push({ kind: "spot", id: s.id, name: s.name, thumbnail: s.thumbnail, coords: s.coords, region: (s as any).region });
       continue;
     }
     const r = restaurants.find((x) => x.id === id);
     if (r) {
-      rs.push({ kind: "restaurant", id: r.id, name: r.name, thumbnail: r.thumbnail, food: r.food });
+      rs.push({ kind: "restaurant", id: r.id, name: r.name, thumbnail: r.thumbnail, food: r.food, region: (r as any).region });
       continue;
     }
     const c = cafes.find((x) => x.id === id);
     if (c) {
-      cf.push({ kind: "cafe", id: c.id, name: c.name, thumbnail: c.thumbnail, vibe: c.vibe });
+      cf.push({ kind: "cafe", id: c.id, name: c.name, thumbnail: c.thumbnail, vibe: (c as any).vibe, region: (c as any).region });
     }
   }
   return { spots: sp, restaurants: rs, cafes: cf };

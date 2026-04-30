@@ -105,7 +105,7 @@ export default function StyleTest() {
     const typeName = t(`quiz.types.${result}.name`);
     const typeTagline = t(`quiz.types.${result}.tagline`);
 
-    const courseItems = [];
+    const courseItems: any[] = [];
     if (meta.recommendedSpots[0]) {
       courseItems.push({ type: 'spot', id: meta.recommendedSpots[0], data: spotsData.find(s => s.id === meta.recommendedSpots[0]) });
     }
@@ -123,7 +123,7 @@ export default function StyleTest() {
       e.preventDefault();
       const allIds = courseItems.map(item => item.id);
       useAppStore.getState().setFavorites(allIds);
-      void navigate({ to: "/my-course" });
+      router.push("/my-course");
     };
 
     const shareUrl = typeof window !== "undefined" ? window.location.origin : "";

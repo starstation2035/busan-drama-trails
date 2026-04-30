@@ -33,7 +33,7 @@ interface SpotData extends Spot {
   category?: "drama" | "landmark";
 }
 
-const ALL_SPOTS = spotsData as SpotData[];
+const ALL_SPOTS = spotsData as unknown as SpotData[];
 
 function uniq<T>(arr: T[]) {
   return Array.from(new Set(arr));

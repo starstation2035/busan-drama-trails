@@ -139,3 +139,5 @@ export const STYLE_META: Record<
     recommendedCafes: ["c12"],
   },
 };
+
+export const STYLE_KEYS = Object.keys(STYLE_META) as StyleKey[];

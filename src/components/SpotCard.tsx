@@ -19,7 +19,7 @@ export function SpotCard({ spot }: { spot: Spot }) {
   const lang = (useAppStore((s) => s.lang) ?? "ko") as LangCode;
   const favorites = useAppStore((s) => s.favorites);
   const toggleFavorite = useAppStore((s) => s.toggleFavorite);
-  const isFav = favorites.some((f) => f.id === spot.id);
+  const isFav = favorites.includes(spot.id);
   const name = spot.name[lang] ?? spot.name.ko;
   const status = spot.status?.[lang] ?? spot.status?.ko;
   const sceneDesc = spot.scene_description?.[lang] ?? spot.scene_description?.ko;
