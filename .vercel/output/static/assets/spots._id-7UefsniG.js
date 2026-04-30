@@ -1,1 +1,0 @@
-import{j as t,L as s}from"./index-CxNlA28E.js";const e=()=>t.jsxs("div",{className:"py-20 text-center",children:[t.jsx("p",{className:"text-6xl",children:"🔍"}),t.jsx("p",{className:"mt-4 text-lg font-semibold",children:"Spot not found"}),t.jsx(s,{to:"/spots",className:"mt-4 inline-block text-primary underline",children:"Back to all spots"})]});export{e as notFoundComponent};
