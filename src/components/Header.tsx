@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "@tanstack/react-router";
+import Link from "next/link";
 import { Globe, Heart } from "lucide-react";
 import { useAppStore } from "@/stores/useAppStore";
 
@@ -25,12 +25,12 @@ export function Header({ onOpenLang }: Props) {
   return (
     <header className="sticky top-0 z-30 border-b border-border/60 bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-14 max-w-screen-md items-center justify-between px-4">
-        <Link to="/" className="font-bold text-primary tracking-tight">
+        <Link href="/" className="font-bold text-primary tracking-tight">
           {t("common.appName")}
         </Link>
         <div className="flex items-center gap-2">
           <Link
-            to="/my-course"
+            href="/my-course"
             id="header-nav-my-course"
             className="relative flex items-center justify-center p-2 rounded-full border border-border bg-background hover:bg-muted transition-all"
             title={t("nav.myCourse")}

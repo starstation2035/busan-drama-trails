@@ -9,6 +9,7 @@
   "nav": {
     "home": "홈",
     "spots": "촬영지",
+    "community": "커뮤니티",
     "myCourse": "내 코스",
     "styleTest": "스타일 테스트"
   },
@@ -26,6 +27,7 @@
   },
   "landing": {
     "tagline": "드라마 장면 속으로, 부산의 이야기를 만나다 ✨",
+    "subtitle": "대만 관광객 타겟 웹 앱",
     "valueProp": {
       "spotsTitle": "드라마 촬영지",
       "spotsDesc": "50+ 명장면을 한 곳에",
@@ -36,9 +38,36 @@
     },
     "cta": {
       "explore": "촬영지 둘러보기",
-      "style": "스마트 코스 추천"
+      "style": "스타일 테스트"
     },
-    "stats": "50+ 촬영지・200+ 맛집・5개 언어"
+    "stats": "50+ 촬영지・200+ 맛집・5개 언어",
+    "recentReviews": {
+      "title": "최근 올라온 여행 후기",
+      "subtitle": "다른 여행자들의 생생한 부산 이야기를 실시간으로 확인해보세요",
+      "viewAll": "전체 리뷰 보기"
+    },
+    "categories": {
+      "food": "밥집",
+      "cafe": "카페",
+      "community": "커뮤니티",
+      "spots": "명소",
+      "myCourse": "내 코스"
+    }
+  },
+  "community": {
+    "title": "여행자 커뮤니티",
+    "subtitle": "생생한 부산 여행 후기를 만나보세요",
+    "write": "후기 작성",
+    "empty": "첫 번째 여행 후기를 남겨주세요!",
+    "filters": {
+      "all": "전체",
+      "tips": "꿀팁",
+      "reviews": "방문후기"
+    },
+    "post": {
+      "placeholder": "나만의 부산 드라마 여행 팁을 공유해보세요!",
+      "submit": "업로드"
+    }
   },
   "quiz": {
     "intro": {
@@ -179,7 +208,7 @@
     },
     "cta": {
       "add": "내 코스에 추가",
-    "added": "내 코스 보기 →"
+      "added": "내 코스 보기 →"
     }
   },
   "myCourse": {

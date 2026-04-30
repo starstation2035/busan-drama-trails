@@ -9,6 +9,7 @@
   "nav": {
     "home": "首頁",
     "spots": "拍攝地",
+    "community": "社群",
     "myCourse": "我的行程",
     "styleTest": "風格測試"
   },
@@ -26,6 +27,7 @@
   },
   "landing": {
     "tagline": "走進韓劇場景，感受釜山的小確幸 ✨",
+    "subtitle": "針對台灣遊客的網頁應用",
     "valueProp": {
       "spotsTitle": "韓劇拍攝地",
       "spotsDesc": "50+ 經典場景一次收藏",
@@ -36,9 +38,36 @@
     },
     "cta": {
       "explore": "開始探索拍攝地",
-      "style": "找出我的旅遊風格"
+      "style": "風格測驗"
     },
-    "stats": "50+ 拍攝地・200+ 美食・5 種語言"
+    "stats": "50+ 拍攝地・200+ 美食・5 種語言",
+    "recentReviews": {
+      "title": "最新旅行回顧",
+      "subtitle": "實時查看其他旅行者生動的釜山故事",
+      "viewAll": "查看所有評論"
+    },
+    "categories": {
+      "food": "美食",
+      "cafe": "咖啡",
+      "community": "社群",
+      "spots": "熱門景點",
+      "myCourse": "我的行程"
+    }
+  },
+  "community": {
+    "title": "旅人社群",
+    "subtitle": "看看大家的釜山旅遊心得",
+    "write": "撰寫評價",
+    "empty": "來當第一個分享旅遊心得的人吧！",
+    "filters": {
+      "all": "全部",
+      "tips": "旅遊攻略",
+      "reviews": "景點評價"
+    },
+    "post": {
+      "placeholder": "分享你的釜山韓劇之旅心得吧！",
+      "submit": "上傳"
+    }
   },
   "quiz": {
     "intro": {
@@ -50,7 +79,7 @@
     "progress": "第 {{current}} / {{total}} 題",
     "questions": {
       "q1": {
-        "title": "你心中最棒的釜山時刻是？",
+        "title": "你心中最棒的釜山時刻은？",
         "a": "在安靜的海邊看夕陽",
         "b": "在熱鬧的市場逛逛吃吃"
       },
@@ -179,7 +208,7 @@
     },
     "cta": {
       "add": "加入我的行程",
-    "added": "查看我的行程 →"
+      "added": "查看我的行程 →"
     }
   },
   "myCourse": {

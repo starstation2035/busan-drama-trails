@@ -1,5 +1,5 @@
 import { Heart, MapPin, ChevronRight } from "lucide-react";
-import { Link } from "@tanstack/react-router";
+import Link from "next/link";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import { useAppStore, type LangCode } from "@/stores/useAppStore";
@@ -17,7 +17,7 @@ export function SpotCard({ spot }: { spot: Spot }) {
   const lang = (useAppStore((s) => s.lang) ?? "ko") as LangCode;
   const favorites = useAppStore((s) => s.favorites);
   const toggleFavorite = useAppStore((s) => s.toggleFavorite);
-  const isFav = favorites.includes(spot.id);
+  const isFav = favorites.some((f) => f.id === spot.id);
   const name = spot.name[lang] ?? spot.name.ko;
 
   const handleFav = (e: React.MouseEvent) => {
@@ -36,8 +36,7 @@ export function SpotCard({ spot }: { spot: Spot }) {
 
   return (
     <Link
-      to="/spots/$id"
-      params={{ id: spot.id }}
+      href={`/spots/${spot.id}`}
       className="group block overflow-hidden rounded-2xl bg-card shadow-sm transition active:scale-[0.98] hover:shadow-xl border border-border/40"
     >
       <div className="relative aspect-[3/4] overflow-hidden bg-muted">

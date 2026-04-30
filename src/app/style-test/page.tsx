@@ -1,5 +1,7 @@
+"use client";
+
 import { useMemo, useState } from "react";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft, RefreshCw, Share2, Link2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -13,20 +15,6 @@ import {
 } from "@/data/quiz";
 import spotsData from "@/data/spots.json";
 
-export const Route = createFileRoute("/style-test")({
-  component: StyleTest,
-  head: () => ({
-    meta: [
-      { title: "Travel Style Test — Busan Drama Spot & Style" },
-      {
-        name: "description",
-        content:
-          "Take a quick 6-question quiz to discover your Busan travel style and get matched with the perfect K-drama filming locations.",
-      },
-    ],
-  }),
-});
-
 type Phase = "intro" | "quiz" | "result";
 
 interface Spot {
@@ -36,9 +24,9 @@ interface Spot {
   thumbnail: string;
 }
 
-function StyleTest() {
+export default function StyleTest() {
   const { t, i18n } = useTranslation();
-  const navigate = useNavigate();
+  const router = useRouter();
   const setUserStyle = useAppStore((s) => s.setUserStyle);
 
   const [phase, setPhase] = useState<Phase>("intro");
@@ -62,7 +50,7 @@ function StyleTest() {
     if (step + 1 < total) {
       setStep(step + 1);
     } else {
-      setUserStyle(style); // optimistic; replaced below
+      setUserStyle(style);
       const final = computeResult(next);
       setUserStyle(final);
       setPhase("result");
@@ -83,7 +71,6 @@ function StyleTest() {
     setPhase("intro");
   };
 
-  // ---------- Intro ----------
   if (phase === "intro") {
     return (
       <div className="mx-auto flex max-w-md flex-col items-center py-8 text-center animate-fade-up">
@@ -111,7 +98,6 @@ function StyleTest() {
     );
   }
 
-  // ---------- Result ----------
   if (phase === "result" && result) {
     const meta = STYLE_META[result];
     const typeName = t(`quiz.types.${result}.name`);
@@ -136,7 +122,6 @@ function StyleTest() {
           await navigator.share({ text, url: shareUrl });
           return;
         } catch {
-          /* user dismissed */
         }
       }
       await navigator.clipboard.writeText(text);
@@ -201,7 +186,7 @@ function StyleTest() {
           className="mt-6 flex h-14 w-full items-center justify-center rounded-2xl bg-primary text-base font-semibold text-primary-foreground shadow-lg transition active:scale-[0.98]"
           onClick={(e) => {
             e.preventDefault();
-            void navigate({ to: "/spots", search: { style: result } as never });
+            router.push(`/spots?style=${result}`);
           }}
         >
           {t("quiz.result.seeAll")} →
@@ -238,7 +223,6 @@ function StyleTest() {
     );
   }
 
-  // ---------- Quiz question ----------
   const q = QUIZ_QUESTIONS[step];
   const progress = ((step + 1) / total) * 100;
 
