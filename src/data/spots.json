@@ -16,38 +16,6 @@
     "nearby_cafes": ["c1", "c7"]
   },
   {
-    "id": "spot_002",
-    "name": {
-      "ko": "감천문화마을",
-      "en": "Gamcheon Culture Village"
-    },
-    "drama": ["런닝맨"],
-    "category": "landmark",
-    "region": "사하구",
-    "thumbnail": "https://images.unsplash.com/photo-1544551763-47a0159f963f?w=1200",
-    "coords": { "lat": 35.0975, "lng": 129.0107 },
-    "description": { "ko": "부산의 마추픽추라 불리는 알록달록한 산자락 마을." },
-    "address": { "ko": "부산 사하구 감내2로 203" },
-    "nearby_restaurants": ["r2", "r11"],
-    "nearby_cafes": ["c2", "c10"]
-  },
-  {
-    "id": "spot_003",
-    "name": {
-      "ko": "해운대 해수욕장",
-      "en": "Haeundae Beach"
-    },
-    "drama": ["해운대"],
-    "category": "landmark",
-    "region": "해운대",
-    "thumbnail": "https://images.unsplash.com/photo-1578326309852-f94d93077755?w=1200",
-    "coords": { "lat": 35.1587, "lng": 129.1604 },
-    "description": { "ko": "부산을 상징하는 대한민국 대표 해수욕장." },
-    "address": { "ko": "부산 해운대구 해운대해변로 264" },
-    "nearby_restaurants": ["r3", "r10"],
-    "nearby_cafes": ["c3", "c11"]
-  },
-  {
     "id": "spot_004",
     "name": {
       "ko": "흰여울문화마을",
@@ -90,7 +58,7 @@
     "region": "영도구",
     "thumbnail": "https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?w=1200",
     "coords": { "lat": 35.0617, "lng": 129.0767 },
-    "description": { "ko": "드라마 '파칭코'의 오프닝과 선자의 어린 시절 주요 무대가 된 이곳은 실제 부산 영도의 '감지해변'입니다. 영화 속에서는 일제강점기 척박한 삶을 견뎌내는 선자의 강인한 생명력을 상징하는 장소로 그려졌습니다. 실제 감지해변은 파도에 부딪히는 자갈 소리가 아름다운 몽돌 해변이며, 지금도 해녀들이 갓 잡은 해산물을 파는 해녀촌이 운영되고 있어 영화 속 분위기와 현대의 정취를 동시에 느낄 수 있습니다." },
+    "description": { "ko": "드라마 '파칭코'의 오프닝과 선자의 어린 시절 주요 무대가 된 이곳은 실제 부산 영도의 '감지해변'입니다." },
     "address": { "ko": "부산광역시 영도구 동삼동 감지해변" },
     "drama_scenes": [
       {
@@ -107,7 +75,39 @@
     ],
     "nearby_restaurants": ["r4", "r11"],
     "nearby_cafes": ["c4", "c12"],
-    "visit_tips": { "ko": "해변을 따라 늘어선 해녀촌에서 신선한 해산물을 맛볼 수 있습니다. 자갈 해변이므로 편한 신발을 신는 것을 추천드려요!" }
+    "visit_tips": { "ko": "해변을 따라 늘어선 해녀촌에서 신선한 해산물을 맛볼 수 있습니다." }
+  },
+  {
+    "id": "spot_002",
+    "name": {
+      "ko": "감천문화마을",
+      "en": "Gamcheon Culture Village"
+    },
+    "drama": ["런닝맨"],
+    "category": "landmark",
+    "region": "사하구",
+    "thumbnail": "https://images.unsplash.com/photo-1544551763-47a0159f963f?w=1200",
+    "coords": { "lat": 35.0975, "lng": 129.0107 },
+    "description": { "ko": "부산의 마추픽추라 불리는 알록달록한 산자락 마을." },
+    "address": { "ko": "부산 사하구 감내2로 203" },
+    "nearby_restaurants": ["r2", "r11"],
+    "nearby_cafes": ["c2", "c10"]
+  },
+  {
+    "id": "spot_003",
+    "name": {
+      "ko": "해운대 해수욕장",
+      "en": "Haeundae Beach"
+    },
+    "drama": ["해운대"],
+    "category": "landmark",
+    "region": "해운대",
+    "thumbnail": "https://images.unsplash.com/photo-1578326309852-f94d93077755?w=1200",
+    "coords": { "lat": 35.1587, "lng": 129.1604 },
+    "description": { "ko": "부산을 상징하는 대한민국 대표 해수욕장." },
+    "address": { "ko": "부산 해운대구 해운대해변로 264" },
+    "nearby_restaurants": ["r3", "r10"],
+    "nearby_cafes": ["c3", "c11"]
   },
   {
     "id": "spot_007",
