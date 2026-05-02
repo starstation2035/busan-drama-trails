@@ -20,8 +20,8 @@ export function BottomNav() {
   ] as const;
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-30 border-t border-border bg-background/95 backdrop-blur-md md:hidden safe-area-bottom">
-      <div className="mx-auto flex max-w-screen-md items-center justify-around px-2 py-2">
+    <nav className="fixed bottom-0 left-0 right-0 z-30 border-t border-[#DDDDDD] bg-white md:hidden safe-area-bottom shadow-[0_-1px_10px_rgba(0,0,0,0.05)]">
+      <div className="mx-auto flex max-w-screen-md items-center justify-around px-2 py-3">
         {items.map((item) => {
           const { href, icon: Icon, label, match } = item;
           const id = (item as any).id;
@@ -33,22 +33,19 @@ export function BottomNav() {
               key={href}
               href={href}
               id={id}
-              className={`relative flex flex-1 flex-col items-center gap-1 py-1 text-[10px] font-bold tracking-tight transition-all active:scale-90 ${
-                active ? "text-primary" : "text-muted-foreground"
+              className={`relative flex flex-1 flex-col items-center gap-1.5 transition-all active:scale-90 ${
+                active ? "text-[#FF385C]" : "text-[#717171]"
               }`}
             >
               <div className="relative">
-                <Icon className={`h-6 w-6 transition-transform ${active ? "scale-110" : "scale-100"}`} />
+                <Icon className={`h-6 w-6 stroke-[1.5px] transition-transform ${active ? "scale-110" : "scale-100"}`} />
                 {isMyCourse && favorites.length > 0 && (
-                  <span className="absolute -right-2 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500 text-[9px] font-black text-white ring-2 ring-background animate-in zoom-in duration-300">
+                  <span className="absolute -right-2 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#FF385C] text-[9px] font-black text-white ring-2 ring-white animate-in zoom-in duration-300">
                     {favorites.length}
                   </span>
                 )}
               </div>
-              <span className={active ? "font-black" : "font-medium"}>{label}</span>
-              {active && (
-                <div className="absolute -bottom-1 h-1 w-1 rounded-full bg-primary" />
-              )}
+              <span className={`text-[11px] tracking-tight ${active ? "font-bold" : "font-medium"}`}>{label}</span>
             </Link>
           );
         })}

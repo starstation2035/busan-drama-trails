@@ -88,16 +88,16 @@ function SpotsContent() {
     }
   }, [style]);
 
-  const allDramas = useMemo(() => uniq(ALL_SPOTS.flatMap((s) => s.drama)), []);
-  const allRegions = useMemo(() => uniq(ALL_SPOTS.map((s) => s.region)), []);
-  const allTypes = useMemo(() => uniq(ALL_SPOTS.flatMap((s) => s.type)), []);
+  const allDramas = useMemo(() => uniq(ALL_SPOTS.flatMap((s) => s.drama || [])), []);
+  const allRegions = useMemo(() => uniq(ALL_SPOTS.map((s) => s.region).filter(Boolean)), []);
+  const allTypes = useMemo(() => uniq(ALL_SPOTS.flatMap((s) => s.type || [])), []);
 
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase();
     let list = ALL_SPOTS.filter((s) => {
       if (regions.length && !regions.includes(s.region)) return false;
-      if (types.length && !s.type.some((t) => types.includes(t))) return false;
-      if (dramas.length && !s.drama.some((d) => dramas.includes(d))) return false;
+      if (types.length && !(s.type || []).some((t) => types.includes(t))) return false;
+      if (dramas.length && !(s.drama || []).some((d) => dramas.includes(d))) return false;
       if (needle) {
         const hay = [
           ...Object.values(s.name),
@@ -314,11 +314,11 @@ function FilterRow({
         {label}
       </span>
       <div className="flex flex-wrap gap-2">
-        {options.map((opt) => {
+        {options.map((opt, idx) => {
           const active = selected.includes(opt);
           return (
             <button
-              key={opt}
+              key={`${opt}-${idx}`}
               onClick={() => onToggle(opt)}
               className={`rounded-full px-3 py-1.5 text-xs font-medium transition-all ${
                 active

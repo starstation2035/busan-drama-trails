@@ -23,31 +23,30 @@ export function Header({ onOpenLang }: Props) {
   const meta = FLAGS[lang] ?? FLAGS.ko;
 
   return (
-    <header className="sticky top-0 z-30 border-b border-border/60 bg-background/80 backdrop-blur-md">
-      <div className="mx-auto flex h-14 max-w-screen-md items-center justify-between px-4">
-        <Link href="/" className="font-bold text-primary tracking-tight">
+    <header className="sticky top-0 z-30 border-b border-[#DDDDDD] bg-white shadow-sm">
+      <div className="mx-auto flex h-16 max-w-screen-md items-center justify-between px-6">
+        <Link href="/" className="font-bold text-[#FF385C] tracking-tight text-lg">
           {t("common.appName")}
         </Link>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-4">
           <Link
             href="/my-course"
             id="header-nav-my-course"
-            className="relative flex items-center justify-center p-2 rounded-full border border-border bg-background hover:bg-muted transition-all"
+            className="relative flex items-center justify-center p-2.5 rounded-full border border-[#DDDDDD] bg-white hover:bg-[#F7F7F7] transition-all shadow-sm"
             title={t("nav.myCourse")}
           >
-            <Heart className={`h-4 w-4 transition-colors ${favorites.length > 0 ? "fill-rose-500 text-rose-500" : "text-muted-foreground"}`} />
+            <Heart className={`h-4 w-4 transition-colors ${favorites.length > 0 ? "fill-[#FF385C] text-[#FF385C]" : "text-[#717171]"}`} />
             {favorites.length > 0 && (
-              <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500 text-[10px] font-black text-white ring-2 ring-background animate-in zoom-in duration-300">
+              <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#FF385C] text-[10px] font-black text-white ring-2 ring-white animate-in zoom-in duration-300">
                 {favorites.length}
               </span>
             )}
           </Link>
           <button
             onClick={onOpenLang}
-            className="flex items-center gap-1.5 rounded-full border border-border bg-background px-3 py-1.5 text-xs font-medium hover:bg-muted"
+            className="flex items-center gap-2 rounded-full border border-[#DDDDDD] bg-white px-4 py-2 text-[13px] font-bold text-[#222222] hover:bg-[#F7F7F7] shadow-sm transition-all"
           >
-            <Globe className="h-3.5 w-3.5" />
-            <span>{meta.flag}</span>
+            <Globe className="h-4 w-4 text-[#717171]" />
             <span>{meta.native}</span>
           </button>
         </div>

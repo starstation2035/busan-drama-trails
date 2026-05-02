@@ -27,8 +27,12 @@
     "myCourse": "내 코스"
   },
   "landing": {
+    "hero": {
+      "badge": "Busan Drama Trails"
+    },
+    "title": "부산의 영화 속으로,\n당신만의 트레일을 발견하세요",
+    "subtitle": "에어비앤비처럼 편안하게, 한국 공공디자인의 직관성을 담아 부산의 숨겨진 영화 촬영지를 안내합니다.",
     "tagline": "드라마 장면 속으로, 부산의 이야기를 만나다 ✨",
-    "subtitle": "대만 관광객 타겟 웹 앱",
     "valueProp": {
       "spotsTitle": "드라마 촬영지",
       "spotsDesc": "50+ 명장면을 한 곳에",
