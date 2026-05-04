@@ -132,10 +132,7 @@ function SpotsContent() {
       {/* Upstream Header Integration */}
       <section className="-mx-4 px-6 pt-12 pb-0 bg-gradient-to-b from-primary/10 to-background">
         <h1 className="text-3xl font-black mb-3 tracking-tighter">
-          {t("spots.hero.title")}{" "}
-          <span className="text-xl font-light text-muted-foreground">
-            {t("spots.hero.brand")}
-          </span>
+          {t("spots.hero.title")}
         </h1>
         <p className="text-sm max-w-md whitespace-pre-line leading-relaxed text-[#222222]">
           <span className="font-bold">

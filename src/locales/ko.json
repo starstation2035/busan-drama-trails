@@ -215,10 +215,10 @@
       "reset": "필터 초기화"
     },
     "hero": {
-      "title": "원샷 트랩",
-      "brand": "(One Shot Trap)",
-      "subtitleLine1": "드라마 촬영지",
-      "subtitleLine2": "그 장면을 찾아가고, 바로 옆 맛집까지 이어지는 부산 코스를 안내합니다."
+      "title": "촬영지 & 명소 원샷",
+      "brand": "",
+      "subtitleLine1": "드라마 촬영지 그 장면을 찾아가고,",
+      "subtitleLine2": "바로 옆 맛집까지 이어지는 부산 코스를 안내합니다."
     },
     "sections": {
       "drama": "🎬 영화 촬영지",
