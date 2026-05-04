@@ -12,6 +12,7 @@ import spotsRaw from "@/data/spots.json";
 import { useAppStore } from "@/stores/useAppStore";
 import { toast } from "sonner";
 import { triggerHeartFly } from "@/components/HeartEffect";
+import DetailModal from "./_components/DetailModal";
 
 const BASE_LAT = 35.0787;
 const BASE_LNG = 129.0441;
@@ -69,13 +70,18 @@ export const SPOT_CONFIGS: Record<string, any> = {
   "spot_003": { // 해운대
     baseLat: 35.1587, baseLng: 129.1604, radius: 1000,
     restaurants: [
-      { id: "r3_1", name: { ko: "해운대 암소갈비집" }, food: { ko: "한우갈비" }, latitude: 35.1630, longitude: 129.1650, thumbnail: "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=400", rating: 4.7 },
-      { id: "r3_2", name: { ko: "밀양순대돼지국밥" }, food: { ko: "돼지국밥" }, latitude: 35.1610, longitude: 129.1600, thumbnail: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=400", rating: 4.5 },
-      { id: "r3_3", name: { ko: "상국이네" }, food: { ko: "떡볶이" }, latitude: 35.1615, longitude: 129.1615, thumbnail: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400", rating: 4.4 }
+      { id: "r3_1", name: { ko: "해운대 암소갈비집" }, food: { ko: "한우생갈비" }, latitude: 35.1630, longitude: 129.1650, thumbnail: "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=400", rating: 4.7 },
+      { id: "r3_2", name: { ko: "상국이네" }, food: { ko: "떡볶이" }, latitude: 35.1615, longitude: 129.1615, thumbnail: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400", rating: 4.4 },
+      { id: "r3_3", name: { ko: "밀양순대돼지국밥 해운대점" }, food: { ko: "돼지국밥" }, latitude: 35.1610, longitude: 129.1600, thumbnail: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=400", rating: 4.5 },
+      { id: "r3_4", name: { ko: "금수복국 해운대본점" }, food: { ko: "뚝배기 복국" }, latitude: 35.1612, longitude: 129.1625, thumbnail: "https://images.unsplash.com/photo-1544148103-0773bf10d330?w=400", rating: 4.6 },
+      { id: "r3_5", name: { ko: "해성막창집 본점" }, food: { ko: "대창/곱창전골" }, latitude: 35.1620, longitude: 129.1630, thumbnail: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400", rating: 4.5 }
     ],
     cafes: [
-      { id: "c3_1", name: { ko: "랑데자뷰 해운대" }, signature: { ko: "제주 감성" }, latitude: 35.1595, longitude: 129.1620, thumbnail: "https://images.unsplash.com/photo-1498804103079-a6351b050096?w=400", rating: 4.6 },
-      { id: "c3_2", name: { ko: "호랑이젤라떡" }, signature: { ko: "젤라또" }, latitude: 35.1580, longitude: 129.1650, thumbnail: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=400", rating: 4.8 }
+      { id: "c3_1", name: { ko: "호랑이젤라떡" }, signature: { ko: "젤라떡" }, latitude: 35.1580, longitude: 129.1650, thumbnail: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=400", rating: 4.8 },
+      { id: "c3_2", name: { ko: "랑데자뷰 해운대" }, signature: { ko: "제주 감성/오션뷰" }, latitude: 35.1595, longitude: 129.1620, thumbnail: "https://images.unsplash.com/photo-1498804103079-a6351b050096?w=400", rating: 4.6 },
+      { id: "c3_3", name: { ko: "스누피플레이스 부산" }, signature: { ko: "스누피 테마" }, latitude: 35.1590, longitude: 129.1630, thumbnail: "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?w=400", rating: 4.5 },
+      { id: "c3_4", name: { ko: "오션어스" }, signature: { ko: "오션뷰 커피" }, latitude: 35.1585, longitude: 129.1640, thumbnail: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=400", rating: 4.4 },
+      { id: "c3_5", name: { ko: "빌라혼네" }, signature: { ko: "에스프레소 바" }, latitude: 35.1610, longitude: 129.1610, thumbnail: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=400", rating: 4.7 }
     ]
   },
   "spot_004": { // 흰여울문화마을
@@ -163,6 +169,7 @@ export default function NearbyDiscovery({ params, searchParams }: { params: Prom
 
   const initialTab = type === "cafe" ? "cafe" : "restaurant";
   const [activeTab, setActiveTab] = useState<"restaurant" | "cafe">(initialTab);
+  const [selectedDetail, setSelectedDetail] = useState<any | null>(null);
 
   const nearbyItems = useMemo(() => {
     const config = SPOT_CONFIGS[id as string];
@@ -226,10 +233,10 @@ export default function NearbyDiscovery({ params, searchParams }: { params: Prom
           {nearbyItems.map((item: any, idx: number) => {
             const isFav = myCourseItems.some(x => x.id === item.id);
             return (
-              <Link
+              <div
                 key={item.id}
-                href={`/spots/${spot.id}/nearby/${item.id}`}
-                className="group relative block overflow-hidden rounded-3xl bg-card border border-border/50 shadow-sm transition-all hover:shadow-xl hover:border-primary/20 no-underline"
+                onClick={() => setSelectedDetail(item)}
+                className="group relative block overflow-hidden rounded-3xl bg-card border border-border/50 shadow-sm transition-all hover:shadow-xl hover:border-primary/20 cursor-pointer"
               >
                 <div className="aspect-[16/9] overflow-hidden relative">
                   <img
@@ -295,7 +302,7 @@ export default function NearbyDiscovery({ params, searchParams }: { params: Prom
                     </span>
                   </div>
                 </div>
-              </Link>
+              </div>
             );
           })}
         </div>
@@ -307,6 +314,12 @@ export default function NearbyDiscovery({ params, searchParams }: { params: Prom
           </Button>
         </div>
       </div>
+
+      <DetailModal 
+        isOpen={!!selectedDetail} 
+        item={selectedDetail} 
+        onClose={() => setSelectedDetail(null)} 
+      />
     </div>
   );
 }
