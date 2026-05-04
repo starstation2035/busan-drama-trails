@@ -223,7 +223,7 @@ export default function NearbyDiscovery({ params, searchParams }: { params: Prom
         </div>
 
         <div className="space-y-6">
-          {nearbyItems.map((item, idx) => {
+          {nearbyItems.map((item: any, idx: number) => {
             const isFav = myCourseItems.some(x => x.id === item.id);
             return (
               <Link
