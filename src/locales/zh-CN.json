@@ -1,6 +1,6 @@
 {
   "common": {
-    "appName": "釜山剧场 & 风格",
+    "appName": "One Shot Trap",
     "back": "上一题",
     "retake": "再测一次",
     "share": "分享结果",
@@ -25,6 +25,11 @@
     "myCourse": "我的行程"
   },
   "landing": {
+    "hero": {
+      "badge": "One Shot Trap"
+    },
+    "title": "One Shot Trap",
+    "subtitle": "体验韩国文化的精髓 ✨",
     "tagline": "走进韩剧场景,感受釜山的小确幸 ✨",
     "valueProp": {
       "spotsTitle": "韩剧拍摄地",
@@ -35,10 +40,66 @@
       "routeDesc": "一键生成你的釜山路线"
     },
     "cta": {
-      "explore": "开始探索拍摄地",
-      "style": "找出我的旅游风格"
+      "explore": "探索拍摄地",
+      "style": "开始测试"
     },
-    "stats": "50+ 拍摄地・200+ 美食・5 种语言"
+    "stats": "50+ 拍摄地・200+ 美食・5 种语言",
+    "recentReviews": {
+      "title": "最新旅行评价",
+      "subtitle": "实时查看其他旅人分享的精彩故事",
+      "viewAll": "查看所有评价"
+    },
+    "categories": {
+      "food": "美食",
+      "cafe": "咖啡",
+      "community": "社区",
+      "spots": "热门景点",
+      "myCourse": "我的行程"
+    }
+  },
+  "community": {
+    "title": "旅人社区",
+    "subtitle": "发掘旅人们分享的釜山真实故事",
+    "write": "发表动态",
+    "empty": "来当第一个分享釜山故事的人吧！",
+    "filters": {
+      "all": "全部",
+      "tips": "旅游攻略",
+      "reviews": "景点评价"
+    },
+    "modal": {
+      "title": "创建新动态",
+      "details": "输入内容",
+      "imageHint": "将照片拖拽至此处",
+      "selectComputer": "从电脑选择",
+      "captionPlaceholder": "撰寫內容...",
+      "locationPlaceholder": "添加地点",
+      "selectedViaMap": "已通过 Google Maps 选择",
+      "categoryTitle": "分类设置",
+      "disclaimer": "你发表的内容将公开于釜山剧迷足迹社区中。",
+      "mapTitle": "选择地点",
+      "mapPlaceholder": "搜索地点或地址",
+      "mapConfirm": "选择此地点"
+    },
+    "social": {
+      "kakao": "已分享至 KakaoTalk！ 💬",
+      "line": "已分享至 LINE！ 🟢"
+    },
+    "post": {
+      "success": "动态发布成功！ ✨",
+      "captionError": "请输入内容！",
+      "placeholder": "分享你的釜山韩剧之旅心得吧！",
+      "submit": "上传"
+    }
+  },
+  "chat": {
+    "title": "全球社区聊天室",
+    "subtitle": "实时双向翻译中 🌍",
+    "welcome": "欢迎来到全球聊天社区。",
+    "original": "原文",
+    "showOriginal": "查看原文",
+    "showTranslate": "查看翻译",
+    "placeholder": "将实时翻译为各国语言..."
   },
   "quiz": {
     "intro": {

@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import { Search, MapPin, X, Navigation, Check } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import { Button } from "./ui/button";
+import { useTranslation } from "react-i18next";
 import spotsData from "@/data/spots.json";
 
 interface GoogleMapPickerProps {
@@ -13,6 +14,7 @@ interface GoogleMapPickerProps {
 }
 
 export function GoogleMapPicker({ open, onClose, onSelect }: GoogleMapPickerProps) {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSpotId, setSelectedSpotId] = useState<string | null>(null);
 
@@ -39,7 +41,7 @@ export function GoogleMapPicker({ open, onClose, onSelect }: GoogleMapPickerProp
         <DialogHeader className="px-4 py-3 border-b border-gray-100 flex-row items-center justify-between space-y-0">
           <DialogTitle className="text-base font-bold flex items-center gap-2">
             <img src="https://upload.wikimedia.org/wikipedia/commons/3/39/Google_Maps_icon_%282020%29.svg" className="h-5 w-5" alt="Google Maps" />
-            위치 선택
+            {t("community.modal.mapTitle")}
           </DialogTitle>
           <button onClick={onClose} className="p-1 hover:bg-gray-100 rounded-full transition-colors">
             <X className="h-5 w-5 text-gray-500" />
@@ -54,7 +56,7 @@ export function GoogleMapPicker({ open, onClose, onSelect }: GoogleMapPickerProp
                 <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
                 <input
                   type="text"
-                  placeholder="장소 또는 주소 검색"
+                  placeholder={t("community.modal.mapPlaceholder")}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full pl-10 pr-4 py-2 bg-gray-100 rounded-xl text-sm border-none focus:ring-2 focus:ring-blue-500/20"
@@ -93,7 +95,7 @@ export function GoogleMapPicker({ open, onClose, onSelect }: GoogleMapPickerProp
                 disabled={!selectedSpotId}
                 className="w-full bg-[#4285F4] hover:bg-[#357ae8] text-white rounded-xl font-bold h-11"
               >
-                이 위치로 선택
+                {t("community.modal.mapConfirm")}
               </Button>
             </div>
           </div>

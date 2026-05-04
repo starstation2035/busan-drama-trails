@@ -1,6 +1,6 @@
 {
   "common": {
-    "appName": "釜山劇場 & 風格",
+    "appName": "One Shot Trap",
     "back": "上一題",
     "retake": "再測一次",
     "share": "分享結果",
@@ -26,8 +26,12 @@
     "myCourse": "我的行程"
   },
   "landing": {
+    "hero": {
+      "badge": "One Shot Trap"
+    },
+    "title": "One Shot Trap",
+    "subtitle": "體驗韓國文化的精髓 ✨",
     "tagline": "走進韓劇場景，感受釜山的小確幸 ✨",
-    "subtitle": "針對台灣遊客的網頁應用",
     "valueProp": {
       "spotsTitle": "韓劇拍攝地",
       "spotsDesc": "50+ 經典場景一次收藏",
@@ -37,14 +41,14 @@
       "routeDesc": "一鍵生成你的釜山路線"
     },
     "cta": {
-      "explore": "開始探索拍攝地",
-      "style": "風格測驗"
+      "explore": "探索拍攝地",
+      "style": "開始測試"
     },
     "stats": "50+ 拍攝地・200+ 美食・5 種語言",
     "recentReviews": {
-      "title": "最新旅行回顧",
-      "subtitle": "實時查看其他旅行者生動的釜山故事",
-      "viewAll": "查看所有評論"
+      "title": "最新旅行評價",
+      "subtitle": "實時查看其他旅人分享的精彩故事",
+      "viewAll": "查看所有評價"
     },
     "categories": {
       "food": "美食",
@@ -56,18 +60,47 @@
   },
   "community": {
     "title": "旅人社群",
-    "subtitle": "看看大家的釜山旅遊心得",
-    "write": "撰寫評價",
-    "empty": "來當第一個分享旅遊心得的人吧！",
+    "subtitle": "發掘旅人們分享的釜山真實故事",
+    "write": "發表貼文",
+    "empty": "來當第一個分享釜山故事的人吧！",
     "filters": {
       "all": "全部",
       "tips": "旅遊攻略",
       "reviews": "景點評價"
     },
+    "modal": {
+      "title": "建立新貼文",
+      "details": "輸入內容",
+      "imageHint": "將照片拖曳至此處",
+      "selectComputer": "從電腦選取",
+      "captionPlaceholder": "撰寫內容...",
+      "locationPlaceholder": "新增地點",
+      "selectedViaMap": "已透過 Google Maps 選取",
+      "categoryTitle": "分類設定",
+      "disclaimer": "你發表的貼文將公開於釜山劇迷足跡社群中。",
+      "mapTitle": "選取地點",
+      "mapPlaceholder": "搜尋地點或地址",
+      "mapConfirm": "選取此地點"
+    },
+    "social": {
+      "kakao": "已分享至 KakaoTalk！ 💬",
+      "line": "已分享至 LINE！ 🟢"
+    },
     "post": {
+      "success": "貼文發布成功！ ✨",
+      "captionError": "請輸入內容！",
       "placeholder": "分享你的釜山韓劇之旅心得吧！",
       "submit": "上傳"
     }
+  },
+  "chat": {
+    "title": "全球社群聊天室",
+    "subtitle": "實時雙向翻譯中 🌍",
+    "welcome": "歡迎來到全球聊天社群。",
+    "original": "原文",
+    "showOriginal": "查看原文",
+    "showTranslate": "查看翻譯",
+    "placeholder": "將實時翻譯為各國語言..."
   },
   "quiz": {
     "intro": {
