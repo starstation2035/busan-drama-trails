@@ -142,10 +142,10 @@ function SpotsContent() {
       {/* Upstream Header Integration */}
       <section className="-mx-4 px-6 pt-12 pb-8 bg-gradient-to-b from-primary/10 to-background">
         <h1 className="text-4xl font-black mb-3 tracking-tight">
-          Explore Busan
+          {t("spots.hero.title")}
         </h1>
         <p className="text-muted-foreground text-base max-w-md">
-          영화 속 그 장면부터 부산의 숨은 명소까지, 당신의 특별한 여정을 시작하세요.
+          {t("spots.hero.subtitle")}
         </p>
       </section>
 
@@ -255,9 +255,9 @@ function SpotsContent() {
             <section>
               <div className="mb-6">
                 <h2 className="text-2xl font-bold flex items-center gap-2">
-                  🎬 영화 촬영지
+                  {t("spots.sections.drama")}
                 </h2>
-                <p className="text-xs text-muted-foreground mt-1">드라마와 영화 속 감동을 직접 느껴보세요.</p>
+                <p className="text-xs text-muted-foreground mt-1">{t("spots.sections.dramaDesc")}</p>
               </div>
               <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 xl:grid-cols-4">
                 {filmingSites.map((spot) => (
@@ -271,9 +271,9 @@ function SpotsContent() {
             <section>
               <div className="mb-6">
                 <h2 className="text-2xl font-bold flex items-center gap-2">
-                  🌊 부산 명소
+                  {t("spots.sections.landmark")}
                 </h2>
-                <p className="text-xs text-muted-foreground mt-1">부산에 왔다면 꼭 가봐야 할 필수 코스입니다.</p>
+                <p className="text-xs text-muted-foreground mt-1">{t("spots.sections.landmarkDesc")}</p>
               </div>
               <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 xl:grid-cols-4">
                 {landmarks.map((spot) => (

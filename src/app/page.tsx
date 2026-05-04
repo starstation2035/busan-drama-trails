@@ -128,8 +128,8 @@ export default function Landing() {
         {/* Navigation Cards */}
         <section className="grid grid-cols-1 sm:grid-cols-2 gap-8 animate-fade-up">
           {[
-            { id: "spots", img: "/spot_category.png", label: t("nav.spots"), link: "/spots", desc: "인기 촬영지 둘러보기" },
-            { id: "myCourse", img: "/busan_harbor_bridge_sunset_1776481887078.png", label: t("nav.myCourse"), link: "/my-course", desc: "나만의 여행 코스 만들기" },
+            { id: "spots", img: "/spot_category.png", label: t("nav.spots"), link: "/spots", desc: t("landing.cta.explore") },
+            { id: "myCourse", img: "/busan_harbor_bridge_sunset_1776481887078.png", label: t("nav.myCourse"), link: "/my-course", desc: t("pages.myCourse") },
           ].map((item) => (
             <Link
               key={item.id}
@@ -159,7 +159,7 @@ export default function Landing() {
           <div className="flex items-center justify-between mb-8 px-2">
             <div>
               <h2 className="text-2xl font-bold text-[#222222]">{t("landing.recentReviews.title")}</h2>
-              <p className="text-base text-[#717171] mt-1">여행자들의 생생한 후기</p>
+              <p className="text-base text-[#717171] mt-1">{t("landing.recentReviews.subtitle")}</p>
             </div>
             <Link href="/community">
               <Button variant="ghost" className="text-[#222222] font-bold hover:bg-white/50 rounded-full">

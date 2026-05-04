@@ -17,7 +17,7 @@ interface CommunityPostModalProps {
 const PRESET_IMAGES = [
   "/images/spots/haeundae.png",
   "/images/spots/gwangalli.png",
-  "/images/spots/gamcheon.png",
+  "https://images.unsplash.com/photo-1544551763-47a0159f963f?w=1200", // Gamcheon Culture Village
   "/images/spots/huinnyeoul.png",
   "/images/spots/cheongsapo.png",
   "/images/spots/jagalchi.png",
@@ -48,7 +48,7 @@ export function CommunityPostModal({ open, onClose }: CommunityPostModalProps) {
 
   const handleNext = () => {
     if (!selectedImage) {
-      toast.error("게시할 사진을 먼저 선택해주세요!");
+      toast.error(t("community.post.imageError"));
       return;
     }
     setStep(2);
@@ -56,7 +56,7 @@ export function CommunityPostModal({ open, onClose }: CommunityPostModalProps) {
 
   const handleSubmit = () => {
     if (!content.trim()) {
-      toast.error("캡션을 입력해주세요!");
+      toast.error(t("community.post.captionError"));
       return;
     }
     
@@ -70,7 +70,7 @@ export function CommunityPostModal({ open, onClose }: CommunityPostModalProps) {
       category,
     });
     
-    toast.success("게시물이 성공적으로 공유되었습니다! ✨");
+    toast.success(t("community.post.success"));
     reset();
     onClose();
   };
@@ -80,7 +80,7 @@ export function CommunityPostModal({ open, onClose }: CommunityPostModalProps) {
     <Dialog open={open} onOpenChange={(val) => !val && onClose()}>
       <DialogContent hideClose className="max-w-4xl p-0 overflow-hidden rounded-none sm:rounded-2xl gap-0 bg-white border-none shadow-2xl h-[95vh] sm:h-[600px]">
         {/* Instagram Header */}
-        <div className="h-12 border-b border-gray-100 flex items-center justify-between px-4 shrink-0 bg-white z-10">
+        <DialogHeader className="h-12 border-b border-gray-100 flex-row items-center justify-between px-4 shrink-0 bg-white z-10 space-y-0">
           <div className="flex items-center gap-2">
             {step === 2 ? (
               <button onClick={() => setStep(1)} className="p-1 hover:bg-gray-100 rounded-full transition-colors">
@@ -91,25 +91,25 @@ export function CommunityPostModal({ open, onClose }: CommunityPostModalProps) {
                 <X className="h-6 w-6 text-[#262626]" />
               </button>
             )}
-            <span className="font-semibold text-[#262626]">
-              {step === 1 ? "새 게시물 만들기" : "정보 입력"}
-            </span>
+            <DialogTitle className="font-semibold text-[#262626]">
+              {step === 1 ? t("community.modal.title") : t("community.modal.details")}
+            </DialogTitle>
           </div>
           
           <div className="flex items-center gap-3">
             {step === 2 && (
               <div className="flex items-center gap-2 mr-2">
                 <button 
-                  onClick={() => toast.success("카카오톡으로 공유되었습니다! 💬")}
+                  onClick={() => toast.success(t("community.social.kakao"))}
                   className="hover:scale-110 transition-transform"
-                  title="카카오톡 공유"
+                  title="KakaoTalk"
                 >
                   <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/KakaoTalk_logo.svg" className="h-5 w-5" alt="Kakao" />
                 </button>
                 <button 
-                  onClick={() => toast.success("라인으로 공유되었습니다! 🟢")}
+                  onClick={() => toast.success(t("community.social.line"))}
                   className="hover:scale-110 transition-transform"
-                  title="라인 공유"
+                  title="LINE"
                 >
                   <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/LINE_logo.svg" className="h-5 w-5" alt="Line" />
                 </button>
@@ -121,18 +121,18 @@ export function CommunityPostModal({ open, onClose }: CommunityPostModalProps) {
                 onClick={handleNext}
                 className="text-[#0095F6] font-bold text-sm hover:text-[#00376b] transition-colors"
               >
-                다음
+                {t("common.next")}
               </button>
             ) : (
               <button 
                 onClick={handleSubmit}
                 className="bg-[#0095F6] text-white font-bold text-sm px-4 py-1.5 rounded-lg hover:bg-[#1877F2] transition-colors shadow-sm"
               >
-                게시물 작성
+                {t("community.modal.post")}
               </button>
             )}
           </div>
-        </div>
+        </DialogHeader>
 
         <div className="flex flex-col sm:flex-row h-full overflow-hidden">
           {/* Left Side: Image Area */}
@@ -149,9 +149,9 @@ export function CommunityPostModal({ open, onClose }: CommunityPostModalProps) {
             ) : (
               <div className="flex flex-col items-center text-[#262626]">
                 <Camera className="h-20 w-20 mb-4 stroke-[0.5]" />
-                <p className="text-xl font-light">사진을 이곳에 끌어다 놓으세요</p>
+                <p className="text-xl font-light">{t("community.modal.imageHint")}</p>
                 <Button className="mt-6 bg-[#0095F6] hover:bg-[#1877F2] text-white rounded-lg px-4 py-1.5 text-sm h-auto">
-                  컴퓨터에서 선택
+                  {t("community.modal.selectComputer")}
                 </Button>
               </div>
             )}
@@ -199,7 +199,7 @@ export function CommunityPostModal({ open, onClose }: CommunityPostModalProps) {
                 <div className="p-4">
                   <textarea
                     autoFocus
-                    placeholder="문구를 입력하세요..."
+                    placeholder={t("community.modal.captionPlaceholder")}
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                     className="w-full min-h-[160px] resize-none border-none focus:ring-0 p-0 text-sm leading-relaxed placeholder:text-[#8e8e8e]"
@@ -225,9 +225,9 @@ export function CommunityPostModal({ open, onClose }: CommunityPostModalProps) {
                           "text-sm",
                           location ? "text-[#262626] font-medium" : "text-[#8e8e8e]"
                         )}>
-                          {location || "위치 추가 (Google Maps)"}
+                          {location || t("community.modal.locationPlaceholder")}
                         </span>
-                        {location && <span className="text-[10px] text-blue-500 font-bold uppercase tracking-wider">Selected via Google Maps</span>}
+                        {location && <span className="text-[10px] text-blue-500 font-bold uppercase tracking-wider">{t("community.modal.selectedViaMap")}</span>}
                       </div>
                     </div>
                     <ChevronRight className="h-4 w-4 text-gray-300" />
@@ -237,7 +237,7 @@ export function CommunityPostModal({ open, onClose }: CommunityPostModalProps) {
                 {/* Accessibility / Category */}
                 <div className="p-4 flex flex-col gap-3">
                   <div className="flex items-center justify-between group cursor-pointer">
-                    <span className="text-sm font-medium text-[#262626]">카테고리 설정</span>
+                    <span className="text-sm font-medium text-[#262626]">{t("community.modal.categoryTitle")}</span>
                     <Tag className="h-4 w-4 text-gray-400" />
                   </div>
                   <div className="flex gap-2">
@@ -252,7 +252,7 @@ export function CommunityPostModal({ open, onClose }: CommunityPostModalProps) {
                             : "bg-white text-[#262626] border-gray-200 hover:border-gray-400"
                         )}
                       >
-                        {cat === "reviews" ? "방문후기" : "여행꿀팁"}
+                        {cat === "reviews" ? t("community.filters.reviews") : t("community.filters.tips")}
                       </button>
                     ))}
                   </div>
@@ -262,7 +262,7 @@ export function CommunityPostModal({ open, onClose }: CommunityPostModalProps) {
                 <div className="p-4 bg-[#FAFAFA] flex-1">
                   <div className="p-4 rounded-xl bg-white border border-gray-100 shadow-sm">
                     <p className="text-[11px] text-[#8e8e8e] leading-relaxed">
-                      작성하신 게시물은 부산 드라마 트레일 커뮤니티에 공개되며, 다른 사용자들이 좋아요를 누르거나 위치 정보를 확인할 수 있습니다.
+                      {t("community.modal.disclaimer")}
                     </p>
                   </div>
                 </div>

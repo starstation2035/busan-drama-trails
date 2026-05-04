@@ -48,8 +48,8 @@ export function LiveChatWidget({ isOpen, onClose }: LiveChatWidgetProps) {
         <div className="flex items-center gap-2">
           <Globe className="h-5 w-5 text-[#3b1e1e]" />
           <div className="flex flex-col">
-            <span className="font-bold text-[#3b1e1e] text-sm">글로벌 커뮤니티 채팅</span>
-            <span className="text-[10px] text-[#3b1e1e]/70">실시간 양방향 번역 중 🌍</span>
+            <span className="font-bold text-[#3b1e1e] text-sm">{t("chat.title")}</span>
+            <span className="text-[10px] text-[#3b1e1e]/70">{t("chat.subtitle")}</span>
           </div>
         </div>
         <button onClick={onClose} className="rounded-full bg-white/20 p-2 text-[#3b1e1e] hover:bg-white/40 transition-colors">
@@ -61,7 +61,7 @@ export function LiveChatWidget({ isOpen, onClose }: LiveChatWidgetProps) {
       <div className="flex-1 overflow-y-auto p-4 space-y-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" ref={scrollRef}>
         <div className="flex justify-center mb-6 mt-2">
           <span className="rounded-full bg-black/10 px-4 py-1.5 text-[11px] text-[#3b1e1e]/60 backdrop-blur-sm">
-            채팅 커뮤니티에 입장하셨습니다.
+            {t("chat.welcome")}
           </span>
         </div>
         
@@ -80,7 +80,7 @@ export function LiveChatWidget({ isOpen, onClose }: LiveChatWidgetProps) {
                   {msg.translatedContent ? (
                     <div className="flex flex-col gap-1.5">
                       <span className="font-medium text-[#3b1e1e] border-b border-[#3b1e1e]/10 pb-1.5 mb-0.5">{msg.translatedContent}</span>
-                      <span className="text-[11px] opacity-60">원문: {msg.content}</span>
+                      <span className="text-[11px] opacity-60">{t("chat.original")}: {msg.content}</span>
                     </div>
                   ) : (
                     <span>{msg.content}</span>
@@ -98,7 +98,7 @@ export function LiveChatWidget({ isOpen, onClose }: LiveChatWidgetProps) {
                       className="flex items-center gap-1 rounded bg-black/5 px-1.5 py-0.5 hover:bg-black/10 active:scale-95 transition-all text-[#3b1e1e]/70 font-medium"
                     >
                       <Languages className="h-3 w-3" />
-                      <span>{msg.translatedContent ? "원문 보기" : "번역 보기"}</span>
+                      <span>{msg.translatedContent ? t("chat.showOriginal") : t("chat.showTranslate")}</span>
                     </button>
                   )}
                 </div>
@@ -120,7 +120,7 @@ export function LiveChatWidget({ isOpen, onClose }: LiveChatWidgetProps) {
                 handleSend(e);
               }
             }}
-            placeholder="다국어로 실시간 번역됩니다..."
+            placeholder={t("chat.placeholder")}
             className="max-h-[100px] min-h-[44px] flex-1 resize-none overflow-y-auto rounded-[20px] bg-gray-100 px-4 py-3 text-sm text-[#3b1e1e] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FAE100]/50 [scrollbar-width:none]"
             rows={1}
           />

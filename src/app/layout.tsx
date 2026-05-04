@@ -3,8 +3,8 @@ import { Layout } from "@/components/Layout";
 import "../styles.css";
 
 export const metadata: Metadata = {
-  title: "부산여행 정보 및 스타일 추천",
-  description: "Discover K-drama filming locations, restaurants, and cafes in Busan.",
+  title: "원 샷 트랩 (One Shot Trap)",
+  description: "Experience the best of K-culture in Busan with One Shot Trap.",
 };
 
 export default function RootLayout({
@@ -26,7 +26,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <Layout>{children}</Layout>
       </body>
     </html>
