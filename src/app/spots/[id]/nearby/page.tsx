@@ -56,17 +56,7 @@ export const SPOT_CONFIGS: Record<string, any> = {
       { id: "c1_2", name: { ko: "카페 루프탑" }, signature: { ko: "오션뷰" }, latitude: 35.1585, longitude: 129.1995, thumbnail: "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?w=400", rating: 4.8 }
     ]
   },
-  "spot_002": { // 감천문화마을
-    baseLat: 35.0975, baseLng: 129.0107, radius: 1000,
-    restaurants: [
-      { id: "r2_1", name: { ko: "감내어울터 분식" }, food: { ko: "분식" }, latitude: 35.0970, longitude: 129.0115, thumbnail: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400", rating: 4.3 },
-      { id: "r2_2", name: { ko: "더플레이트" }, food: { ko: "양식/브런치" }, latitude: 35.0980, longitude: 129.0100, thumbnail: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400", rating: 4.5 }
-    ],
-    cafes: [
-      { id: "c2_1", name: { ko: "아방가르드 카페" }, signature: { ko: "마을 전경 뷰" }, latitude: 35.0965, longitude: 129.0110, thumbnail: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=400", rating: 4.8 },
-      { id: "c2_2", name: { ko: "계단위 푸른집" }, signature: { ko: "구름라떼" }, latitude: 35.0972, longitude: 129.0105, thumbnail: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=400", rating: 4.7 }
-    ]
-  },
+
   "spot_003": { // 해운대
     baseLat: 35.1587, baseLng: 129.1604, radius: 1000,
     restaurants: [
