@@ -30,6 +30,7 @@ export function LanguageModal({ open, onClose }: Props) {
   const handleConfirm = () => {
     setLang(selected);
     void i18n.changeLanguage(selected);
+    localStorage.setItem("busan-drama-lang-selected", "true");
     onClose();
   };
 

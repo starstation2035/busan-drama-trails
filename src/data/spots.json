@@ -77,12 +77,28 @@
     "visit_tips": { "ko": "해변을 따라 늘어선 해녀촌에서 신선한 해산물을 맛볼 수 있습니다." }
   },
   {
+    "id": "spot_002",
+    "name": {
+      "ko": "감천문화마을",
+      "en": "Gamcheon Culture Village"
+    },
+    "drama": ["런닝맨"],
+    "category": "landmark",
+    "region": "사하구",
+    "thumbnail": "https://www.visitbusan.net/uploadImgs/files/cntnts/20191229142305192_oen",
+    "coords": { "lat": 35.0975, "lng": 129.0107 },
+    "description": { "ko": "부산의 마추픽추라 불리는 알록달록한 산자락 마을." },
+    "address": { "ko": "부산 사하구 감내2로 203" },
+    "nearby_restaurants": ["r2", "r11"],
+    "nearby_cafes": ["c2", "c10"]
+  },
+  {
     "id": "spot_003",
     "name": {
       "ko": "해운대 해수욕장",
       "en": "Haeundae Beach"
     },
-    "drama": [],
+    "drama": ["해운대"],
     "category": "landmark",
     "region": "해운대",
     "thumbnail": "/images/spots/haeundae.png",
@@ -100,7 +116,7 @@
       "ko": "광안리 해수욕장",
       "en": "Gwangalli Beach"
     },
-    "drama": [],
+    "drama": ["해운대"],
     "category": "landmark",
     "region": "수영구",
     "thumbnail": "/images/spots/gwangalli.png",
