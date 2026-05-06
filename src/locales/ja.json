@@ -1,6 +1,6 @@
 {
   "common": {
-    "appName": "釜山ドラマスポット & スタイル",
+    "appName": "One Shot Trap",
     "back": "戻る",
     "retake": "もう一度",
     "share": "結果をシェア",
@@ -25,6 +25,11 @@
     "myCourse": "マイコース"
   },
   "landing": {
+    "hero": {
+      "badge": "One Shot Trap"
+    },
+    "title": "One Shot Trap",
+    "subtitle": "K-カルチャーを体験しよう ✨",
     "tagline": "ドラマの世界へ、釜山の物語を歩く ✨",
     "valueProp": {
       "spotsTitle": "ドラマ撮影地",
@@ -36,9 +41,65 @@
     },
     "cta": {
       "explore": "撮影地を見る",
-      "style": "私の旅スタイル診断"
+      "style": "診断スタート"
     },
-    "stats": "50+ スポット・200+ グルメ・5言語"
+    "stats": "50+ スポット・200+ グルメ・5言語",
+    "recentReviews": {
+      "title": "最近の旅行レビュー",
+      "subtitle": "他の旅行者のリアルな釜山の物語をチェック",
+      "viewAll": "すべてのレビューを見る"
+    },
+    "categories": {
+      "food": "グルメ",
+      "cafe": "カフェ",
+      "community": "コミュニティ",
+      "spots": "スポット",
+      "myCourse": "マイコース"
+    }
+  },
+  "community": {
+    "title": "旅行者コミュニティ",
+    "subtitle": "釜山旅行のリアルな体験談を見つけよう",
+    "write": "投稿する",
+    "empty": "あなたの釜山の思い出を一番にシェアしよう！",
+    "filters": {
+      "all": "すべて",
+      "tips": "コツ",
+      "reviews": "レビュー"
+    },
+    "modal": {
+      "title": "新規投稿",
+      "details": "内容を入力",
+      "imageHint": "写真をここにドラッグ＆ドロップ",
+      "selectComputer": "PCから選択",
+      "captionPlaceholder": "キャプションを入力...",
+      "locationPlaceholder": "場所を追加",
+      "selectedViaMap": "Googleマップで選択済み",
+      "categoryTitle": "カテゴリー設定",
+      "disclaimer": "投稿した内容は釜山ドラマトレイルコミュニティに公開されます。",
+      "mapTitle": "場所を選択",
+      "mapPlaceholder": "場所や住所を検索",
+      "mapConfirm": "この場所に設定"
+    },
+    "social": {
+      "kakao": "カカオ톡でシェアしました！ 💬",
+      "line": "LINEでシェアしました！ 🟢"
+    },
+    "post": {
+      "success": "投稿が完了しました！ ✨",
+      "captionError": "キャプションを入力してください！",
+      "placeholder": "あなただけの釜山ドラマ旅のコツをシェアしよう！",
+      "submit": "アップロード"
+    }
+  },
+  "chat": {
+    "title": "グローバルコミュニティチャット",
+    "subtitle": "リアルタイム双方向翻訳中 🌍",
+    "welcome": "チャットコミュニティへようこそ。",
+    "original": "原文",
+    "showOriginal": "原文を表示",
+    "showTranslate": "翻訳を表示",
+    "placeholder": "リアルタイムで翻訳されます..."
   },
   "quiz": {
     "intro": {

@@ -1,7 +1,8 @@
 {
   "common": {
-    "appName": "부산 드라마 스팟 & 스타일",
+    "appName": "원 샷 트랩 (One Shot Trap)",
     "back": "이전",
+    "next": "다음",
     "retake": "다시 하기",
     "share": "결과 공유",
     "copied": "링크가 복사되었어요!",
@@ -27,8 +28,12 @@
     "myCourse": "내 코스"
   },
   "landing": {
+    "hero": {
+      "badge": "One Shot Trap"
+    },
+    "title": "원 샷 트랩",
+    "subtitle": "K-컬처를 느껴보세요 ✨",
     "tagline": "드라마 장면 속으로, 부산의 이야기를 만나다 ✨",
-    "subtitle": "대만 관광객 타겟 웹 앱",
     "valueProp": {
       "spotsTitle": "드라마 촬영지",
       "spotsDesc": "50+ 명장면을 한 곳에",
@@ -65,10 +70,40 @@
       "tips": "꿀팁",
       "reviews": "방문후기"
     },
+    "modal": {
+      "title": "새 게시물 만들기",
+      "details": "정보 입력",
+      "imageHint": "사진을 이곳에 끌어다 놓으세요",
+      "selectComputer": "컴퓨터에서 선택",
+      "captionPlaceholder": "문구를 입력하세요...",
+      "locationPlaceholder": "위치 추가",
+      "selectedViaMap": "Google Maps를 통해 선택됨",
+      "categoryTitle": "카테고리 설정",
+      "disclaimer": "작성하신 게시물은 부산 드라마 트레일 커뮤니티에 공개되며, 다른 사용자들이 좋아요를 누르거나 위치 정보를 확인할 수 있습니다.",
+      "mapTitle": "위치 선택",
+      "mapPlaceholder": "장소 또는 주소 검색",
+      "mapConfirm": "이 위치로 선택"
+    },
+    "social": {
+      "kakao": "카카오톡으로 공유되었습니다! 💬",
+      "line": "라인으로 공유되었습니다! 🟢"
+    },
     "post": {
+      "success": "게시물이 성공적으로 공유되었습니다! ✨",
+      "imageError": "게시할 사진을 먼저 선택해주세요!",
+      "captionError": "캡션을 입력해주세요!",
       "placeholder": "나만의 부산 드라마 여행 팁을 공유해보세요!",
       "submit": "업로드"
     }
+  },
+  "chat": {
+    "title": "글로벌 커뮤니티 채팅",
+    "subtitle": "실시간 양방향 번역 중 🌍",
+    "welcome": "채팅 커뮤니티에 입장하셨습니다.",
+    "original": "원문",
+    "showOriginal": "원문 보기",
+    "showTranslate": "번역 보기",
+    "placeholder": "다국어로 실시간 번역됩니다..."
   },
   "quiz": {
     "intro": {
@@ -178,6 +213,24 @@
       "title": "조건에 맞는 촬영지가 없어요",
       "subtitle": "검색어나 필터를 조정해보세요",
       "reset": "필터 초기화"
+    },
+    "hero": {
+      "title": "촬영지 & 명소 원샷",
+      "brand": "",
+      "subtitleLine1": "드라마 촬영지 그 장면을 찾아가고,",
+      "subtitleLine2": "바로 옆 맛집까지 이어지는 부산 코스를 안내합니다."
+    },
+    "sections": {
+      "drama": "🎬 영화 촬영지",
+      "dramaDesc": "드라마와 영화 속 감동을 직접 느껴보세요.",
+      "landmark": "🌊 부산 명소",
+      "landmarkDesc": "부산에 왔다면 꼭 가봐야 할 필수 코스입니다."
+    },
+    "categories": {
+      "drama": "영화 촬영지",
+      "landmark": "부산 명소",
+      "dramaDesc": "드라마와 영화 속 감동을 직접 느껴보세요.",
+      "landmarkDesc": "부산에 왔다면 꼭 가봐야 할 필수 코스입니다."
     }
   },
   "detail": {

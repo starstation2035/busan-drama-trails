@@ -4,8 +4,7 @@ import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { MessageSquare, Heart, MapPin, Search, ArrowRight } from "lucide-react";
 import { useState } from "react";
-import { MOCK_REVIEWS } from "@/data/mockReviews";
-import { LiveChatWidget } from "@/components/LiveChatWidget";
+import { useCommunityStore } from "@/stores/useCommunityStore";
 
 const CATEGORIES = ["all", "tips", "reviews"] as const;
 type Category = (typeof CATEGORIES)[number];
@@ -14,11 +13,28 @@ export default function Community() {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<Category>("all");
 
+  const posts = useCommunityStore((s) => s.posts);
+  const toggleLike = useCommunityStore((s) => s.toggleLike);
+
+  const [likedPosts, setLikedPosts] = useState<Set<number>>(new Set());
+
+  const handleLike = (e: React.MouseEvent, id: number) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const newLiked = new Set(likedPosts);
+    if (!newLiked.has(id)) {
+      newLiked.add(id);
+      toggleLike(id);
+      setLikedPosts(newLiked);
+    }
+  };
+
   const filteredReviews =
-    activeTab === "all" ? MOCK_REVIEWS : MOCK_REVIEWS.filter((r) => r.category === activeTab);
+    activeTab === "all" ? posts : posts.filter((r) => r.category === activeTab);
 
   return (
-    <div className="space-y-6 pb-10">
+    <div className="space-y-6 pb-24">
       {/* Header Section */}
       <section className="animate-fade-up px-2">
         <h1 className="text-3xl font-bold tracking-tight text-foreground">{t("community.title")}</h1>
@@ -55,66 +71,75 @@ export default function Community() {
 
       {/* Review Feed */}
       <section className="grid grid-cols-1 gap-6 sm:grid-cols-2 animate-fade-up">
-        {filteredReviews.map((review) => (
-          <div
-            key={review.id}
-            className="group overflow-hidden rounded-[2.5rem] border border-border/50 bg-card shadow-sm transition-all hover:shadow-xl"
-          >
-            {/* Vertical Image */}
-            <div className="relative aspect-[9/12] overflow-hidden">
-              <img
-                src={review.image}
-                alt={review.location}
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-6 text-white">
-                <div className="flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-primary" />
-                  <span className="text-sm font-medium">{review.location}</span>
+        {filteredReviews.map((review) => {
+          const isLiked = likedPosts.has(review.id);
+          return (
+            <div
+              key={review.id}
+              className="group overflow-hidden rounded-[2.5rem] border border-border/50 bg-card shadow-sm transition-all hover:shadow-xl"
+            >
+              {/* Vertical Image */}
+              <div className="relative aspect-[9/12] overflow-hidden">
+                <img
+                  src={review.image}
+                  alt={review.location}
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-6 text-white">
+                  <div className="flex items-center gap-2">
+                    <MapPin className="h-4 w-4 text-primary" />
+                    <span className="text-sm font-medium">{review.location}</span>
+                  </div>
+                </div>
+                <button 
+                  onClick={(e) => handleLike(e, review.id)}
+                  className={`absolute right-4 top-4 z-30 rounded-full p-2.5 backdrop-blur-md transition-all active:scale-90 ${
+                    isLiked 
+                      ? "bg-primary text-white shadow-lg" 
+                      : "bg-white/20 text-white hover:bg-white/40"
+                  }`}
+                >
+                  <Heart className={`h-5 w-5 ${isLiked ? "fill-current" : ""}`} />
+                </button>
+              </div>
+
+              {/* Content Area */}
+              <div className="p-6">
+                <div className="flex items-center gap-3">
+                  <img
+                    src={review.avatar}
+                    alt={review.author}
+                    className="h-8 w-8 rounded-full border border-border bg-muted"
+                  />
+                  <span className="flex-1 text-sm font-bold text-foreground">{review.author}</span>
+                  <span className="rounded-full bg-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
+                    {t(`community.filters.${review.category}`)}
+                  </span>
+                </div>
+                
+                <p className="mt-4 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
+                  {review.content}
+                </p>
+
+                <div className="mt-6 flex items-center justify-between">
+                  <span className="text-xs font-medium text-muted-foreground">
+                    {review.likes} likes
+                  </span>
+                  <Link
+                    href={`/spots/${review.spotId}`}
+                    className="flex items-center gap-1 text-sm font-bold text-primary transition-all hover:gap-2"
+                  >
+                    {t("detail.cta.added").split("→")[0]}
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
                 </div>
               </div>
-              <button className="absolute right-4 top-4 rounded-full bg-white/20 p-2.5 text-white backdrop-blur-md transition-all hover:bg-white/40 active:scale-90">
-                <Heart className="h-5 w-5 fill-current text-white" />
-              </button>
             </div>
-
-            {/* Content Area */}
-            <div className="p-6">
-              <div className="flex items-center gap-3">
-                <img
-                  src={review.avatar}
-                  alt={review.author}
-                  className="h-8 w-8 rounded-full border border-border bg-muted"
-                />
-                <span className="flex-1 text-sm font-bold text-foreground">{review.author}</span>
-                <span className="rounded-full bg-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
-                  {t(`community.filters.${review.category}`)}
-                </span>
-              </div>
-              
-              <p className="mt-4 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
-                {review.content}
-              </p>
-
-              <div className="mt-6 flex items-center justify-between">
-                <span className="text-xs font-medium text-muted-foreground">
-                  {review.likes} likes
-                </span>
-                <Link
-                  href={`/spots/${review.spotId}`}
-                  className="flex items-center gap-1 text-sm font-bold text-primary transition-all hover:gap-2"
-                >
-                  {t("detail.cta.added").split("→")[0]}
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </section>
 
-      {/* Real-time Global Live Chat Widget */}
-      <LiveChatWidget />
+      {/* Global buttons are handled in Layout.tsx */}
     </div>
   );
 }

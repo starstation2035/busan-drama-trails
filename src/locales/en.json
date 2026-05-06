@@ -1,7 +1,8 @@
 {
   "common": {
-    "appName": "Busan Drama Spot & Style",
+    "appName": "One Shot Trap",
     "back": "Back",
+    "next": "Next",
     "retake": "Retake",
     "share": "Share result",
     "copied": "Link copied!",
@@ -26,6 +27,11 @@
     "myCourse": "My Course"
   },
   "landing": {
+    "hero": {
+      "badge": "One Shot Trap"
+    },
+    "title": "One Shot Trap",
+    "subtitle": "Experience the best of K-culture ✨",
     "tagline": "Step into K-drama scenes and discover the story of Busan ✨",
     "valueProp": {
       "spotsTitle": "Drama Filming Spots",
@@ -36,10 +42,67 @@
       "routeDesc": "Build your Busan trip in one tap"
     },
     "cta": {
-      "explore": "Explore Filming Locations",
-      "style": "Find My Travel Style"
+      "explore": "Explore Spots",
+      "style": "Start Style Test"
     },
-    "stats": "50+ Spots・200+ Restaurants・5 Languages"
+    "stats": "50+ Spots・200+ Restaurants・5 Languages",
+    "recentReviews": {
+      "title": "Recent Travel Reviews",
+      "subtitle": "Check out real stories from other travelers in real-time",
+      "viewAll": "View All Reviews"
+    },
+    "categories": {
+      "food": "Eat",
+      "cafe": "Cafe",
+      "community": "Community",
+      "spots": "Spots",
+      "myCourse": "My Course"
+    }
+  },
+  "community": {
+    "title": "Traveler Community",
+    "subtitle": "Discover real Busan stories from travelers",
+    "write": "Write Post",
+    "empty": "Be the first to share your Busan story!",
+    "filters": {
+      "all": "All",
+      "tips": "Tips",
+      "reviews": "Reviews"
+    },
+    "modal": {
+      "title": "Create New Post",
+      "details": "Post Details",
+      "imageHint": "Drag and drop photos here",
+      "selectComputer": "Select from computer",
+      "captionPlaceholder": "Write a caption...",
+      "locationPlaceholder": "Add location",
+      "selectedViaMap": "Selected via Google Maps",
+      "categoryTitle": "Category Settings",
+      "disclaimer": "Your post will be public on the Busan Drama Trails community for others to see.",
+      "mapTitle": "Select Location",
+      "mapPlaceholder": "Search place or address",
+      "mapConfirm": "Select this location"
+    },
+    "social": {
+      "kakao": "Shared to KakaoTalk! 💬",
+      "line": "Shared to LINE! 🟢"
+    },
+    "post": {
+      "success": "Post shared successfully! ✨",
+      "imageError": "Please select a photo first!",
+      "captionError": "Please write a caption!",
+      "placeholder": "Share your own Busan drama travel tips!",
+      "submit": "Upload"
+    }
+  },
+  "chat": {
+    "title": "Global Community Chat",
+    "subtitle": "Real-time translation active 🌍",
+    "welcome": "Welcome to the global chat community.",
+    "original": "Original",
+    "showOriginal": "Show Original",
+    "showTranslate": "Show Translation",
+    "placeholder": "Real-time translation supported..."
   },
   "quiz": {
     "intro": {
@@ -149,6 +212,22 @@
       "title": "No spots match",
       "subtitle": "Try adjusting your search or filters",
       "reset": "Reset filters"
+    },
+    "hero": {
+      "title": "One Shot Trap",
+      "subtitle": "From movie scenes to hidden gems, start your special journey."
+    },
+    "sections": {
+      "drama": "🎬 Filming Sites",
+      "dramaDesc": "Experience the emotions of K-dramas and movies.",
+      "landmark": "🌊 Busan 명소",
+      "landmarkDesc": "Must-visit spots when you are in Busan."
+    },
+    "categories": {
+      "drama": "Drama Filming Spots",
+      "landmark": "Busan Landmarks",
+      "dramaDesc": "Experience the emotions of K-dramas and movies.",
+      "landmarkDesc": "Must-visit spots when you are in Busan."
     }
   },
   "detail": {

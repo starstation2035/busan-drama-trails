@@ -3,8 +3,8 @@ import { Layout } from "@/components/Layout";
 import "../styles.css";
 
 export const metadata: Metadata = {
-  title: "부산여행 정보 및 스타일 추천",
-  description: "Discover K-drama filming locations, restaurants, and cafes in Busan.",
+  title: "원 샷 트랩 (One Shot Trap)",
+  description: "Experience the best of K-culture in Busan with One Shot Trap.",
 };
 
 export default function RootLayout({
@@ -19,10 +19,14 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet"
         />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <Layout>{children}</Layout>
       </body>
     </html>

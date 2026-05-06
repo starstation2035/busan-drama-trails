@@ -80,6 +80,7 @@ interface SpotFull {
   visit_tips?: LocalizedString;
   status?: LocalizedString;
   scene_description?: LocalizedString;
+  drama_info?: LocalizedString;
 }
 
 const SPOTS = spotsRaw as unknown as SpotFull[];
@@ -132,6 +133,7 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
   const addr = pickLang(spot.address, lang);
   const statusInfo = pickLang(spot.status, lang);
   const sceneDesc = pickLang(spot.scene_description, lang);
+  const dramaInfo = pickLang(spot.drama_info, lang);
 
   const handleShare = async () => {
     const url = typeof window !== "undefined" ? window.location.href : "";
@@ -208,73 +210,77 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
         {/* Header Section (Desktop & Info) */}
         <div className="mb-8 hidden md:block border-b pb-8">
           <div className="flex items-end justify-between">
-            <div>
+            <div className="space-y-4">
               <p className="mb-2 text-sm font-bold text-primary uppercase tracking-widest">📍 {spot.region}</p>
-              <h1 className="text-4xl font-black tracking-tight text-foreground">{name}</h1>
-              <div className="mt-4 flex flex-wrap gap-2">
+              <h1 className="text-3xl font-black tracking-tight text-[#222222]">{name}</h1>
+              
+              <div className="mt-4 space-y-4">
                 {spot.drama.map((d) => (
-                  <span
-                    key={d}
-                    className="rounded-lg bg-primary/10 px-3 py-1 text-xs font-bold text-primary"
-                  >
-                    🎬 {d}
-                  </span>
+                  <div key={d} className="space-y-2">
+                    <span className="inline-block rounded-lg bg-primary/10 px-3 py-1 text-xs font-bold text-primary">
+                      🎬 {d}
+                    </span>
+                    {dramaInfo && (
+                      <p className="text-base text-[#555555] leading-relaxed w-full bg-muted/10 p-6 rounded-2xl border border-border/50 shadow-sm">
+                        {dramaInfo}
+                      </p>
+                    )}
+                  </div>
                 ))}
               </div>
             </div>
           </div>
-          {sceneDesc && (
-            <div className="mt-6 rounded-2xl bg-muted/30 p-5 border-l-4 border-primary">
-              <p className="text-lg font-medium text-foreground italic leading-relaxed">
-                "{sceneDesc}"
-              </p>
-            </div>
-          )}
+          {/* No direct sceneDesc here anymore, moved below */}
         </div>
 
         {/* Mobile Title Section (below image) */}
         <div className="md:hidden mb-6">
-          <div className="flex flex-wrap gap-1.5 mb-3">
+          <div className="space-y-4 mb-4">
             {spot.drama.map((d) => (
-              <span
-                key={d}
-                className="rounded-md bg-primary/10 px-2 py-0.5 text-[10px] font-bold text-primary"
-              >
-                🎬 {d}
-              </span>
+              <div key={d} className="space-y-2">
+                <span className="inline-block rounded-md bg-primary/10 px-2 py-0.5 text-[10px] font-bold text-primary">
+                  🎬 {d}
+                </span>
+                {dramaInfo && (
+                  <p className="text-[15px] text-[#555555] leading-relaxed w-full bg-muted/10 p-4 rounded-xl border border-border/50">
+                    {dramaInfo}
+                  </p>
+                )}
+              </div>
             ))}
           </div>
-          {sceneDesc && (
-            <div className="mb-6 border-l-2 border-primary pl-3">
-              <p className="text-sm font-medium text-muted-foreground italic">
-                "{sceneDesc}"
-              </p>
-            </div>
-          )}
+          {/* No direct sceneDesc here anymore, moved below */}
         </div>
 
         {/* Info Grid & Description */}
         <div className="flex flex-col md:flex-row gap-12 items-start">
-          <section className="flex-1 space-y-6">
-            <div className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-[11px] font-bold text-primary tracking-wider uppercase">
-              About The Spot
+          <section className="flex-1 space-y-8">
+            <div className="space-y-4">
+              <div className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-[11px] font-bold text-primary tracking-wider uppercase">
+                About The Spot
+              </div>
+              <h2 className="text-2xl font-black tracking-tight text-[#222222] leading-tight">
+                {t("detail.description")}
+              </h2>
+              {sceneDesc && (
+                <p className="text-base font-medium text-[#333333] italic leading-relaxed">
+                  "{sceneDesc}"
+                </p>
+              )}
+              <p className="whitespace-pre-line text-base leading-relaxed text-[#555555] font-medium">
+                {desc}
+              </p>
             </div>
-            <h2 className="text-3xl font-black tracking-tight text-foreground leading-tight">
-              {t("detail.description")}
-            </h2>
-            <p className="whitespace-pre-line text-lg leading-relaxed text-muted-foreground/90 font-medium">
-              {desc}
-            </p>
           </section>
 
-          <section className="w-full md:w-[320px] shrink-0 rounded-3xl border border-border bg-card p-8 shadow-lg space-y-8 sticky top-24">
-            <div className="flex items-center gap-3 border-b border-border pb-4">
+          <section className="w-full md:w-[320px] shrink-0 rounded-3xl border border-border bg-card py-5 px-6 shadow-lg space-y-4 md:mt-24">
+            <div className="flex items-center gap-3 border-b border-border pb-3">
                <div className="size-2 rounded-full bg-primary animate-pulse" />
                <h3 className="text-sm font-bold text-foreground uppercase tracking-widest">
                  Spot Information
                </h3>
             </div>
-            <ul className="space-y-6 text-sm">
+            <ul className="space-y-3 text-sm">
               {addr && (
                 <li className="flex items-start gap-4 group">
                   <div className="mt-1 size-8 shrink-0 rounded-xl bg-primary/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
@@ -369,7 +375,6 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
 
         <div className="mt-12 mb-8 border-t border-border/60" />
 
-        {/* Nearby CTA */}
         <section className="pt-2">
           <Link
             href={`/spots/${spot.id}/nearby`}
@@ -378,20 +383,6 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
             ✨ {name} 근처 맛집 & 카페 탐방하기
             <ChevronRight className="ml-2 size-5 transition-transform group-hover:translate-x-1" />
           </Link>
-          <div className="mt-6 flex items-center justify-center gap-8 text-base text-muted-foreground font-extrabold">
-            <Link
-              href={`/spots/${spot.id}/nearby?type=restaurant`}
-              className="flex items-center gap-2 hover:text-primary transition-colors cursor-pointer no-underline"
-            >
-              🍽️ 주변 식당 {nearbyRestaurants.length}곳
-            </Link>
-            <Link
-              href={`/spots/${spot.id}/nearby?type=cafe`}
-              className="flex items-center gap-2 hover:text-primary transition-colors cursor-pointer no-underline"
-            >
-              ☕ 추천 카페 {nearbyCafes.length}곳
-            </Link>
-          </div>
         </section>
 
         {/* Photo Tips */}

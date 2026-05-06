@@ -10,14 +10,14 @@ export const SUPPORTED_LANGS = ["zh-TW", "ko", "en", "ja", "zh-CN"] as const;
 export type SupportedLang = (typeof SUPPORTED_LANGS)[number];
 
 export function detectBrowserLang(): SupportedLang {
-  if (typeof navigator === "undefined") return "ko";
+  if (typeof navigator === "undefined") return "en";
   const nav = navigator.language || "";
   if (nav.startsWith("zh-TW") || nav.startsWith("zh-HK")) return "zh-TW";
   if (nav.startsWith("zh")) return "zh-CN";
   if (nav.startsWith("ko")) return "ko";
   if (nav.startsWith("ja")) return "ja";
   if (nav.startsWith("en")) return "en";
-  return "ko";
+  return "en";
 }
 
 if (!i18n.isInitialized) {
@@ -29,8 +29,8 @@ if (!i18n.isInitialized) {
       ja: { translation: ja },
       "zh-CN": { translation: zhCN },
     },
-    lng: "ko",
-    fallbackLng: "ko",
+    lng: "en",
+    fallbackLng: "en",
     interpolation: { escapeValue: false },
   });
 }
