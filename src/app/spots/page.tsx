@@ -88,13 +88,13 @@ function SpotsContent() {
     return sorted;
   };
 
-  const filmingSites = useMemo(() => 
+  const filmingSites = useMemo(() =>
     sortList(baseFiltered.filter(s => s.category === "drama"), dramaSort),
-  [baseFiltered, dramaSort]);
+    [baseFiltered, dramaSort]);
 
-  const landmarks = useMemo(() => 
+  const landmarks = useMemo(() =>
     sortList(baseFiltered.filter(s => s.category === "landmark"), landmarkSort),
-  [baseFiltered, landmarkSort]);
+    [baseFiltered, landmarkSort]);
 
 
   const clearStyle = () => updateSearch({ style: null });
@@ -106,7 +106,7 @@ function SpotsContent() {
 
   const handleSearchSubmit = () => {
     const term = searchInput.trim().toLowerCase();
-    
+
     // 1. Update the search query in URL to filter the list below
     updateSearch({ q: term || null });
 
@@ -130,8 +130,8 @@ function SpotsContent() {
   return (
     <div className="space-y-4 pb-20 min-h-screen">
       {/* Upstream Header Integration */}
-      <section className="-mx-4 px-6 pt-12 pb-0 bg-gradient-to-b from-primary/10 to-background">
-        <h1 className="text-3xl font-black mb-3 tracking-tighter">
+      <section className="-mx-4 px-6 pt-12 pb-2 bg-gradient-to-b from-primary/10 to-background">
+        <h1 className="text-3xl font-bold mb-3 tracking-tighter text-[#FF385C]">
           {t("spots.hero.title")}
         </h1>
         <p className="text-sm max-w-md whitespace-pre-line leading-relaxed text-[#222222]">
@@ -146,15 +146,20 @@ function SpotsContent() {
       </section>
 
       {/* Sticky Search & Filter */}
-      <div className="sticky top-14 z-30 -mx-4 bg-background/90 px-4 pb-6 pt-1 backdrop-blur">
+      <div className="sticky top-14 z-30 -mx-4 bg-background/90 px-4 pb-6 pt-4 backdrop-blur">
         <div className="flex items-center gap-4">
           <div className="relative flex-1 max-w-md">
             <Input
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSearchSubmit()}
+              onClick={() => {
+                if (searchInput.trim()) {
+                  handleSearchSubmit();
+                }
+              }}
               placeholder={t("spots.searchPlaceholder")}
-              className="h-11 rounded-2xl bg-white border-border pl-4 pr-20 text-sm shadow-sm"
+              className="h-11 rounded-2xl bg-white border-border pl-4 pr-20 text-sm shadow-sm cursor-pointer"
             />
             <div className="absolute right-2 top-1/2 flex -translate-y-1/2 items-center gap-1">
               {searchInput && (
@@ -166,7 +171,7 @@ function SpotsContent() {
                   <X className="size-3.5" />
                 </button>
               )}
-              <button 
+              <button
                 onClick={handleSearchSubmit}
                 className="flex size-8 items-center justify-center rounded-full hover:bg-black/5 transition-all"
                 title="Search"
@@ -175,14 +180,16 @@ function SpotsContent() {
               </button>
             </div>
           </div>
-          
+
           {/* HOT Ticker */}
           <div className="hidden sm:flex flex-1 items-center gap-2 overflow-hidden h-11 px-0 rounded-2xl max-w-[200px]">
             <span className="flex items-center gap-1 text-[10px] font-black border border-[#FF385C] text-[#FF385C] px-1.5 py-0.5 rounded-sm italic tracking-tighter shrink-0">
               HOT
             </span>
             <div className="relative h-6 flex-1 overflow-hidden">
-               <RollingTicker onSelect={(spot) => setSearchInput(spot.name)} />
+               <RollingTicker onSelect={(spot) => {
+                 setSearchInput(spot.name);
+               }} />
             </div>
           </div>
         </div>
