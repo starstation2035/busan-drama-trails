@@ -1,9 +1,17 @@
 import { create } from "zustand";
 
+export interface ChatUser {
+  id: string;
+  name: string;
+  country: string; // e.g., "KR", "US", "JP"
+  avatar: string;
+}
+
 export interface ChatMessage {
   id: string;
   senderId: string;
   senderName: string;
+  senderCountry?: string;
   avatar: string;
   content: string;
   translatedContent?: string;
@@ -13,33 +21,58 @@ export interface ChatMessage {
 
 interface ChatState {
   messages: ChatMessage[];
+  userProfile: ChatUser | null;
+  onlineUsers: ChatUser[];
+  setProfile: (profile: ChatUser) => void;
   addMessage: (msg: Omit<ChatMessage, "id" | "timestamp">) => void;
   toggleTranslate: (id: string, currentLang: string) => void;
 }
 
-// Ensure the broadcaster uses a stable session ID per window
 export const SESSION_ID = typeof window !== "undefined" ? Math.random().toString(36).substring(7) : "server";
 
 export const useChatStore = create<ChatState>((set, get) => {
   let channel: BroadcastChannel | null = null;
+  
   if (typeof window !== "undefined") {
     channel = new BroadcastChannel("busan_traveler_chat");
+    
     channel.onmessage = (event) => {
-      if (event.data && event.data.type === "NEW_MESSAGE") {
-        const incomingMsg = event.data.payload;
-        // avoid duplicate if same session
-        if (incomingMsg.senderId !== SESSION_ID) {
-          set((state) => ({ messages: [...state.messages, incomingMsg] }));
+      const { type, payload } = event.data;
+      
+      if (type === "NEW_MESSAGE") {
+        if (payload.senderId !== SESSION_ID) {
+          set((state) => ({ messages: [...state.messages, payload] }));
         }
+      } else if (type === "PRESENCE_QUERY") {
+        const profile = get().userProfile;
+        if (profile && channel) {
+          channel.postMessage({ type: "PRESENCE_REPORT", payload: profile });
+        }
+      } else if (type === "PRESENCE_REPORT") {
+        const user = payload as ChatUser;
+        set((state) => {
+          if (state.onlineUsers.some(u => u.id === user.id)) return state;
+          return { onlineUsers: [...state.onlineUsers, user] };
+        });
       }
     };
+
+    // Periodically query for presence
+    setInterval(() => {
+      if (channel) {
+        channel.postMessage({ type: "PRESENCE_QUERY" });
+        // Clear and rebuild online list based on reports
+        set({ onlineUsers: [] });
+      }
+    }, 10000);
   }
 
   const initialMessages: ChatMessage[] = [
     {
       id: "bot_1",
       senderId: "bot_jp",
-      senderName: "Sakura (Japanese)",
+      senderName: "Sakura",
+      senderCountry: "JP",
       avatar: "https://i.pravatar.cc/150?img=9",
       content: "釜山の海雲台は本当に綺麗ですね！おすすめのレストランはありますか？",
       originalLanguage: "ja",
@@ -48,7 +81,8 @@ export const useChatStore = create<ChatState>((set, get) => {
     {
       id: "bot_2",
       senderId: "bot_us",
-      senderName: "John (English)",
+      senderName: "John",
+      senderCountry: "US",
       avatar: "https://i.pravatar.cc/150?img=11",
       content: "I recommend the Dwaeji Gukbap place near the beach. It's iconic!",
       originalLanguage: "en",
@@ -58,6 +92,14 @@ export const useChatStore = create<ChatState>((set, get) => {
 
   return {
     messages: initialMessages,
+    userProfile: null,
+    onlineUsers: [],
+    setProfile: (profile) => {
+      set({ userProfile: profile });
+      if (channel) {
+        channel.postMessage({ type: "PRESENCE_REPORT", payload: profile });
+      }
+    },
     addMessage: (msgInput) => {
       const newMsg: ChatMessage = {
         ...msgInput,
@@ -73,11 +115,8 @@ export const useChatStore = create<ChatState>((set, get) => {
       set((state) => ({
         messages: state.messages.map((m) => {
           if (m.id === id) {
-            // Toggle off if already translated
-            if (m.translatedContent) {
-               return { ...m, translatedContent: undefined };
-            }
-            // Mock translation logic based on input
+            if (m.translatedContent) return { ...m, translatedContent: undefined };
+            
             let translated = "";
             if (m.originalLanguage === "ja") translated = "부산의 해운대는 정말 아름답네요! 추천할 만한 식당이 있나요?";
             else if (m.originalLanguage === "en" && m.content.includes("Gukbap")) translated = "해변 근처에 있는 돼지국밥집을 추천해요. 정말 상징적인 곳이에요!";

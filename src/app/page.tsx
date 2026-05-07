@@ -41,7 +41,14 @@ const POSTERS = [
     year: "2009", 
     genre: "재난",
     img: "https://upload.wikimedia.org/wikipedia/en/b/b7/Haeundae_film_poster.jpg", 
-    link: "/spots?dramas=해운대" 
+    link: "/spots/spot_003" 
+  },
+  { 
+    title: "국제시장", 
+    year: "2014", 
+    genre: "드라마",
+    img: "https://image.tmdb.org/t/p/original/rmZ4qkpDVdTgjwliJ84aJ43hStt.jpg", 
+    link: "/spots?dramas=국제시장" 
   }
 ];
 
@@ -93,24 +100,27 @@ export default function Landing() {
   }, [mousePos]);
 
   return (
-    <div className="bg-background text-foreground min-h-screen">
+    <div className="bg-background/0 text-foreground min-h-screen pb-20 space-y-16">
+      {/* 🌟 Brand Hero Section (Restored & Centered) */}
+      <section className="pt-20 pb-12 px-6 flex flex-col items-center text-center animate-fade-up">
+        {/* Badge */}
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF385C]/10 text-[#FF385C] border border-[#FF385C]/20 mb-8">
+          <Sparkles className="h-3.5 w-3.5" />
+          <span className="text-[12px] font-bold tracking-wider uppercase">One Shot Trap</span>
+        </div>
+        
+        {/* Title */}
+        <h1 className="text-6xl sm:text-8xl font-black text-[#222222] tracking-tighter mb-6 leading-tight">
+          원 샷 트랩
+        </h1>
+        
+        {/* Subtitle */}
+        <p className="text-xl sm:text-2xl font-medium text-[#717171] flex items-center gap-2">
+          K-컬처를 느껴보세요 <span className="animate-pulse">✨</span>
+        </p>
+      </section>
 
-      <div className="max-w-screen-xl mx-auto px-6 py-12 space-y-16">
-        {/* Hero Section */}
-        <header className="flex flex-col items-start text-left animate-fade-up space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF385C]/10 text-[#FF385C] text-[13px] font-bold tracking-tight">
-            <Sparkles className="h-3.5 w-3.5" />
-            {t("landing.hero.badge") || "One Shot Trap"}
-          </div>
-          <h1 className="text-[32px] sm:text-[40px] font-bold leading-[1.1] tracking-tight text-[#222222]">
-            {t("landing.title") || "부산의 영화 속으로,\n당신만의 트레일을 발견하세요"}
-          </h1>
-          <p className="text-lg text-[#717171] max-w-xl">
-            {t("landing.subtitle") || "K-컬처를 느껴보세요 ✨"}
-          </p>
-          <div className="pt-2" />
-        </header>
-
+      <div className="max-w-screen-xl mx-auto px-6 space-y-16">
         {/* 🎬 Movie Posters Carousel */}
         <section className="animate-fade-up space-y-6">
           <div className="flex items-end justify-between px-2">
@@ -161,11 +171,73 @@ export default function Landing() {
             </div>
           </div>
         </section>
+      </div>
 
-        <div className="py-2" />
+      {/* 🎭 Split Hero Section (Moved to 2nd position) */}
+      <section className="relative w-full h-[500px] sm:h-[600px] flex flex-col md:flex-row overflow-hidden border-y border-white/10 my-8">
+        {/* Left Side: Filming Locations */}
+        <Link 
+          href="/spots" 
+          className="relative flex-1 group overflow-hidden border-b md:border-b-0 md:border-r border-white/20"
+        >
+          <img
+            src="/busan_cinema_moody.png"
+            alt="영화 속 그곳"
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-[2s] group-hover:scale-110"
+          />
+          <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors duration-500" />
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 space-y-4">
+            <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center ring-1 ring-white/30 transform group-hover:scale-110 transition-transform duration-500">
+              <Sparkles className="h-8 w-8 text-white" />
+            </div>
+            <div className="space-y-1">
+              <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tighter drop-shadow-lg">
+                영화 속 그곳
+              </h2>
+              <p className="text-white/80 text-sm font-medium tracking-wide uppercase">
+                Filming Locations
+              </p>
+            </div>
+          </div>
+        </Link>
 
+        {/* Right Side: My Course */}
+        <Link 
+          href="/my-course" 
+          className="relative flex-1 group overflow-hidden"
+        >
+          <img
+            src="/busan_playlist_sunset.png"
+            alt="내 코스"
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-[2s] group-hover:scale-110"
+          />
+          <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500" />
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 space-y-4">
+            <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center ring-1 ring-white/30 transform group-hover:scale-110 transition-transform duration-500">
+              <MapPin className="h-8 w-8 text-white" />
+            </div>
+            <div className="space-y-1">
+              <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tighter drop-shadow-lg">
+                너의 플레이리스트, 부산
+              </h2>
+              <p className="text-white/80 text-sm font-medium tracking-wide uppercase">
+                Your Playlist, Busan
+              </p>
+            </div>
+          </div>
+        </Link>
+
+        {/* Center Heart Icon */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none hidden md:block">
+          <div className="bg-white rounded-full p-4 shadow-2xl ring-4 ring-white/20 animate-pulse">
+            <Heart className="h-8 w-8 text-[#FF385C] fill-[#FF385C]" />
+          </div>
+        </div>
+      </section>
+
+      <div className="max-w-screen-xl mx-auto px-6 space-y-16">
         {/* Recent Reviews Section */}
-        <section className="bg-[#F7F7F7] -mx-6 px-6 py-16 rounded-[40px] animate-fade-up">
+        <section className="bg-[#F7F7F7] -mx-6 px-6 py-16 rounded-[40px] animate-fade-up shadow-inner">
           <div className="flex items-center justify-between mb-8 px-2">
             <div>
               <h2 className="text-2xl font-bold text-[#222222]">{t("landing.recentReviews.title")}</h2>

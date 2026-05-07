@@ -36,9 +36,9 @@ export function LanguageModal({ open, onClose }: Props) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 p-4 sm:items-center">
-      <div className="w-full max-w-md rounded-3xl bg-background p-6 shadow-2xl animate-in slide-in-from-bottom-8">
-        <h2 className="text-2xl font-bold text-foreground">{t("language.choose")}</h2>
-        <p className="mt-1 text-sm text-muted-foreground">{t("language.subtitle")}</p>
+      <div className="w-full max-w-md rounded-3xl bg-white p-6 shadow-2xl animate-in slide-in-from-bottom-8 border border-[#DDDDDD]">
+        <h2 className="text-2xl font-bold text-[#222222]">{t("language.choose")}</h2>
+        <p className="mt-1 text-sm text-[#717171]">{t("language.subtitle")}</p>
 
         <div className="mt-6 space-y-2">
           {OPTIONS.map((o) => (
@@ -52,7 +52,7 @@ export function LanguageModal({ open, onClose }: Props) {
               }`}
             >
               <span className="text-3xl">{o.flag}</span>
-              <span className="flex-1 font-semibold text-foreground">{o.native}</span>
+              <span className="flex-1 font-semibold text-[#222222]">{o.native}</span>
               {selected === o.code && (
                 <span className="h-3 w-3 rounded-full bg-primary" aria-hidden />
               )}
