@@ -120,14 +120,14 @@ export const STYLE_META: Record<
   active: {
     icon: "🏃",
     colorVar: "var(--busan-coral)",
-    recommendedSpots: ["spot_005", "spot_002"],
+    recommendedSpots: ["spot_005"],
     recommendedRestaurants: ["r9"],
     recommendedCafes: ["c6"],
   },
   insta: {
     icon: "📸",
     colorVar: "var(--drama-yellow)",
-    recommendedSpots: ["spot_002", "spot_004"],
+    recommendedSpots: ["spot_004"],
     recommendedRestaurants: ["r12"],
     recommendedCafes: ["c5"],
   },
