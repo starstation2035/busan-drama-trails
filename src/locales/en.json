@@ -215,10 +215,10 @@
       "reset": "Reset filters"
     },
     "hero": {
-      "title": "Spots & Landmarks One-Shot",
+      "title": "Filming Spots & Landmarks One-Shot",
       "brand": "",
       "subtitleLine1": "Visit the exact scenes from your favorite dramas,",
-      "subtitleLine2": "and explore a Busan course that leads straight to nearby hidden gems."
+      "subtitleLine2": "Discover a Busan course that leads straight to nearby restaurants."
     },
     "sections": {
       "drama": "🎬 Filming Sites",
@@ -240,7 +240,7 @@
     "copied": "Copied!",
     "info": {
       "address": "Address",
-      "hours": "Hours",
+      "hours": "Operating Info",
       "admission": "Admission",
       "bestTime": "Best time",
       "status": "Operating Info"

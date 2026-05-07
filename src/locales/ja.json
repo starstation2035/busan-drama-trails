@@ -205,8 +205,8 @@
     "copied": "コピーしました!",
     "info": {
       "address": "住所",
-      "hours": "営業時間",
-      "admission": "入場料",
+      "hours": "運営情報",
+      "admission": "入場료",
       "bestTime": "おすすめ時間",
       "status": "運営情報"
     },

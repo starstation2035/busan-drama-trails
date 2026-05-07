@@ -59,7 +59,7 @@ export function SpotCard({ spot }: { spot: Spot }) {
         <div className="absolute left-2 top-2">
           <span className="inline-flex items-center gap-1 rounded-full bg-[#F3F4F6] px-2.5 py-1 text-[11px] font-bold text-[#4B5563] shadow-md backdrop-blur-md border border-white/10">
             <MapPin className="size-3 text-[#9CA3AF]" />
-            {spot.region[lang as keyof typeof spot.region] ?? spot.region.ko}
+            {typeof spot.region === 'string' ? spot.region : (spot.region?.[lang as keyof typeof spot.region] ?? spot.region?.ko ?? '')}
           </span>
         </div>
 
