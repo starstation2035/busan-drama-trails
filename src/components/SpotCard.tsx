@@ -9,7 +9,7 @@ export interface Spot {
   name: Record<LangCode, string>;
   drama: Record<LangCode, string>[];
   thumbnail: string;
-  region: string;
+  region: Record<LangCode, string>;
   status?: Record<LangCode, string>;
   scene_description?: Record<LangCode, string>;
 }
@@ -44,7 +44,7 @@ export function SpotCard({ spot }: { spot: Spot }) {
       className="group block overflow-hidden rounded-2xl bg-card shadow-sm transition active:scale-[0.98] hover:shadow-xl border border-border/40"
     >
       {/* 5:4 Aspect Ratio Image (Forced via style for precision) */}
-      <div 
+      <div
         className="relative overflow-hidden rounded-xl bg-muted"
         style={{ aspectRatio: '5/4' }}
       >
@@ -54,12 +54,12 @@ export function SpotCard({ spot }: { spot: Spot }) {
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           loading="lazy"
         />
-        
+
         {/* Region Badge as Overlay */}
         <div className="absolute left-2 top-2">
           <span className="inline-flex items-center gap-1 rounded-full bg-[#F3F4F6] px-2.5 py-1 text-[11px] font-bold text-[#4B5563] shadow-md backdrop-blur-md border border-white/10">
             <MapPin className="size-3 text-[#9CA3AF]" />
-            {spot.region[lang] ?? spot.region.ko}
+            {spot.region[lang as keyof typeof spot.region] ?? spot.region.ko}
           </span>
         </div>
 

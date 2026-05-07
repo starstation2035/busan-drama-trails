@@ -1,3 +1,4 @@
+import { type LangCode } from "@/stores/useAppStore";
 import spotsData from "@/data/spots.json";
 import restaurantsData from "@/data/restaurants.json";
 import cafesData from "@/data/cafes.json";
@@ -10,7 +11,7 @@ export type SpotItem = {
   name: Record<string, string>;
   thumbnail: string;
   coords: Coords;
-  region?: string;
+  region: Record<LangCode, string>;
 };
 
 export type RestaurantItem = {
@@ -19,7 +20,7 @@ export type RestaurantItem = {
   name: Record<string, string>;
   thumbnail: string;
   food?: Record<string, string>;
-  region?: string;
+  region?: Record<LangCode, string>;
 };
 
 export type CafeItem = {
@@ -28,7 +29,7 @@ export type CafeItem = {
   name: Record<string, string>;
   thumbnail: string;
   vibe?: Record<string, string>;
-  region?: string;
+  region?: Record<LangCode, string>;
 };
 
 export type AnyItem = SpotItem | RestaurantItem | CafeItem;
@@ -45,21 +46,21 @@ export const spots = spotsData as Array<{
   name: Record<string, string>;
   thumbnail: string;
   coords: Coords;
-  region?: string;
+  region: Record<LangCode, string>;
 }>;
 export const restaurants = restaurantsData as Array<{
   id: string;
   name: Record<string, string>;
   thumbnail: string;
   food?: Record<string, string>;
-  region?: string;
+  region?: Record<LangCode, string>;
 }>;
 export const cafes = cafesData as Array<{
   id: string;
   name: Record<string, string>;
   thumbnail: string;
   vibe?: Record<string, string>;
-  region?: string;
+  region?: Record<LangCode, string>;
 }>;
 
 export function classifyFavorites(favIds: string[]): {
