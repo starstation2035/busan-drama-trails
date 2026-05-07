@@ -35,21 +35,45 @@ export default function DiscoveryCard({ item, parentSpotName }: DiscoveryCardPro
     <div className="group relative overflow-hidden rounded-[40px] bg-white border border-[#F3F4F6] shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all hover:shadow-[0_24px_50px_rgb(0,0,0,0.08)] mb-12">
       
       {/* 1. Upper Part: 4분할 그리드 이미지 */}
-      <div className="grid grid-cols-2 gap-1.5 p-1.5 aspect-square relative">
-        {item.images?.slice(0, 4).map((img, idx) => (
-          <div
-            key={idx}
-            onClick={() => setSelectedPhotoIdx(idx)}
-            className="relative overflow-hidden rounded-[24px] bg-[#F9FAFB] cursor-zoom-in group/photo"
-          >
-            <img
-              src={img.url}
-              alt={img.description}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover/photo:scale-110"
-            />
-            <div className="absolute inset-0 bg-black/5 opacity-0 group-hover/photo:opacity-100 transition-opacity" />
-          </div>
-        ))}
+      <div className="grid grid-cols-2 grid-rows-2 gap-1.5 p-1.5 aspect-square relative">
+        {Array.from({ length: 4 }).map((_, idx) => {
+          const img = item.images?.[idx];
+          const fallbackImg = item.images?.[0]?.url;
+          return (
+            <div
+              key={idx}
+              onClick={() => img && setSelectedPhotoIdx(idx)}
+              className={`relative overflow-hidden rounded-[24px] bg-[#F8FAFC] ${img ? "cursor-zoom-in group/photo" : ""}`}
+            >
+              {img ? (
+                <>
+                  <img
+                    src={img.url}
+                    alt={img.description}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover/photo:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-black/5 opacity-0 group-hover/photo:opacity-100 transition-opacity" />
+                </>
+              ) : (
+                <div className="w-full h-full relative overflow-hidden bg-[#F1F5F9]">
+                  {fallbackImg && (
+                    <img
+                      src={fallbackImg}
+                      alt="placeholder"
+                      className="w-full h-full object-cover blur-[12px] scale-125 opacity-40 saturate-50"
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#FF4D8D]/5 to-transparent mix-blend-overlay" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-full bg-white/40 backdrop-blur-md flex items-center justify-center shadow-sm border border-white/40">
+                      <Sparkles className="size-4 text-white drop-shadow-sm" />
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })}
 
         {/* Wish Action */}
         <button
