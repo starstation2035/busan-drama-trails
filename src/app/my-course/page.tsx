@@ -466,7 +466,9 @@ function ListView({
                           {it.name[lang] ?? it.name["en"]}
                         </span>
                         {it.region && (
-                          <span className="text-[10px] font-medium text-muted-foreground">{it.region}</span>
+                          <span className="text-[10px] font-medium text-muted-foreground">
+                            {typeof it.region === 'string' ? it.region : (it.region[lang] ?? it.region.ko)}
+                          </span>
                         )}
                       </div>
                     </button>
@@ -793,7 +795,7 @@ function AddSpotSheet({
                       {item.name[lang] ?? item.name["en"]}
                     </p>
                     <p className="text-[10px] font-medium text-muted-foreground">
-                      {item.region}
+                      {typeof item.region === 'string' ? item.region : (item.region[lang] ?? item.region.ko)}
                     </p>
                   </div>
                   <Button
