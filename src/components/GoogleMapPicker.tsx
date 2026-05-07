@@ -14,15 +14,15 @@ interface GoogleMapPickerProps {
 }
 
 export function GoogleMapPicker({ open, onClose, onSelect }: GoogleMapPickerProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSpotId, setSelectedSpotId] = useState<string | null>(null);
 
   const filteredSpots = useMemo(() => {
     if (!searchQuery.trim()) return spotsData.slice(0, 5);
-    return spotsData.filter(spot => 
-      spot.name.ko.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      spot.region.toLowerCase().includes(searchQuery.toLowerCase())
+    return (spotsData as any[]).filter(spot => 
+      Object.values(spot.name).some((v: any) => v.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      Object.values(spot.region).some((v: any) => v.toLowerCase().includes(searchQuery.toLowerCase()))
     );
   }, [searchQuery]);
 
@@ -30,7 +30,11 @@ export function GoogleMapPicker({ open, onClose, onSelect }: GoogleMapPickerProp
     spotsData.find(s => s.id === selectedSpotId) || spotsData[0]
   , [selectedSpotId]);
 
-  const mapUrl = `https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY_HERE&q=${encodeURIComponent(selectedSpot.name.ko + " " + selectedSpot.address.ko)}&zoom=15`;
+  const lang = (i18n.language || "ko") as any;
+  const selectedName = (selectedSpot as any).name[lang] ?? (selectedSpot as any).name.ko;
+  const selectedAddr = (selectedSpot as any).address[lang] ?? (selectedSpot as any).address.ko;
+
+  const mapUrl = `https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY_HERE&q=${encodeURIComponent(selectedName + " " + selectedAddr)}&zoom=15`;
   
   // Note: Since we don't have a real API key for the iframe, we'll use a more general embed or a mock UI
   const mockMapUrl = `https://maps.google.com/maps?q=${selectedSpot.coords.lat},${selectedSpot.coords.lng}&z=15&output=embed`;
@@ -77,9 +81,9 @@ export function GoogleMapPicker({ open, onClose, onSelect }: GoogleMapPickerProp
                     <MapPin className="h-4 w-4" />
                   </div>
                   <div className="flex flex-col items-start text-left">
-                    <span className="text-sm font-bold text-gray-900">{spot.name.ko}</span>
-                    <span className="text-xs text-gray-500 mt-0.5">{spot.address.ko}</span>
-                    <span className="text-[10px] text-blue-600 font-semibold mt-1 uppercase tracking-wider">{spot.region}</span>
+                    <span className="text-sm font-bold text-gray-900">{(spot as any).name[lang] ?? (spot as any).name.ko}</span>
+                    <span className="text-xs text-gray-500 mt-0.5">{(spot as any).address[lang] ?? (spot as any).address.ko}</span>
+                    <span className="text-[10px] text-blue-600 font-semibold mt-1 uppercase tracking-wider">{(spot as any).region[lang] ?? (spot as any).region.ko}</span>
                   </div>
                   {selectedSpotId === spot.id && <Check className="ml-auto h-4 w-4 text-blue-600" />}
                 </button>
@@ -89,7 +93,7 @@ export function GoogleMapPicker({ open, onClose, onSelect }: GoogleMapPickerProp
             <div className="p-4 bg-gray-50 mt-auto">
               <Button 
                 onClick={() => {
-                  onSelect(selectedSpot.name.ko);
+                  onSelect(selectedName);
                   onClose();
                 }}
                 disabled={!selectedSpotId}

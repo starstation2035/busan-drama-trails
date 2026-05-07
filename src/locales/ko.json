@@ -242,7 +242,8 @@
       "address": "주소",
       "hours": "운영시간",
       "admission": "입장료",
-      "bestTime": "추천 시간"
+      "bestTime": "추천 시간",
+      "status": "운영정보"
     },
     "bestTime": {
       "morning": "오전",
@@ -284,7 +285,8 @@
       "add": "내 코스에 추가",
       "added": "내 코스 보기 →",
       "carTour": "차량 투어 예약"
-    }
+    },
+    "nearbyCta": "✨ {{name}} 근처 맛집 & 카페 탐방하기"
   },
   "myCourse": {
     "title": "나의 부산 코스",

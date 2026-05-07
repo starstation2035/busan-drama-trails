@@ -190,6 +190,12 @@
       "title": "找不到符合的拍攝地",
       "subtitle": "試著調整搜尋或篩選條件吧",
       "reset": "重設所有篩選"
+    },
+    "hero": {
+      "title": "拍攝地 & 名勝 一站式",
+      "brand": "",
+      "subtitleLine1": "探訪韓劇拍攝地的經典場景，",
+      "subtitleLine2": "為您開啟直達周邊美食的釜山之旅。"
     }
   },
   "detail": {
@@ -201,7 +207,8 @@
       "address": "地址",
       "hours": "營業時間",
       "admission": "門票",
-      "bestTime": "最佳時間"
+      "bestTime": "最佳時間",
+      "status": "運營信息"
     },
     "bestTime": {
       "morning": "上午",
@@ -243,7 +250,8 @@
       "add": "加入我的行程",
       "added": "查看我的行程 →",
       "carTour": "預約車輛導覽"
-    }
+    },
+    "nearbyCta": "✨ 探索 {{name}} 附近的餐廳和咖啡店"
   },
   "myCourse": {
     "title": "我的釜山行程",

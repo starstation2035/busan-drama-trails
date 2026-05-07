@@ -198,7 +198,7 @@ export default function StyleTest() {
                     </p>
                     <p className="mt-0.5 truncate text-xs text-muted-foreground">
                       {item.type === 'spot'
-                        ? `🎬 ${((item.data as any).drama || []).join(", ")}`
+                        ? `🎬 ${((item.data as any).drama || []).map((d: any) => d[lang] || d.ko).join(", ")}`
                         : (item.data as any).signature?.[lang] || (item.data as any).signature?.['ko'] || ''}
                     </p>
                   </div>

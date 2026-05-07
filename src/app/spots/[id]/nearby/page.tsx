@@ -138,7 +138,8 @@ export default function NearbyDiscovery({ params, searchParams }: { params: Prom
   const id = resolvedParams.id;
   const type = resolvedSearchParams.type;
   
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = (i18n.language || "ko") as any;
   const router = useRouter();
 
   const spot = useMemo(() => (spotsRaw as any[]).find((s) => s.id === id), [id]);
@@ -177,7 +178,7 @@ export default function NearbyDiscovery({ params, searchParams }: { params: Prom
             <ArrowLeft className="size-5" />
           </button>
           <div>
-            <h1 className="text-[20px] font-black text-[#1F2937] tracking-tight">{spot.name.ko} 주변 탐방</h1>
+            <h1 className="text-[20px] font-black text-[#1F2937] tracking-tight">{spot.name[lang] ?? spot.name.ko} 주변 탐방</h1>
             <p className="text-[12px] text-[#9CA3AF] font-bold flex items-center gap-1.5 mt-0.5">
               <MapPin className="size-3.5 text-[#FFB6C1]" /> 반경 {SPOT_CONFIGS[id as string]?.radius / 1000 || 1}km 이내 인기 장소
             </p>
@@ -216,14 +217,14 @@ export default function NearbyDiscovery({ params, searchParams }: { params: Prom
             nearbyItems.map((item: any) => (
               <DiscoveryCard 
                 key={item.id} 
-                parentSpotName={spot.name.ko}
+                parentSpotName={spot.name[lang] ?? spot.name.ko}
                 item={{
                   ...item,
                   distance: item.calculatedDistance || item.distance,
-                  name: item.name.ko || item.name,
-                  images: item.images || [{ url: item.thumbnail, description: item.name.ko || item.name }],
+                  name: item.name[lang] ?? item.name.ko ?? item.name,
+                  images: item.images || [{ url: item.thumbnail, description: item.name[lang] ?? item.name.ko ?? item.name }],
                   reviewSummary: item.reviewSummary || "현지인들이 추천하는 부산의 숨은 명소입니다.",
-                  signatureMenu: item.signatureMenu || item.signature?.ko || "대표 메뉴"
+                  signatureMenu: item.signatureMenu || item.signature?.[lang] || item.signature?.ko || "대표 메뉴"
                 }} 
               />
             ))

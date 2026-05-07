@@ -62,8 +62,8 @@ interface PhotoTip {
 interface SpotFull {
   id: string;
   name: LocalizedString;
-  drama: string[];
-  region: string;
+  drama: LocalizedString[];
+  region: Record<string, string>;
   type: string[];
   thumbnail: string;
   coords: { lat: number; lng: number };
@@ -134,6 +134,7 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
   const statusInfo = pickLang(spot.status, lang);
   const sceneDesc = pickLang(spot.scene_description, lang);
   const dramaInfo = pickLang(spot.drama_info, lang);
+  const regionName = pickLang(spot.region as any, lang);
 
   const handleShare = async () => {
     const url = typeof window !== "undefined" ? window.location.href : "";
@@ -200,7 +201,7 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
 
           {/* Bottom Overlay Title (Mobile) */}
           <div className="absolute bottom-0 left-0 right-0 p-6 text-white md:hidden">
-            <p className="mb-1 text-[10px] font-bold uppercase tracking-wider opacity-90">📍 {spot.region}</p>
+            <p className="mb-1 text-[10px] font-bold uppercase tracking-wider opacity-90">📍 {regionName}</p>
             <h1 className="text-2xl font-bold leading-tight">{name}</h1>
           </div>
         </div>
@@ -211,14 +212,14 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
         <div className="mb-8 hidden md:block border-b pb-8">
           <div className="flex items-end justify-between">
             <div className="space-y-4">
-              <p className="mb-2 text-sm font-bold text-primary uppercase tracking-widest">📍 {spot.region}</p>
+              <p className="mb-2 text-sm font-bold text-primary uppercase tracking-widest">📍 {regionName}</p>
               <h1 className="text-3xl font-black tracking-tight text-[#222222]">{name}</h1>
               
               <div className="mt-4 space-y-4">
-                {spot.drama.map((d) => (
-                  <div key={d} className="space-y-2">
+                {spot.drama.map((d, idx) => (
+                  <div key={idx} className="space-y-2">
                     <span className="inline-block rounded-lg bg-primary/10 px-3 py-1 text-xs font-bold text-primary">
-                      🎬 {d}
+                      🎬 {pickLang(d, lang)}
                     </span>
                     {dramaInfo && (
                       <p className="text-base text-[#555555] leading-relaxed w-full bg-muted/10 p-6 rounded-2xl border border-border/50 shadow-sm">
@@ -236,10 +237,10 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
         {/* Mobile Title Section (below image) */}
         <div className="md:hidden mb-6">
           <div className="space-y-4 mb-4">
-            {spot.drama.map((d) => (
-              <div key={d} className="space-y-2">
+            {spot.drama.map((d, idx) => (
+              <div key={idx} className="space-y-2">
                 <span className="inline-block rounded-md bg-primary/10 px-2 py-0.5 text-[10px] font-bold text-primary">
-                  🎬 {d}
+                  🎬 {pickLang(d, lang)}
                 </span>
                 {dramaInfo && (
                   <p className="text-[15px] text-[#555555] leading-relaxed w-full bg-muted/10 p-4 rounded-xl border border-border/50">
@@ -318,7 +319,7 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
                     <Clock className="size-4" />
                   </div>
                   <div className="flex-1">
-                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter mb-0.5">운영 정보</p>
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter mb-0.5">{t("detail.info.status")}</p>
                     <p className="font-bold text-foreground leading-snug">{statusInfo}</p>
                   </div>
                 </li>
@@ -380,7 +381,7 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
             href={`/spots/${spot.id}/nearby`}
             className="flex items-center justify-center w-full h-16 rounded-3xl text-lg font-bold bg-primary text-primary-foreground shadow-xl hover:bg-primary/90 transition-all hover:scale-[1.02] active:scale-95 group no-underline"
           >
-            ✨ {name} 근처 맛집 & 카페 탐방하기
+            {t("detail.nearbyCta", { name })}
             <ChevronRight className="ml-2 size-5 transition-transform group-hover:translate-x-1" />
           </Link>
         </section>
