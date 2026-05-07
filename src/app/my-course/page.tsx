@@ -798,7 +798,7 @@ function AddSpotSheet({
                   </div>
                   <Button
                     size="sm"
-                    variant={isAdded ? "ghost" : "primary"}
+                    variant={isAdded ? "ghost" : "default"}
                     disabled={isAdded}
                     onClick={() => !isAdded && onAdd({ ...item, kind } as any)}
                     className={`rounded-xl px-4 h-9 font-bold ${isAdded ? "" : "shadow-md"}`}

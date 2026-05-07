@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import PhotoGrid from "./PhotoGrid";
 import ReviewSummary from "./ReviewSummary";
+import { useTranslation } from "react-i18next";
 
 interface DetailModalProps {
   isOpen: boolean;
@@ -14,6 +15,7 @@ interface DetailModalProps {
 }
 
 export default function DetailModal({ isOpen, item, onClose }: DetailModalProps) {
+  const { t } = useTranslation();
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -118,6 +120,23 @@ export default function DetailModal({ isOpen, item, onClose }: DetailModalProps)
                       도보 약 <span className="text-[#1F2937] underline decoration-[#3B82F6] decoration-4 underline-offset-4">{walkingData?.minutes}분</span>
                     </p>
                   </div>
+                </div>
+
+                {/* 4. Vehicle Tour Booking Button (Premium & Accessible) */}
+                <div className="mt-8">
+                  <Button
+                    onClick={handleCallCar}
+                    className="w-full h-16 rounded-[28px] bg-gradient-to-r from-[#FF4D8D] to-[#FF8EBC] text-white font-black text-[17px] shadow-[0_12px_24px_rgba(255,77,141,0.3)] hover:shadow-[0_16px_32px_rgba(255,77,141,0.4)] transition-all active:scale-[0.98] border-none group/btn"
+                    aria-label={t("detail.cta.carTour") || "Book Vehicle Tour"}
+                  >
+                    <div className="flex items-center justify-center gap-3">
+                      <div className="bg-white/20 p-2 rounded-xl backdrop-blur-md group-hover/btn:rotate-12 transition-transform">
+                        <Car className="size-5 text-white" />
+                      </div>
+                      <span>{t("detail.cta.carTour") || "차량 투어 예약"}</span>
+                      <ChevronRight className="size-5 opacity-50 group-hover/btn:translate-x-1 transition-transform" />
+                    </div>
+                  </Button>
                 </div>
               </div>
             </div>

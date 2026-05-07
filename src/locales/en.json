@@ -280,7 +280,8 @@
     },
     "cta": {
       "add": "Add to My Course",
-    "added": "View My Course →"
+      "added": "View My Course →",
+      "carTour": "Book Vehicle Tour"
     }
   },
   "myCourse": {

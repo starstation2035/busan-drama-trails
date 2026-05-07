@@ -8,6 +8,7 @@ import { CafeLocation } from "@/data/nearby_cafes";
 import { useAppStore } from "@/stores/useAppStore";
 import { triggerHeartFly } from "@/components/HeartEffect";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 
 interface DiscoveryCardProps {
   item: CafeLocation;
@@ -15,6 +16,7 @@ interface DiscoveryCardProps {
 }
 
 export default function DiscoveryCard({ item, parentSpotName }: DiscoveryCardProps) {
+  const { t } = useTranslation();
   const [selectedPhotoIdx, setSelectedPhotoIdx] = useState<number | null>(null);
   const [isMapExpanded, setIsMapExpanded] = useState(false);
   
@@ -116,31 +118,49 @@ export default function DiscoveryCard({ item, parentSpotName }: DiscoveryCardPro
 
       {/* 3. Lower Part: Mini Map (Functional) */}
       <div className="px-8 pb-8">
-        <motion.div 
-          animate={{ height: isMapExpanded ? 400 : 160 }}
-          className="relative rounded-[32px] overflow-hidden border border-[#F1F5F9] shadow-inner cursor-pointer"
-          onClick={() => setIsMapExpanded(!isMapExpanded)}
-        >
-          <iframe
-            width="100%"
-            height="100%"
-            frameBorder="0"
-            src={`https://maps.google.com/maps?q=${item.latitude},${item.longitude}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
-            className="grayscale-[0.2] contrast-[0.9] brightness-[1.05]"
-          />
-          
-          {/* Overlay Info */}
-          {!isMapExpanded && (
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent flex items-end p-6">
-              <div className="bg-white/90 backdrop-blur-md px-5 py-2.5 rounded-2xl border border-white shadow-lg flex items-center gap-2.5">
-                <MapPin className="size-4 text-[#FF4D8D]" />
-                <span className="text-[14px] font-black text-[#1F2937]">
-                  {parentSpotName}에서 {item.distance}m <span className="text-[#9CA3AF] mx-1">|</span> 도보 {walkingMinutes}분
-                </span>
+        <div className="flex flex-col gap-4">
+          <motion.div 
+            animate={{ height: isMapExpanded ? 400 : 160 }}
+            className="relative rounded-[32px] overflow-hidden border border-[#F1F5F9] shadow-inner cursor-pointer"
+            onClick={() => setIsMapExpanded(!isMapExpanded)}
+          >
+            <iframe
+              width="100%"
+              height="100%"
+              frameBorder="0"
+              src={`https://maps.google.com/maps?q=${item.latitude},${item.longitude}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+              className="grayscale-[0.2] contrast-[0.9] brightness-[1.05]"
+              title={`${item.name} Location Map`}
+            />
+            
+            {/* Overlay Info */}
+            {!isMapExpanded && (
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent flex items-end p-6">
+                <div className="bg-white/90 backdrop-blur-md px-5 py-2.5 rounded-2xl border border-white shadow-lg flex items-center gap-2.5">
+                  <MapPin className="size-4 text-[#FF4D8D]" />
+                  <span className="text-[14px] font-black text-[#1F2937]">
+                    {parentSpotName}에서 {item.distance}m <span className="text-[#9CA3AF] mx-1">|</span> 도보 {walkingMinutes}분
+                  </span>
+                </div>
               </div>
+            )}
+          </motion.div>
+
+          {/* 4. Vehicle Tour Booking Button (Premium & Accessible) */}
+          <Button
+            onClick={handleCallCar}
+            className="w-full h-16 rounded-[28px] bg-gradient-to-r from-[#FF4D8D] to-[#FF8EBC] text-white font-black text-[17px] shadow-[0_12px_24px_rgba(255,77,141,0.3)] hover:shadow-[0_16px_32px_rgba(255,77,141,0.4)] transition-all active:scale-[0.98] border-none group/btn"
+            aria-label={t("detail.cta.carTour") || "Book Vehicle Tour"}
+          >
+            <div className="flex items-center justify-center gap-3">
+              <div className="bg-white/20 p-2 rounded-xl backdrop-blur-md group-hover/btn:rotate-12 transition-transform">
+                <Car className="size-5 text-white" />
+              </div>
+              <span>{t("detail.cta.carTour") || "차량 투어 예약"}</span>
+              <ChevronRight className="size-5 opacity-50 group-hover/btn:translate-x-1 transition-transform" />
             </div>
-          )}
-        </motion.div>
+          </Button>
+        </div>
       </div>
 
       {/* Internal Lightbox */}
