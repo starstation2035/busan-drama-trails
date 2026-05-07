@@ -144,7 +144,7 @@ export default function MyCoursePage() {
   return (
     <div className="space-y-6 pb-12">
       {/* Header */}
-      <header className="flex items-center justify-between">
+      <header className="flex items-start justify-between">
         <div className="space-y-1">
           <h1 className="text-3xl font-black text-foreground tracking-tight">{t("myCourse.title")}</h1>
           <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">
@@ -152,6 +152,115 @@ export default function MyCoursePage() {
             Live Preview
           </div>
         </div>
+        
+        {/* Explorer Drawer Trigger */}
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="outline" size="icon" className="shrink-0 h-10 w-10 rounded-full shadow-sm">
+              <Menu className="h-5 w-5" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="w-[300px] sm:w-[380px] p-0 flex flex-col">
+            <SheetHeader className="p-4 border-b bg-muted/20 text-left">
+              <SheetTitle className="flex items-center gap-2">
+                <FolderOpen className="h-5 w-5 text-primary" />
+                {t("myCourse.explorer.title", "Course Explorer")}
+              </SheetTitle>
+            </SheetHeader>
+            <div className="flex-1 overflow-y-auto p-4 space-y-6">
+              
+              {/* User Style Result (Minimal) */}
+              {userStyle && (
+                <div
+                  className="relative overflow-hidden rounded-2xl p-4 text-center shadow-md animate-fade-up"
+                  style={{
+                    background: `linear-gradient(135deg, ${STYLE_META[userStyle].colorVar}, color-mix(in oklab, ${STYLE_META[userStyle].colorVar} 60%, white))`,
+                  }}
+                >
+                  <p className="text-xs font-bold uppercase tracking-widest text-foreground/70 mb-1">
+                    {t("quiz.result.yourStyle")}
+                  </p>
+                  <div className="text-3xl">{STYLE_META[userStyle].icon}</div>
+                  <h2 className="mt-1 text-lg font-black text-foreground leading-tight">
+                    {t(`quiz.types.${userStyle}.name`)}
+                  </h2>
+                </div>
+              )}
+
+              {/* Tree View for Spots */}
+              <Accordion type="multiple" defaultValue={["spots", "restaurants", "cafes"]} className="w-full">
+                <AccordionItem value="spots" className="border-b-0">
+                  <AccordionTrigger className="hover:no-underline py-2">
+                    <div className="flex items-center gap-2 font-bold text-sm">
+                      <MapPin className="h-4 w-4 text-blue-500" />
+                      {t("quiz.result.spots", "Spots")} ({spots.length})
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="pt-1 pb-3 space-y-1">
+                    {spots.length === 0 ? (
+                      <p className="text-xs text-muted-foreground px-6">{t("myCourse.emptyFolder", "No items")}</p>
+                    ) : (
+                      spots.map((spot) => (
+                        <div key={spot.id} className="flex items-center justify-between group rounded-md px-2 py-1.5 hover:bg-muted/50 transition-colors">
+                          <span className="text-xs font-medium truncate pr-2">{spot.name[lang] ?? spot.name["en"]}</span>
+                          <Button variant="ghost" size="icon" className="h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity text-destructive hover:bg-destructive/10 hover:text-destructive" onClick={() => toggleFavorite(spot.id)}>
+                            <Trash2 className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      ))
+                    )}
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="restaurants" className="border-b-0">
+                  <AccordionTrigger className="hover:no-underline py-2">
+                    <div className="flex items-center gap-2 font-bold text-sm">
+                      <Utensils className="h-4 w-4 text-orange-500" />
+                      {t("quiz.result.restaurants", "Restaurants")} ({restaurants.length})
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="pt-1 pb-3 space-y-1">
+                    {restaurants.length === 0 ? (
+                      <p className="text-xs text-muted-foreground px-6">{t("myCourse.emptyFolder", "No items")}</p>
+                    ) : (
+                      restaurants.map((item) => (
+                        <div key={item.id} className="flex items-center justify-between group rounded-md px-2 py-1.5 hover:bg-muted/50 transition-colors">
+                          <span className="text-xs font-medium truncate pr-2">{item.name[lang] ?? item.name["en"]}</span>
+                          <Button variant="ghost" size="icon" className="h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity text-destructive hover:bg-destructive/10 hover:text-destructive" onClick={() => toggleFavorite(item.id)}>
+                            <Trash2 className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      ))
+                    )}
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="cafes" className="border-b-0">
+                  <AccordionTrigger className="hover:no-underline py-2">
+                    <div className="flex items-center gap-2 font-bold text-sm">
+                      <Coffee className="h-4 w-4 text-amber-600" />
+                      {t("quiz.result.cafes", "Cafes")} ({cafes.length})
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="pt-1 pb-3 space-y-1">
+                    {cafes.length === 0 ? (
+                      <p className="text-xs text-muted-foreground px-6">{t("myCourse.emptyFolder", "No items")}</p>
+                    ) : (
+                      cafes.map((item) => (
+                        <div key={item.id} className="flex items-center justify-between group rounded-md px-2 py-1.5 hover:bg-muted/50 transition-colors">
+                          <span className="text-xs font-medium truncate pr-2">{item.name[lang] ?? item.name["en"]}</span>
+                          <Button variant="ghost" size="icon" className="h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity text-destructive hover:bg-destructive/10 hover:text-destructive" onClick={() => toggleFavorite(item.id)}>
+                            <Trash2 className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      ))
+                    )}
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
+          </SheetContent>
+        </Sheet>
       </header>
 
       {/* Stats Card */}
@@ -180,36 +289,6 @@ export default function MyCoursePage() {
           </div>
         </div>
       </div>
-
-      {/* User Style Result */}
-      {userStyle && (
-        <div
-          className="relative overflow-hidden rounded-3xl p-6 text-center shadow-lg animate-fade-up"
-          style={{
-            background: `linear-gradient(135deg, ${STYLE_META[userStyle].colorVar}, color-mix(in oklab, ${STYLE_META[userStyle].colorVar} 60%, white))`,
-          }}
-        >
-          <div className="absolute top-3 right-4">
-            <Link
-              href="/style-test"
-              className="flex items-center gap-1 text-[10px] font-bold text-foreground/60 hover:text-foreground transition-colors"
-            >
-              <RefreshCw className="size-3" />
-              {t("common.retake")}
-            </Link>
-          </div>
-          <p className="text-[10px] font-bold uppercase tracking-widest text-foreground/60">
-            {t("quiz.result.yourStyle")}
-          </p>
-          <div className="mt-2 text-5xl animate-bounce-slow">{STYLE_META[userStyle].icon}</div>
-          <h2 className="mt-2 text-2xl font-black text-foreground">
-            {t(`quiz.types.${userStyle}.name`)}
-          </h2>
-          <p className="mt-1 text-xs font-medium text-foreground/70">
-            {t(`quiz.types.${userStyle}.tagline`)}
-          </p>
-        </div>
-      )}
 
       {/* Tabs */}
       <div className="grid grid-cols-2 rounded-2xl bg-muted p-1.5 shadow-inner">
