@@ -75,22 +75,28 @@ export default function Landing() {
 
   useEffect(() => {
     const animate = () => {
-      if (scrollRef.current && mousePos.w > 0) {
+      if (scrollRef.current && mousePos.w > 0 && mousePos.x !== 0) {
         const center = mousePos.w / 2;
         const diff = mousePos.x - center;
+        const ratio = diff / center; // -1 to 1
         
-        if (mousePos.x !== 0) {
-          const speed = (diff / center) * 12; 
-          scrollLeft(speed);
+        // 1. Add a dead zone in the middle (20%)
+        const DEAD_ZONE = 0.2;
+        let speed = 0;
+        
+        if (Math.abs(ratio) > DEAD_ZONE) {
+          // 2. Normalize ratio after dead zone and apply a power function for smooth curve
+          const sign = ratio > 0 ? 1 : -1;
+          const adjustedRatio = (Math.abs(ratio) - DEAD_ZONE) / (1 - DEAD_ZONE);
+          // Power of 1.5 gives a nice progressive acceleration
+          speed = sign * Math.pow(adjustedRatio, 1.5) * 15; 
+        }
+        
+        if (speed !== 0) {
+          scrollRef.current.scrollLeft += speed;
         }
       }
       requestRef.current = requestAnimationFrame(animate);
-    };
-
-    const scrollLeft = (speed: number) => {
-      if (scrollRef.current) {
-        scrollRef.current.scrollLeft += speed;
-      }
     };
 
     requestRef.current = requestAnimationFrame(animate);
