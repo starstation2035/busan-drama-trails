@@ -47,6 +47,7 @@ export function Header({ onOpenLang }: Props) {
           <Link href="/" className="font-bold text-[#FF385C] tracking-tight text-xl">
             {t("common.appName")}
           </Link>
+
           
           <nav className="hidden md:flex items-center gap-6">
             <Link href="/spots" className="text-sm font-bold text-[#222222] hover:text-[#FF385C] transition-colors">

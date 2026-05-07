@@ -40,23 +40,26 @@ export type TimelineEntry = {
   travelToNext?: { minutes: number; mode: "walk" | "taxi" | "subway" | "bus"; km: number };
 };
 
-const spots = spotsData as Array<{
+export const spots = spotsData as Array<{
   id: string;
   name: Record<string, string>;
   thumbnail: string;
   coords: Coords;
+  region?: string;
 }>;
-const restaurants = restaurantsData as Array<{
+export const restaurants = restaurantsData as Array<{
   id: string;
   name: Record<string, string>;
   thumbnail: string;
   food?: Record<string, string>;
+  region?: string;
 }>;
-const cafes = cafesData as Array<{
+export const cafes = cafesData as Array<{
   id: string;
   name: Record<string, string>;
   thumbnail: string;
   vibe?: Record<string, string>;
+  region?: string;
 }>;
 
 export function classifyFavorites(favIds: string[]): {
@@ -230,12 +233,11 @@ export function generateCourse(favIds: string[]): TimelineEntry[] {
 }
 
 export function totalRouteKm(entries: TimelineEntry[]): number {
-  const spotEntries = entries.filter((e) => e.item.kind === "spot") as Array<
-    TimelineEntry & { item: SpotItem }
-  >;
   let km = 0;
-  for (let i = 0; i < spotEntries.length - 1; i++) {
-    km += haversineKm(spotEntries[i].item.coords, spotEntries[i + 1].item.coords);
+  for (const entry of entries) {
+    if (entry.travelToNext) {
+      km += entry.travelToNext.km;
+    }
   }
   return km;
 }

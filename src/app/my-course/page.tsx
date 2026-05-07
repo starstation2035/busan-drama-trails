@@ -22,6 +22,9 @@ import {
   ChevronUp,
   ChevronDown,
   Bus,
+  Plus,
+  Search,
+  Check,
   Menu,
   FolderOpen,
   Utensils,
@@ -50,7 +53,12 @@ import {
   classifyFavorites,
   generateCourse,
   totalRouteKm,
+  addMinutes,
+  spots as allSpots,
+  restaurants as allRestaurants,
+  cafes as allCafes,
   type TimelineEntry,
+  type AnyItem,
 } from "@/lib/course";
 import { type EditableTimelineEntry } from "@/domain/course";
 import { courseService } from "@/application/courseService";
@@ -71,6 +79,8 @@ export default function MyCoursePage() {
 
   const [tab, setTab] = useState<"list" | "course">("course");
   const [seed, setSeed] = useState(0);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isAddSheetOpen, setIsAddSheetOpen] = useState(false);
 
   const [editableCourse, setEditableCourse] = useState<EditableTimelineEntry[]>([]);
   const skipRegenRef = useRef(false);
@@ -141,6 +151,80 @@ export default function MyCoursePage() {
     setEditableCourse(cur => courseService.updateTravelMode(cur, idx, mode));
   };
 
+  const handleMove = (idx: number, direction: "up" | "down") => {
+    skipRegenRef.current = true;
+    const targetIdx = direction === "up" ? idx - 1 : idx + 1;
+    if (targetIdx < 0 || targetIdx >= editableCourse.length) return;
+
+    // Deep clone to avoid mutation and trigger re-render
+    const newCourse = editableCourse.map(e => ({
+      ...e,
+      travelToNext: e.travelToNext ? { ...e.travelToNext } : undefined
+    }));
+    
+    // Swap
+    [newCourse[idx], newCourse[targetIdx]] = [newCourse[targetIdx], newCourse[idx]];
+    
+    // Re-calculate all times starting from 09:00
+    let cursor = "09:00";
+    for (let i = 0; i < newCourse.length; i++) {
+      newCourse[i].time = cursor;
+      cursor = addMinutes(cursor, newCourse[i].durationMin);
+      if (i < newCourse.length - 1) {
+        // If travel data exists, use it, else default 10min
+        const travelMins = newCourse[i].travelToNext?.minutes ?? 10;
+        cursor = addMinutes(cursor, travelMins);
+      }
+    }
+    
+    setEditableCourse(newCourse);
+    toast.success(t("common.updated", "Updated"));
+  };
+
+  const handleRemoveEntry = (idx: number) => {
+    const itemToRemove = editableCourse[idx].item;
+    toggleFavorite(itemToRemove.id);
+    toast.info(t("myCourse.removed"));
+  };
+
+  const handleAddEntry = (item: AnyItem) => {
+    // Add to favorites if not already there
+    if (!favorites.includes(item.id)) {
+      toggleFavorite(item.id);
+    }
+    
+    skipRegenRef.current = true;
+    const newCourse = [...editableCourse];
+    
+    // Default duration based on kind
+    let duration = 60;
+    if (item.kind === "restaurant") duration = 60;
+    if (item.kind === "cafe") duration = 45;
+
+    const newEntry: EditableTimelineEntry = {
+      time: "00:00", // placeholder
+      durationMin: duration,
+      item: item as any
+    };
+    
+    newCourse.push(newEntry);
+    
+    // Re-calculate all times
+    let cursor = newCourse[0]?.time || "09:00";
+    for (let i = 0; i < newCourse.length; i++) {
+      newCourse[i].time = cursor;
+      cursor = addMinutes(cursor, newCourse[i].durationMin);
+      if (i < newCourse.length - 1) {
+        const travelMins = newCourse[i].travelToNext?.minutes ?? 10;
+        cursor = addMinutes(cursor, travelMins);
+      }
+    }
+    
+    setEditableCourse(newCourse);
+    toast.success(t("common.added", "Added to course"));
+    setIsAddSheetOpen(false);
+  };
+
   return (
     <div className="space-y-6 pb-12">
       {/* Header */}
@@ -153,114 +237,6 @@ export default function MyCoursePage() {
           </div>
         </div>
         
-        {/* Explorer Drawer Trigger */}
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button variant="outline" size="icon" className="shrink-0 h-10 w-10 rounded-full shadow-sm">
-              <Menu className="h-5 w-5" />
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="left" className="w-[300px] sm:w-[380px] p-0 flex flex-col">
-            <SheetHeader className="p-4 border-b bg-muted/20 text-left">
-              <SheetTitle className="flex items-center gap-2">
-                <FolderOpen className="h-5 w-5 text-primary" />
-                {t("myCourse.explorer.title", "Course Explorer")}
-              </SheetTitle>
-            </SheetHeader>
-            <div className="flex-1 overflow-y-auto p-4 space-y-6">
-              
-              {/* User Style Result (Minimal) */}
-              {userStyle && (
-                <div
-                  className="relative overflow-hidden rounded-2xl p-4 text-center shadow-md animate-fade-up"
-                  style={{
-                    background: `linear-gradient(135deg, ${STYLE_META[userStyle].colorVar}, color-mix(in oklab, ${STYLE_META[userStyle].colorVar} 60%, white))`,
-                  }}
-                >
-                  <p className="text-xs font-bold uppercase tracking-widest text-foreground/70 mb-1">
-                    {t("quiz.result.yourStyle")}
-                  </p>
-                  <div className="text-3xl">{STYLE_META[userStyle].icon}</div>
-                  <h2 className="mt-1 text-lg font-black text-foreground leading-tight">
-                    {t(`quiz.types.${userStyle}.name`)}
-                  </h2>
-                </div>
-              )}
-
-              {/* Tree View for Spots */}
-              <Accordion type="multiple" defaultValue={["spots", "restaurants", "cafes"]} className="w-full">
-                <AccordionItem value="spots" className="border-b-0">
-                  <AccordionTrigger className="hover:no-underline py-2">
-                    <div className="flex items-center gap-2 font-bold text-sm">
-                      <MapPin className="h-4 w-4 text-blue-500" />
-                      {t("quiz.result.spots", "Spots")} ({spots.length})
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="pt-1 pb-3 space-y-1">
-                    {spots.length === 0 ? (
-                      <p className="text-xs text-muted-foreground px-6">{t("myCourse.emptyFolder", "No items")}</p>
-                    ) : (
-                      spots.map((spot) => (
-                        <div key={spot.id} className="flex items-center justify-between group rounded-md px-2 py-1.5 hover:bg-muted/50 transition-colors">
-                          <span className="text-xs font-medium truncate pr-2">{spot.name[lang] ?? spot.name["en"]}</span>
-                          <Button variant="ghost" size="icon" className="h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity text-destructive hover:bg-destructive/10 hover:text-destructive" onClick={() => toggleFavorite(spot.id)}>
-                            <Trash2 className="h-3 w-3" />
-                          </Button>
-                        </div>
-                      ))
-                    )}
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="restaurants" className="border-b-0">
-                  <AccordionTrigger className="hover:no-underline py-2">
-                    <div className="flex items-center gap-2 font-bold text-sm">
-                      <Utensils className="h-4 w-4 text-orange-500" />
-                      {t("quiz.result.restaurants", "Restaurants")} ({restaurants.length})
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="pt-1 pb-3 space-y-1">
-                    {restaurants.length === 0 ? (
-                      <p className="text-xs text-muted-foreground px-6">{t("myCourse.emptyFolder", "No items")}</p>
-                    ) : (
-                      restaurants.map((item) => (
-                        <div key={item.id} className="flex items-center justify-between group rounded-md px-2 py-1.5 hover:bg-muted/50 transition-colors">
-                          <span className="text-xs font-medium truncate pr-2">{item.name[lang] ?? item.name["en"]}</span>
-                          <Button variant="ghost" size="icon" className="h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity text-destructive hover:bg-destructive/10 hover:text-destructive" onClick={() => toggleFavorite(item.id)}>
-                            <Trash2 className="h-3 w-3" />
-                          </Button>
-                        </div>
-                      ))
-                    )}
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="cafes" className="border-b-0">
-                  <AccordionTrigger className="hover:no-underline py-2">
-                    <div className="flex items-center gap-2 font-bold text-sm">
-                      <Coffee className="h-4 w-4 text-amber-600" />
-                      {t("quiz.result.cafes", "Cafes")} ({cafes.length})
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="pt-1 pb-3 space-y-1">
-                    {cafes.length === 0 ? (
-                      <p className="text-xs text-muted-foreground px-6">{t("myCourse.emptyFolder", "No items")}</p>
-                    ) : (
-                      cafes.map((item) => (
-                        <div key={item.id} className="flex items-center justify-between group rounded-md px-2 py-1.5 hover:bg-muted/50 transition-colors">
-                          <span className="text-xs font-medium truncate pr-2">{item.name[lang] ?? item.name["en"]}</span>
-                          <Button variant="ghost" size="icon" className="h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity text-destructive hover:bg-destructive/10 hover:text-destructive" onClick={() => toggleFavorite(item.id)}>
-                            <Trash2 className="h-3 w-3" />
-                          </Button>
-                        </div>
-                      ))
-                    )}
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </div>
-          </SheetContent>
-        </Sheet>
       </header>
 
       {/* Stats Card */}
@@ -351,57 +327,81 @@ export default function MyCoursePage() {
             course={editableCourse}
             totalKm={totalKm}
             lang={lang}
+            isEditing={isEditing}
             onUpdateMemo={onUpdateMemo}
             onUpdateTravelTime={onUpdateTravelTime}
             onUpdateTravelMode={onUpdateTravelMode}
+            onMove={handleMove}
+            onRemove={handleRemoveEntry}
+            onAdd={() => setIsAddSheetOpen(true)}
           />
         </div>
       )}
 
-      {/* Bottom action bar */}
-      <div className="sticky bottom-20 z-10 flex gap-2 rounded-2xl border border-border/60 bg-background/95 p-2 shadow-xl backdrop-blur-xl md:bottom-4">
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button variant="default" className="flex-1 h-12 gap-2 rounded-xl font-bold shadow-md active:scale-95 transition-transform">
-              <Share2 className="h-4 w-4" /> {t("myCourse.actions.share")}
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="bottom" className="h-[85vh] rounded-t-[32px] p-0 overflow-hidden">
-            <SheetHeader className="p-6 pb-0">
-              <SheetTitle className="text-center font-black tracking-tight">{t("myCourse.actions.share")}</SheetTitle>
-            </SheetHeader>
-            <div className="h-full overflow-y-auto p-6 pb-20">
-              <div className="mx-auto max-w-sm space-y-6">
-                <ShareLayout course={editableCourse} lang={lang} />
-                <div className="grid grid-cols-2 gap-3">
-                  <Button onClick={handleShare} variant="outline" className="h-12 gap-2 rounded-xl border-border/60 font-bold">
-                    <MessageCircle className="size-4" /> LINE
-                  </Button>
-                  <Button onClick={handleCopy} variant="outline" className="h-12 gap-2 rounded-xl border-border/60 font-bold">
-                    <Instagram className="size-4" /> Instagram
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </SheetContent>
-        </Sheet>
-        
-        <Button variant="outline" onClick={() => setSeed((s) => s + 1)} className="h-12 w-12 rounded-xl border-border/60 shadow-sm active:rotate-180 transition-all duration-500">
-          <Shuffle className="h-4 w-4" />
-        </Button>
-        <Button
-          variant="outline"
-          onClick={() => toast.info(t("myCourse.actions.exportSoon"))}
-          className="h-12 w-12 rounded-xl border-border/60 shadow-sm"
-        >
-          <Download className="h-4 w-4" />
-        </Button>
-      </div>
+      {/* Add Spot Sheet */}
+      <AddSpotSheet
+        isOpen={isAddSheetOpen}
+        onClose={() => setIsAddSheetOpen(false)}
+        onAdd={handleAddEntry}
+        existingIds={editableCourse.map(e => e.item.id)}
+        lang={lang}
+      />
 
-      <div className="text-center">
-        <button onClick={handleCopy} className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest hover:text-primary transition-colors underline underline-offset-4 decoration-primary/30">
-          {t("myCourse.actions.copyLink")}
-        </button>
+      {/* Bottom action bar */}
+      <div className="sticky bottom-20 z-10 flex gap-2 rounded-2xl border border-border/60 bg-background/95 p-2 shadow-xl backdrop-blur-xl md:bottom-4 animate-fade-up">
+        {isEditing ? (
+          <Button 
+            variant="default" 
+            onClick={() => setIsEditing(false)}
+            className="flex-1 h-12 gap-2 rounded-xl font-bold shadow-md bg-emerald-600 hover:bg-emerald-700 text-white animate-in zoom-in duration-300"
+          >
+            <RefreshCw className="h-4 w-4" /> 편집 완료
+          </Button>
+        ) : (
+          <>
+            <Button 
+              variant="outline" 
+              onClick={() => setIsEditing(true)}
+              className="h-12 px-4 gap-2 rounded-xl border-border/60 font-bold hover:bg-muted"
+            >
+              <Pencil className="h-4 w-4 text-primary" /> 코스 다시 짜기
+            </Button>
+
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="default" className="flex-1 h-12 gap-2 rounded-xl font-bold shadow-md active:scale-95 transition-transform">
+                  <Share2 className="h-4 w-4" /> {t("myCourse.actions.share")}
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="bottom" className="h-[85vh] rounded-t-[32px] p-0 overflow-hidden">
+                <SheetHeader className="p-6 pb-0">
+                  <SheetTitle className="text-center font-black tracking-tight">{t("myCourse.actions.share")}</SheetTitle>
+                </SheetHeader>
+                <div className="h-full overflow-y-auto p-6 pb-20">
+                  <div className="mx-auto max-w-sm space-y-6">
+                    <ShareLayout course={editableCourse} lang={lang} />
+                    <div className="grid grid-cols-2 gap-3">
+                      <Button onClick={handleShare} variant="outline" className="h-12 gap-2 rounded-xl border-border/60 font-bold">
+                        <MessageCircle className="size-4" /> LINE
+                      </Button>
+                      <Button onClick={handleCopy} variant="outline" className="h-12 gap-2 rounded-xl border-border/60 font-bold">
+                        <Instagram className="size-4" /> Instagram
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
+            
+            <Button
+              variant="outline"
+              onClick={() => toast.info(t("myCourse.actions.exportSoon"))}
+              className="h-12 w-12 rounded-xl border-border/60 shadow-sm"
+            >
+              <Download className="h-4 w-4" />
+            </Button>
+          </>
+        )}
       </div>
     </div>
   );
@@ -494,16 +494,24 @@ function CourseView({
   course,
   totalKm,
   lang,
+  isEditing,
   onUpdateMemo,
   onUpdateTravelTime,
   onUpdateTravelMode,
+  onMove,
+  onRemove,
+  onAdd,
 }: {
   course: EditableTimelineEntry[];
   totalKm: number;
   lang: LangCode;
+  isEditing: boolean;
   onUpdateMemo: (idx: number, val: string) => void;
   onUpdateTravelTime: (idx: number, val: number) => void;
   onUpdateTravelMode: (idx: number, mode: "walk" | "taxi" | "subway" | "bus") => void;
+  onMove: (idx: number, direction: "up" | "down") => void;
+  onRemove: (idx: number) => void;
+  onAdd: () => void;
 }) {
   const { t } = useTranslation();
   const router = useRouter();
@@ -579,6 +587,37 @@ function CourseView({
                         {name}
                       </h4>
                     </div>
+
+                    {isEditing && (
+                      <div className="flex flex-col gap-1.5 animate-in fade-in slide-in-from-right-2 duration-300">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          disabled={i === 0}
+                          onClick={(e) => { e.stopPropagation(); onMove(i, "up"); }}
+                          className="h-8 w-8 rounded-lg bg-primary/10 text-primary hover:bg-primary hover:text-white disabled:opacity-20 disabled:bg-muted"
+                        >
+                          <ChevronUp className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={(e) => { e.stopPropagation(); onRemove(i); }}
+                          className="h-8 w-8 rounded-lg bg-rose-100 text-rose-600 hover:bg-rose-500 hover:text-white"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          disabled={isLast}
+                          onClick={(e) => { e.stopPropagation(); onMove(i, "down"); }}
+                          className="h-8 w-8 rounded-lg bg-primary/10 text-primary hover:bg-primary hover:text-white disabled:opacity-20 disabled:bg-muted"
+                        >
+                          <ChevronDown className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    )}
                   </div>
 
                   {/* Travel Memo Input */}
@@ -608,7 +647,7 @@ function CourseView({
                         className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[10px] font-bold transition-all ${
                           entry.travelToNext?.mode === m
                             ? "bg-primary text-white shadow-md ring-2 ring-primary/20 scale-105"
-                            : "bg-muted/60 text-muted-foreground hover:bg-muted"
+                            : "bg-transparent text-muted-foreground hover:bg-muted/30"
                         }`}
                       >
                         <ModeIcon mode={m} />
@@ -643,6 +682,19 @@ function CourseView({
             </li>
           );
         })}
+
+        {isEditing && (
+          <li className="relative pl-16 animate-in fade-in slide-in-from-left-4 duration-500">
+            <Button
+              variant="outline"
+              onClick={onAdd}
+              className="w-full h-16 rounded-3xl border-dashed border-2 border-primary/30 bg-primary/5 text-primary hover:bg-primary/10 hover:border-primary/50 gap-2 font-bold"
+            >
+              <Plus className="size-5" />
+              {t("myCourse.actions.addSpot", "스팟 추가하기")}
+            </Button>
+          </li>
+        )}
       </ol>
 
       <div className="flex items-center justify-between rounded-2xl bg-muted/40 px-4 py-3 text-[10px] font-black uppercase tracking-widest text-muted-foreground/60">
@@ -653,6 +705,113 @@ function CourseView({
         <span>{t("myCourse.totals.stops", { count: course.length })}</span>
       </div>
     </div>
+  );
+}
+
+/* ---------- Add Spot Sheet Component ---------- */
+function AddSpotSheet({
+  isOpen,
+  onClose,
+  onAdd,
+  existingIds,
+  lang,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  onAdd: (item: AnyItem) => void;
+  existingIds: string[];
+  lang: LangCode;
+}) {
+  const { t } = useTranslation();
+  const [query, setQuery] = useState("");
+  const [activeTab, setActiveTab] = useState<"spots" | "restaurants" | "cafes">("spots");
+
+  const filteredItems = useMemo(() => {
+    const data = activeTab === "spots" ? allSpots : activeTab === "restaurants" ? allRestaurants : allCafes;
+    const q = query.toLowerCase();
+    return data.filter(it => 
+      it.name[lang]?.toLowerCase().includes(q) || 
+      it.name["en"]?.toLowerCase().includes(q)
+    );
+  }, [activeTab, query, lang]);
+
+  return (
+    <Sheet open={isOpen} onOpenChange={onClose}>
+      <SheetContent side="bottom" className="h-[90vh] rounded-t-[32px] p-0 overflow-hidden flex flex-col">
+        <SheetHeader className="p-6 pb-2 shrink-0">
+          <SheetTitle className="text-left font-black tracking-tight flex items-center gap-2">
+            <Plus className="size-5 text-primary" />
+            {t("myCourse.actions.addSpot", "스팟 추가하기")}
+          </SheetTitle>
+          <div className="relative mt-4">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground/50" />
+            <Input
+              placeholder={t("common.search", "Search spots...")}
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="pl-9 h-11 rounded-xl bg-muted/50 border-none focus-visible:ring-primary/20"
+            />
+          </div>
+        </SheetHeader>
+
+        <div className="px-6 py-2 shrink-0">
+          <div className="flex gap-1 rounded-xl bg-muted p-1">
+            {(["spots", "restaurants", "cafes"] as const).map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
+                  activeTab === tab ? "bg-background text-primary shadow-sm" : "text-muted-foreground"
+                }`}
+              >
+                {t(`myCourse.groups.${tab}`)}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex-1 overflow-y-auto p-6 space-y-3">
+          {filteredItems.length === 0 ? (
+            <div className="py-20 text-center">
+              <p className="text-sm font-medium text-muted-foreground">{t("common.noResults", "No results found")}</p>
+            </div>
+          ) : (
+            filteredItems.map((item) => {
+              const isAdded = existingIds.includes(item.id);
+              const kind = activeTab === "spots" ? "spot" : activeTab === "restaurants" ? "restaurant" : "cafe";
+              
+              return (
+                <div
+                  key={item.id}
+                  className={`flex items-center gap-3 rounded-2xl border border-border/40 bg-card p-2 shadow-sm transition-all ${
+                    isAdded ? "opacity-60 bg-muted/20" : "hover:shadow-md active:scale-[0.98]"
+                  }`}
+                >
+                  <img src={item.thumbnail} alt="" className="h-16 w-16 rounded-xl object-cover" />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-bold tracking-tight truncate">
+                      {item.name[lang] ?? item.name["en"]}
+                    </p>
+                    <p className="text-[10px] font-medium text-muted-foreground">
+                      {item.region}
+                    </p>
+                  </div>
+                  <Button
+                    size="sm"
+                    variant={isAdded ? "ghost" : "primary"}
+                    disabled={isAdded}
+                    onClick={() => !isAdded && onAdd({ ...item, kind } as any)}
+                    className={`rounded-xl px-4 h-9 font-bold ${isAdded ? "" : "shadow-md"}`}
+                  >
+                    {isAdded ? <Check className="size-4" /> : t("common.add", "Add")}
+                  </Button>
+                </div>
+              );
+            })
+          )}
+        </div>
+      </SheetContent>
+    </Sheet>
   );
 }
 
