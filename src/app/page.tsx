@@ -177,71 +177,69 @@ export default function Landing() {
             </div>
           </div>
         </section>
-      </div>
 
-      {/* 🎭 Split Hero Section (Moved to 2nd position) */}
-      <section className="relative w-full h-[500px] sm:h-[600px] flex flex-col md:flex-row overflow-hidden border-y border-white/10 my-8">
-        {/* Left Side: Filming Locations */}
-        <Link 
-          href="/spots" 
-          className="relative flex-1 group overflow-hidden border-b md:border-b-0 md:border-r border-white/20"
-        >
-          <img
-            src="/busan_cinema_moody.png"
-            alt="영화 속 그곳"
-            className="absolute inset-0 h-full w-full object-cover transition-transform duration-[2s] group-hover:scale-110"
-          />
-          <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors duration-500" />
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 space-y-4">
-            <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center ring-1 ring-white/30 transform group-hover:scale-110 transition-transform duration-500">
-              <Sparkles className="h-8 w-8 text-white" />
+        {/* 🎭 Split Hero Section (Moved to 2nd position) */}
+        <section className="relative w-full h-[400px] sm:h-[500px] flex flex-col md:flex-row overflow-hidden rounded-[2.5rem] shadow-xl border border-white/10">
+          {/* Left Side: Filming Locations */}
+          <Link 
+            href="/spots" 
+            className="relative flex-1 group overflow-hidden border-b md:border-b-0 md:border-r border-white/20"
+          >
+            <img
+              src="/busan_cinema_moody.png"
+              alt="영화 속 그곳"
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-[2s] group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors duration-500" />
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 space-y-4">
+              <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center ring-1 ring-white/30 transform group-hover:scale-110 transition-transform duration-500">
+                <Sparkles className="h-8 w-8 text-white" />
+              </div>
+              <div className="space-y-1">
+                <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tighter drop-shadow-lg">
+                  영화 속 그곳
+                </h2>
+                <p className="text-white/80 text-sm font-medium tracking-wide uppercase">
+                  Filming Locations
+                </p>
+              </div>
             </div>
-            <div className="space-y-1">
-              <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tighter drop-shadow-lg">
-                영화 속 그곳
-              </h2>
-              <p className="text-white/80 text-sm font-medium tracking-wide uppercase">
-                Filming Locations
-              </p>
+          </Link>
+
+          {/* Right Side: My Course */}
+          <Link 
+            href="/my-course" 
+            className="relative flex-1 group overflow-hidden"
+          >
+            <img
+              src="/busan_playlist_sunset.png"
+              alt="내 코스"
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-[2s] group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500" />
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 space-y-4">
+              <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center ring-1 ring-white/30 transform group-hover:scale-110 transition-transform duration-500">
+                <MapPin className="h-8 w-8 text-white" />
+              </div>
+              <div className="space-y-1">
+                <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tighter drop-shadow-lg">
+                  너의 플레이리스트, 부산
+                </h2>
+                <p className="text-white/80 text-sm font-medium tracking-wide uppercase">
+                  Your Playlist, Busan
+                </p>
+              </div>
+            </div>
+          </Link>
+
+          {/* Center Heart Icon */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none hidden md:block">
+            <div className="bg-white rounded-full p-4 shadow-2xl ring-4 ring-white/20 animate-pulse">
+              <Heart className="h-8 w-8 text-[#FF385C] fill-[#FF385C]" />
             </div>
           </div>
-        </Link>
+        </section>
 
-        {/* Right Side: My Course */}
-        <Link 
-          href="/my-course" 
-          className="relative flex-1 group overflow-hidden"
-        >
-          <img
-            src="/busan_playlist_sunset.png"
-            alt="내 코스"
-            className="absolute inset-0 h-full w-full object-cover transition-transform duration-[2s] group-hover:scale-110"
-          />
-          <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500" />
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 space-y-4">
-            <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center ring-1 ring-white/30 transform group-hover:scale-110 transition-transform duration-500">
-              <MapPin className="h-8 w-8 text-white" />
-            </div>
-            <div className="space-y-1">
-              <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tighter drop-shadow-lg">
-                너의 플레이리스트, 부산
-              </h2>
-              <p className="text-white/80 text-sm font-medium tracking-wide uppercase">
-                Your Playlist, Busan
-              </p>
-            </div>
-          </div>
-        </Link>
-
-        {/* Center Heart Icon */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none hidden md:block">
-          <div className="bg-white rounded-full p-4 shadow-2xl ring-4 ring-white/20 animate-pulse">
-            <Heart className="h-8 w-8 text-[#FF385C] fill-[#FF385C]" />
-          </div>
-        </div>
-      </section>
-
-      <div className="max-w-screen-xl mx-auto px-6 space-y-16">
         {/* Recent Reviews Section */}
         <section className="bg-[#F7F7F7] -mx-6 px-6 py-16 rounded-[40px] animate-fade-up shadow-inner">
           <div className="flex items-center justify-between mb-8 px-2">
