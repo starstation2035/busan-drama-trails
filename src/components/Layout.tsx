@@ -34,7 +34,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
     return (
       <div className="min-h-screen bg-white">
         {pathname !== "/" && <Header onOpenLang={() => {}} />}
-        <main className={`mx-auto max-w-screen-md ${pathname === "/" ? "py-0" : "py-6"}`}>
+        <main className={`mx-auto w-full max-w-screen-xl px-6 ${pathname === "/" ? "py-0" : "py-6"}`}>
           {children}
         </main>
         <BottomNav />
@@ -59,7 +59,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </div>
 
       <Header onOpenLang={() => setModalOpen(true)} />
-      <main className={`${isHome ? "w-full" : "mx-auto max-w-screen-md px-4 py-6"}`}>
+      <main className={`mx-auto w-full max-w-screen-xl px-6 ${isHome ? "" : "py-6"}`}>
         {children}
       </main>
       <BottomNav />

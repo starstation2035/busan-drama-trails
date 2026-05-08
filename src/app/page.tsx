@@ -108,7 +108,7 @@ export default function Landing() {
   return (
     <div className="bg-background/0 text-foreground min-h-screen pb-20 space-y-16">
       {/* 🌟 Brand Hero Section (Restored & Centered) */}
-      <section className="pt-20 pb-12 px-6 flex flex-col items-center text-center animate-fade-up">
+      <section className="pt-20 pb-12 flex flex-col items-center text-center animate-fade-up">
         {/* Badge */}
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF385C]/10 text-[#FF385C] border border-[#FF385C]/20 mb-8">
           <Sparkles className="h-3.5 w-3.5" />
@@ -126,7 +126,7 @@ export default function Landing() {
         </p>
       </section>
 
-      <div className="max-w-screen-xl mx-auto px-6 space-y-16">
+      <div className="space-y-16">
         {/* 🎬 Movie Posters Carousel */}
         <section className="animate-fade-up space-y-6">
           <div className="flex items-end justify-between px-2">

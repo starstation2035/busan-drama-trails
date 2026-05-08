@@ -21,7 +21,7 @@ export function BottomNav() {
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-30 border-t border-[#DDDDDD] bg-white md:hidden safe-area-bottom shadow-[0_-1px_10px_rgba(0,0,0,0.05)]">
-      <div className="mx-auto flex max-w-screen-md items-center justify-around px-2 py-3">
+      <div className="mx-auto flex max-w-screen-xl items-center justify-around px-2 py-3">
         {items.map((item) => {
           const { href, icon: Icon, label, match } = item;
           const id = (item as any).id;

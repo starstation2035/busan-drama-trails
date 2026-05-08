@@ -207,7 +207,7 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
         </div>
       </section>
 
-      <div className="mx-auto max-w-screen-xl px-4 pt-8">
+      <div className="pt-8">
         {/* Header Section (Desktop & Info) */}
         <div className="mb-8 hidden md:block border-b pb-8">
           <div className="flex items-end justify-between">

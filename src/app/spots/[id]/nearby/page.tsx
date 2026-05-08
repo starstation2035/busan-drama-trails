@@ -240,7 +240,7 @@ export default function NearbyDiscovery({ params, searchParams }: { params: Prom
         </div>
       </div>
 
-      <div className="px-6 py-10 space-y-10 max-w-[500px] mx-auto">
+      <div className="py-10 space-y-10">
         <div className="flex bg-[#F3F4F6] p-1.5 rounded-[24px] shadow-inner">
           <button
             onClick={() => setActiveTab("restaurant")}
