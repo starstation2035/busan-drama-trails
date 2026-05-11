@@ -13,9 +13,63 @@ import EmptyState from "./_components/EmptyState";
 const BASE_LAT = 35.0787;
 const BASE_LNG = 129.0441;
 
+const KOREAN_FOOD_IMAGES = [
+  "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=800&q=80",
+  "https://images.unsplash.com/photo-1544148103-0773bf10d330?w=800&q=80",
+  "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80",
+  "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=800&q=80",
+  "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=800&q=80",
+  "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?w=800&q=80",
+  "https://images.unsplash.com/photo-1626804475297-41609ea064eb?w=800&q=80",
+  "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&q=80",
+  "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=800&q=80",
+  "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=800&q=80"
+];
+
+const KOREAN_CAFE_IMAGES = [
+  "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=800&q=80",
+  "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=800&q=80",
+  "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=800&q=80",
+  "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&q=80",
+  "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&q=80",
+  "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?w=800&q=80",
+  "https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?w=800&q=80",
+  "https://images.unsplash.com/photo-1510551310160-589462daf284?w=800&q=80",
+  "https://images.unsplash.com/photo-1498804103079-a6351b050096?w=800&q=80",
+  "https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=800&q=80"
+];
+
 export const HARDCODED_RESTAURANTS = [
-  { id: "hr1", name: { ko: "흰여울점빵" }, food: { ko: "라면/토스트" }, latitude: 35.0795, longitude: 129.0432, thumbnail: "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=400", rating: 4.6 },
-  { id: "hr2", name: { ko: "거청식당" }, food: { ko: "생선구이" }, latitude: 35.0815, longitude: 129.0460, thumbnail: "https://images.unsplash.com/photo-1544148103-0773bf10d330?w=400", rating: 4.4 },
+  { 
+    id: "hr1", 
+    name: { ko: "흰여울점빵" }, 
+    food: { ko: "라면/토스트" }, 
+    latitude: 35.0795, 
+    longitude: 129.0432, 
+    thumbnail: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=800&q=80", 
+    images: [
+      { url: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=800&q=80", description: "매콤달콤한 한국식 분식" },
+      { url: "https://images.unsplash.com/photo-1544148103-0773bf10d330?w=800&q=80", description: "따뜻하고 깊은 맛의 국물" },
+      { url: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80", description: "정갈한 한국식 상차림" },
+      { url: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=800&q=80", description: "아늑하고 따뜻한 식당 내부 분위기" }
+    ],
+    rating: 4.6 
+  },
+  { 
+    id: "hr2", 
+    name: { ko: "거청식당" }, 
+    food: { ko: "생선구이" }, 
+    latitude: 35.0815, 
+    longitude: 129.0460, 
+    thumbnail: "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=800&q=80",
+    images: [
+      { url: "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=800&q=80", description: "바삭하게 구워낸 생선구이" },
+      { url: "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?w=800&q=80", description: "신선한 한식 재료들" },
+      { url: "https://images.unsplash.com/photo-1626804475297-41609ea064eb?w=800&q=80", description: "푸짐한 한국의 맛" },
+      { url: "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&q=80", description: "깔끔하고 모던한 감성 식당" }
+    ],
+    rating: 4.4 
+  },
   { id: "hr3", name: { ko: "달뜨네" }, food: { ko: "회밥/시나몬맥주" }, latitude: 35.0801, longitude: 129.0445, thumbnail: "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=400", rating: 4.7 },
   { id: "hr4", name: { ko: "영도해녀촌" }, food: { ko: "성게알/김밥" }, latitude: 35.0715, longitude: 129.0685, thumbnail: "https://images.unsplash.com/photo-1626804475297-41609ea064eb?w=400", rating: 4.8 },
   { id: "hr5", name: { ko: "도날드" }, food: { ko: "즉석떡볶이" }, latitude: 35.0768, longitude: 129.0558, thumbnail: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400", rating: 4.5 },
@@ -138,7 +192,8 @@ export default function NearbyDiscovery({ params, searchParams }: { params: Prom
   const id = resolvedParams.id;
   const type = resolvedSearchParams.type;
   
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = (i18n.language || "ko") as any;
   const router = useRouter();
 
   const spot = useMemo(() => (spotsRaw as any[]).find((s) => s.id === id), [id]);
@@ -177,7 +232,7 @@ export default function NearbyDiscovery({ params, searchParams }: { params: Prom
             <ArrowLeft className="size-5" />
           </button>
           <div>
-            <h1 className="text-[20px] font-black text-[#1F2937] tracking-tight">{spot.name.ko} 주변 탐방</h1>
+            <h1 className="text-[20px] font-black text-[#1F2937] tracking-tight">{spot.name[lang] ?? spot.name.ko} 주변 탐방</h1>
             <p className="text-[12px] text-[#9CA3AF] font-bold flex items-center gap-1.5 mt-0.5">
               <MapPin className="size-3.5 text-[#FFB6C1]" /> 반경 {SPOT_CONFIGS[id as string]?.radius / 1000 || 1}km 이내 인기 장소
             </p>
@@ -185,7 +240,7 @@ export default function NearbyDiscovery({ params, searchParams }: { params: Prom
         </div>
       </div>
 
-      <div className="px-6 py-10 space-y-10 max-w-[500px] mx-auto">
+      <div className="py-10 space-y-10">
         <div className="flex bg-[#F3F4F6] p-1.5 rounded-[24px] shadow-inner">
           <button
             onClick={() => setActiveTab("restaurant")}
@@ -213,17 +268,31 @@ export default function NearbyDiscovery({ params, searchParams }: { params: Prom
 
         <div className="space-y-8">
           {nearbyItems.length > 0 ? (
-            nearbyItems.map((item: any) => (
+            nearbyItems.map((item: any, idx: number) => (
               <DiscoveryCard 
                 key={item.id} 
-                parentSpotName={spot.name.ko}
+                parentSpotName={spot.name[lang] ?? spot.name.ko}
                 item={{
                   ...item,
                   distance: item.calculatedDistance || item.distance,
                   name: item.name.ko || item.name,
-                  images: item.images || [{ url: item.thumbnail, description: item.name.ko || item.name }],
+                  images: item.images && item.images.length >= 4 
+                    ? item.images 
+                    : activeTab === "restaurant"
+                      ? [
+                          { url: item.thumbnail || KOREAN_FOOD_IMAGES[idx % KOREAN_FOOD_IMAGES.length], description: "인기 메뉴" },
+                          { url: KOREAN_FOOD_IMAGES[(idx + 1) % KOREAN_FOOD_IMAGES.length], description: "따뜻한 무드" },
+                          { url: KOREAN_FOOD_IMAGES[(idx + 2) % KOREAN_FOOD_IMAGES.length], description: "정갈한 맛" },
+                          { url: KOREAN_FOOD_IMAGES[(idx + 3) % KOREAN_FOOD_IMAGES.length], description: "식당 전경" }
+                        ]
+                      : [
+                          { url: item.thumbnail || KOREAN_CAFE_IMAGES[idx % KOREAN_CAFE_IMAGES.length], description: "시그니처 메뉴" },
+                          { url: KOREAN_CAFE_IMAGES[(idx + 1) % KOREAN_CAFE_IMAGES.length], description: "라떼 아트" },
+                          { url: KOREAN_CAFE_IMAGES[(idx + 2) % KOREAN_CAFE_IMAGES.length], description: "코지한 디저트" },
+                          { url: KOREAN_CAFE_IMAGES[(idx + 3) % KOREAN_CAFE_IMAGES.length], description: "세련된 카페 인테리어" }
+                        ],
                   reviewSummary: item.reviewSummary || "현지인들이 추천하는 부산의 숨은 명소입니다.",
-                  signatureMenu: item.signatureMenu || item.signature?.ko || "대표 메뉴"
+                  signatureMenu: item.signatureMenu || item.signature?.[lang] || item.signature?.ko || "대표 메뉴"
                 }} 
               />
             ))

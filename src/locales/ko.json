@@ -13,7 +13,8 @@
     "spots": "촬영지",
     "community": "커뮤니티",
     "myCourse": "내 코스",
-    "styleTest": "스타일 테스트"
+    "styleTest": "스타일 테스트",
+    "goods": "굿즈 쇼핑MALL"
   },
   "language": {
     "choose": "언어를 선택하세요",
@@ -32,7 +33,7 @@
       "badge": "One Shot Trap"
     },
     "title": "원 샷 트랩",
-    "subtitle": "K-컬처를 느껴보세요 ✨",
+    "subtitle": "K-컬처 속으로! ✨",
     "tagline": "드라마 장면 속으로, 부산의 이야기를 만나다 ✨",
     "valueProp": {
       "spotsTitle": "드라마 촬영지",
@@ -103,7 +104,13 @@
     "original": "원문",
     "showOriginal": "원문 보기",
     "showTranslate": "번역 보기",
-    "placeholder": "다국어로 실시간 번역됩니다..."
+    "placeholder": "다국어로 실시간 번역됩니다...",
+    "setup": {
+      "title": "여행자 프로필 설정",
+      "subtitle": "닉네임과 국가를 선택하여 전 세계 여행자들과 대화를 시작해보세요!",
+      "enter": "채팅 시작하기"
+    },
+    "onlineUsers": "접속 중인 여행자"
   },
   "quiz": {
     "intro": {
@@ -240,9 +247,10 @@
     "copied": "복사됨!",
     "info": {
       "address": "주소",
-      "hours": "운영시간",
+      "hours": "운영정보",
       "admission": "입장료",
-      "bestTime": "추천 시간"
+      "bestTime": "추천 시간",
+      "status": "운영정보"
     },
     "bestTime": {
       "morning": "오전",
@@ -284,7 +292,8 @@
       "add": "내 코스에 추가",
       "added": "내 코스 보기 →",
       "carTour": "차량 투어 예약"
-    }
+    },
+    "nearbyCta": "✨ {{name}} 근처 맛집 & 카페 탐방하기"
   },
   "myCourse": {
     "title": "나의 부산 코스",

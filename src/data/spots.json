@@ -3,165 +3,633 @@
     "id": "spot_001",
     "name": {
       "ko": "청사포 다릿돌전망대",
-      "en": "Cheongsapo Daritdol Observatory"
+      "en": "Cheongsapo Daritdol Observatory",
+      "ja": "青沙浦タリットル展望台",
+      "zh-CN": "青沙浦踏石展望台",
+      "zh-TW": "青沙浦踏石展望台"
     },
-    "drama": ["이상한 변호사 우영우"],
-    "drama_info": { "ko": "2022년 대한민국을 뒤흔든 ENA 최고의 화제작. 자폐 스펙트럼을 가진 천재 변호사 우영우가 편견에 맞서며 사건을 해결하고 성장해나가는 과정을 그립니다. 특히 부산의 바다는 그녀의 상상 속 고래가 마음껏 헤엄치는 공간이자, 복잡한 마음을 정리하는 영적인 안식처로 묘사되며 시청자들에게 큰 감동을 주었습니다." },
+    "drama": [
+      {
+        "ko": "이상한 변호사 우영우",
+        "en": "Extraordinary Attorney Woo",
+        "ja": "ウ・ヨンウ弁護士は天才肌",
+        "zh-CN": "非常律师禹英禑",
+        "zh-TW": "非常律師禹英禑"
+      }
+    ],
+    "drama_info": {
+      "ko": "2022년 대한민국을 뒤흔든 ENA 최고의 화제작. 자폐 스펙트럼을 가진 천재 변호사 우영우가 편견에 맞서며 사건을 해결하고 성장해나가는 과정을 그립니다. 특히 부산의 바다는 그녀의 상상 속 고래가 마음껏 헤엄치는 공간이자, 복잡한 마음을 정리하는 영적인 안식처로 묘사되며 시청자들에게 큰 감동을 주었습니다.",
+      "en": "A breakout hit of 2022, this drama follows Woo Young-woo, a brilliant lawyer with autism spectrum disorder, as she tackles cases and overcomes prejudice. The sea of Busan is portrayed as a spiritual sanctuary where her imaginary whales swim freely, offering a moving experience to viewers.",
+      "ja": "2022年に韓国を揺るがした大ヒット作。自閉スペクトラム症を持つ天才弁護士ウ・ヨンウが、偏見に立ち向かいながら事件を解決し、成長していく過程を描いています。特に釜山の海は、彼女の想像の中のクジラが思い切り泳ぐ空間であり、複雑な心を整理する霊的な安息所として描写され、視聴者に大きな感動を与えました。",
+      "zh-CN": "2022年横扫韩国的年度话题之作。讲述了患有自闭症谱系障碍的天才律师禹英禑，在面对偏见的同时解决案件并不断成长的过程。釜山的海被描绘成她想象中的鲸鱼自由翱翔的空间，也是她整理复杂思绪的精神寄托，给观众留下了深刻的感动。",
+      "zh-TW": "2022年橫掃韓國的年度話題之作。講述了患有自閉症類群障礙的天才律師禹英禑，在面對偏見的同時解決案件並不斷成長的過程。釜山的海被描繪成她想像中的鯨魚自由翱翔的空間，也是她整理複雜思緒的精神寄託，給觀眾留下了深刻的感動。"
+    },
     "category": "drama",
-    "region": "해운대",
+    "region": {
+      "ko": "해운대구",
+      "en": "Haeundae-gu",
+      "ja": "海雲台区",
+      "zh-CN": "海云台区",
+      "zh-TW": "海雲台區"
+    },
     "thumbnail": "/images/spots/cheongsapo.png",
-    "coords": { "lat": 35.1589, "lng": 129.1992 },
-    "description": { "ko": "드라마 '이상한 변호사 우영우'의 배경이 된 바다 위 투명 다리입니다. 우영우가 고래의 자유로움을 상상하며 푸른 바다를 바라보던 감동적인 장면의 분위기를 그대로 느낄 수 있습니다. 특히 주인공이 마음의 위안을 얻는 상징적인 장소로, 방문객들에게도 깊은 평온함을 선사합니다." },
-    "scene_description": { "ko": "우영우가 고래의 자유로움을 상상하며 드넓은 바다를 바라보며 마음을 정리하던 곳" },
-    "status": { "ko": "09:00 - 18:00 (연중무휴)" },
-    "address": { "ko": "부산 해운대구 청사포로 132번길" },
-    "nearby_restaurants": ["r1", "r12"],
-    "nearby_cafes": ["c1", "c7"]
+    "coords": {
+      "lat": 35.1589,
+      "lng": 129.1992
+    },
+    "description": {
+      "ko": "드라마 '이상한 변호사 우영우'의 배경이 된 바다 위 투명 다리입니다. 우영우가 고래의 자유로움을 상상하며 푸른 바다를 바라보던 감동적인 장면의 분위기를 그대로 느낄 수 있습니다. 특히 주인공이 마음의 위안을 얻는 상징적인 장소로, 방문객들에게도 깊은 평온함을 선사합니다.",
+      "en": "A transparent bridge over the sea that served as the backdrop for the drama 'Extraordinary Attorney Woo.' You can feel the atmosphere of the touching scene where Woo Young-woo looks out at the blue sea, imagining the freedom of whales. As a symbolic place where the protagonist finds peace of mind, it offers deep tranquility to visitors.",
+      "ja": "ドラマ『ウ・ヨンウ弁護士は天才肌』の背景となった海に浮かぶ透明な橋です。ウ・ヨンウがクジラの自由さを想像しながら青い海を眺めていた感動的なシーンの雰囲気をそのまま感じることができます。特に主人公が心の安らぎを得る象徴的な場所として、訪問者にも深い平穏を与えてくれます。",
+      "zh-CN": "电视剧《非常律师禹英禑》背景中出现的海上透明桥。在这里可以感受到禹英禑想象着鲸鱼的自由、凝视着蓝色大海的感人场景。作为主人公获得心灵慰藉的象征性场所，也给访客们带来了深深的宁静。",
+      "zh-TW": "電視劇《非常律師禹英禑》背景中出現的海上透明橋。在這裡可以感受到禹英禑想像著鯨魚的自由、凝視著藍色大海的感人場景。作為主人公獲得心靈慰藉的象徵性場所，也給訪客們帶來了深深的寧靜。"
+    },
+    "scene_description": {
+      "ko": "우영우가 고래의 자유로움을 상상하며 드넓은 바다를 바라보며 마음을 정리하던 곳",
+      "en": "The place where Woo Young-woo looked out at the vast sea, imagining the freedom of whales and clearing her mind.",
+      "ja": "ウ・ヨンウがクジラの自由さを想像し、広大な海を眺めながら心を整理していた場所",
+      "zh-CN": "禹英禑想象着鲸鱼的自由，凝视着广阔的大海，整理思绪的地方。",
+      "zh-TW": "禹英禑想像著鯨魚的自由，凝視著廣闊的大海，整理思緒的地方。"
+    },
+    "status": {
+      "ko": "09:00 - 18:00 (연중무휴)",
+      "en": "09:00 - 18:00 (Open year-round)",
+      "ja": "09:00 - 18:00 (年中無休)",
+      "zh-CN": "09:00 - 18:00 (全年无休)",
+      "zh-TW": "09:00 - 18:00 (全年無休)"
+    },
+    "address": {
+      "ko": "부산 해운대구 청사포로 132번길",
+      "en": "132-beongil, Cheongsapo-ro, Haeundae-gu, Busan",
+      "ja": "釜山広域市海雲台区青沙浦路132番キル",
+      "zh-CN": "釜山海云台区青沙浦路132番街",
+      "zh-TW": "釜山海雲台區青沙浦路132番街"
+    },
+    "nearby_restaurants": [
+      "r1",
+      "r12"
+    ],
+    "nearby_cafes": [
+      "c1",
+      "c7"
+    ]
   },
   {
     "id": "spot_004",
     "name": {
       "ko": "흰여울문화마을",
-      "en": "Huinnyeoul Culture Village"
+      "en": "Huinnyeoul Culture Village",
+      "ja": "ヒンニョウル文化村",
+      "zh-CN": "白浅滩文化村",
+      "zh-TW": "白淺灘文化村"
     },
-    "drama": ["변호인"],
-    "drama_info": { "ko": "1981년 부산에서 발생한 '부림사건'을 모티브로 한 실화 기반 영화. 돈만 알던 세무 변호사 송우석이 단골 국밥집 아들 진우의 사건을 맡으며 인권 변호사의 길을 걷게 되는 뜨거운 기록입니다. 흰여울마을의 가파른 계단과 바다는 당시 부산 서민들의 삶과 투쟁의 역사를 고스란히 담고 있는 상징적인 배경입니다." },
+    "drama": [
+      {
+        "ko": "변호인",
+        "en": "The Attorney",
+        "ja": "弁護人",
+        "zh-CN": "辩护人",
+        "zh-TW": "辯護人"
+      }
+    ],
+    "drama_info": {
+      "ko": "1981년 부산에서 발생한 '부림사건'을 모티브로 한 실화 기반 영화. 돈만 알던 세무 변호사 송우석이 단골 국밥집 아들 진우의 사건을 맡으며 인권 변호사의 길을 걷게 되는 뜨거운 기록입니다. 흰여울마을의 가파른 계단과 바다는 당시 부산 서민들의 삶과 투쟁의 역사를 고스란히 담고 있는 상징적인 배경입니다.",
+      "en": "Based on the true story of the 1981 'Burim case' in Busan. It records the journey of Song Woo-seok, a tax lawyer who only cared about money, as he becomes a human rights lawyer after taking the case of Jin-woo, the son of his regular soup restaurant. The steep stairs and sea of Huinnyeoul Village are symbolic backgrounds embodying the lives and history of struggles of Busan's common people at the time.",
+      "ja": "1981年に釜山で発生した「ブリム事件」をモチーフにした実話に基づいた映画。金儲けだけに熱心だった税務弁護士ソン・ウソクが、行きつけのクッパ店の息子ジヌの事件を引き受け、人権弁護士の道を歩むことになる熱い記録です。ヒンニョウル村の急な階段と海は、当時の釜山の庶民の生活と闘争の歴史をそのまま留めている象徴的な背景です。",
+      "zh-CN": "以1981年发生在釜山的“釜林事件”为原型改编的真实故事。讲述了原本只看重金钱的税务律师宋佑硕，在受理了常去的汤饭店儿子振宇的案件后，走上人权律师道路的热血记录。白浅滩文化村陡峭的阶梯和大海，是完整承载了当时釜山平民生活与斗争历史的象征性背景。",
+      "zh-TW": "以1981年發生在釜山的「釜林事件」為原型改編的真實故事。講述了原本只看重金錢的稅務律師宋佑碩，在受理了常去的湯飯店兒子振宇的案件後，走上人權律師道路的熱血紀錄。白淺灘文化村陡峭的階梯和大海，是完整承載了當時釜山平民生活與鬥爭歷史的象徵性背景。"
+    },
     "category": "drama",
-    "region": "영도구",
+    "region": {
+      "ko": "영도구",
+      "en": "Yeongdo-gu",
+      "ja": "影島区",
+      "zh-CN": "影岛区",
+      "zh-TW": "影島區"
+    },
     "thumbnail": "/images/spots/huinnyeoul.png",
-    "coords": { "lat": 35.0786, "lng": 129.0436 },
-    "description": { "ko": "영화 '변호인'의 배경이 된 아름다운 해안 절벽 마을입니다. 주인공 송우석 변호사가 의뢰인 진우의 어머니를 기다리던 집과 좁은 골목길이 여전히 남아있어 영화의 깊은 울림을 전달합니다. 파란 바다를 배경으로 한 좁은 골목들은 영화 속 시대적 배경과 주인공의 진심이 교차하는 지점입니다." },
-    "scene_description": { "ko": "송우석 변호사가 국밥집 아들을 위해 진심을 다해 변호를 결심하며 진우 모친을 기다리던 골목" },
-    "status": { "ko": "연중무휴" },
-    "address": { "ko": "부산 영도구 흰여울길 307" },
-    "nearby_restaurants": ["r4", "r8"],
-    "nearby_cafes": ["c4", "c12"]
+    "coords": {
+      "lat": 35.0786,
+      "lng": 129.0436
+    },
+    "description": {
+      "ko": "영화 '변호인'의 배경이 된 아름다운 해안 절벽 마을입니다. 주인공 송우석 변호사가 의뢰인 진우의 어머니를 기다리던 집과 좁은 골목길이 여전히 남아있어 영화의 깊은 울림을 전달합니다. 파란 바다를 배경으로 한 좁은 골목들은 영화 속 시대적 배경과 주인공의 진심이 교차하는 지점입니다.",
+      "en": "A beautiful coastal cliff village that served as the setting for the movie 'The Attorney.' The house and narrow alleys where lawyer Song Woo-seok waited for his client Jin-woo's mother still remain, conveying the deep resonance of the film. The narrow alleys set against the blue sea are where the historical backdrop of the movie and the protagonist's sincerity intersect.",
+      "ja": "映画『弁護人』の舞台となった美しい海岸絶壁の村です。主人公のソン・ウソク弁護士が依頼人ジヌの母親を待っていた家と狭い路地が今も残っており、映画の深い余韻を伝えています。青い海を背景にした狭い路地は、映画の中の時代背景と主人公の真心が交差する地点です。",
+      "zh-CN": "电影《辩护人》背景中出现的海岸悬崖上的美丽村庄。主人公宋佑硕律师等待委托人振宇母亲的房子和狭窄巷弄依然保存完好，向观众传递着电影深远的余韵。以蔚蓝大海为背景的狭窄巷弄，是电影时代背景与主人公真心交汇的地方。",
+      "zh-TW": "電影《辯護人》背景中出現的海岸懸崖上的美麗村莊。主人公宋佑碩律師等待委託人振宇母親的房子和狹窄巷弄依然保存完好，向觀眾傳遞著電影深遠的餘韻。以蔚藍大海為背景的狹窄巷弄，是電影時代背景與主人公真心交匯的地方。"
+    },
+    "scene_description": {
+      "ko": "송우석 변호사가 국밥집 아들을 위해 진심을 다해 변호를 결심하며 진우 모친을 기다리던 골목",
+      "en": "The alley where lawyer Song Woo-seok waited for Jin-woo's mother, deciding to defend the soup restaurant's son with all his heart.",
+      "ja": "ソン・ウソク弁護士가 クッパ店의 息子을 위해 真心을 다해 弁護를 決意하며 ジヌ의 母親을 待っていた 路地",
+      "zh-CN": "宋佑硕律师为了汤饭店的儿子下定决心真心辩护，等待振宇母亲的巷弄。",
+      "zh-TW": "宋佑碩律師為了湯飯店的兒子下定決心真心辯護，等待振宇母親的巷弄。"
+    },
+    "status": {
+      "ko": "연중무휴",
+      "en": "Open year-round",
+      "ja": "年中無休",
+      "zh-CN": "全年无休",
+      "zh-TW": "全年無休"
+    },
+    "address": {
+      "ko": "부산 영도구 흰여울길 307",
+      "en": "307, Huinnyeoul-gil, Yeongdo-gu, Busan",
+      "ja": "釜山広域市影島区ヒンニョウルキル307",
+      "zh-CN": "釜山影岛区白浅滩路307",
+      "zh-TW": "釜山影島區白淺灘路307"
+    },
+    "nearby_restaurants": [
+      "r4",
+      "r8"
+    ],
+    "nearby_cafes": [
+      "c4",
+      "c12"
+    ]
   },
   {
     "id": "spot_005",
     "name": {
       "ko": "자갈치시장",
-      "en": "Jagalchi Market"
+      "en": "Jagalchi Market",
+      "ja": "チャガルチ市場",
+      "zh-CN": "札嘎其市场",
+      "zh-TW": "札嘎其市場"
     },
-    "drama": ["친구"],
-    "drama_info": { "ko": "곽경택 감독의 자전적 실화가 담긴 800만 흥행 대작. '니가 가라 하와이' 등의 명대사를 남기며 한국 영화사에 큰 획을 그은 느와르입니다. 자갈치시장의 활기찬 분위기 속에서 벌어지는 추격전은 우정과 배신이 교차하는 부산 사나이들의 거친 삶과 뜨거운 에너지를 강렬하게 표현합니다." },
+    "drama": [
+      {
+        "ko": "친구",
+        "en": "Friend",
+        "ja": "友へ チング",
+        "zh-CN": "朋友",
+        "zh-TW": "朋友"
+      }
+    ],
+    "drama_info": {
+      "ko": "곽경택 감독의 자전적 실화가 담긴 800만 흥행 대작. '니가 가라 하와이' 등의 명대사를 남기며 한국 영화사에 큰 획을 그은 느와르입니다. 자갈치시장의 활기찬 분위기 속에서 벌어지는 추격전은 우정과 배신이 교차하는 부산 사나이들의 거친 삶과 뜨거운 에너지를 강렬하게 표현합니다.",
+      "en": "A massive hit with 8 million viewers, featuring Director Kwak Kyung-taek's autobiographical story. This noir film left a mark on Korean cinema history with famous lines like 'You go to Hawaii.' The chase scenes in the vibrant Jagalchi Market intensely express the rough lives and fiery energy of Busan men, where friendship and betrayal intersect.",
+      "ja": "クァク・キョンテク監督の自伝的な実話が込められた800万人の興行大作。「お前が行け、ハワイ」などの名台詞を残し、韓国映画史に大きな足跡を残したノワールです。チャガルチ市場の活気あふれる雰囲気の中で繰り広げられる追撃戦は、友情と裏切りが交錯する釜山の男たちの荒々しい生活と熱いエネルギーを強烈에表現しています。",
+      "zh-CN": "郭暻泽导演根据自身经历改编的真实故事，吸引了800万观众的票房大作。留下了“你，去夏威夷吧”等名台词，在韩国电影史上留下了浓墨重彩的一笔。在札嘎其市场充满活力的氛围中展开的追逐战，强烈地表现了在友情与背叛交织中，釜山汉子们粗犷的生活和炽热的能量。",
+      "zh-TW": "郭暻澤導演根據自身經歷改編的真實故事，吸引了800萬觀眾的票房大作。留下了「你，去夏威夷吧」等名台詞，在韓國電影史上留下了濃墨重彩的一筆。在札嘎其市場充滿活力的氛圍中展開의 追逐戰，強烈地表現了在友情與背叛交織中，釜山漢子們粗獷的生活和熾熱的能量。"
+    },
     "category": "drama",
-    "region": "중구",
+    "region": {
+      "ko": "중구",
+      "en": "Jung-gu",
+      "ja": "中区",
+      "zh-CN": "中区",
+      "zh-TW": "中區"
+    },
     "thumbnail": "/images/spots/jagalchi.png",
-    "coords": { "lat": 35.0966, "lng": 129.0306 },
-    "description": { "ko": "영화 '친구'의 거친 추격전이 벌어졌던 부산 삶의 현장입니다. '니가 가라 하와이'라는 명대사와 함께 주인공들의 우정과 갈등이 교차하던 장소로, 부산 특유의 역동성과 생명력이 가장 잘 느껴지는 곳입니다. 영화 속 긴박한 추격 장면이 촬영된 시장통은 여전히 활기찬 모습으로 관람객을 맞이합니다." },
-    "scene_description": { "ko": "영화 '친구'의 주인공들이 시장통을 가로지르며 벌이던 역동적인 추격전의 배경" },
-    "status": { "ko": "05:00 - 22:00 (첫째/셋째 화요일 휴무)" },
-    "address": { "ko": "부산 중구 자갈치해안로 52" },
-    "nearby_restaurants": ["r5", "r8"],
-    "nearby_cafes": ["c9"]
+    "coords": {
+      "lat": 35.0966,
+      "lng": 129.0306
+    },
+    "description": {
+      "ko": "영화 '친구'의 거친 추격전이 벌어졌던 부산 삶의 현장입니다. '니가 가라 하와이'라는 명대사와 함께 주인공들의 우정과 갈등이 교차하던 장소로, 부산 특유의 역동성과 생명력이 가장 잘 느껴지는 곳입니다. 영화 속 긴박한 추격 장면이 촬영된 시장통은 여전히 활기찬 모습으로 관람객을 맞이합니다.",
+      "en": "The site of Busan's daily life where the rough chase in the movie 'Friend' took place. A place where the friendship and conflicts of the protagonists intersected along with the famous line 'You go to Hawaii,' it is where Busan's unique dynamism and vitality are felt most. The market alleys where the urgent chase scenes were filmed still welcome visitors with a lively atmosphere.",
+      "ja": "映画『友へ チング』の激しい追撃戦が繰り広げられた釜山の生活の現場です。「お前が行け、ハワイ」という名台詞とともに、主人公たちの友情と葛藤が交差した場所で、釜山特有の躍動感と生命力が最もよく感じられる場所입니다. 映画の中の緊迫した追撃シーンが撮影された市場通りは、今も活気ある姿で観客を迎えています。",
+      "zh-CN": "电影《朋友》中激烈的追逐战发生的釜山生活现场。伴随着“你，去夏威夷吧”这一名台词，这里是主人公们的友情与矛盾交织的地方，也是最能感受到釜山特有的活力与生命力的地方。电影中惊险刺激的追逐场景拍摄地——市场街道，依然以充满活力的面貌迎接游客。",
+      "zh-TW": "電影《朋友》中激烈的追逐戰發生的釜山生活現場。伴隨著「你，去夏威夷吧」這一名台詞，這裡是主人公們的友情與矛盾交織的地方，也是最能感受到釜山特有的活力與生命力的地方。電影中驚險刺激的追逐場景拍攝地——市場街道，依然以充滿活力的面貌迎接遊客。"
+    },
+    "scene_description": {
+      "ko": "영화 '친구'의 주인공들이 시장통을 가로지르며 벌이던 역동적인 추격전의 배경",
+      "en": "The background of the dynamic chase scenes where the protagonists of the movie 'Friend' ran across the market alleys.",
+      "ja": "映画『友へ チング』の主人公たちが市場通りを駆け抜けながら繰り広げた躍動的な追撃戦の背景",
+      "zh-CN": "电影《朋友》的主人公们穿梭在市场街道展开动态追逐战的背景。",
+      "zh-TW": "電影《朋友》的主人公們穿梭在市場街道展開動態追逐戰的背景。"
+    },
+    "status": {
+      "ko": "05:00 - 22:00 (첫째/셋째 화요일 휴무)",
+      "en": "05:00 - 22:00 (Closed 1st and 3rd Tuesdays)",
+      "ja": "05:00 - 22:00 (第1・第3火曜日定休)",
+      "zh-CN": "05:00 - 22:00 (第一/第三个周二休息)",
+      "zh-TW": "05:00 - 22:00 (第一/第三個週二休息)"
+    },
+    "address": {
+      "ko": "부산 중구 자갈치해안로 52",
+      "en": "52, Jagalchi-haean-ro, Jung-gu, Busan",
+      "ja": "釜山広域市中区チャガルチ海岸路52",
+      "zh-CN": "釜山中区札嘎其海岸路52",
+      "zh-TW": "釜山中區札嘎其市場路52"
+    },
+    "nearby_restaurants": [
+      "r5",
+      "r8"
+    ],
+    "nearby_cafes": [
+      "c9"
+    ]
   },
   {
     "id": "pachinko",
     "name": {
       "ko": "영도 감지해변",
-      "en": "Yeongdo Gamji Beach"
+      "en": "Yeongdo Gamji Beach",
+      "ja": "影島甘池海辺",
+      "zh-CN": "影岛甘池海边",
+      "zh-TW": "影島甘池海邊"
     },
-    "drama": ["파친코"],
-    "drama_info": { "ko": "아카데미 여우조연상 윤여정 주연, 애플TV+ 오리지널 대작. 일제강점기부터 현대까지 4대에 걸친 재일조선인 가족의 굴곡진 삶을 다룹니다. 영도의 거친 파도와 자갈밭은 주인공 선자가 겪어낸 억척스러운 생명력과 고향에 대한 진한 향수를 상징하는 핵심적인 공간으로 묘사됩니다." },
+    "drama": [
+      {
+        "ko": "파친코",
+        "en": "Pachinko",
+        "ja": "パチンコ",
+        "zh-CN": "柏青哥",
+        "zh-TW": "柏青哥"
+      }
+    ],
+    "drama_info": {
+      "ko": "아카데미 여우조연상 윤여정 주연, 애플TV+ 오리지널 대작. 일제강점기부터 현대까지 4대에 걸친 재일조선인 가족의 굴곡진 삶을 다룹니다. 영도의 거친 파도와 자갈밭은 주인공 선자가 겪어낸 억척스러운 생명력과 고향에 대한 진한 향수를 상징하는 핵심적인 공간으로 묘사됩니다.",
+      "en": "Starring Academy Award winner Youn Yuh-jung, this Apple TV+ original masterpiece covers the turbulent lives of a Zainichi Korean family across four generations from the Japanese colonial era to the present. The rough waves and pebble beaches of Yeongdo are depicted as key spaces symbolizing Sunja's resilient vitality and her deep nostalgia for home.",
+      "ja": "アカデミー助演女優賞を受賞したユン・ヨジョン主演のApple TV+オリジナル大作。日本統治時代から現代まで、4代にわたる在日コリアン一家の波乱に満ちた生活を描いています。影島の荒波と砂利道は、主人公ソンジャが耐え抜いた強靭な生命力と故郷への深い郷愁を象徴する核心的な空間として描写されています。",
+      "zh-CN": "由奥斯卡最佳女配角尹汝贞主演的Apple TV+原创巨制。讲述了从日据时期到现代，四代旅日朝鲜人家族坎坷的生活历程。影岛粗犷的波浪和砾石滩，被描绘成象征主人公顺子顽强的生命力以及对故乡浓厚乡愁的核心空间。",
+      "zh-TW": "由奧斯卡最佳女配角尹汝貞主演的Apple TV+原創巨制。講述了從日據時期到現代，四代旅日朝鮮人家族坎坷的生活歷程。影島粗獷的波浪和礫石灘，被描繪成象徵主人公順子頑強的生命力以及對故鄉濃厚鄉愁的核心空間。"
+    },
     "category": "drama",
-    "region": "영도구",
+    "region": {
+      "ko": "영도구",
+      "en": "Yeongdo-gu",
+      "ja": "影島区",
+      "zh-CN": "影岛区",
+      "zh-TW": "影島區"
+    },
     "thumbnail": "/images/spots/gamji.png",
-    "coords": { "lat": 35.0617, "lng": 129.0767 },
-    "description": { "ko": "드라마 '파친코'에서 선자가 고향을 떠나기 전 마지막으로 거닐던 몽돌 해변입니다. 척박한 삶 속에서도 잃지 않았던 선자의 생명력과 부산 영도의 거친 아름다움이 공존하는 장소입니다. 드라마 속 시대적 아픔과 영도의 푸른 바다가 어우러져 방문객들에게 묵직한 울림을 줍니다." },
-    "scene_description": { "ko": "선자가 고향 부산을 떠나기 전 몽돌 해변을 거닐며 가족과 작별하던 가슴 아픈 장면" },
-    "status": { "ko": "연중무휴" },
-    "address": { "ko": "부산광역시 영도구 동삼동 감지해변" },
-    "nearby_restaurants": ["r4", "r11"],
-    "nearby_cafes": ["c4", "c12"],
-    "visit_tips": { "ko": "해변을 따라 늘어선 해녀촌에서 신선한 해산물을 맛볼 수 있습니다." }
+    "coords": {
+      "lat": 35.0617,
+      "lng": 129.0767
+    },
+    "description": {
+      "ko": "드라마 '파친코'에서 선자가 고향을 떠나기 전 마지막으로 거닐던 몽돌 해변입니다. 척박한 삶 속에서도 잃지 않았던 선자의 생명력과 부산 영도의 거친 아름다움이 공존하는 장소입니다. 드라마 속 시대적 아픔과 영도의 푸른 바다가 어우러져 방문객들에게 묵직한 울림을 줍니다.",
+      "en": "The pebble beach where Sunja walked for the last time before leaving her hometown in the drama 'Pachinko.' It is a place where Sunja's vitality, which she never lost even in a harsh life, and the rugged beauty of Yeongdo, Busan, coexist. The historical pain in the drama and the blue sea of Yeongdo harmonize to give visitors a heavy resonance.",
+      "ja": "ドラマ『パチンコ』で、ソンジャが故郷を離れる前に最後に歩いたモンドル（小石）海岸です。過酷な生活の中でも失わなかったソンジャの生命力と、釜山・影島の荒々しい美しさが共存する場所です。ドラマの中の時代の痛みと影島の青い海が調和し、訪問者に深い感動を与えます。",
+      "zh-CN": "电视剧《柏青哥》中，顺子在离开故乡前最后走过的鹅卵石海滩。这是一个在艰苦生活中也未曾失去的顺子的生命力与釜山影岛粗犷之美共存的地方。剧中的时代伤痛与影岛的蔚蓝大海交织在一起，给游客带来了沉重的余韵。",
+      "zh-TW": "電視劇《柏青哥》中，順子在離開故鄉前最後走過的鵝卵石海灘。這是一個在艱苦生活中也未曾失去的順子的生命力與釜山影島粗獷之美共存的地方。劇中的時代傷痛與影島的蔚藍大海交織在一起，給遊客帶來了沉重的餘韻。"
+    },
+    "scene_description": {
+      "ko": "선자가 고향 부산을 떠나기 전 몽돌 해변을 거닐며 가족과 작별하던 가슴 아픈 장면",
+      "en": "The heartbreaking scene where Sunja walked along the pebble beach and said goodbye to her family before leaving her hometown, Busan.",
+      "ja": "ソンジャが故郷の釜山を去る前にモンドル（小石）海岸を歩きながら家族と別れを告げた悲しいシーン",
+      "zh-CN": "顺子在离开故乡釜山前，走在鹅卵石海滩上与家人告别的令人心碎的场景。",
+      "zh-TW": "順子在離開故鄉釜山前，走在鵝卵石海灘上與家人告別的令人心碎的場景。"
+    },
+    "status": {
+      "ko": "연중무휴",
+      "en": "Open year-round",
+      "ja": "年中無休",
+      "zh-CN": "全年无休",
+      "zh-TW": "全年無休"
+    },
+    "address": {
+      "ko": "부산광역시 영도구 동삼동 감지해변",
+      "en": "Gamji Beach, Dongsam-dong, Yeongdo-gu, Busan",
+      "ja": "釜山広域市影島区東三洞甘池海辺",
+      "zh-CN": "釜山广域市影岛区东三洞甘池海边",
+      "zh-TW": "釜山廣域市影島區東三洞甘池海邊"
+    },
+    "nearby_restaurants": [
+      "r4",
+      "r11"
+    ],
+    "nearby_cafes": [
+      "c4",
+      "c12"
+    ],
+    "visit_tips": {
+      "ko": "해변을 따라 늘어선 해녀촌에서 신선한 해산물을 맛볼 수 있습니다.",
+      "en": "You can taste fresh seafood at the Haenyeo (female diver) village lined up along the beach.",
+      "ja": "海岸に沿って並ぶ海女村で新鮮な海鮮を味わうことができます。",
+      "zh-CN": "您可以在沿海滩排列的海女村品尝新鲜海鲜。",
+      "zh-TW": "您可以在沿海灘排列的海女村品嚐新鮮海鮮。"
+    }
   },
   {
     "id": "spot_002",
     "name": {
       "ko": "감천문화마을",
-      "en": "Gamcheon Culture Village"
+      "en": "Gamcheon Culture Village",
+      "ja": "甘川洞文化村",
+      "zh-CN": "甘川洞文化村",
+      "zh-TW": "甘川洞文化村"
     },
-    "drama": ["런닝맨"],
-    "category": "landmark",
-    "region": "사하구",
+    "drama": [
+      {
+        "ko": "런닝맨",
+        "en": "Running Man",
+        "ja": "ランニングマン",
+        "zh-CN": "Running Man",
+        "zh-TW": "Running Man"
+      }
+    ],
+    "drama_info": {
+      "ko": "SBS의 대표 예능 프로그램으로, 감천문화마을의 알록달록한 골목길을 배경으로 멤버들이 긴장감 넘치는 추격전과 미션을 수행하여 전 세계 팬들에게 마을의 아름다움을 알렸습니다.",
+      "en": "A representative SBS variety show where members carried out thrilling chases and missions against the backdrop of the colorful alleys of Gamcheon Culture Village, introducing the village's beauty to fans worldwide.",
+      "ja": "SBSの代表的なバラエティ番組で、甘川洞文化村のカラフルな路地を背景にメンバーたちが緊張感あふれる追撃戦とミッションを遂行し、世界中のファンに村の美しさを広めました。",
+      "zh-CN": "SBS的代表性综艺节目，成员们以甘川洞文化村色彩缤纷的小巷为背景，进行紧张刺激的追逐战和任务，向全世界粉丝展示了村庄的美丽。",
+      "zh-TW": "SBS的代表性綜藝節目，成員們以甘川洞文化村色彩繽紛的小巷為背景，進行緊張刺激的追逐戰和任務，向全世界粉絲展示了村莊的美麗。"
+    },
+    "category": "drama",
+    "region": {
+      "ko": "사하구",
+      "en": "Saha-gu",
+      "ja": "沙下区",
+      "zh-CN": "沙下区",
+      "zh-TW": "沙下區"
+    },
     "thumbnail": "https://www.visitbusan.net/uploadImgs/files/cntnts/20191229142305192_oen",
-    "coords": { "lat": 35.0975, "lng": 129.0107 },
-    "description": { "ko": "부산의 마추픽추라 불리는 알록달록한 산자락 마을." },
-    "address": { "ko": "부산 사하구 감내2로 203" },
-    "nearby_restaurants": ["r2", "r11"],
-    "nearby_cafes": ["c2", "c10"]
+    "coords": {
+      "lat": 35.0975,
+      "lng": 129.0107
+    },
+    "description": {
+      "ko": "부산의 마추픽추라 불리는 알록달록한 산자락 마을.",
+      "en": "A colorful mountainside village known as the Machu Picchu of Busan.",
+      "ja": "釜山のマチュピチュと呼ばれるカラフルな山腹の村。",
+      "zh-CN": "被称为“釜山马丘比丘”的色彩缤纷的山脚村庄。",
+      "zh-TW": "被稱為「釜山馬丘比丘」的色彩繽紛的山腳村莊。"
+    },
+    "scene_description": {
+      "ko": "멤버들이 색색의 집들 사이를 달리며 숨겨진 보물을 찾고 미션을 해결하던 동화 같은 골목길",
+      "en": "A fairy-tale-like alley where members ran between colorful houses to find hidden treasures and solve missions.",
+      "ja": "メンバーたちが色とりどりの家々の間을 走り抜け、隠された宝物を見つけたりミッションを解決したりした童話のような路地",
+      "zh-CN": "成员们在五彩缤纷的房屋之间奔跑，寻找隐藏的宝藏并解决任务的童话般的小巷",
+      "zh-TW": "成員們在五彩繽紛的房屋之間奔跑，尋找隱藏的寶藏並解決任務的童話般的小巷"
+    },
+    "status": {
+      "ko": "09:00 - 18:00 (연중무휴)",
+      "en": "09:00 - 18:00 (Open year-round)",
+      "ja": "09:00 - 18:00 (年中無休)",
+      "zh-CN": "09:00 - 18:00 (全年无休)",
+      "zh-TW": "09:00 - 18:00 (全年無休)"
+    },
+    "address": {
+      "ko": "부산 사하구 감내2로 203",
+      "en": "203, Gamnae 2-ro, Saha-gu, Busan",
+      "ja": "釜山広域市沙下区カムネ2路203",
+      "zh-CN": "釜山沙下区甘内2路203",
+      "zh-TW": "釜山沙下區甘內2路203"
+    },
+    "nearby_restaurants": [
+      "r2",
+      "r11"
+    ],
+    "nearby_cafes": [
+      "c2",
+      "c10"
+    ]
   },
   {
     "id": "spot_003",
     "name": {
       "ko": "해운대 해수욕장",
-      "en": "Haeundae Beach"
+      "en": "Haeundae Beach",
+      "ja": "海雲台海水浴場",
+      "zh-CN": "海云台海水浴场",
+      "zh-TW": "海雲台海水浴場"
     },
-    "drama": ["해운대"],
-    "category": "landmark",
-    "region": "해운대",
+    "drama": [
+      {
+        "ko": "해운대",
+        "en": "Haeundae",
+        "ja": "TSUNAMI -ツナミ-",
+        "zh-CN": "海云台",
+        "zh-TW": "海雲台"
+      }
+    ],
+    "drama_info": {
+      "ko": "부산을 배경으로 한 한국 최초의 재난 블록버스터 영화. 거대한 쓰나미가 덮치는 해운대 해수욕장을 무대로 평범한 사람들의 삶과 사랑, 그리고 희생을 그려내어 1,145만 관객을 동원한 메가 히트작입니다.",
+      "en": "Korea's first disaster blockbuster set in Busan. Against the stage of Haeundae Beach hit by a massive tsunami, it portrays the lives, love, and sacrifices of ordinary people, becoming a mega-hit with 11.45 million viewers.",
+      "ja": "釜山を舞台にした韓国初のパニック・アクション映画。巨大な津波が押し寄せる海雲台海水浴場を舞台に、平凡な人々の生活と愛、そして犠牲を描き出し、1,145万人の観客を動員したメガヒット作です。",
+      "zh-CN": "以釜山为背景的韩国首部灾难大片。以巨型海啸袭击的海云台海水浴场为舞台，描写了普通人的生活、爱情和牺牲，是吸引了1145万观众的超级热门作品。",
+      "zh-TW": "以釜山為背景的韓國首部災難大片。以巨型海嘯襲擊的海雲台海水浴場為舞台，描寫了普通人的生活、愛情和犧牲，是吸引了1145萬觀眾的超級熱門作品。"
+    },
+    "category": "drama",
+    "region": {
+      "ko": "해운대구",
+      "en": "Haeundae-gu",
+      "ja": "海雲台区",
+      "zh-CN": "海云台区",
+      "zh-TW": "海雲台區"
+    },
     "thumbnail": "/images/spots/haeundae.png",
-    "coords": { "lat": 35.1587, "lng": 129.1604 },
-    "description": { "ko": "부산을 상징하는 대한민국 대표 해수욕장입니다. 넓은 백사장과 현대적인 빌딩 숲이 어우러진 이국적인 풍경을 자랑합니다." },
-    "scene_description": { "ko": "끝없이 펼쳐진 백사장과 푸른 바다, 부산의 활력을 상징하는 곳" },
-    "status": { "ko": "연중무휴 (해수욕은 개장 기간 내 가능)" },
-    "address": { "ko": "부산 해운대구 해운대해변로 264" },
-    "nearby_restaurants": ["r3", "r10"],
-    "nearby_cafes": ["c3", "c11"]
+    "coords": {
+      "lat": 35.1587,
+      "lng": 129.1604
+    },
+    "description": {
+      "ko": "부산을 상징하는 대한민국 대표 해수욕장입니다. 넓은 백사장과 현대적인 빌딩 숲이 어우러진 이국적인 풍경을 자랑합니다.",
+      "en": "Korea's representative beach symbolizing Busan. It boasts an exotic landscape where a wide white sand beach and a forest of modern buildings harmonize.",
+      "ja": "釜山を象徴する大韓民国代表の海水浴場です。広い砂浜と現代的なビル群が調和した異国的な風景を誇ります。",
+      "zh-CN": "象征釜山的韩国代表性海水浴场。宽阔的沙滩与现代化的建筑群交相辉映，展现出异国风情。",
+      "zh-TW": "象徵釜山的韓國代表性海水浴場。寬闊的沙灘與現代化的建築群交相輝映，展現出異國風情。"
+    },
+    "scene_description": {
+      "ko": "끝없이 펼쳐진 백사장과 푸른 바다, 부산의 활력을 상징하는 곳",
+      "en": "An endless white sand beach and blue sea, a place symbolizing the vitality of Busan.",
+      "ja": "果てしなく広がる砂浜と青い海、釜山の活気を象徴する場所",
+      "zh-CN": "绵延不绝的沙滩和蔚蓝大海，象征釜山活力的地方。",
+      "zh-TW": "綿延不絕의 沙灘과 蔚藍大海，象徵釜山活力的地方。"
+    },
+    "status": {
+      "ko": "연중무휴 (해수욕은 개장 기간 내 가능)",
+      "en": "Open year-round (Swimming available during opening season)",
+      "ja": "年中無休（海水浴は開設期間内のみ可能）",
+      "zh-CN": "全年无休 (仅在开放期间可以游泳)",
+      "zh-TW": "全年無休 (僅在開放期間可以游泳)"
+    },
+    "address": {
+      "ko": "부산 해운대구 해운대해변로 264",
+      "en": "264, Haeundaehaebyeon-ro, Haeundae-gu, Busan",
+      "ja": "釜山広域市海雲台区海雲台海辺路264",
+      "zh-CN": "釜山海云台区海云台海边路264",
+      "zh-TW": "釜山海雲台區海雲台海邊路264"
+    },
+    "nearby_restaurants": [
+      "r3",
+      "r10"
+    ],
+    "nearby_cafes": [
+      "c3",
+      "c11"
+    ]
   },
   {
     "id": "spot_007",
     "name": {
       "ko": "광안리 해수욕장",
-      "en": "Gwangalli Beach"
+      "en": "Gwangalli Beach",
+      "ja": "広安里海水浴場",
+      "zh-CN": "广安里海水浴场",
+      "zh-TW": "廣安里海水浴場"
     },
-    "drama": ["해운대"],
+    "drama": [],
     "category": "landmark",
-    "region": "수영구",
+    "region": {
+      "ko": "수영구",
+      "en": "Suyeong-gu",
+      "ja": "水営区",
+      "zh-CN": "水营区",
+      "zh-TW": "水營區"
+    },
     "thumbnail": "/images/spots/gwangalli.png",
-    "coords": { "lat": 35.1531, "lng": 129.1189 },
-    "description": { "ko": "광안대교의 야경이 환상적인 부산의 핫플레이스입니다. 젊음의 열기와 세련된 카페들이 가득한 해변입니다." },
-    "scene_description": { "ko": "밤이면 보석처럼 빛나는 광안대교와 낭만이 가득한 해변" },
-    "status": { "ko": "연중무휴" },
-    "address": { "ko": "부산 수영구 광안해변로 219" },
-    "nearby_restaurants": ["r6", "r9"],
-    "nearby_cafes": ["c5"]
+    "coords": {
+      "lat": 35.1531,
+      "lng": 129.1189
+    },
+    "description": {
+      "ko": "광안대교의 야경이 환상적인 부산의 핫플레이스입니다. 젊음의 열기와 세련된 카페들이 가득한 해변입니다.",
+      "en": "A hot place in Busan with a fantastic night view of Gwangandaegyo Bridge. A beach full of youthful heat and sophisticated cafes.",
+      "ja": "広安大橋の夜景が幻想的な釜山のホットプレイスです。若者の熱気と洗練されたカフェが立ち並ぶ海岸です。",
+      "zh-CN": "广安大桥夜景梦幻的釜山热门景点。是一个充满青春活力和时尚咖啡馆的海滩。",
+      "zh-TW": "廣安大橋夜景夢幻的釜山熱門景點。是一個充滿青春活力和時尚咖啡館的海灘。"
+    },
+    "scene_description": {
+      "ko": "밤이면 보석처럼 빛나는 광안대교와 낭만이 가득한 해변",
+      "en": "Gwangandaegyo Bridge shining like a jewel at night and a beach full of romance.",
+      "ja": "夜になると宝石のように輝く広安大橋と、ロマンあふれる海岸",
+      "zh-CN": "夜晚如宝石般闪耀的广安大桥和充满浪漫气息的海滩。",
+      "zh-TW": "夜晚如寶石般閃耀的廣安大橋和充滿浪漫氣息的海邊。"
+    },
+    "status": {
+      "ko": "연중무휴",
+      "en": "Open year-round",
+      "ja": "年中無休",
+      "zh-CN": "全年无休",
+      "zh-TW": "全年無休"
+    },
+    "address": {
+      "ko": "부산 수영구 광안해변로 219",
+      "en": "219, Gwanganhaebyeon-ro, Suyeong-gu, Busan",
+      "ja": "釜山広域市水営区広安海辺路219",
+      "zh-CN": "釜山水营区广安海边路219",
+      "zh-TW": "釜山水營區廣安海邊路219"
+    },
+    "nearby_restaurants": [
+      "r6",
+      "r9"
+    ],
+    "nearby_cafes": [
+      "c5"
+    ]
   },
   {
     "id": "spot_008",
     "name": {
       "ko": "송도 해수욕장",
-      "en": "Songdo Beach"
+      "en": "Songdo Beach",
+      "ja": "松島海水浴場",
+      "zh-CN": "松岛海水浴场",
+      "zh-TW": "松島海水浴場"
     },
     "drama": [],
     "category": "landmark",
-    "region": "서구",
+    "region": {
+      "ko": "서구",
+      "en": "Seo-gu",
+      "ja": "西区",
+      "zh-CN": "西区",
+      "zh-TW": "西區"
+    },
     "thumbnail": "/images/spots/songdo.png",
-    "coords": { "lat": 35.0761, "lng": 129.0173 },
-    "description": { "ko": "한국 최초의 공설 해수욕장으로, 송도해상케이블카와 스카이워크를 통해 바다 위를 걷는 특별한 경험을 선사합니다." },
-    "scene_description": { "ko": "바다 위를 가로지르는 케이블카에서 내려다보는 아찔하고 푸른 절경" },
-    "status": { "ko": "연중무휴" },
-    "address": { "ko": "부산 서구 송도해변로 100" },
-    "nearby_restaurants": ["r5", "r8"],
-    "nearby_cafes": ["c9"]
+    "coords": {
+      "lat": 35.0761,
+      "lng": 129.0173
+    },
+    "description": {
+      "ko": "한국 최초의 공설 해수욕장으로, 송도해상케이블카와 스카이워크를 통해 바다 위를 걷는 특별한 경험을 선사합니다.",
+      "en": "Korea's first public beach, offering a special experience of walking over the sea via the Songdo Marine Cable Car and Skywalk.",
+      "ja": "韓国初の公設海水浴場で、松島海上ケーブルカーとスカイウォークを通じて海の上を歩く特別な体験を提供します。",
+      "zh-CN": "韩国首个公设海水浴场，通过松岛海上缆车和海上步道，为游客提供在海上漫步的特别体验。",
+      "zh-TW": "韓國首個公設海水浴場，透過松島海上纜車和海上步道，為遊客提供在海上漫步的特別體驗。"
+    },
+    "scene_description": {
+      "ko": "바다 위를 가로지르는 케이블카에서 내려다보는 아찔하고 푸른 절경",
+      "en": "A breathtaking blue vista viewed from the cable car crossing over the sea.",
+      "ja": "海の上を横切るケーブルカーから見下ろす、目もくらむような青い絶景",
+      "zh-CN": "从横跨海面的缆车上俯瞰到的惊险而蔚蓝的绝景。",
+      "zh-TW": "從橫跨海面的纜車上俯瞰到的驚險而蔚藍的絕景。"
+    },
+    "status": {
+      "ko": "연중무휴",
+      "en": "Open year-round",
+      "ja": "年中無休",
+      "zh-CN": "全年无休",
+      "zh-TW": "全年無休"
+    },
+    "address": {
+      "ko": "부산 서구 송도해변로 100",
+      "en": "100, Songdohaebyeon-ro, Seo-gu, Busan",
+      "ja": "釜山広域市西区松島海辺路100",
+      "zh-CN": "釜山西区松岛海边路100",
+      "zh-TW": "釜山西區松島海邊路100"
+    },
+    "nearby_restaurants": [
+      "r5",
+      "r8"
+    ],
+    "nearby_cafes": [
+      "c9"
+    ]
   },
   {
     "id": "spot_taejongdae",
     "name": {
       "ko": "태종대 유원지",
-      "en": "Taejongdae Resort Park"
+      "en": "Taejongdae Resort Park",
+      "ja": "太宗台遊園地",
+      "zh-CN": "太宗台游园地",
+      "zh-TW": "太宗台遊園地"
     },
     "drama": [],
     "category": "landmark",
-    "region": "영도구",
+    "region": {
+      "ko": "영도구",
+      "en": "Yeongdo-gu",
+      "ja": "影島区",
+      "zh-CN": "影岛区",
+      "zh-TW": "影島區"
+    },
     "thumbnail": "/images/spots/taejongdae.png",
-    "coords": { "lat": 35.0526, "lng": 129.0818 },
-    "description": { "ko": "깎아지른 듯한 기암괴석과 푸른 바다가 어우러진 부산의 대표적인 유원지입니다. 다누비 열차를 타고 해안 절경을 감상할 수 있습니다." },
-    "scene_description": { "ko": "영도의 끝에서 마주하는 깎아지른 절벽과 탁 트인 수평선" },
-    "status": { "ko": "04:00 - 24:00 (차량 통제 시간 확인 필요)" },
-    "address": { "ko": "부산 영도구 전망로 24" },
-    "nearby_restaurants": ["r4", "r8"],
-    "nearby_cafes": ["c12"]
+    "coords": {
+      "lat": 35.0526,
+      "lng": 129.0818
+    },
+    "description": {
+      "ko": "깎아지른 듯한 기암괴석과 푸른 바다가 어우러진 부산의 대표적인 유원지입니다. 다누비 열차를 타고 해안 절경을 감상할 수 있습니다.",
+      "en": "A representative resort park in Busan where sheer cliffs and blue sea harmonize. You can enjoy the coastal scenery by riding the Danubi Train.",
+      "ja": "切り立った奇岩怪石と青い海が調和した釜山の代表的な遊園地です。タヌビ列車に乗って海岸の絶景を鑑賞することができます。",
+      "zh-CN": "陡峭的奇岩怪石与蔚蓝大海交相辉映的釜山代表性游园地。可以乘坐Danubi列车欣赏海岸绝景。",
+      "zh-TW": "陡峭的奇岩怪石與蔚藍大海交相輝映的釜山代表性遊園地。可以乘坐Danubi列車欣賞海岸絕景。"
+    },
+    "scene_description": {
+      "ko": "영도의 끝에서 마주하는 깎아지른 절벽과 탁 트인 수평선",
+      "en": "Sheer cliffs and an open horizon met at the tip of Yeongdo.",
+      "ja": "影島の先端で向き合う切り立った絶壁と開けた水平線",
+      "zh-CN": "在影岛尽头面对的陡峭悬崖和开阔的水平线。",
+      "zh-TW": "在影島盡頭面對的陡峭懸崖和開闊的水平線。"
+    },
+    "status": {
+      "ko": "04:00 - 24:00 (차량 통제 시간 확인 필요)",
+      "en": "04:00 - 24:00 (Check vehicle control times)",
+      "ja": "04:00 - 24:00（車両規制時間の確認が必要）",
+      "zh-CN": "04:00 - 24:00 (需要确认车辆管制时间)",
+      "zh-TW": "04:00 - 24:00 (需要確認車輛管制時間)"
+    },
+    "address": {
+      "ko": "부산 영도구 전망로 24",
+      "en": "24, Jeonmang-ro, Yeongdo-gu, Busan",
+      "ja": "釜山広域市影島区展望路24",
+      "zh-CN": "釜山影岛区展望路24",
+      "zh-TW": "釜山影島區展望路24"
+    },
+    "nearby_restaurants": [
+      "r4",
+      "r8"
+    ],
+    "nearby_cafes": [
+      "c12"
+    ]
   }
 ]

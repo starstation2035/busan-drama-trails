@@ -7,9 +7,9 @@ import { useAppStore, type LangCode } from "@/stores/useAppStore";
 export interface Spot {
   id: string;
   name: Record<LangCode, string>;
-  drama: string[];
+  drama: Record<LangCode, string>[];
   thumbnail: string;
-  region: string;
+  region: Record<LangCode, string>;
   status?: Record<LangCode, string>;
   scene_description?: Record<LangCode, string>;
 }
@@ -44,7 +44,7 @@ export function SpotCard({ spot }: { spot: Spot }) {
       className="group block overflow-hidden rounded-2xl bg-card shadow-sm transition active:scale-[0.98] hover:shadow-xl border border-border/40"
     >
       {/* 5:4 Aspect Ratio Image (Forced via style for precision) */}
-      <div 
+      <div
         className="relative overflow-hidden rounded-xl bg-muted"
         style={{ aspectRatio: '5/4' }}
       >
@@ -54,11 +54,13 @@ export function SpotCard({ spot }: { spot: Spot }) {
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           loading="lazy"
         />
-        
+
         {/* Region Badge as Overlay */}
-        <div className="absolute left-2 top-2 flex items-center gap-1 rounded-full bg-black/50 px-2 py-0.5 shadow-md backdrop-blur-md border border-white/10">
-          <MapPin className="size-2.5 text-white" /> 
-          <span className="text-[10px] font-bold text-white">{spot.region}</span>
+        <div className="absolute left-2 top-2">
+          <span className="inline-flex items-center gap-1 rounded-full bg-[#F3F4F6] px-2.5 py-1 text-[11px] font-bold text-[#4B5563] shadow-md backdrop-blur-md border border-white/10">
+            <MapPin className="size-3 text-[#9CA3AF]" />
+            {typeof spot.region === 'string' ? spot.region : (spot.region?.[lang as keyof typeof spot.region] ?? spot.region?.ko ?? '')}
+          </span>
         </div>
 
         <button
@@ -78,7 +80,7 @@ export function SpotCard({ spot }: { spot: Spot }) {
         <div className="min-h-[2.75rem]">
           {spot.drama[0] && (
             <span className="text-[10px] font-bold text-primary/80 mb-0.5 block">
-              🎬 {spot.drama[0]}
+              🎬 {spot.drama[0][lang] ?? spot.drama[0].ko}
             </span>
           )}
           <h3 className="text-[14px] font-bold text-foreground leading-tight">

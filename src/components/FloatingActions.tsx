@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { MessageSquare, PenLine, Plus, X } from "lucide-react";
+import { MessageSquare, PenLine, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { LiveChatWidget } from "./LiveChatWidget";
 import { Button } from "./ui/button";
@@ -11,55 +11,33 @@ import { CommunityPostModal } from "./CommunityPostModal";
 
 export function FloatingActions() {
   const { t } = useTranslation();
-  const [showWriteMenu, setShowWriteMenu] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [isWriteModalOpen, setIsWriteModalOpen] = useState(false);
 
-  const handleWriteClick = () => {
-    setIsWriteModalOpen(true);
-    setShowWriteMenu(false);
-  };
-
   return (
     <>
-      <div className="fixed bottom-6 right-6 z-[60] flex flex-col items-end gap-3 pointer-events-none">
-        {/* Write Option (shown when expanded) */}
-        {showWriteMenu && (
-          <div className="flex flex-col items-end gap-2 mb-1 animate-fade-up pointer-events-auto">
-            <Button
-              onClick={handleWriteClick}
-              className="rounded-full bg-white text-[#222222] shadow-airbnb border border-[#DDDDDD] px-5 h-11 text-[13px] font-bold flex items-center gap-2 hover:bg-gray-50 transition-all active:scale-95"
-            >
-              <PenLine className="h-4 w-4 text-[#FF385C]" />
-              {t("community.write") || "후기 작성"}
-            </Button>
-          </div>
-        )}
-        
+      <div className="fixed bottom-28 md:bottom-10 right-4 md:right-10 z-[60] flex flex-col items-end gap-4 pointer-events-none">
         {/* Main Action Buttons (Stacked) */}
-        <div className="flex flex-col gap-3 pointer-events-auto">
+        <div className="flex flex-col gap-4 pointer-events-auto items-end">
           {/* Chat Toggle Button */}
           {!isChatOpen && (
             <button 
               onClick={() => setIsChatOpen(true)}
-              className="flex h-14 w-14 animate-bounce items-center justify-center rounded-full bg-[#FAE100] text-[#3B1E1E] shadow-airbnb transition-all hover:scale-110 active:scale-90"
+              className="flex h-12 w-12 md:h-14 md:w-14 animate-bounce items-center justify-center rounded-full bg-[#FAE100] text-[#3B1E1E] shadow-2xl transition-all hover:scale-110 active:scale-90 ring-4 ring-white/10"
               title="Global Chat"
             >
-              <MessageSquare className="h-6 w-6" />
+              <MessageSquare className="h-5 w-5 md:h-6 md:w-6" />
             </button>
           )}
 
-          {/* Write Toggle Button */}
+          {/* Write Button */}
           <button
-            onClick={() => setShowWriteMenu(!showWriteMenu)}
-            className={`flex h-14 w-14 items-center justify-center rounded-full shadow-airbnb transition-all active:scale-90 ${
-              showWriteMenu 
-                ? "bg-[#222222] text-white rotate-45" 
-                : "bg-[#FF385C] text-white"
-            }`}
+            onClick={() => setIsWriteModalOpen(true)}
+            className="flex h-12 md:h-14 items-center gap-2 rounded-full bg-[#FF385C] px-5 md:px-7 text-white shadow-2xl transition-all hover:scale-105 active:scale-95 border-none ring-4 ring-white/10"
             title="Write Community Post"
           >
-            <Plus className="h-7 w-7" />
+            <PenLine className="h-4 w-4 md:h-5 md:w-5" />
+            <span className="font-bold text-sm md:text-[16px] whitespace-nowrap">{t("community.write") || "후기 작성"}</span>
           </button>
         </div>
       </div>

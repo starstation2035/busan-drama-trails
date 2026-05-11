@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { X, MapPin, Camera, ChevronRight, ChevronLeft, Check, Search, Tag } from "lucide-react";
+import { X, MapPin, Camera, ChevronRight, ChevronLeft, Check, Search, Tag, Upload } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import { Button } from "./ui/button";
 import { useCommunityStore } from "@/stores/useCommunityStore";
@@ -30,6 +30,7 @@ import { GoogleMapPicker } from "./GoogleMapPicker";
 export function CommunityPostModal({ open, onClose }: CommunityPostModalProps) {
   const { t } = useTranslation();
   const addPost = useCommunityStore((s) => s.addPost);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   
   const [step, setStep] = useState(1); // 1: Image, 2: Details
   const [selectedImage, setSelectedImage] = useState("");
@@ -52,6 +53,24 @@ export function CommunityPostModal({ open, onClose }: CommunityPostModalProps) {
       return;
     }
     setStep(2);
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      toast.error("Please select an image file.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      if (event.target?.result) {
+        setSelectedImage(event.target.result as string);
+      }
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleSubmit = () => {
@@ -140,17 +159,37 @@ export function CommunityPostModal({ open, onClose }: CommunityPostModalProps) {
             "flex-1 bg-[#FAFAFA] flex items-center justify-center relative group overflow-hidden",
             step === 2 ? "hidden sm:flex" : "flex"
           )}>
+            <input 
+              type="file" 
+              ref={fileInputRef} 
+              className="hidden" 
+              accept="image/*" 
+              onChange={handleFileChange} 
+            />
             {selectedImage ? (
-              <img 
-                src={selectedImage} 
-                alt="Selected" 
-                className="w-full h-full object-cover animate-fade-in" 
-              />
+              <div className="relative w-full h-full">
+                <img 
+                  src={selectedImage} 
+                  alt="Selected" 
+                  className="w-full h-full object-cover animate-fade-in" 
+                />
+                {step === 1 && (
+                  <button 
+                    onClick={() => fileInputRef.current?.click()}
+                    className="absolute bottom-4 right-4 bg-black/60 hover:bg-black/80 text-white p-3 rounded-full backdrop-blur-md transition-all shadow-xl"
+                  >
+                    <Upload className="h-5 w-5" />
+                  </button>
+                )}
+              </div>
             ) : (
               <div className="flex flex-col items-center text-[#262626]">
                 <Camera className="h-20 w-20 mb-4 stroke-[0.5]" />
                 <p className="text-xl font-light">{t("community.modal.imageHint")}</p>
-                <Button className="mt-6 bg-[#0095F6] hover:bg-[#1877F2] text-white rounded-lg px-4 py-1.5 text-sm h-auto">
+                <Button 
+                  onClick={() => fileInputRef.current?.click()}
+                  className="mt-6 bg-[#0095F6] hover:bg-[#1877F2] text-white rounded-lg px-4 py-1.5 text-sm h-auto"
+                >
                   {t("community.modal.selectComputer")}
                 </Button>
               </div>

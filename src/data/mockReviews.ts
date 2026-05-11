@@ -8,6 +8,7 @@ export interface Review {
   likes: number;
   category: "reviews" | "tips";
   avatar: string;
+  isLiked?: boolean;
 }
 
 export const MOCK_REVIEWS: Review[] = [

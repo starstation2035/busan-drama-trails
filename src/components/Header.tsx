@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
-import { Globe, Heart, Menu, Home, MapPin, Sparkles, MessageSquare, Briefcase } from "lucide-react";
+import { Globe, Heart, Menu, Home, MapPin, Sparkles, MessageSquare, Briefcase, ShoppingBag } from "lucide-react";
 import { useAppStore } from "@/stores/useAppStore";
 import {
   Sheet,
@@ -34,15 +34,14 @@ export function Header({ onOpenLang }: Props) {
 
   const menuItems = [
     { href: "/", icon: Home, label: t("nav.home") },
-    { href: "/spots", icon: MapPin, label: t("nav.spots") },
-    { href: "/style-test", icon: Sparkles, label: t("nav.styleTest") },
     { href: "/community", icon: MessageSquare, label: t("nav.community") },
     { href: "/my-course", icon: Heart, label: t("nav.myCourse") },
+    { href: "/goods", icon: ShoppingBag, label: t("nav.goods") },
   ];
 
   return (
     <header className="sticky top-0 z-50 border-b border-[#DDDDDD] bg-white shadow-sm">
-      <div className="mx-auto flex h-16 max-w-screen-md items-center justify-between px-6">
+      <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-6">
         <div className="flex items-center gap-8">
           <Link href="/" className="font-bold text-[#FF385C] tracking-tight text-xl">
             {t("common.appName")}
@@ -50,13 +49,11 @@ export function Header({ onOpenLang }: Props) {
 
           
           <nav className="hidden md:flex items-center gap-6">
-            <Link href="/spots" className="text-sm font-bold text-[#222222] hover:text-[#FF385C] transition-colors">
-              {t("nav.spots")}
-            </Link>
-            <Link href="/style-test" className="text-sm font-bold text-[#222222] hover:text-[#FF385C] transition-colors">
-              {t("nav.styleTest")}
-            </Link>
-            <Link href="/community" className="text-sm font-bold text-[#222222] hover:text-[#FF385C] transition-colors">
+            <Link 
+              href="/community" 
+              className="px-6 py-2.5 rounded-full bg-[#FF385C] text-white font-black text-sm shadow-lg shadow-[#FF385C]/20 hover:scale-105 hover:bg-[#E31C5F] transition-all active:scale-95 flex items-center gap-2"
+            >
+              <MessageSquare className="h-4 w-4" />
               {t("nav.community")}
             </Link>
           </nav>

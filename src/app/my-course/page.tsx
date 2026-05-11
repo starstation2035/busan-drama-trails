@@ -161,10 +161,10 @@ export default function MyCoursePage() {
       ...e,
       travelToNext: e.travelToNext ? { ...e.travelToNext } : undefined
     }));
-    
+
     // Swap
     [newCourse[idx], newCourse[targetIdx]] = [newCourse[targetIdx], newCourse[idx]];
-    
+
     // Re-calculate all times starting from 09:00
     let cursor = "09:00";
     for (let i = 0; i < newCourse.length; i++) {
@@ -176,7 +176,7 @@ export default function MyCoursePage() {
         cursor = addMinutes(cursor, travelMins);
       }
     }
-    
+
     setEditableCourse(newCourse);
     toast.success(t("common.updated", "Updated"));
   };
@@ -192,10 +192,10 @@ export default function MyCoursePage() {
     if (!favorites.includes(item.id)) {
       toggleFavorite(item.id);
     }
-    
+
     skipRegenRef.current = true;
     const newCourse = [...editableCourse];
-    
+
     // Default duration based on kind
     let duration = 60;
     if (item.kind === "restaurant") duration = 60;
@@ -206,9 +206,9 @@ export default function MyCoursePage() {
       durationMin: duration,
       item: item as any
     };
-    
+
     newCourse.push(newEntry);
-    
+
     // Re-calculate all times
     let cursor = newCourse[0]?.time || "09:00";
     for (let i = 0; i < newCourse.length; i++) {
@@ -219,7 +219,7 @@ export default function MyCoursePage() {
         cursor = addMinutes(cursor, travelMins);
       }
     }
-    
+
     setEditableCourse(newCourse);
     toast.success(t("common.added", "Added to course"));
     setIsAddSheetOpen(false);
@@ -236,7 +236,7 @@ export default function MyCoursePage() {
             Live Preview
           </div>
         </div>
-        
+
       </header>
 
       {/* Stats Card */}
@@ -271,9 +271,8 @@ export default function MyCoursePage() {
         <button
           type="button"
           onClick={() => setTab("course")}
-          className={`flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-bold transition-all ${
-            tab === "course" ? "bg-background text-foreground shadow-md scale-[1.02]" : "text-muted-foreground hover:text-foreground"
-          }`}
+          className={`flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-bold transition-all ${tab === "course" ? "bg-background text-foreground shadow-md scale-[1.02]" : "text-muted-foreground hover:text-foreground"
+            }`}
         >
           <Shuffle className="size-3.5" />
           {t("myCourse.tabs.course")}
@@ -281,9 +280,8 @@ export default function MyCoursePage() {
         <button
           type="button"
           onClick={() => setTab("list")}
-          className={`flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-bold transition-all ${
-            tab === "list" ? "bg-background text-foreground shadow-md scale-[1.02]" : "text-muted-foreground hover:text-foreground"
-          }`}
+          className={`flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-bold transition-all ${tab === "list" ? "bg-background text-foreground shadow-md scale-[1.02]" : "text-muted-foreground hover:text-foreground"
+            }`}
         >
           <FolderOpen className="size-3.5" />
           {t("myCourse.tabs.list")}
@@ -350,8 +348,8 @@ export default function MyCoursePage() {
       {/* Bottom action bar */}
       <div className="sticky bottom-20 z-10 flex gap-2 rounded-2xl border border-border/60 bg-background/95 p-2 shadow-xl backdrop-blur-xl md:bottom-4 animate-fade-up">
         {isEditing ? (
-          <Button 
-            variant="default" 
+          <Button
+            variant="default"
             onClick={() => setIsEditing(false)}
             className="flex-1 h-12 gap-2 rounded-xl font-bold shadow-md bg-emerald-600 hover:bg-emerald-700 text-white animate-in zoom-in duration-300"
           >
@@ -359,8 +357,8 @@ export default function MyCoursePage() {
           </Button>
         ) : (
           <>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               onClick={() => setIsEditing(true)}
               className="h-12 px-4 gap-2 rounded-xl border-border/60 font-bold hover:bg-muted"
             >
@@ -378,7 +376,7 @@ export default function MyCoursePage() {
                   <SheetTitle className="text-center font-black tracking-tight">{t("myCourse.actions.share")}</SheetTitle>
                 </SheetHeader>
                 <div className="h-full overflow-y-auto p-6 pb-20">
-                  <div className="mx-auto max-w-sm space-y-6">
+                  <div className="space-y-6">
                     <ShareLayout course={editableCourse} lang={lang} />
                     <div className="grid grid-cols-2 gap-3">
                       <Button onClick={handleShare} variant="outline" className="h-12 gap-2 rounded-xl border-border/60 font-bold">
@@ -392,7 +390,7 @@ export default function MyCoursePage() {
                 </div>
               </SheetContent>
             </Sheet>
-            
+
             <Button
               variant="outline"
               onClick={() => toast.info(t("myCourse.actions.exportSoon"))}
@@ -466,7 +464,9 @@ function ListView({
                           {it.name[lang] ?? it.name["en"]}
                         </span>
                         {it.region && (
-                          <span className="text-[10px] font-medium text-muted-foreground">{it.region}</span>
+                          <span className="text-[10px] font-medium text-muted-foreground">
+                            {typeof it.region === 'string' ? it.region : (it.region[lang] ?? it.region.ko)}
+                          </span>
                         )}
                       </div>
                     </button>
@@ -544,7 +544,7 @@ function CourseView({
 
       <ol className="relative ml-2">
         <div className="absolute left-[3.2rem] top-3 bottom-10 w-0.5 bg-gradient-to-b from-primary via-muted to-muted opacity-20" />
-        
+
         {course.map((entry, i) => {
           const item = entry.item;
           const name = item.name[lang] ?? item.name["en"];
@@ -555,8 +555,8 @@ function CourseView({
               <div className="absolute left-0 top-1 w-12 text-right">
                 <span className="text-xs font-black text-foreground tabular-nums tracking-tight">{entry.time}</span>
               </div>
-              
-              <div 
+
+              <div
                 className="absolute left-[2.9rem] top-1.5 z-10 grid size-3 place-items-center rounded-full border-2 border-background shadow-sm"
                 style={{ backgroundColor: dotColor(item.kind), boxShadow: `0 0 0 2px ${dotColor(item.kind)}20` }}
               />
@@ -644,11 +644,10 @@ function CourseView({
                       <button
                         key={m}
                         onClick={() => onUpdateTravelMode(i, m)}
-                        className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[10px] font-bold transition-all ${
-                          entry.travelToNext?.mode === m
-                            ? "bg-primary text-white shadow-md ring-2 ring-primary/20 scale-105"
-                            : "bg-transparent text-muted-foreground hover:bg-muted/30"
-                        }`}
+                        className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[10px] font-bold transition-all ${entry.travelToNext?.mode === m
+                          ? "bg-primary text-white shadow-md ring-2 ring-primary/20 scale-105"
+                          : "bg-transparent text-muted-foreground hover:bg-muted/30"
+                          }`}
                       >
                         <ModeIcon mode={m} />
                         <span className="uppercase">{t(`myCourse.travel.${m}`)}</span>
@@ -729,8 +728,8 @@ function AddSpotSheet({
   const filteredItems = useMemo(() => {
     const data = activeTab === "spots" ? allSpots : activeTab === "restaurants" ? allRestaurants : allCafes;
     const q = query.toLowerCase();
-    return data.filter(it => 
-      it.name[lang]?.toLowerCase().includes(q) || 
+    return data.filter(it =>
+      it.name[lang]?.toLowerCase().includes(q) ||
       it.name["en"]?.toLowerCase().includes(q)
     );
   }, [activeTab, query, lang]);
@@ -760,9 +759,8 @@ function AddSpotSheet({
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
-                  activeTab === tab ? "bg-background text-primary shadow-sm" : "text-muted-foreground"
-                }`}
+                className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${activeTab === tab ? "bg-background text-primary shadow-sm" : "text-muted-foreground"
+                  }`}
               >
                 {t(`myCourse.groups.${tab}`)}
               </button>
@@ -779,13 +777,12 @@ function AddSpotSheet({
             filteredItems.map((item) => {
               const isAdded = existingIds.includes(item.id);
               const kind = activeTab === "spots" ? "spot" : activeTab === "restaurants" ? "restaurant" : "cafe";
-              
+
               return (
                 <div
                   key={item.id}
-                  className={`flex items-center gap-3 rounded-2xl border border-border/40 bg-card p-2 shadow-sm transition-all ${
-                    isAdded ? "opacity-60 bg-muted/20" : "hover:shadow-md active:scale-[0.98]"
-                  }`}
+                  className={`flex items-center gap-3 rounded-2xl border border-border/40 bg-card p-2 shadow-sm transition-all ${isAdded ? "opacity-60 bg-muted/20" : "hover:shadow-md active:scale-[0.98]"
+                    }`}
                 >
                   <img src={item.thumbnail} alt="" className="h-16 w-16 rounded-xl object-cover" />
                   <div className="flex-1 min-w-0">
@@ -793,7 +790,7 @@ function AddSpotSheet({
                       {item.name[lang] ?? item.name["en"]}
                     </p>
                     <p className="text-[10px] font-medium text-muted-foreground">
-                      {item.region}
+                      {item.region ? (typeof item.region === 'string' ? item.region : (item.region[lang as keyof typeof item.region] ?? item.region.ko)) : ''}
                     </p>
                   </div>
                   <Button
@@ -818,7 +815,7 @@ function AddSpotSheet({
 /* ---------- Social Share View (Instagram/Line Style) ---------- */
 function ShareLayout({ course, lang }: { course: EditableTimelineEntry[]; lang: LangCode }) {
   const { t } = useTranslation();
-  
+
   return (
     <div className="relative aspect-[9/16] w-full overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-[#003d99] via-[#0077cc] to-[#33ccff] p-8 text-white shadow-2xl">
       {/* Decorative Blur Spheres */}
@@ -843,7 +840,7 @@ function ShareLayout({ course, lang }: { course: EditableTimelineEntry[]; lang: 
       {/* Timeline */}
       <div className="relative z-10 mt-12 h-[60%] overflow-hidden">
         <div className="absolute left-[2.25rem] top-6 bottom-6 w-px bg-gradient-to-b from-white/40 via-white/10 to-transparent" />
-        
+
         <div className="space-y-8">
           {course.slice(0, 5).map((entry, idx) => (
             <div key={idx} className="flex gap-5 animate-slide-in" style={{ animationDelay: `${idx * 0.1}s` }}>
@@ -852,7 +849,7 @@ function ShareLayout({ course, lang }: { course: EditableTimelineEntry[]; lang: 
                   {entry.time}
                 </div>
               </div>
-              
+
               <div className="flex-1 space-y-1.5 pt-1">
                 <h3 className="line-clamp-1 text-base font-black tracking-tight leading-none">
                   {entry.item.name[lang] ?? entry.item.name["en"]}

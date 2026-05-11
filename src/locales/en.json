@@ -13,7 +13,8 @@
     "spots": "Spots",
     "community": "Community",
     "myCourse": "My Course",
-    "styleTest": "Style Test"
+    "styleTest": "Style Test",
+    "goods": "Goods Mall"
   },
   "language": {
     "choose": "Choose your language",
@@ -215,8 +216,10 @@
       "reset": "Reset filters"
     },
     "hero": {
-      "title": "One Shot Trap",
-      "subtitle": "From movie scenes to hidden gems, start your special journey."
+      "title": "Filming Spots & Landmarks One-Shot",
+      "brand": "",
+      "subtitleLine1": "Visit the exact scenes from your favorite dramas,",
+      "subtitleLine2": "Discover a Busan course that leads straight to nearby restaurants."
     },
     "sections": {
       "drama": "🎬 Filming Sites",
@@ -238,9 +241,10 @@
     "copied": "Copied!",
     "info": {
       "address": "Address",
-      "hours": "Hours",
+      "hours": "Operating Info",
       "admission": "Admission",
-      "bestTime": "Best time"
+      "bestTime": "Best time",
+      "status": "Operating Info"
     },
     "bestTime": {
       "morning": "Morning",
@@ -281,8 +285,9 @@
     "cta": {
       "add": "Add to My Course",
       "added": "View My Course →",
-      "carTour": "Book Vehicle Tour"
-    }
+      "carTour": "Book a Car Tour"
+    },
+    "nearbyCta": "✨ Explore restaurants & cafes near {{name}}"
   },
   "myCourse": {
     "title": "My Busan Course",

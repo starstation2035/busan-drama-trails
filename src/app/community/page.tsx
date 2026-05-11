@@ -16,18 +16,10 @@ export default function Community() {
   const posts = useCommunityStore((s) => s.posts);
   const toggleLike = useCommunityStore((s) => s.toggleLike);
 
-  const [likedPosts, setLikedPosts] = useState<Set<number>>(new Set());
-
   const handleLike = (e: React.MouseEvent, id: number) => {
     e.preventDefault();
     e.stopPropagation();
-    
-    const newLiked = new Set(likedPosts);
-    if (!newLiked.has(id)) {
-      newLiked.add(id);
-      toggleLike(id);
-      setLikedPosts(newLiked);
-    }
+    toggleLike(id);
   };
 
   const filteredReviews =
@@ -72,7 +64,7 @@ export default function Community() {
       {/* Review Feed */}
       <section className="grid grid-cols-1 gap-6 sm:grid-cols-2 animate-fade-up">
         {filteredReviews.map((review) => {
-          const isLiked = likedPosts.has(review.id);
+          const isLiked = review.isLiked;
           return (
             <div
               key={review.id}

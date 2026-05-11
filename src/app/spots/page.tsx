@@ -20,7 +20,8 @@ import { STYLE_META, type StyleKey, STYLE_KEYS } from "@/data/quiz";
 
 const SORT_KEYS = ["popular", "newest", "nearest"] as const;
 
-interface SpotData extends Spot {
+interface SpotData extends Omit<Spot, 'drama'> {
+  drama: Record<LangCode, string>[];
   popularity: number;
   category?: "drama" | "landmark";
 }
@@ -68,8 +69,8 @@ function SpotsContent() {
       if (needle) {
         const hay = [
           ...Object.values(s.name),
-          ...s.drama,
-          s.region,
+          ...s.drama.flatMap(d => Object.values(d)),
+          ...Object.values(s.region),
         ]
           .join(" ")
           .toLowerCase();
@@ -116,7 +117,7 @@ function SpotsContent() {
     const match = ALL_SPOTS.find(
       (s) =>
         Object.values(s.name).some((v) => v.toLowerCase() === term) ||
-        s.drama.some((d) => d.toLowerCase() === term)
+        s.drama.some((d) => Object.values(d).some(v => v.toLowerCase() === term))
     );
 
     if (match) {
@@ -188,7 +189,8 @@ function SpotsContent() {
             </span>
             <div className="relative h-6 flex-1 overflow-hidden">
                <RollingTicker onSelect={(spot) => {
-                 setSearchInput(spot.name);
+                 const lang = useAppStore.getState().lang as LangCode;
+                 setSearchInput(spot.name[lang] ?? spot.name.ko);
                }} />
             </div>
           </div>
@@ -328,28 +330,34 @@ const HOT_SPOTS = [
   { id: "spot_taejongdae", name: "태종대 유원지" },
 ];
 
-function RollingTicker({ onSelect }: { onSelect: (spot: { id: string; name: string }) => void }) {
+function RollingTicker({ onSelect }: { onSelect: (spot: SpotData) => void }) {
   const [index, setIndex] = useState(0);
+  const lang = (useAppStore((s) => s.lang) ?? "ko") as LangCode;
+
+  // Use real data from spots.json instead of hardcoded strings
+  const tickerSpots = useMemo(() => {
+    return HOT_SPOTS.map(hot => ALL_SPOTS.find(s => s.id === hot.id)).filter(Boolean) as SpotData[];
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % HOT_SPOTS.length);
+      setIndex((prev) => (prev + 1) % tickerSpots.length);
     }, 3000);
     return () => clearInterval(timer);
-  }, []);
+  }, [tickerSpots.length]);
 
   return (
     <div
       className="absolute w-full transition-transform duration-700 ease-in-out flex flex-col"
       style={{ transform: `translateY(-${index * 24}px)` }}
     >
-      {HOT_SPOTS.map((spot, i) => (
+      {tickerSpots.map((spot, i) => (
         <button
           key={spot.id}
           onClick={() => onSelect(spot)}
           className="h-6 flex items-center text-sm font-medium text-[#555555] hover:underline transition-all truncate text-left"
         >
-          {spot.name}
+          {spot.name[lang] ?? spot.name.ko}
         </button>
       ))}
     </div>

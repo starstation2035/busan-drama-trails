@@ -34,7 +34,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
     return (
       <div className="min-h-screen bg-white">
         {pathname !== "/" && <Header onOpenLang={() => {}} />}
-        <main className={`mx-auto max-w-screen-md ${pathname === "/" ? "py-0" : "py-6"}`}>
+        <main className={`mx-auto w-full max-w-screen-xl px-6 ${pathname === "/" ? "py-0" : "py-6"}`}>
           {children}
         </main>
         <BottomNav />
@@ -45,11 +45,21 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const isHome = pathname === "/";
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-transparent relative">
       <HeartEffect />
       
+      {/* 🏙️ Static Global Background (Busan Harbor Bridge at Sunset) */}
+      <div className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <img
+          src="/busan_harbor_bridge_sunset_1776481887078.png"
+          alt="Busan Harbor Bridge Background"
+          className="h-full w-full object-cover opacity-35 blur-[2px] scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-white/10" />
+      </div>
+
       <Header onOpenLang={() => setModalOpen(true)} />
-      <main className={`mx-auto max-w-screen-md ${isHome ? "py-0" : "py-6"}`}>
+      <main className={`mx-auto w-full max-w-screen-xl px-6 ${isHome ? "" : "py-6"}`}>
         {children}
       </main>
       <BottomNav />

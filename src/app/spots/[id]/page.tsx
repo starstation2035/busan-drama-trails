@@ -62,8 +62,8 @@ interface PhotoTip {
 interface SpotFull {
   id: string;
   name: LocalizedString;
-  drama: string[];
-  region: string;
+  drama: LocalizedString[];
+  region: Record<string, string>;
   type: string[];
   thumbnail: string;
   coords: { lat: number; lng: number };
@@ -134,6 +134,7 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
   const statusInfo = pickLang(spot.status, lang);
   const sceneDesc = pickLang(spot.scene_description, lang);
   const dramaInfo = pickLang(spot.drama_info, lang);
+  const regionName = pickLang(spot.region as any, lang);
 
   const handleShare = async () => {
     const url = typeof window !== "undefined" ? window.location.href : "";
@@ -160,7 +161,7 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
   return (
     <div className="relative min-h-screen bg-background pb-28">
       {/* 1. HERO (Airbnb Style 5:4 Forced) */}
-      <section className="relative px-0 md:px-6 md:pt-6">
+      <section className="mx-auto w-full max-w-screen-xl relative px-0 md:px-6 md:pt-6">
         <div 
           className="group relative w-full max-h-[75vh] overflow-hidden md:rounded-3xl bg-muted shadow-2xl"
           style={{ aspectRatio: '5/4' }}
@@ -200,28 +201,28 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
 
           {/* Bottom Overlay Title (Mobile) */}
           <div className="absolute bottom-0 left-0 right-0 p-6 text-white md:hidden">
-            <p className="mb-1 text-[10px] font-bold uppercase tracking-wider opacity-90">📍 {spot.region}</p>
+            <p className="mb-1 text-[10px] font-bold uppercase tracking-wider opacity-90">📍 {regionName}</p>
             <h1 className="text-2xl font-bold leading-tight">{name}</h1>
           </div>
         </div>
       </section>
 
-      <div className="mx-auto max-w-screen-xl px-4 pt-8">
+      <div className="mx-auto w-full max-w-screen-xl px-6 pt-8">
         {/* Header Section (Desktop & Info) */}
         <div className="mb-8 hidden md:block border-b pb-8">
           <div className="flex items-end justify-between">
             <div className="space-y-4">
-              <p className="mb-2 text-sm font-bold text-primary uppercase tracking-widest">📍 {spot.region}</p>
+              <p className="mb-2 text-sm font-bold text-primary uppercase tracking-widest">📍 {regionName}</p>
               <h1 className="text-3xl font-black tracking-tight text-[#222222]">{name}</h1>
               
               <div className="mt-4 space-y-4">
-                {spot.drama.map((d) => (
-                  <div key={d} className="space-y-2">
+                {spot.drama.map((d, idx) => (
+                  <div key={idx} className="space-y-2">
                     <span className="inline-block rounded-lg bg-primary/10 px-3 py-1 text-xs font-bold text-primary">
-                      🎬 {d}
+                      🎬 {pickLang(d, lang)}
                     </span>
                     {dramaInfo && (
-                      <p className="text-base text-[#555555] leading-relaxed w-full bg-muted/10 p-6 rounded-2xl border border-border/50 shadow-sm">
+                      <p className="text-base text-[#555555] leading-relaxed w-full bg-muted/10 p-6 rounded-2xl border border-border/50 shadow-sm whitespace-normal break-words">
                         {dramaInfo}
                       </p>
                     )}
@@ -236,13 +237,13 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
         {/* Mobile Title Section (below image) */}
         <div className="md:hidden mb-6">
           <div className="space-y-4 mb-4">
-            {spot.drama.map((d) => (
-              <div key={d} className="space-y-2">
+            {spot.drama.map((d, idx) => (
+              <div key={idx} className="space-y-2">
                 <span className="inline-block rounded-md bg-primary/10 px-2 py-0.5 text-[10px] font-bold text-primary">
-                  🎬 {d}
+                  🎬 {pickLang(d, lang)}
                 </span>
                 {dramaInfo && (
-                  <p className="text-[15px] text-[#555555] leading-relaxed w-full bg-muted/10 p-4 rounded-xl border border-border/50">
+                  <p className="text-[15px] text-[#555555] leading-relaxed w-full bg-muted/10 p-4 rounded-xl border border-border/50 whitespace-normal break-words">
                     {dramaInfo}
                   </p>
                 )}
@@ -253,13 +254,13 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
         </div>
 
         {/* Info Grid & Description */}
-        <div className="flex flex-col md:flex-row gap-12 items-start">
-          <section className="flex-1 space-y-8">
+        <div className="flex flex-col md:flex-row gap-12 items-start w-full">
+          <section className="flex-[2] space-y-8 w-full">
             <div className="space-y-4">
               <div className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-[11px] font-bold text-primary tracking-wider uppercase">
                 About The Spot
               </div>
-              <h2 className="text-2xl font-black tracking-tight text-[#222222] leading-tight">
+              <h2 className="text-2xl font-black tracking-tight text-[#222222] leading-tight break-words whitespace-normal">
                 {t("detail.description")}
               </h2>
               {sceneDesc && (
@@ -267,13 +268,13 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
                   "{sceneDesc}"
                 </p>
               )}
-              <p className="whitespace-pre-line text-base leading-relaxed text-[#555555] font-medium">
+              <p className="whitespace-pre-line text-base leading-relaxed text-[#555555] font-medium break-words">
                 {desc}
               </p>
             </div>
           </section>
 
-          <section className="w-full md:w-[320px] shrink-0 rounded-3xl border border-border bg-card py-5 px-6 shadow-lg space-y-4 md:mt-24">
+          <section className="flex-1 w-full rounded-3xl border border-border bg-card py-5 px-6 shadow-lg space-y-4 md:mt-24">
             <div className="flex items-center gap-3 border-b border-border pb-3">
                <div className="size-2 rounded-full bg-primary animate-pulse" />
                <h3 className="text-sm font-bold text-foreground uppercase tracking-widest">
@@ -288,7 +289,7 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter mb-0.5">{t("detail.info.address")}</p>
-                    <p className="font-bold text-foreground leading-snug break-words">{addr}</p>
+                    <p className="font-bold text-foreground leading-snug break-words whitespace-normal">{addr}</p>
                   </div>
                   <button
                     onClick={() => {
@@ -306,9 +307,9 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
                   <div className="mt-1 size-8 shrink-0 rounded-xl bg-primary/5 flex items-center justify-center text-primary">
                     <Clock className="size-4" />
                   </div>
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter mb-0.5">{t("detail.info.hours")}</p>
-                    <p className="font-bold text-foreground leading-snug">{spot.hours}</p>
+                    <p className="font-bold text-foreground leading-snug break-words whitespace-normal">{spot.hours}</p>
                   </div>
                 </li>
               )}
@@ -317,9 +318,9 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
                   <div className="mt-1 size-8 shrink-0 rounded-xl bg-primary/5 flex items-center justify-center text-primary">
                     <Clock className="size-4" />
                   </div>
-                  <div className="flex-1">
-                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter mb-0.5">운영 정보</p>
-                    <p className="font-bold text-foreground leading-snug">{statusInfo}</p>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter mb-0.5">{t("detail.info.status")}</p>
+                    <p className="font-bold text-foreground leading-snug break-words whitespace-normal">{statusInfo}</p>
                   </div>
                 </li>
               )}
@@ -380,7 +381,7 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
             href={`/spots/${spot.id}/nearby`}
             className="flex items-center justify-center w-full h-16 rounded-3xl text-lg font-bold bg-primary text-primary-foreground shadow-xl hover:bg-primary/90 transition-all hover:scale-[1.02] active:scale-95 group no-underline"
           >
-            ✨ {name} 근처 맛집 & 카페 탐방하기
+            {t("detail.nearbyCta", { name })}
             <ChevronRight className="ml-2 size-5 transition-transform group-hover:translate-x-1" />
           </Link>
         </section>

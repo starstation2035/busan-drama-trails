@@ -75,7 +75,7 @@ export default function StyleTest() {
 
   if (phase === "intro") {
     return (
-      <div className="mx-auto flex max-w-md flex-col items-center py-8 text-center animate-fade-up">
+      <div className="flex flex-col items-center py-8 text-center animate-fade-up">
         <div className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-accent/40 px-3 py-1 text-xs font-medium text-foreground">
           <Sparkles className="size-3.5" />
           {t("quiz.intro.badge")}
@@ -155,7 +155,7 @@ export default function StyleTest() {
     };
 
     return (
-      <div className="mx-auto max-w-md py-6 animate-fade-up">
+      <div className="py-6 animate-fade-up">
         <div
           className="relative overflow-hidden rounded-3xl p-8 text-center shadow-xl"
           style={{
@@ -198,7 +198,7 @@ export default function StyleTest() {
                     </p>
                     <p className="mt-0.5 truncate text-xs text-muted-foreground">
                       {item.type === 'spot'
-                        ? `🎬 ${((item.data as any).drama || []).join(", ")}`
+                        ? `🎬 ${((item.data as any).drama || []).map((d: any) => d[lang] || d.ko).join(", ")}`
                         : (item.data as any).signature?.[lang] || (item.data as any).signature?.['ko'] || ''}
                     </p>
                   </div>
@@ -261,7 +261,7 @@ export default function StyleTest() {
   const progress = ((step + 1) / total) * 100;
 
   return (
-    <div className="mx-auto max-w-md py-4">
+    <div className="py-4">
       <div className="mb-6 flex items-center gap-3">
         <button
           onClick={handleBack}

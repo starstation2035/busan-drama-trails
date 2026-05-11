@@ -11,7 +11,8 @@
     "spots": "撮影地",
     "community": "コミュニティ",
     "myCourse": "マイコース",
-    "styleTest": "スタイルテスト"
+    "styleTest": "スタイルテスト",
+    "goods": "グッズショップ"
   },
   "language": {
     "choose": "言語を選択してください",
@@ -190,6 +191,12 @@
       "title": "該当する撮影地がありません",
       "subtitle": "検索やフィルターを調整してみてください",
       "reset": "フィルターをリセット"
+    },
+    "hero": {
+      "title": "撮影地＆名所 ワンショット",
+      "brand": "",
+      "subtitleLine1": "ドラマ撮影地のあのシーンを訪ねて、",
+      "subtitleLine2": "すぐ隣のグルメまでつながる釜山コースをご案内します。"
     }
   },
   "detail": {
@@ -199,9 +206,10 @@
     "copied": "コピーしました!",
     "info": {
       "address": "住所",
-      "hours": "営業時間",
-      "admission": "入場料",
-      "bestTime": "おすすめ時間"
+      "hours": "運営情報",
+      "admission": "入場료",
+      "bestTime": "おすすめ時間",
+      "status": "運営情報"
     },
     "bestTime": {
       "morning": "午前",
@@ -241,8 +249,10 @@
     },
     "cta": {
       "add": "マイコースに追加",
-    "added": "マイコースを見る →"
-    }
+      "added": "マイコースを見る →",
+      "carTour": "カーツアー予約"
+    },
+    "nearbyCta": "✨ {{name}} 近くのグルメ＆カフェを探索"
   },
   "myCourse": {
     "title": "私の釜山コース",
