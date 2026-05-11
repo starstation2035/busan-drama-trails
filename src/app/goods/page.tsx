@@ -57,26 +57,28 @@ export default function GoodsPage() {
   return (
     <div className="min-h-screen bg-[#FFFFFF] text-[#222222] font-sans pb-32">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-[#FFFFFF]/80 backdrop-blur-md border-b border-[#DDDDDD] px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 text-[#222222] hover:text-[#FF385C] transition-colors">
-          <Home className="w-5 h-5" strokeWidth={1.5} />
-          <span className="text-[16px] font-medium">홈으로</span>
-        </Link>
-        <h1 className="text-[16px] font-bold absolute left-1/2 -translate-x-1/2">
-          공식 스토어
-        </h1>
-        <button className="p-2 hover:bg-[#F7F7F7] rounded-full transition-colors relative">
-          <ShoppingBag className="w-5 h-5" strokeWidth={1.5} />
-          <span className="absolute top-1 right-1 w-2 h-2 bg-[#FF385C] rounded-full"></span>
-        </button>
+      <header className="sticky top-0 z-50 bg-[#FFFFFF]/80 backdrop-blur-md border-b border-border">
+        <div className="mx-auto w-full max-w-screen-xl px-6 py-4 flex items-center justify-between relative">
+          <Link href="/" className="flex items-center gap-2 text-[#222222] hover:text-primary transition-colors">
+            <Home className="size-5" strokeWidth={1.5} />
+            <span className="text-sm font-bold">홈으로</span>
+          </Link>
+          <h1 className="text-base font-bold absolute left-1/2 -translate-x-1/2 tracking-tight">
+            공식 스토어
+          </h1>
+          <button className="p-2 hover:bg-muted rounded-full transition-colors relative">
+            <ShoppingBag className="size-5" strokeWidth={1.5} />
+            <span className="absolute top-1 right-1 size-2 bg-primary rounded-full"></span>
+          </button>
+        </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-6 py-10">
+      <main className="mx-auto w-full max-w-screen-xl px-6 py-10">
         {/* Hero Banner */}
-        <section className="mb-16">
-          <div className="bg-[#F7F7F7] rounded-[16px] p-10 flex flex-col items-center text-center">
-            <h2 className="text-[28px] font-bold mb-3">부산의 추억을 간직하세요</h2>
-            <p className="text-[16px] text-[#717171]">
+        <section className="mb-12">
+          <div className="bg-muted/30 rounded-3xl p-10 flex flex-col items-center text-center border border-border/50">
+            <h2 className="text-2xl font-black tracking-tight text-[#222222] leading-tight mb-3">부산의 추억을 간직하세요</h2>
+            <p className="text-base font-medium text-[#555555]">
               드라마 속 그 장소의 감동을 그대로 담은 오리지널 굿즈
             </p>
           </div>
@@ -84,17 +86,17 @@ export default function GoodsPage() {
 
         {/* Goods List */}
         <section>
-          {/* 균형감 있는 2x2 그리드 배열 (총 4개 아이템) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-12">
+          {/* Responsive Grid 배열 */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-10">
             {mockGoods.map((item) => (
               <Link 
                 href={item.link || `/goods/${item.id}`} 
                 key={item.id} 
                 target={item.link ? "_blank" : "_self"}
                 rel={item.link ? "noopener noreferrer" : ""}
-                className="group cursor-pointer"
+                className="group cursor-pointer flex flex-col"
               >
-                <div className="relative w-full aspect-square bg-[#F7F7F7] rounded-[12px] overflow-hidden mb-4 shadow-[0_6px_16px_rgba(0,0,0,0.04)] group-hover:shadow-[0_6px_16px_rgba(0,0,0,0.12)] transition-shadow">
+                <div className="relative w-full aspect-square bg-muted rounded-3xl overflow-hidden mb-4 shadow-sm group-hover:shadow-xl transition-all">
                   <Image 
                     src={item.image}
                     alt={item.title}
@@ -115,8 +117,8 @@ export default function GoodsPage() {
                       <span className="text-[#717171]">({item.reviews})</span>
                     </div>
                   </div>
-                  <h4 className="text-[16px] font-semibold mb-1 line-clamp-1">{item.title}</h4>
-                  <p className="text-[13px] text-[#717171] mb-2 line-clamp-2 leading-relaxed">{item.description}</p>
+                  <h4 className="text-lg font-bold tracking-tight text-[#222222] mb-1 line-clamp-1">{item.title}</h4>
+                  <p className="text-sm font-medium text-[#555555] mb-2 line-clamp-2 leading-relaxed">{item.description}</p>
                 </div>
               </Link>
             ))}
