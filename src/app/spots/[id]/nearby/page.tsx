@@ -4,11 +4,13 @@ import { use, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft, MapPin, Utensils, Coffee } from "lucide-react";
+import dynamic from "next/dynamic";
 import spotsRaw from "@/data/spots.json";
 import { toast } from "sonner";
 import { JAGALCHI_NEARBY_CAFES } from "@/data/nearby_cafes";
 import DiscoveryCard from "./_components/DiscoveryCard";
-import EmptyState from "./_components/EmptyState";
+
+const InteractiveMap = dynamic(() => import("@/components/InteractiveMap"), { ssr: false });
 
 const BASE_LAT = 35.0787;
 const BASE_LNG = 129.0441;
@@ -39,88 +41,60 @@ const KOREAN_CAFE_IMAGES = [
   "https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=800&q=80"
 ];
 
-export const HARDCODED_RESTAURANTS = [
-  { 
-    id: "hr1", 
-    name: { ko: "흰여울점빵" }, 
-    food: { ko: "라면/토스트" }, 
-    latitude: 35.0795, 
-    longitude: 129.0432, 
-    thumbnail: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=800&q=80", 
-    images: [
-      { url: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=800&q=80", description: "매콤달콤한 한국식 분식" },
-      { url: "https://images.unsplash.com/photo-1544148103-0773bf10d330?w=800&q=80", description: "따뜻하고 깊은 맛의 국물" },
-      { url: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80", description: "정갈한 한국식 상차림" },
-      { url: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=800&q=80", description: "아늑하고 따뜻한 식당 내부 분위기" }
-    ],
-    rating: 4.6 
-  },
-  { 
-    id: "hr2", 
-    name: { ko: "거청식당" }, 
-    food: { ko: "생선구이" }, 
-    latitude: 35.0815, 
-    longitude: 129.0460, 
-    thumbnail: "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=800&q=80",
-    images: [
-      { url: "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=800&q=80", description: "바삭하게 구워낸 생선구이" },
-      { url: "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?w=800&q=80", description: "신선한 한식 재료들" },
-      { url: "https://images.unsplash.com/photo-1626804475297-41609ea064eb?w=800&q=80", description: "푸짐한 한국의 맛" },
-      { url: "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&q=80", description: "깔끔하고 모던한 감성 식당" }
-    ],
-    rating: 4.4 
-  },
-  { id: "hr3", name: { ko: "달뜨네" }, food: { ko: "회밥/시나몬맥주" }, latitude: 35.0801, longitude: 129.0445, thumbnail: "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=400", rating: 4.7 },
-  { id: "hr4", name: { ko: "영도해녀촌" }, food: { ko: "성게알/김밥" }, latitude: 35.0715, longitude: 129.0685, thumbnail: "https://images.unsplash.com/photo-1626804475297-41609ea064eb?w=400", rating: 4.8 },
-  { id: "hr5", name: { ko: "도날드" }, food: { ko: "즉석떡볶이" }, latitude: 35.0768, longitude: 129.0558, thumbnail: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400", rating: 4.5 },
-  { id: "hr6", name: { ko: "왔다식당" }, food: { ko: "한우스지전골" }, latitude: 35.0895, longitude: 129.0542, thumbnail: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400", rating: 4.6 },
-  { id: "hr7", name: { ko: "재기돼지국밥" }, food: { ko: "남항시장" }, latitude: 35.0921, longitude: 129.0375, thumbnail: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=400", rating: 4.4 },
-  { id: "hr8", name: { ko: "와글와글" }, food: { ko: "라밥" }, latitude: 35.0812, longitude: 129.0571, thumbnail: "/wagle.jpg", rating: 4.3 },
-  { id: "hr9", name: { ko: "청학동구이" }, food: { ko: "고기" }, latitude: 35.0955, longitude: 129.0621, thumbnail: "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=400", rating: 4.2 },
-  { id: "hr10", name: { ko: "삼진어묵 본점" }, food: { ko: "어묵" }, latitude: 35.0915, longitude: 129.0415, thumbnail: "/samjin.jpg", rating: 4.9 },
+const HARDCODED_RESTAURANTS = [
+  { id: "hr1", name: { ko: "흰여울점빵" }, address: "부산 영도구 흰여울길 121", food: { ko: "라면/토스트" }, latitude: 35.0795, longitude: 129.0432, thumbnail: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=800&q=80", images: [{ url: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=800&q=80", description: "매콤달콤한 한국식 분식" }, { url: "https://images.unsplash.com/photo-1544148103-0773bf10d330?w=800&q=80", description: "따뜻하고 깊은 맛의 국물" }, { url: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80", description: "정갈한 한국식 상차림" }, { url: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=800&q=80", description: "아늑하고 따뜻한 식당 내부 분위기" }], rating: 4.6 },
+  { id: "hr2", name: { ko: "거청식당" }, address: "부산 영도구 절영로 11", food: { ko: "생선구이" }, latitude: 35.0815, longitude: 129.0460, thumbnail: "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=800&q=80", images: [{ url: "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=800&q=80", description: "바삭하게 구워낸 생선구이" }, { url: "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?w=800&q=80", description: "신선한 한식 재료들" }, { url: "https://images.unsplash.com/photo-1626804475297-41609ea064eb?w=800&q=80", description: "푸짐한 한국의 맛" }, { url: "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&q=80", description: "깔끔하고 모던한 감성 식당" }], rating: 4.4 },
+  { id: "hr3", name: { ko: "달뜨네" }, address: "부산 영도구 절영로 13", food: { ko: "회밥/시나몬맥주" }, latitude: 35.0801, longitude: 129.0445, thumbnail: "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=400", rating: 4.7 },
+  { id: "hr4", name: { ko: "영도해녀촌" }, address: "부산 영도구 중리남로 2-35", food: { ko: "성게알/김밥" }, latitude: 35.0715, longitude: 129.0685, thumbnail: "https://images.unsplash.com/photo-1626804475297-41609ea064eb?w=400", rating: 4.8 },
+  { id: "hr5", name: { ko: "도날드" }, address: "부산 영도구 꿈나무길 267", food: { ko: "즉석떡볶이" }, latitude: 35.0768, longitude: 129.0558, thumbnail: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400", rating: 4.5 },
+  { id: "hr6", name: { ko: "왔다식당" }, address: "부산 영도구 하나길 811", food: { ko: "한우스지전골" }, latitude: 35.0895, longitude: 129.0542, thumbnail: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400", rating: 4.6 },
+  { id: "hr7", name: { ko: "재기돼지국밥" }, address: "부산 영도구 절영로49번길 25", food: { ko: "남항시장" }, latitude: 35.0921, longitude: 129.0375, thumbnail: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=400", rating: 4.4 },
+  { id: "hr8", name: { ko: "와글와글" }, address: "부산 영도구 중리북로22번길 5", food: { ko: "라밥" }, latitude: 35.0812, longitude: 129.0571, thumbnail: "/wagle.jpg", rating: 4.3 },
+  { id: "hr9", name: { ko: "청학동구이" }, address: "부산 영도구 태종로 315", food: { ko: "고기" }, latitude: 35.0955, longitude: 129.0621, thumbnail: "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=400", rating: 4.2 },
+  { id: "hr10", name: { ko: "삼진어묵 본점" }, address: "부산 영도구 태종로99번길 36", food: { ko: "어묵" }, latitude: 35.0915, longitude: 129.0415, thumbnail: "/samjin.jpg", rating: 4.9 },
 ];
 
-export const HARDCODED_CAFES = [
-  { id: "hc1", name: { ko: "신기숲" }, signature: { ko: "대나무뷰" }, latitude: 35.0861, longitude: 129.0531, thumbnail: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=400", rating: 4.7 },
-  { id: "hc2", name: { ko: "손목서가" }, signature: { ko: "오션뷰 서점" }, latitude: 35.0792, longitude: 129.0435, thumbnail: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400", rating: 4.8 },
-  { id: "hc3", name: { ko: "에테르" }, signature: { ko: "루프탑" }, latitude: 35.0778, longitude: 129.0445, thumbnail: "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?w=400", rating: 4.6 },
-  { id: "hc4", name: { ko: "구름에" }, signature: { ko: "디저트" }, latitude: 35.0798, longitude: 129.0438, thumbnail: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=400", rating: 4.5 },
-  { id: "hc5", name: { ko: "피아크 (P.ARK)" }, signature: { ko: "초대형" }, latitude: 35.0885, longitude: 129.0765, thumbnail: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400", rating: 4.9 },
-  { id: "hc6", name: { ko: "모모스커피 영도" }, signature: { ko: "스페셜티" }, latitude: 35.0935, longitude: 129.0355, thumbnail: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=400", rating: 4.8 },
-  { id: "hc7", name: { ko: "무명일기" }, signature: { ko: "창고형" }, latitude: 35.0945, longitude: 129.0365, thumbnail: "https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?w=400", rating: 4.6 },
-  { id: "hc8", name: { ko: "쓰릴미" }, signature: { ko: "오션뷰" }, latitude: 35.0782, longitude: 129.0448, thumbnail: "https://images.unsplash.com/photo-1510551310160-589462daf284?w=400", rating: 4.5 },
-  { id: "hc9", name: { ko: "카페 변호인" }, signature: { ko: "촬영지" }, latitude: 35.0791, longitude: 129.0431, thumbnail: "https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=400", rating: 4.7 },
-  { id: "hc10", name: { ko: "카린 영도 플레이스" }, signature: { ko: "스칸디나비안 뷰" }, latitude: 35.0905, longitude: 129.0565, thumbnail: "https://images.unsplash.com/photo-1498804103079-a6351b050096?w=400", rating: 4.8 },
+const HARDCODED_CAFES = [
+  { id: "hc1", name: { ko: "신기숲" }, address: "부산 영도구 와치로 65", signature: { ko: "대나무뷰" }, latitude: 35.0861, longitude: 129.0531, thumbnail: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=400", rating: 4.7 },
+  { id: "hc2", name: { ko: "손목서가" }, address: "부산 영도구 흰여울길 307", signature: { ko: "오션뷰 서점" }, latitude: 35.0792, longitude: 129.0435, thumbnail: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400", rating: 4.8 },
+  { id: "hc3", name: { ko: "에테르" }, address: "부산 영도구 절영로 234", signature: { ko: "루프탑" }, latitude: 35.0778, longitude: 129.0445, thumbnail: "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?w=400", rating: 4.6 },
+  { id: "hc4", name: { ko: "구름에" }, address: "부산 영도구 흰여울길 253", signature: { ko: "디저트" }, latitude: 35.0798, longitude: 129.0438, thumbnail: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=400", rating: 4.5 },
+  { id: "hc5", name: { ko: "피아크 (P.ARK)" }, address: "부산 영도구 해양로195번길 180", signature: { ko: "초대형" }, latitude: 35.0885, longitude: 129.0765, thumbnail: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400", rating: 4.9 },
+  { id: "hc6", name: { ko: "모모스커피 영도" }, address: "부산 영도구 봉래나루로 160", signature: { ko: "스페셜티" }, latitude: 35.0935, longitude: 129.0355, thumbnail: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=400", rating: 4.8 },
+  { id: "hc7", name: { ko: "무명일기" }, address: "부산 영도구 봉래나루로 178", signature: { ko: "창고형" }, latitude: 35.0945, longitude: 129.0365, thumbnail: "https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?w=400", rating: 4.6 },
+  { id: "hc8", name: { ko: "쓰릴미" }, address: "부산 영도구 절영로 246", signature: { ko: "오션뷰" }, latitude: 35.0782, longitude: 129.0448, thumbnail: "https://images.unsplash.com/photo-1510551310160-589462daf284?w=400", rating: 4.5 },
+  { id: "hc9", name: { ko: "카페 변호인" }, address: "부산 영도구 흰여울길 135", signature: { ko: "촬영지" }, latitude: 35.0791, longitude: 129.0431, thumbnail: "https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=400", rating: 4.7 },
+  { id: "hc10", name: { ko: "카린 영도 플레이스" }, address: "부산 영도구 청학동로 16", signature: { ko: "스칸디나비안 뷰" }, latitude: 35.0905, longitude: 129.0565, thumbnail: "https://images.unsplash.com/photo-1498804103079-a6351b050096?w=400", rating: 4.8 },
 ];
 
-export const SPOT_CONFIGS: Record<string, any> = {
+const SPOT_CONFIGS: Record<string, any> = {
   "spot_001": { 
     baseLat: 35.1589, baseLng: 129.1992, radius: 1000,
     restaurants: [
-      { id: "r1_1", name: { ko: "수민이네" }, food: { ko: "조개구이/장어구이" }, latitude: 35.1601, longitude: 129.1985, thumbnail: "https://images.unsplash.com/photo-1544148103-0773bf10d330?w=400", rating: 4.6 },
-      { id: "r1_2", name: { ko: "하진이네" }, food: { ko: "조개구이" }, latitude: 35.1595, longitude: 129.1990, thumbnail: "https://images.unsplash.com/photo-1626804475297-41609ea064eb?w=400", rating: 4.5 },
-      { id: "r1_3", name: { ko: "청사포 다희네" }, food: { ko: "장어구이" }, latitude: 35.1605, longitude: 129.1980, thumbnail: "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=400", rating: 4.4 }
+      { id: "r1_1", name: { ko: "수민이네" }, address: "부산 해운대구 청사포로58번길 118", food: { ko: "조개구이/장어구이" }, latitude: 35.1601, longitude: 129.1985, thumbnail: "https://images.unsplash.com/photo-1544148103-0773bf10d330?w=400", rating: 4.6 },
+      { id: "r1_2", name: { ko: "하진이네" }, address: "부산 해운대구 청사포로 151", food: { ko: "조개구이" }, latitude: 35.1595, longitude: 129.1990, thumbnail: "https://images.unsplash.com/photo-1626804475297-41609ea064eb?w=400", rating: 4.5 },
+      { id: "r1_3", name: { ko: "청사포 다희네" }, address: "부산 해운대구 청사포로 157", food: { ko: "장어구이" }, latitude: 35.1605, longitude: 129.1980, thumbnail: "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=400", rating: 4.4 }
     ],
     cafes: [
-      { id: "c1_1", name: { ko: "앨리스 도넛" }, signature: { ko: "청사포 도넛" }, latitude: 35.1610, longitude: 129.1975, thumbnail: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=400", rating: 4.7 },
-      { id: "c1_2", name: { ko: "카페 루프탑" }, signature: { ko: "오션뷰" }, latitude: 35.1585, longitude: 129.1995, thumbnail: "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?w=400", rating: 4.8 }
+      { id: "c1_1", name: { ko: "앨리스 도넛" }, address: "부산 해운대구 청사포로 128", signature: { ko: "청사포 도넛" }, latitude: 35.1610, longitude: 129.1975, thumbnail: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=400", rating: 4.7 },
+      { id: "c1_2", name: { ko: "카페 루프탑" }, address: "부산 해운대구 청사포로 139", signature: { ko: "오션뷰" }, latitude: 35.1585, longitude: 129.1995, thumbnail: "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?w=400", rating: 4.8 }
     ]
   },
   "spot_003": { 
     baseLat: 35.1587, baseLng: 129.1604, radius: 1000,
     restaurants: [
-      { id: "r3_1", name: { ko: "해운대 암소갈비집" }, food: { ko: "한우생갈비" }, latitude: 35.1630, longitude: 129.1650, thumbnail: "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=400", rating: 4.7 },
-      { id: "r3_2", name: { ko: "상국이네" }, food: { ko: "떡볶이" }, latitude: 35.1615, longitude: 129.1615, thumbnail: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400", rating: 4.4 },
-      { id: "r3_3", name: { ko: "밀양순대돼지국밥 해운대점" }, food: { ko: "돼지국밥" }, latitude: 35.1610, longitude: 129.1600, thumbnail: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=400", rating: 4.5 },
-      { id: "r3_4", name: { ko: "금수복국 해운대본점" }, food: { ko: "뚝배기 복국" }, latitude: 35.1612, longitude: 129.1625, thumbnail: "https://images.unsplash.com/photo-1544148103-0773bf10d330?w=400", rating: 4.6 },
-      { id: "r3_5", name: { ko: "해성막창집 본점" }, food: { ko: "대창/곱창전골" }, latitude: 35.1620, longitude: 129.1630, thumbnail: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400", rating: 4.5 }
+      { id: "r3_1", name: { ko: "해운대 암소갈비집" }, address: "부산 해운대구 중동2로10번길 32-10", food: { ko: "한우생갈비" }, latitude: 35.1630, longitude: 129.1650, thumbnail: "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=400", rating: 4.7 },
+      { id: "r3_2", name: { ko: "상국이네" }, address: "부산 해운대구 구남로41번길 40-1", food: { ko: "떡볶이" }, latitude: 35.1615, longitude: 129.1615, thumbnail: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400", rating: 4.4 },
+      { id: "r3_3", name: { ko: "밀양순대돼지국밥 해운대점" }, address: "부산 해운대구 구남로 28", food: { ko: "돼지국밥" }, latitude: 35.1610, longitude: 129.1600, thumbnail: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=400", rating: 4.5 },
+      { id: "r3_4", name: { ko: "금수복국 해운대본점" }, address: "부산 해운대구 중동1로43번길 23", food: { ko: "뚝배기 복국" }, latitude: 35.1612, longitude: 129.1625, thumbnail: "https://images.unsplash.com/photo-1544148103-0773bf10d330?w=400", rating: 4.6 },
+      { id: "r3_5", name: { ko: "해성막창집 본점" }, address: "부산 해운대구 중동1로19번길 29", food: { ko: "대창/곱창전골" }, latitude: 35.1620, longitude: 129.1630, thumbnail: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400", rating: 4.5 }
     ],
     cafes: [
-      { id: "c3_1", name: { ko: "호랑이젤라떡" }, signature: { ko: "젤라떡" }, latitude: 35.1580, longitude: 129.1650, thumbnail: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=400", rating: 4.8 },
-      { id: "c3_2", name: { ko: "랑데자뷰 해운대" }, signature: { ko: "제주 감성/오션뷰" }, latitude: 35.1595, longitude: 129.1620, thumbnail: "https://images.unsplash.com/photo-1498804103079-a6351b050096?w=400", rating: 4.6 },
-      { id: "c3_3", name: { ko: "스누피플레이스 부산" }, signature: { ko: "스누피 테마" }, latitude: 35.1590, longitude: 129.1630, thumbnail: "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?w=400", rating: 4.5 },
-      { id: "c3_4", name: { ko: "오션어스" }, signature: { ko: "오션뷰 커피" }, latitude: 35.1585, longitude: 129.1640, thumbnail: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=400", rating: 4.4 },
-      { id: "c3_5", name: { ko: "빌라혼네" }, signature: { ko: "에스프레소 바" }, latitude: 35.1610, longitude: 129.1610, thumbnail: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=400", rating: 4.7 }
+      { id: "c3_1", name: { ko: "호랑이젤라떡" }, address: "부산 해운대구 달맞이길62번길 38", signature: { ko: "젤라떡" }, latitude: 35.1580, longitude: 129.1650, thumbnail: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=400", rating: 4.8 },
+      { id: "c3_2", name: { ko: "랑데자뷰 해운대" }, address: "부산 해운대구 달맞이길62번길 23", signature: { ko: "제주 감성/오션뷰" }, latitude: 35.1595, longitude: 129.1620, thumbnail: "https://images.unsplash.com/photo-1498804103079-a6351b050096?w=400", rating: 4.6 },
+      { id: "c3_3", name: { ko: "스누피플레이스 부산" }, address: "부산 해운대구 해운대해변로 197", signature: { ko: "스누피 테마" }, latitude: 35.1590, longitude: 129.1630, thumbnail: "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?w=400", rating: 4.5 },
+      { id: "c3_4", name: { ko: "오션어스" }, address: "부산 해운대구 달맞이길62번길 28", signature: { ko: "오션뷰 커피" }, latitude: 35.1585, longitude: 129.1640, thumbnail: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=400", rating: 4.4 },
+      { id: "c3_5", name: { ko: "빌라혼네" }, address: "부산 해운대구 구남로 41", signature: { ko: "에스프레소 바" }, latitude: 35.1610, longitude: 129.1610, thumbnail: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=400", rating: 4.7 }
     ]
   },
   "spot_004": { 
@@ -131,50 +105,50 @@ export const SPOT_CONFIGS: Record<string, any> = {
   "spot_005": { 
     baseLat: 35.0966, baseLng: 129.0306, radius: 1000,
     restaurants: [
-      { id: "r5_1", name: { ko: "백화양곱창" }, food: { ko: "양곱창" }, latitude: 35.0960, longitude: 129.0310, thumbnail: "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=400", rating: 4.6 },
-      { id: "r5_2", name: { ko: "제일꼼장어" }, food: { ko: "꼼장어" }, latitude: 35.0955, longitude: 129.0300, thumbnail: "https://images.unsplash.com/photo-1544148103-0773bf10d330?w=400", rating: 4.5 },
-      { id: "r5_3", name: { ko: "남포동 생선구이 골목" }, food: { ko: "생선구이백반" }, latitude: 35.0970, longitude: 129.0305, thumbnail: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=400", rating: 4.4 }
+      { id: "r5_1", name: { ko: "백화양곱창" }, address: "부산 중구 자갈치로23번길 6", food: { ko: "양곱창" }, latitude: 35.0960, longitude: 129.0310, thumbnail: "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=400", rating: 4.6 },
+      { id: "r5_2", name: { ko: "제일꼼장어" }, address: "부산 중구 자갈치해안로 65", food: { ko: "꼼장어" }, latitude: 35.0955, longitude: 129.0300, thumbnail: "https://images.unsplash.com/photo-1544148103-0773bf10d330?w=400", rating: 4.5 },
+      { id: "r5_3", name: { ko: "남포동 생선구이 골목" }, address: "부산 중구 자갈치로23번길 15", food: { ko: "생선구이백반" }, latitude: 35.0970, longitude: 129.0305, thumbnail: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=400", rating: 4.4 }
     ],
     cafes: [
-      { id: "c5_1", name: { ko: "바우노바 백산" }, signature: { ko: "드립커피" }, latitude: 35.0990, longitude: 129.0330, thumbnail: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=400", rating: 4.8 }
+      { id: "c5_1", name: { ko: "바우노바 백산" }, address: "부산 중구 백산길 9", signature: { ko: "드립커피" }, latitude: 35.0990, longitude: 129.0330, thumbnail: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=400", rating: 4.8 }
     ]
   },
   "pachinko": { 
     baseLat: 35.0617, baseLng: 129.0767, radius: 1000,
     restaurants: [
-      { id: "gr1", name: { ko: "태종대 짬뽕" }, food: { ko: "해물짬뽕" }, latitude: 35.0534, longitude: 129.0807, thumbnail: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400", rating: 4.5 },
-      { id: "gr2", name: { ko: "충북식당" }, food: { ko: "한식" }, latitude: 35.0541, longitude: 129.0801, thumbnail: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=400", rating: 4.3 },
-      { id: "gr3", name: { ko: "태종대 자갈마당 해녀촌" }, food: { ko: "조개구이/해산물" }, latitude: 35.0601, longitude: 129.0770, thumbnail: "https://images.unsplash.com/photo-1626804475297-41609ea064eb?w=400", rating: 4.6 }
+      { id: "gr1", name: { ko: "태종대 짬뽕" }, address: "부산 영도구 태종로 825", food: { ko: "해물짬뽕" }, latitude: 35.0534, longitude: 129.0807, thumbnail: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400", rating: 4.5 },
+      { id: "gr2", name: { ko: "충북식당" }, address: "부산 영도구 태종로 831", food: { ko: "한식" }, latitude: 35.0541, longitude: 129.0801, thumbnail: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=400", rating: 4.3 },
+      { id: "gr3", name: { ko: "태종대 자갈마당 해녀촌" }, address: "부산 영도구 전망로 24", food: { ko: "조개구이/해산물" }, latitude: 35.0601, longitude: 129.0770, thumbnail: "https://images.unsplash.com/photo-1626804475297-41609ea064eb?w=400", rating: 4.6 }
     ],
     cafes: [
-      { id: "gc1", name: { ko: "엔제리너스 태종대점" }, signature: { ko: "프랜차이즈 카페" }, latitude: 35.0532, longitude: 129.0811, thumbnail: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=400", rating: 4.0 }
+      { id: "gc1", name: { ko: "엔제리너스 태종대점" }, address: "부산 영도구 태종로 834", signature: { ko: "프랜차이즈 카페" }, latitude: 35.0532, longitude: 129.0811, thumbnail: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=400", rating: 4.0 }
     ]
   },
   "spot_007": { 
     baseLat: 35.1531, baseLng: 129.1189, radius: 1000,
     restaurants: [
-      { id: "r7_1", name: { ko: "톤쇼우 광안점" }, food: { ko: "돈카츠" }, latitude: 35.1540, longitude: 129.1220, thumbnail: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400", rating: 4.9 },
-      { id: "r7_2", name: { ko: "수변최고돼지국밥" }, food: { ko: "돼지국밥" }, latitude: 35.1550, longitude: 129.1240, thumbnail: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=400", rating: 4.6 }
+      { id: "r7_1", name: { ko: "톤쇼우 광안점" }, address: "부산 수영구 광안해변로279번길 13", food: { ko: "돈카츠" }, latitude: 35.1540, longitude: 129.1220, thumbnail: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400", rating: 4.9 },
+      { id: "r7_2", name: { ko: "수변최고돼지국밥" }, address: "부산 수영구 광안해변로370번길 9-32", food: { ko: "돼지국밥" }, latitude: 35.1550, longitude: 129.1240, thumbnail: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=400", rating: 4.6 }
     ],
     cafes: [
-      { id: "c7_1", name: { ko: "광안리 뚜벅스" }, signature: { ko: "오션뷰" }, latitude: 35.1530, longitude: 129.1180, thumbnail: "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?w=400", rating: 4.7 },
-      { id: "c7_2", name: { ko: "밀락더마켓" }, signature: { ko: "복합문화공간" }, latitude: 35.1545, longitude: 129.1235, thumbnail: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400", rating: 4.8 }
+      { id: "c7_1", name: { ko: "광안리 뚜벅스" }, address: "부산 수영구 광안해변로 239", signature: { ko: "오션뷰" }, latitude: 35.1530, longitude: 129.1180, thumbnail: "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?w=400", rating: 4.7 },
+      { id: "c7_2", name: { ko: "밀락더마켓" }, address: "부산 수영구 민락수변로17번길 56", signature: { ko: "복합문화공간" }, latitude: 35.1545, longitude: 129.1235, thumbnail: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400", rating: 4.8 }
     ]
   },
   "spot_008": { 
     baseLat: 35.0761, baseLng: 129.0173, radius: 1000,
     restaurants: [
-      { id: "r8_1", name: { ko: "송도 1913" }, food: { ko: "조개구이" }, latitude: 35.0750, longitude: 129.0180, thumbnail: "https://images.unsplash.com/photo-1626804475297-41609ea064eb?w=400", rating: 4.4 },
-      { id: "r8_2", name: { ko: "사천해물탕" }, food: { ko: "해물탕" }, latitude: 35.0770, longitude: 129.0165, thumbnail: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=400", rating: 4.5 }
+      { id: "r8_1", name: { ko: "송도 1913" }, address: "부산 서구 송도해변로 19-1", food: { ko: "조개구이" }, latitude: 35.0750, longitude: 129.0180, thumbnail: "https://images.unsplash.com/photo-1626804475297-41609ea064eb?w=400", rating: 4.4 },
+      { id: "r8_2", name: { ko: "사천해물탕" }, address: "부산 서구 충무대로 12", food: { ko: "해물탕" }, latitude: 35.0770, longitude: 129.0165, thumbnail: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=400", rating: 4.5 }
     ],
     cafes: [
-      { id: "c8_1", name: { ko: "TCC 송도" }, signature: { ko: "루프탑 뷰" }, latitude: 35.0755, longitude: 129.0175, thumbnail: "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?w=400", rating: 4.6 },
-      { id: "c8_2", name: { ko: "이디야커피 부산송도해상케이블카점" }, signature: { ko: "케이블카 뷰" }, latitude: 35.0780, longitude: 129.0200, thumbnail: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=400", rating: 4.3 }
+      { id: "c8_1", name: { ko: "TCC 송도" }, address: "부산 서구 송도해변로 143", signature: { ko: "루프탑 뷰" }, latitude: 35.0755, longitude: 129.0175, thumbnail: "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?w=400", rating: 4.6 },
+      { id: "c8_2", name: { ko: "이디야커피 부산송도해상케이블카점" }, address: "부산 서구 송도해변로 171", signature: { ko: "케이블카 뷰" }, latitude: 35.0780, longitude: 129.0200, thumbnail: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=400", rating: 4.3 }
     ]
   }
 };
 
-export function getDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
+function getDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
   const R = 6371e3;
   const rad = Math.PI / 180;
   const dLat = (lat2 - lat1) * rad;
@@ -199,25 +173,47 @@ export default function NearbyDiscovery({ params, searchParams }: { params: Prom
   const spot = useMemo(() => (spotsRaw as any[]).find((s) => s.id === id), [id]);
   const initialTab = type === "cafe" ? "cafe" : "restaurant";
   const [activeTab, setActiveTab] = useState<"restaurant" | "cafe">(initialTab);
+  const mapRadius = 1000;
+  const mapCenter = useMemo(() => {
+    const config = SPOT_CONFIGS[id as string];
+    if (id === "spot_005" && activeTab === "cafe") return [config?.baseLat || 35.0966, config?.baseLng || 129.0306] as [number, number];
+    return [config?.baseLat || BASE_LAT, config?.baseLng || BASE_LNG] as [number, number];
+  }, [id, activeTab]);
 
-  const nearbyItems = useMemo(() => {
-    if (id === "spot_005" && activeTab === "cafe") {
-      return JAGALCHI_NEARBY_CAFES;
-    }
+  const allPlacesInRadius = useMemo(() => {
+    let rawData: any[] = [];
+    let baseLat = mapCenter[0];
+    let baseLng = mapCenter[1];
 
     const config = SPOT_CONFIGS[id as string];
-    if (!config) return [];
 
-    const rawData = activeTab === "restaurant" ? config.restaurants : config.cafes;
-    const processed = rawData.map((item: any) => {
-      const dist = getDistance(config.baseLat, config.baseLng, item.latitude, item.longitude);
-      return { ...item, calculatedDistance: dist };
+    if (id === "spot_005" && activeTab === "cafe") {
+      rawData = JAGALCHI_NEARBY_CAFES;
+    } else if (config) {
+      rawData = activeTab === "restaurant" ? config.restaurants : config.cafes;
+    }
+
+    if (!rawData || rawData.length === 0) return [];
+
+    const processed = rawData.map((item: any, idx: number) => {
+      const dist = item.calculatedDistance || getDistance(baseLat, baseLng, item.latitude, item.longitude);
+      return { 
+        ...item, 
+        calculatedDistance: dist,
+        name: item.name.ko || item.name,
+        thumbnail: item.thumbnail || (activeTab === "restaurant" ? KOREAN_FOOD_IMAGES[idx % KOREAN_FOOD_IMAGES.length] : KOREAN_CAFE_IMAGES[idx % KOREAN_CAFE_IMAGES.length]),
+        signatureMenu: item.signatureMenu || item.signature?.[lang] || item.signature?.ko || item.food?.ko || item.food || "추천 명소"
+      };
     });
 
     return processed
-      .filter((item: any) => item.calculatedDistance <= config.radius)
+      .filter((item: any) => item.calculatedDistance <= mapRadius)
       .sort((a: any, b: any) => a.calculatedDistance - b.calculatedDistance);
-  }, [activeTab, id]);
+  }, [activeTab, id, mapRadius, mapCenter, lang]);
+
+  const nearbyItems = useMemo(() => {
+    return allPlacesInRadius;
+  }, [allPlacesInRadius]);
 
   if (!spot) return <div>Spot not found</div>;
 
@@ -234,7 +230,7 @@ export default function NearbyDiscovery({ params, searchParams }: { params: Prom
           <div>
             <h1 className="text-[20px] font-black text-[#1F2937] tracking-tight">{spot.name[lang] ?? spot.name.ko} 주변 탐방</h1>
             <p className="text-[12px] text-[#9CA3AF] font-bold flex items-center gap-1.5 mt-0.5">
-              <MapPin className="size-3.5 text-[#FFB6C1]" /> 반경 {SPOT_CONFIGS[id as string]?.radius / 1000 || 1}km 이내 인기 장소
+              <MapPin className="size-3.5 text-[#FFB6C1]" /> 반경 1km 이내 인기 장소
             </p>
           </div>
         </div>
@@ -266,44 +262,32 @@ export default function NearbyDiscovery({ params, searchParams }: { params: Prom
           </button>
         </div>
 
-        <div className="space-y-8">
+        {/* Responsive List: Mobile(Horizontal Scroll) / Desktop(Grid) */}
+
+
+        {/* Responsive List: Mobile(Horizontal Scroll) / Desktop(Grid) */}
+        <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 overflow-x-auto md:overflow-x-visible gap-4 md:gap-6 lg:gap-8 snap-x snap-mandatory px-6 pb-4 -mx-6 md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {nearbyItems.length > 0 ? (
-            nearbyItems.map((item: any, idx: number) => (
+            nearbyItems.map((item: any) => (
               <DiscoveryCard 
                 key={item.id} 
                 parentSpotName={spot.name[lang] ?? spot.name.ko}
-                item={{
-                  ...item,
-                  distance: item.calculatedDistance || item.distance,
-                  name: item.name.ko || item.name,
-                  images: item.images && item.images.length >= 4 
-                    ? item.images 
-                    : activeTab === "restaurant"
-                      ? [
-                          { url: item.thumbnail || KOREAN_FOOD_IMAGES[idx % KOREAN_FOOD_IMAGES.length], description: "인기 메뉴" },
-                          { url: KOREAN_FOOD_IMAGES[(idx + 1) % KOREAN_FOOD_IMAGES.length], description: "따뜻한 무드" },
-                          { url: KOREAN_FOOD_IMAGES[(idx + 2) % KOREAN_FOOD_IMAGES.length], description: "정갈한 맛" },
-                          { url: KOREAN_FOOD_IMAGES[(idx + 3) % KOREAN_FOOD_IMAGES.length], description: "식당 전경" }
-                        ]
-                      : [
-                          { url: item.thumbnail || KOREAN_CAFE_IMAGES[idx % KOREAN_CAFE_IMAGES.length], description: "시그니처 메뉴" },
-                          { url: KOREAN_CAFE_IMAGES[(idx + 1) % KOREAN_CAFE_IMAGES.length], description: "라떼 아트" },
-                          { url: KOREAN_CAFE_IMAGES[(idx + 2) % KOREAN_CAFE_IMAGES.length], description: "코지한 디저트" },
-                          { url: KOREAN_CAFE_IMAGES[(idx + 3) % KOREAN_CAFE_IMAGES.length], description: "세련된 카페 인테리어" }
-                        ],
-                  reviewSummary: item.reviewSummary || "현지인들이 추천하는 부산의 숨은 명소입니다.",
-                  signatureMenu: item.signatureMenu || item.signature?.[lang] || item.signature?.ko || "대표 메뉴"
-                }} 
+                item={item} 
               />
             ))
           ) : (
-            <EmptyState onFindMore={() => toast("더 많은 장소를 검색 중입니다...")} />
+            <div className="w-full md:col-span-2 lg:col-span-4 text-center py-10 text-[#717171] font-medium text-[15px]">해당 반경 내에 장소가 없습니다.</div>
           )}
         </div>
 
-        {nearbyItems.length > 0 && (
-          <EmptyState onFindMore={() => toast("더 많은 장소를 검색 중입니다...")} />
-        )}
+        {/* The Single Map */}
+        <div className="w-full h-[400px] md:h-[500px] bg-[#E5E7EB] rounded-[32px] overflow-hidden shadow-sm relative border border-[#F3F4F6]">
+          <InteractiveMap 
+            center={mapCenter} 
+            radius={mapRadius} 
+            places={allPlacesInRadius} 
+          />
+        </div>
       </div>
     </div>
   );
