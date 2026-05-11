@@ -19,11 +19,11 @@ export default function DiscoveryCard({ item, parentSpotName }: DiscoveryCardPro
   const { t } = useTranslation();
   const [selectedPhotoIdx, setSelectedPhotoIdx] = useState<number | null>(null);
   const [isMapExpanded, setIsMapExpanded] = useState(false);
-  
+
   const myCourseItems = useAppStore((s) => s.myCourseItems);
   const toggleMyCourseItem = useAppStore((s) => s.toggleMyCourseItem);
   const toggleFavorite = useAppStore((s) => s.toggleFavorite);
-  
+
   const isFav = myCourseItems.some(x => x.id === item.id);
   const walkingMinutes = Math.ceil(item.distance / 80);
 
@@ -33,7 +33,7 @@ export default function DiscoveryCard({ item, parentSpotName }: DiscoveryCardPro
 
   return (
     <div className="group relative overflow-hidden rounded-[40px] bg-white border border-[#F3F4F6] shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all hover:shadow-[0_24px_50px_rgb(0,0,0,0.08)] mb-12">
-      
+
       {/* 1. Upper Part: 4분할 그리드 이미지 */}
       <div className="grid grid-cols-2 gap-1.5 p-1.5 aspect-square relative">
         {item.images?.slice(0, 4).map((img, idx) => (
@@ -71,11 +71,10 @@ export default function DiscoveryCard({ item, parentSpotName }: DiscoveryCardPro
             toggleMyCourseItem(payload);
             toggleFavorite(item.id);
           }}
-          className={`absolute top-6 right-6 z-20 w-16 h-16 rounded-3xl backdrop-blur-xl transition-all active:scale-90 flex items-center justify-center border-2 ${
-            isFav 
-              ? "bg-[#FF4D8D] border-[#FF4D8D] text-white shadow-xl shadow-[#FF4D8D]/40" 
+          className={`absolute top-6 right-6 z-20 w-16 h-16 rounded-3xl backdrop-blur-xl transition-all active:scale-90 flex items-center justify-center border-2 ${isFav
+              ? "bg-[#FF4D8D] border-[#FF4D8D] text-white shadow-xl shadow-[#FF4D8D]/40"
               : "bg-white/40 border-white/60 text-white hover:bg-white/60"
-          }`}
+            }`}
         >
           <Heart className={`size-8 ${isFav ? "fill-current" : "drop-shadow-lg"}`} strokeWidth={2.5} />
         </button>
@@ -119,7 +118,7 @@ export default function DiscoveryCard({ item, parentSpotName }: DiscoveryCardPro
       {/* 3. Lower Part: Mini Map (Functional) */}
       <div className="px-8 pb-8">
         <div className="flex flex-col gap-4">
-          <motion.div 
+          <motion.div
             animate={{ height: isMapExpanded ? 400 : 160 }}
             className="relative rounded-[32px] overflow-hidden border border-[#F1F5F9] shadow-inner cursor-pointer"
             onClick={() => setIsMapExpanded(!isMapExpanded)}
@@ -132,7 +131,7 @@ export default function DiscoveryCard({ item, parentSpotName }: DiscoveryCardPro
               className="grayscale-[0.2] contrast-[0.9] brightness-[1.05]"
               title={`${item.name} Location Map`}
             />
-            
+
             {/* Overlay Info */}
             {!isMapExpanded && (
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent flex items-end p-6">
