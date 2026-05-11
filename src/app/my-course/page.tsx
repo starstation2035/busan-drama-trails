@@ -645,8 +645,8 @@ function CourseView({
                         key={m}
                         onClick={() => onUpdateTravelMode(i, m)}
                         className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[10px] font-bold transition-all ${entry.travelToNext?.mode === m
-                            ? "bg-primary text-white shadow-md ring-2 ring-primary/20 scale-105"
-                            : "bg-transparent text-muted-foreground hover:bg-muted/30"
+                          ? "bg-primary text-white shadow-md ring-2 ring-primary/20 scale-105"
+                          : "bg-transparent text-muted-foreground hover:bg-muted/30"
                           }`}
                       >
                         <ModeIcon mode={m} />
