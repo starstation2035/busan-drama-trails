@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Star, Coffee, Heart, UtensilsCrossed, Sparkles, X, MapPin, Car, ChevronRight } from "lucide-react";
+import { Star, Coffee, Heart, UtensilsCrossed, Sparkles, X, MapPin } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import { CafeLocation } from "@/data/nearby_cafes";
 import { useAppStore } from "@/stores/useAppStore";
 import { triggerHeartFly } from "@/components/HeartEffect";
@@ -19,37 +18,57 @@ export default function DiscoveryCard({ item, parentSpotName }: DiscoveryCardPro
   const { t } = useTranslation();
   const [selectedPhotoIdx, setSelectedPhotoIdx] = useState<number | null>(null);
   const [isMapExpanded, setIsMapExpanded] = useState(false);
-  
+
   const myCourseItems = useAppStore((s) => s.myCourseItems);
   const toggleMyCourseItem = useAppStore((s) => s.toggleMyCourseItem);
   const toggleFavorite = useAppStore((s) => s.toggleFavorite);
-  
+
   const isFav = myCourseItems.some(x => x.id === item.id);
   const walkingMinutes = Math.ceil(item.distance / 80);
 
-  const handleCallCar = () => {
-    toast.success("차량 호출 서비스를 준비 중입니다!");
-  };
-
   return (
     <div className="group relative overflow-hidden rounded-[40px] bg-white border border-[#F3F4F6] shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all hover:shadow-[0_24px_50px_rgb(0,0,0,0.08)] mb-12">
-      
+
       {/* 1. Upper Part: 4분할 그리드 이미지 */}
-      <div className="grid grid-cols-2 gap-1.5 p-1.5 aspect-square relative">
-        {item.images?.slice(0, 4).map((img, idx) => (
-          <div
-            key={idx}
-            onClick={() => setSelectedPhotoIdx(idx)}
-            className="relative overflow-hidden rounded-[24px] bg-[#F9FAFB] cursor-zoom-in group/photo"
-          >
-            <img
-              src={img.url}
-              alt={img.description}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover/photo:scale-110"
-            />
-            <div className="absolute inset-0 bg-black/5 opacity-0 group-hover/photo:opacity-100 transition-opacity" />
-          </div>
-        ))}
+      <div className="grid grid-cols-2 grid-rows-2 gap-1.5 p-1.5 aspect-square relative">
+        {Array.from({ length: 4 }).map((_, idx) => {
+          const img = item.images?.[idx];
+          const fallbackImg = item.images?.[0]?.url;
+          return (
+            <div
+              key={idx}
+              onClick={() => img && setSelectedPhotoIdx(idx)}
+              className={`relative overflow-hidden rounded-[24px] bg-[#F8FAFC] ${img ? "cursor-zoom-in group/photo" : ""}`}
+            >
+              {img ? (
+                <>
+                  <img
+                    src={img.url}
+                    alt={img.description}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover/photo:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-black/5 opacity-0 group-hover/photo:opacity-100 transition-opacity" />
+                </>
+              ) : (
+                <div className="w-full h-full relative overflow-hidden bg-[#F1F5F9]">
+                  {fallbackImg && (
+                    <img
+                      src={fallbackImg}
+                      alt="placeholder"
+                      className="w-full h-full object-cover blur-[12px] scale-125 opacity-40 saturate-50"
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#FF4D8D]/5 to-transparent mix-blend-overlay" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-full bg-white/40 backdrop-blur-md flex items-center justify-center shadow-sm border border-white/40">
+                      <Sparkles className="size-4 text-white drop-shadow-sm" />
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })}
 
         {/* Wish Action */}
         <button
@@ -71,11 +90,10 @@ export default function DiscoveryCard({ item, parentSpotName }: DiscoveryCardPro
             toggleMyCourseItem(payload);
             toggleFavorite(item.id);
           }}
-          className={`absolute top-6 right-6 z-20 w-16 h-16 rounded-3xl backdrop-blur-xl transition-all active:scale-90 flex items-center justify-center border-2 ${
-            isFav 
-              ? "bg-[#FF4D8D] border-[#FF4D8D] text-white shadow-xl shadow-[#FF4D8D]/40" 
+          className={`absolute top-6 right-6 z-20 w-16 h-16 rounded-3xl backdrop-blur-xl transition-all active:scale-90 flex items-center justify-center border-2 ${isFav
+              ? "bg-[#FF4D8D] border-[#FF4D8D] text-white shadow-xl shadow-[#FF4D8D]/40"
               : "bg-white/40 border-white/60 text-white hover:bg-white/60"
-          }`}
+            }`}
         >
           <Heart className={`size-8 ${isFav ? "fill-current" : "drop-shadow-lg"}`} strokeWidth={2.5} />
         </button>
@@ -118,49 +136,32 @@ export default function DiscoveryCard({ item, parentSpotName }: DiscoveryCardPro
 
       {/* 3. Lower Part: Mini Map (Functional) */}
       <div className="px-8 pb-8">
-        <div className="flex flex-col gap-4">
-          <motion.div 
-            animate={{ height: isMapExpanded ? 400 : 160 }}
-            className="relative rounded-[32px] overflow-hidden border border-[#F1F5F9] shadow-inner cursor-pointer"
-            onClick={() => setIsMapExpanded(!isMapExpanded)}
-          >
-            <iframe
-              width="100%"
-              height="100%"
-              frameBorder="0"
-              src={`https://maps.google.com/maps?q=${item.latitude},${item.longitude}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
-              className="grayscale-[0.2] contrast-[0.9] brightness-[1.05]"
-              title={`${item.name} Location Map`}
-            />
-            
-            {/* Overlay Info */}
-            {!isMapExpanded && (
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent flex items-end p-6">
-                <div className="bg-white/90 backdrop-blur-md px-5 py-2.5 rounded-2xl border border-white shadow-lg flex items-center gap-2.5">
-                  <MapPin className="size-4 text-[#FF4D8D]" />
-                  <span className="text-[14px] font-black text-[#1F2937]">
-                    {parentSpotName}에서 {item.distance}m <span className="text-[#9CA3AF] mx-1">|</span> 도보 {walkingMinutes}분
-                  </span>
-                </div>
-              </div>
-            )}
-          </motion.div>
+        <motion.div
+          animate={{ height: isMapExpanded ? 400 : 160 }}
+          className="relative rounded-[32px] overflow-hidden border border-[#F1F5F9] shadow-inner cursor-pointer"
+          onClick={() => setIsMapExpanded(!isMapExpanded)}
+        >
+          <iframe
+            width="100%"
+            height="100%"
+            frameBorder="0"
+            src={`https://maps.google.com/maps?q=${item.latitude},${item.longitude}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+            className="grayscale-[0.2] contrast-[0.9] brightness-[1.05]"
+            title={`${item.name} Location Map`}
+          />
 
-          {/* 4. Vehicle Tour Booking Button (Premium & Accessible) */}
-          <Button
-            onClick={handleCallCar}
-            className="w-full h-16 rounded-[28px] bg-gradient-to-r from-[#FF4D8D] to-[#FF8EBC] text-white font-black text-[17px] shadow-[0_12px_24px_rgba(255,77,141,0.3)] hover:shadow-[0_16px_32px_rgba(255,77,141,0.4)] transition-all active:scale-[0.98] border-none group/btn"
-            aria-label={t("detail.cta.carTour") || "Book Vehicle Tour"}
-          >
-            <div className="flex items-center justify-center gap-3">
-              <div className="bg-white/20 p-2 rounded-xl backdrop-blur-md group-hover/btn:rotate-12 transition-transform">
-                <Car className="size-5 text-white" />
+          {/* Overlay Info */}
+          {!isMapExpanded && (
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent flex items-end p-6">
+              <div className="bg-white/90 backdrop-blur-md px-5 py-2.5 rounded-2xl border border-white shadow-lg flex items-center gap-2.5">
+                <MapPin className="size-4 text-[#FF4D8D]" />
+                <span className="text-[14px] font-black text-[#1F2937]">
+                  {parentSpotName}에서 {item.distance}m <span className="text-[#9CA3AF] mx-1">|</span> 도보 {walkingMinutes}분
+                </span>
               </div>
-              <span>{t("detail.cta.carTour") || "차량 투어 예약"}</span>
-              <ChevronRight className="size-5 opacity-50 group-hover/btn:translate-x-1 transition-transform" />
             </div>
-          </Button>
-        </div>
+          )}
+        </motion.div>
       </div>
 
       {/* Internal Lightbox */}

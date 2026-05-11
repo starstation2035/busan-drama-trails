@@ -376,7 +376,7 @@ export default function MyCoursePage() {
                   <SheetTitle className="text-center font-black tracking-tight">{t("myCourse.actions.share")}</SheetTitle>
                 </SheetHeader>
                 <div className="h-full overflow-y-auto p-6 pb-20">
-                  <div className="mx-auto max-w-sm space-y-6">
+                  <div className="space-y-6">
                     <ShareLayout course={editableCourse} lang={lang} />
                     <div className="grid grid-cols-2 gap-3">
                       <Button onClick={handleShare} variant="outline" className="h-12 gap-2 rounded-xl border-border/60 font-bold">

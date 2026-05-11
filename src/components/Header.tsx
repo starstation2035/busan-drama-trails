@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
-import { Globe, Heart, Menu, Home, MapPin, Sparkles, MessageSquare, Briefcase } from "lucide-react";
+import { Globe, Heart, Menu, Home, MapPin, Sparkles, MessageSquare, Briefcase, ShoppingBag } from "lucide-react";
 import { useAppStore } from "@/stores/useAppStore";
 import {
   Sheet,
@@ -36,6 +36,7 @@ export function Header({ onOpenLang }: Props) {
     { href: "/", icon: Home, label: t("nav.home") },
     { href: "/community", icon: MessageSquare, label: t("nav.community") },
     { href: "/my-course", icon: Heart, label: t("nav.myCourse") },
+    { href: "/goods", icon: ShoppingBag, label: t("nav.goods") },
   ];
 
   return (
