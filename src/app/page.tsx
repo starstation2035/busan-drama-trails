@@ -144,12 +144,6 @@ export default function LandingPage() {
                 {t("landing.cinema.subtitle")}
               </p>
             </div>
-            <Link
-              href="/spots"
-              className="text-sm font-bold text-[#FF385C] hover:underline underline-offset-4 decoration-2 transition-all"
-            >
-              {t("landing.recentReviews.viewAll")}
-            </Link>
           </div>
 
           <div
