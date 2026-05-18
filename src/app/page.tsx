@@ -16,48 +16,48 @@ interface Poster {
 }
 
 const POSTERS: Poster[] = [
-  { 
+  {
     id: "woo",
-    year: "2022", 
-    img: "https://image.tmdb.org/t/p/original/u6Cx6ijenevIQjtrjFpPgQzgI10.jpg", 
+    year: "2022",
+    img: "https://image.tmdb.org/t/p/original/u6Cx6ijenevIQjtrjFpPgQzgI10.jpg",
     link: "/spots/spot_001",
-    title: "이상한 변호사 우영우"
+    title: "이상한 변호사 우영우",
   },
-  { 
+  {
     id: "runningman",
-    year: "2010", 
-    img: "https://image.tmdb.org/t/p/original/15SMnscZqd7HZ0bzruatOcKUlOV.jpg", 
+    year: "2010",
+    img: "https://image.tmdb.org/t/p/original/15SMnscZqd7HZ0bzruatOcKUlOV.jpg",
     link: "/spots/spot_002",
-    title: "런닝맨"
+    title: "런닝맨",
   },
-  { 
+  {
     id: "pachinko",
-    year: "2022", 
-    img: "https://image.tmdb.org/t/p/w500/aK640gWriIscSoSf30MNqtsvseo.jpg", 
+    year: "2022",
+    img: "https://image.tmdb.org/t/p/w500/aK640gWriIscSoSf30MNqtsvseo.jpg",
     link: "/spots/pachinko",
-    title: "파친코"
+    title: "파친코",
   },
-  { 
+  {
     id: "attorney",
-    year: "2013", 
-    img: "https://upload.wikimedia.org/wikipedia/en/b/b5/The_Attorney_poster.jpg", 
+    year: "2013",
+    img: "https://upload.wikimedia.org/wikipedia/en/b/b5/The_Attorney_poster.jpg",
     link: "/spots/spot_004",
-    title: "변호인"
+    title: "변호인",
   },
-  { 
+  {
     id: "haeundae",
-    year: "2009", 
-    img: "https://upload.wikimedia.org/wikipedia/en/b/b7/Haeundae_film_poster.jpg", 
+    year: "2009",
+    img: "https://upload.wikimedia.org/wikipedia/en/b/b7/Haeundae_film_poster.jpg",
     link: "/spots/spot_003",
-    title: "해운대"
+    title: "해운대",
   },
-  { 
+  {
     id: "market",
-    year: "2014", 
-    img: "https://image.tmdb.org/t/p/original/rmZ4qkpDVdTgjwliJ84aJ43hStt.jpg", 
+    year: "2014",
+    img: "https://image.tmdb.org/t/p/original/rmZ4qkpDVdTgjwliJ84aJ43hStt.jpg",
     link: "/spots?dramas=국제시장",
-    title: "국제시장"
-  }
+    title: "국제시장",
+  },
 ];
 
 export default function LandingPage() {
@@ -71,7 +71,7 @@ export default function LandingPage() {
     const rect = scrollRef.current.getBoundingClientRect();
     setMousePos({
       x: e.clientX - rect.left,
-      w: rect.width
+      w: rect.width,
     });
   };
 
@@ -85,19 +85,19 @@ export default function LandingPage() {
         const center = mousePos.w / 2;
         const diff = mousePos.x - center;
         const ratio = diff / center; // -1 to 1
-        
+
         // 1. Add a dead zone in the middle (20%)
         const DEAD_ZONE = 0.2;
         let speed = 0;
-        
+
         if (Math.abs(ratio) > DEAD_ZONE) {
           // 2. Normalize ratio after dead zone and apply a power function for smooth curve
           const sign = ratio > 0 ? 1 : -1;
           const adjustedRatio = (Math.abs(ratio) - DEAD_ZONE) / (1 - DEAD_ZONE);
           // Power of 1.5 gives a nice progressive acceleration
-          speed = sign * Math.pow(adjustedRatio, 1.5) * 15; 
+          speed = sign * Math.pow(adjustedRatio, 1.5) * 15;
         }
-        
+
         if (speed !== 0) {
           scrollRef.current.scrollLeft += speed;
         }
@@ -112,7 +112,7 @@ export default function LandingPage() {
   }, [mousePos]);
 
   const recentReviews = MOCK_REVIEWS.slice(0, 3);
-  
+
   return (
     <div className="bg-background/0 text-foreground min-h-screen pb-20 space-y-16">
       {/* 🌟 Brand Hero Section (Restored & Centered) */}
@@ -122,12 +122,12 @@ export default function LandingPage() {
           <Sparkles className="h-3.5 w-3.5" />
           <span className="text-[12px] font-bold tracking-wider uppercase">One Shot Trap</span>
         </div>
-        
+
         {/* Title */}
         <h1 className="text-6xl sm:text-8xl font-black text-[#222222] tracking-tighter mb-6 leading-tight">
           {t("common.appName")}
         </h1>
-        
+
         {/* Subtitle */}
         <p className="text-xl sm:text-2xl font-medium text-[#717171] flex items-center gap-2">
           {t("landing.subtitle")} <span className="animate-pulse">✨</span>
@@ -140,14 +140,19 @@ export default function LandingPage() {
           <div className="flex items-end justify-between px-2">
             <div>
               <h2 className="text-2xl font-bold text-[#222222]">{t("landing.cinema.title")}</h2>
-              <p className="text-[13px] font-medium text-[#717171] uppercase tracking-widest mt-1">{t("landing.cinema.subtitle")}</p>
+              <p className="text-[13px] font-medium text-[#717171] uppercase tracking-widest mt-1">
+                {t("landing.cinema.subtitle")}
+              </p>
             </div>
-            <Link href="/spots" className="text-sm font-bold text-[#FF385C] hover:underline underline-offset-4 decoration-2 transition-all">
+            <Link
+              href="/spots"
+              className="text-sm font-bold text-[#FF385C] hover:underline underline-offset-4 decoration-2 transition-all"
+            >
               {t("landing.recentReviews.viewAll")}
             </Link>
           </div>
-          
-          <div 
+
+          <div
             ref={scrollRef}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
@@ -155,9 +160,9 @@ export default function LandingPage() {
           >
             <div className="flex gap-6 w-max py-4 px-2">
               {POSTERS.map((poster, i) => (
-                <Link 
-                  key={i} 
-                  href={poster.link} 
+                <Link
+                  key={i}
+                  href={poster.link}
                   className="group shrink-0 flex flex-col transition-all duration-500 hover:-translate-y-2"
                 >
                   <div className="relative overflow-hidden rounded-2xl shadow-airbnb aspect-[2/3] w-[220px] sm:w-[280px] mb-3">
@@ -189,8 +194,8 @@ export default function LandingPage() {
         {/* 🎭 Split Hero Section (Moved to 2nd position) */}
         <section className="relative w-full h-[400px] sm:h-[500px] flex flex-col md:flex-row overflow-hidden rounded-[2.5rem] shadow-xl border border-white/10">
           {/* Left Side: Filming Locations */}
-          <Link 
-            href="/spots" 
+          <Link
+            href="/spots"
             className="relative flex-1 group overflow-hidden border-b md:border-b-0 md:border-r border-white/20"
           >
             <img
@@ -215,10 +220,7 @@ export default function LandingPage() {
           </Link>
 
           {/* Right Side: My Course */}
-          <Link 
-            href="/my-course" 
-            className="relative flex-1 group overflow-hidden"
-          >
+          <Link href="/style-test" className="relative flex-1 group overflow-hidden">
             <img
               src="/busan_playlist_sunset.png"
               alt="내 코스"
@@ -252,11 +254,16 @@ export default function LandingPage() {
         <section className="bg-[#F7F7F7] -mx-6 px-6 py-16 rounded-[40px] animate-fade-up shadow-inner">
           <div className="flex items-center justify-between mb-8 px-2">
             <div>
-              <h2 className="text-2xl font-bold text-[#222222]">{t("landing.recentReviews.title")}</h2>
+              <h2 className="text-2xl font-bold text-[#222222]">
+                {t("landing.recentReviews.title")}
+              </h2>
               <p className="text-base text-[#717171] mt-1">{t("landing.recentReviews.subtitle")}</p>
             </div>
             <Link href="/community">
-              <Button variant="ghost" className="text-[#222222] font-bold hover:bg-white/50 rounded-full">
+              <Button
+                variant="ghost"
+                className="text-[#222222] font-bold hover:bg-white/50 rounded-full"
+              >
                 {t("landing.recentReviews.viewAll")}
                 <ArrowRight className="ml-2 h-4 w-4" strokeWidth={2.5} />
               </Button>
@@ -279,7 +286,11 @@ export default function LandingPage() {
                 </div>
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
-                    <img src={review.avatar} alt={review.author} className="h-6 w-6 rounded-full border border-[#DDDDDD]" />
+                    <img
+                      src={review.avatar}
+                      alt={review.author}
+                      className="h-6 w-6 rounded-full border border-[#DDDDDD]"
+                    />
                     <span className="text-[13px] font-bold text-[#222222]">{review.author}</span>
                   </div>
                   <p className="text-[15px] leading-relaxed text-[#222222] line-clamp-3 font-medium">
