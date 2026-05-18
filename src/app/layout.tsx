@@ -7,11 +7,7 @@ export const metadata: Metadata = {
   description: "Experience the best of K-culture in Busan with One Shot Trap.",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" translate="no" suppressHydrationWarning>
       <head>

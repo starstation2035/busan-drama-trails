@@ -61,12 +61,14 @@ function HeartAnimation({ startX, startY }: FlyingHeart) {
   return (
     <div
       className="absolute animate-heart-fly"
-      style={{
-        "--start-x": `${startX}px`,
-        "--start-y": `${startY}px`,
-        "--target-x": `${targetPos.x - startX}px`,
-        "--target-y": `${targetPos.y - startY}px`,
-      } as any}
+      style={
+        {
+          "--start-x": `${startX}px`,
+          "--start-y": `${startY}px`,
+          "--target-x": `${targetPos.x - startX}px`,
+          "--target-y": `${targetPos.y - startY}px`,
+        } as any
+      }
     >
       <Heart className="size-6 fill-rose-500 text-rose-500" />
     </div>

@@ -47,7 +47,7 @@ export default function DetailModal({ isOpen, item, onClose }: DetailModalProps)
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center bg-[#00000080] backdrop-blur-[12px] p-0 sm:p-4">
-          <motion.div 
+          <motion.div
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
@@ -68,7 +68,7 @@ export default function DetailModal({ isOpen, item, onClose }: DetailModalProps)
                   <span className="text-[12px] font-bold text-[#6B7280]">현재 영업 중</span>
                 </div>
               </div>
-              <button 
+              <button
                 onClick={onClose}
                 className="p-3 bg-[#F9FAFB] text-[#9CA3AF] rounded-2xl hover:bg-[#F3F4F6] hover:text-[#4B5563] transition-all active:scale-90"
               >
@@ -78,14 +78,13 @@ export default function DetailModal({ isOpen, item, onClose }: DetailModalProps)
 
             {/* Scrollable Content */}
             <div className="flex-1 overflow-y-auto no-scrollbar pb-32">
-              
               {/* 1. Interactive Photo Grid (Main Visual) */}
               <PhotoGrid images={item.images} />
 
               {/* 2. AI-Powered Review Summary */}
-              <ReviewSummary 
-                summary={item.reviewSummary} 
-                signature={item.signatureMenu} 
+              <ReviewSummary
+                summary={item.reviewSummary}
+                signature={item.signatureMenu}
                 rating={item.rating}
               />
 
@@ -98,13 +97,13 @@ export default function DetailModal({ isOpen, item, onClose }: DetailModalProps)
 
                 <div className="relative w-full aspect-[16/10] bg-[#F9FAFB] rounded-[32px] overflow-hidden border border-[#F3F4F6] mb-8">
                   {item.latitude && item.longitude ? (
-                    <iframe 
-                      src={`https://maps.google.com/maps?q=${item.latitude},${item.longitude}&t=&z=16&ie=UTF8&iwloc=&output=embed&style=feature:poi|element:labels|visibility:off`} 
-                      width="100%" 
-                      height="100%" 
-                      frameBorder="0" 
-                      style={{ border: 0, filter: 'grayscale(0.1) contrast(1.05)' }} 
-                      allowFullScreen={false} 
+                    <iframe
+                      src={`https://maps.google.com/maps?q=${item.latitude},${item.longitude}&t=&z=16&ie=UTF8&iwloc=&output=embed&style=feature:poi|element:labels|visibility:off`}
+                      width="100%"
+                      height="100%"
+                      frameBorder="0"
+                      style={{ border: 0, filter: "grayscale(0.1) contrast(1.05)" }}
+                      allowFullScreen={false}
                     ></iframe>
                   ) : null}
                   <div className="absolute inset-0 pointer-events-none ring-1 ring-inset ring-black/5 rounded-[32px]"></div>
@@ -117,7 +116,10 @@ export default function DetailModal({ isOpen, item, onClose }: DetailModalProps)
                       현 위치에서 <span className="text-[#3B82F6]">{walkingData?.km}km</span>
                     </h3>
                     <p className="text-[19px] font-bold text-[#6B7280]">
-                      도보 약 <span className="text-[#1F2937] underline decoration-[#3B82F6] decoration-4 underline-offset-4">{walkingData?.minutes}분</span>
+                      도보 약{" "}
+                      <span className="text-[#1F2937] underline decoration-[#3B82F6] decoration-4 underline-offset-4">
+                        {walkingData?.minutes}분
+                      </span>
                     </p>
                   </div>
                 </div>
@@ -146,4 +148,3 @@ export default function DetailModal({ isOpen, item, onClose }: DetailModalProps)
     </AnimatePresence>
   );
 }
-

@@ -46,8 +46,6 @@ export function Header({ onOpenLang }: Props) {
           <Link href="/" className="font-bold text-[#FF385C] tracking-tight text-xl">
             {t("common.appName")}
           </Link>
-
-          
         </div>
 
         <div className="flex items-center gap-2 sm:gap-4">
@@ -57,7 +55,9 @@ export function Header({ onOpenLang }: Props) {
             className="hidden sm:flex relative items-center justify-center p-2.5 rounded-full border border-[#DDDDDD] bg-white hover:bg-[#F7F7F7] transition-all shadow-sm"
             title={t("nav.myCourse")}
           >
-            <Heart className={`h-4 w-4 transition-colors ${favorites.length > 0 ? "fill-[#FF385C] text-[#FF385C]" : "text-[#717171]"}`} />
+            <Heart
+              className={`h-4 w-4 transition-colors ${favorites.length > 0 ? "fill-[#FF385C] text-[#FF385C]" : "text-[#717171]"}`}
+            />
             {favorites.length > 0 && (
               <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#FF385C] text-[10px] font-black text-white ring-2 ring-white animate-in zoom-in duration-300">
                 {favorites.length}
@@ -65,14 +65,14 @@ export function Header({ onOpenLang }: Props) {
             )}
           </Link>
 
-          <Link 
-            href="/community" 
+          <Link
+            href="/community"
             className="hidden sm:flex items-center gap-2 rounded-full border border-[#DDDDDD] bg-white px-4 py-2 text-[13px] font-bold text-[#222222] hover:bg-[#F7F7F7] shadow-sm transition-all"
           >
             <MessageSquare className="h-4 w-4 text-[#717171]" />
             <span>{t("nav.community")}</span>
           </Link>
-          
+
           <button
             onClick={onOpenLang}
             className="hidden sm:flex items-center gap-2 rounded-full border border-[#DDDDDD] bg-white px-4 py-2 text-[13px] font-bold text-[#222222] hover:bg-[#F7F7F7] shadow-sm transition-all"
@@ -95,11 +95,16 @@ export function Header({ onOpenLang }: Props) {
               </SheetHeader>
               <div className="flex flex-col py-4 px-3 gap-1">
                 <div className="px-3 pb-2 pt-1">
-                  <p className="text-[11px] font-black text-[#717171] uppercase tracking-[0.2em]">{t('common.quickStart')}</p>
+                  <p className="text-[11px] font-black text-[#717171] uppercase tracking-[0.2em]">
+                    {t("common.quickStart")}
+                  </p>
                 </div>
-                
+
                 <SheetClose asChild>
-                  <Link href="/spots" className="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-[16px] font-bold text-[#222222] hover:bg-[#F7F7F7] hover:text-[#FF385C] transition-all group">
+                  <Link
+                    href="/spots"
+                    className="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-[16px] font-bold text-[#222222] hover:bg-[#F7F7F7] hover:text-[#FF385C] transition-all group"
+                  >
                     <MapPin className="h-5 w-5 text-[#717171] group-hover:text-[#FF385C] transition-colors" />
                     {t("landing.cta.explore")}
                   </Link>
@@ -116,11 +121,13 @@ export function Header({ onOpenLang }: Props) {
                     </Link>
                   </SheetClose>
                 ))}
-                
+
                 <div className="px-3 pb-2 pt-4 border-t border-gray-100 mt-2">
-                  <p className="text-[11px] font-black text-[#717171] uppercase tracking-[0.2em]">{t('common.settings')}</p>
+                  <p className="text-[11px] font-black text-[#717171] uppercase tracking-[0.2em]">
+                    {t("common.settings")}
+                  </p>
                 </div>
-                
+
                 <SheetClose asChild>
                   <button
                     onClick={onOpenLang}

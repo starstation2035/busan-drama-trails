@@ -7,12 +7,7 @@ import { ArrowLeft, RefreshCw, Share2, Link2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { useAppStore } from "@/stores/useAppStore";
-import {
-  QUIZ_QUESTIONS,
-  STYLE_META,
-  computeResult,
-  type StyleKey,
-} from "@/data/quiz";
+import { QUIZ_QUESTIONS, STYLE_META, computeResult, type StyleKey } from "@/data/quiz";
 import spotsData from "@/data/spots.json";
 import restaurantsData from "@/data/restaurants.json";
 import cafesData from "@/data/cafes.json";
@@ -107,21 +102,37 @@ export default function StyleTest() {
 
     const courseItems: any[] = [];
     if (meta.recommendedSpots[0]) {
-      courseItems.push({ type: 'spot', id: meta.recommendedSpots[0], data: spotsData.find(s => s.id === meta.recommendedSpots[0]) });
+      courseItems.push({
+        type: "spot",
+        id: meta.recommendedSpots[0],
+        data: spotsData.find((s) => s.id === meta.recommendedSpots[0]),
+      });
     }
     if (meta.recommendedRestaurants[0]) {
-      courseItems.push({ type: 'restaurant', id: meta.recommendedRestaurants[0], data: restaurantsData.find(s => s.id === meta.recommendedRestaurants[0]) });
+      courseItems.push({
+        type: "restaurant",
+        id: meta.recommendedRestaurants[0],
+        data: restaurantsData.find((s) => s.id === meta.recommendedRestaurants[0]),
+      });
     }
     if (meta.recommendedCafes[0]) {
-      courseItems.push({ type: 'cafe', id: meta.recommendedCafes[0], data: cafesData.find(s => s.id === meta.recommendedCafes[0]) });
+      courseItems.push({
+        type: "cafe",
+        id: meta.recommendedCafes[0],
+        data: cafesData.find((s) => s.id === meta.recommendedCafes[0]),
+      });
     }
     if (meta.recommendedSpots[1]) {
-      courseItems.push({ type: 'spot', id: meta.recommendedSpots[1], data: spotsData.find(s => s.id === meta.recommendedSpots[1]) });
+      courseItems.push({
+        type: "spot",
+        id: meta.recommendedSpots[1],
+        data: spotsData.find((s) => s.id === meta.recommendedSpots[1]),
+      });
     }
 
     const handleStartCourse = (e: React.MouseEvent) => {
       e.preventDefault();
-      const allIds = courseItems.map(item => item.id);
+      const allIds = courseItems.map((item) => item.id);
       useAppStore.getState().setFavorites(allIds);
       router.push("/my-course");
     };
@@ -141,8 +152,7 @@ export default function StyleTest() {
         try {
           await navigator.share({ text, url: shareUrl });
           return;
-        } catch {
-        }
+        } catch {}
       }
       await navigator.clipboard.writeText(text);
       setCopied(true);
@@ -162,9 +172,7 @@ export default function StyleTest() {
             background: `linear-gradient(135deg, ${meta.colorVar}, color-mix(in oklab, ${meta.colorVar} 60%, white))`,
           }}
         >
-          <p className="text-sm font-medium text-foreground/80">
-            {t("quiz.result.yourStyle")}
-          </p>
+          <p className="text-sm font-medium text-foreground/80">{t("quiz.result.yourStyle")}</p>
           <div className="mt-3 text-7xl animate-fade-up">{meta.icon}</div>
           <h2 className="mt-3 text-3xl font-bold text-foreground">{typeName}</h2>
           <p className="mt-2 text-sm text-foreground/80">{typeTagline}</p>
@@ -177,7 +185,8 @@ export default function StyleTest() {
           <div className="relative space-y-3 py-2 before:absolute before:inset-y-0 before:left-8 before:w-0.5 before:bg-border/50">
             {courseItems.map((item, i) => {
               if (!item.data) return null;
-              const typeIcon = item.type === 'spot' ? '📸' : item.type === 'restaurant' ? '🍜' : '☕';
+              const typeIcon =
+                item.type === "spot" ? "📸" : item.type === "restaurant" ? "🍜" : "☕";
               return (
                 <div
                   key={item.id}
@@ -197,9 +206,11 @@ export default function StyleTest() {
                       {localizedName(item.data as Spot)}
                     </p>
                     <p className="mt-0.5 truncate text-xs text-muted-foreground">
-                      {item.type === 'spot'
+                      {item.type === "spot"
                         ? `🎬 ${((item.data as any).drama || []).map((d: any) => d[lang] || d.ko).join(", ")}`
-                        : (item.data as any).signature?.[lang] || (item.data as any).signature?.['ko'] || ''}
+                        : (item.data as any).signature?.[lang] ||
+                          (item.data as any).signature?.["ko"] ||
+                          ""}
                     </p>
                   </div>
                 </div>
@@ -241,9 +252,7 @@ export default function StyleTest() {
           </Button>
         </div>
         {copied && (
-          <p className="mt-2 text-center text-xs text-muted-foreground">
-            {t("common.copied")}
-          </p>
+          <p className="mt-2 text-center text-xs text-muted-foreground">{t("common.copied")}</p>
         )}
 
         <button

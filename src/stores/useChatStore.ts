@@ -28,17 +28,18 @@ interface ChatState {
   toggleTranslate: (id: string, currentLang: string) => void;
 }
 
-export const SESSION_ID = typeof window !== "undefined" ? Math.random().toString(36).substring(7) : "server";
+export const SESSION_ID =
+  typeof window !== "undefined" ? Math.random().toString(36).substring(7) : "server";
 
 export const useChatStore = create<ChatState>((set, get) => {
   let channel: BroadcastChannel | null = null;
-  
+
   if (typeof window !== "undefined") {
     channel = new BroadcastChannel("busan_traveler_chat");
-    
+
     channel.onmessage = (event) => {
       const { type, payload } = event.data;
-      
+
       if (type === "NEW_MESSAGE") {
         if (payload.senderId !== SESSION_ID) {
           set((state) => ({ messages: [...state.messages, payload] }));
@@ -51,7 +52,7 @@ export const useChatStore = create<ChatState>((set, get) => {
       } else if (type === "PRESENCE_REPORT") {
         const user = payload as ChatUser;
         set((state) => {
-          if (state.onlineUsers.some(u => u.id === user.id)) return state;
+          if (state.onlineUsers.some((u) => u.id === user.id)) return state;
           return { onlineUsers: [...state.onlineUsers, user] };
         });
       }
@@ -87,7 +88,7 @@ export const useChatStore = create<ChatState>((set, get) => {
       content: "I recommend the Dwaeji Gukbap place near the beach. It's iconic!",
       originalLanguage: "en",
       timestamp: Date.now() - 1000 * 60 * 2,
-    }
+    },
   ];
 
   return {
@@ -116,10 +117,12 @@ export const useChatStore = create<ChatState>((set, get) => {
         messages: state.messages.map((m) => {
           if (m.id === id) {
             if (m.translatedContent) return { ...m, translatedContent: undefined };
-            
+
             let translated = "";
-            if (m.originalLanguage === "ja") translated = "부산의 해운대는 정말 아름답네요! 추천할 만한 식당이 있나요?";
-            else if (m.originalLanguage === "en" && m.content.includes("Gukbap")) translated = "해변 근처에 있는 돼지국밥집을 추천해요. 정말 상징적인 곳이에요!";
+            if (m.originalLanguage === "ja")
+              translated = "부산의 해운대는 정말 아름답네요! 추천할 만한 식당이 있나요?";
+            else if (m.originalLanguage === "en" && m.content.includes("Gukbap"))
+              translated = "해변 근처에 있는 돼지국밥집을 추천해요. 정말 상징적인 곳이에요!";
             else if (currentLang === "ko") translated = "번역됨: " + m.content;
             else if (currentLang === "zh-TW") translated = "已翻譯: " + m.content;
             else translated = "Translated: " + m.content;

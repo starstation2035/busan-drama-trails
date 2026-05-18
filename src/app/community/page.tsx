@@ -29,7 +29,9 @@ export default function Community() {
     <div className="space-y-6 pb-24">
       {/* Header Section */}
       <section className="animate-fade-up px-2">
-        <h1 className="text-3xl font-bold tracking-tight text-foreground">{t("community.title")}</h1>
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">
+          {t("community.title")}
+        </h1>
         <p className="mt-1 text-sm text-muted-foreground">{t("community.subtitle")}</p>
       </section>
 
@@ -50,7 +52,7 @@ export default function Community() {
             </button>
           ))}
         </div>
-        
+
         <div className="relative">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <input
@@ -83,11 +85,11 @@ export default function Community() {
                     <span className="text-sm font-medium">{review.location}</span>
                   </div>
                 </div>
-                <button 
+                <button
                   onClick={(e) => handleLike(e, review.id)}
                   className={`absolute right-4 top-4 z-30 rounded-full p-2.5 backdrop-blur-md transition-all active:scale-90 ${
-                    isLiked 
-                      ? "bg-primary text-white shadow-lg" 
+                    isLiked
+                      ? "bg-primary text-white shadow-lg"
                       : "bg-white/20 text-white hover:bg-white/40"
                   }`}
                 >
@@ -108,7 +110,7 @@ export default function Community() {
                     {t(`community.filters.${review.category}`)}
                   </span>
                 </div>
-                
+
                 <p className="mt-4 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
                   {review.content}
                 </p>

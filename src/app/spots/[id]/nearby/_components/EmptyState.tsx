@@ -18,12 +18,11 @@ export default function EmptyState({ onFindMore }: EmptyStateProps) {
         더 다양한 인생샷 스팟을 <br />
         찾아보고 싶으시다면 버튼을 눌러주세요!
       </p>
-      <Button 
+      <Button
         onClick={onFindMore}
         className="h-14 px-10 rounded-full bg-white text-[#FF4D8D] border border-[#FFE4E6] hover:bg-[#FFF1F2] shadow-sm text-base font-bold transition-all active:scale-95"
       >
-        <MapPin className="size-4 mr-2" />
-        더 많은 결과 보기
+        <MapPin className="size-4 mr-2" />더 많은 결과 보기
       </Button>
     </div>
   );

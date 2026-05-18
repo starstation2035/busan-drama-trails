@@ -108,7 +108,13 @@ export function computeResult(answers: StyleKey[]): StyleKey {
 
 export const STYLE_META: Record<
   StyleKey,
-  { icon: string; colorVar: string; recommendedSpots: string[]; recommendedRestaurants: string[]; recommendedCafes: string[] }
+  {
+    icon: string;
+    colorVar: string;
+    recommendedSpots: string[];
+    recommendedRestaurants: string[];
+    recommendedCafes: string[];
+  }
 > = {
   healing: {
     icon: "🌊",

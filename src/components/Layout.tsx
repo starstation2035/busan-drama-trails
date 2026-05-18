@@ -34,7 +34,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
     return (
       <div className="min-h-screen bg-white">
         {pathname !== "/" && <Header onOpenLang={() => {}} />}
-        <main className={`mx-auto w-full max-w-screen-xl px-6 ${pathname === "/" ? "py-0" : "py-6"}`}>
+        <main
+          className={`mx-auto w-full max-w-screen-xl px-6 ${pathname === "/" ? "py-0" : "py-6"}`}
+        >
           {children}
         </main>
         <BottomNav />
@@ -47,7 +49,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-transparent relative">
       <HeartEffect />
-      
+
       {/* 🏙️ Static Global Background (Busan Harbor Bridge at Sunset) */}
       <div className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
         <img
@@ -63,10 +65,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {children}
       </main>
       <BottomNav />
-      
+
       {/* Global Action Buttons (Chat & Write) */}
       <FloatingActions />
-      
+
       <LanguageModal open={modalOpen} onClose={() => setModalOpen(false)} />
       <Toaster position="top-center" />
     </div>

@@ -36,13 +36,7 @@ import { useAppStore, type LangCode } from "@/stores/useAppStore";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import {
   Accordion,
   AccordionContent,
@@ -72,10 +66,7 @@ export default function MyCoursePage() {
   const toggleFavorite = useAppStore((s) => s.toggleFavorite);
   const router = useRouter();
 
-  const { spots, restaurants, cafes } = useMemo(
-    () => classifyFavorites(favorites),
-    [favorites],
-  );
+  const { spots, restaurants, cafes } = useMemo(() => classifyFavorites(favorites), [favorites]);
 
   const [tab, setTab] = useState<"list" | "course">("course");
   const [seed, setSeed] = useState(0);
@@ -104,11 +95,16 @@ export default function MyCoursePage() {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-center animate-fade-in">
         <div className="mb-6 text-7xl drop-shadow-xl animate-bounce-slow">🗺️</div>
-        <h1 className="text-2xl font-black text-foreground tracking-tight">{t("myCourse.title")}</h1>
+        <h1 className="text-2xl font-black text-foreground tracking-tight">
+          {t("myCourse.title")}
+        </h1>
         <p className="mt-3 max-w-xs text-sm font-medium text-muted-foreground/80 leading-relaxed">
           {t("myCourse.empty.message")}
         </p>
-        <Button asChild className="mt-8 h-12 rounded-full px-8 font-bold shadow-lg hover:shadow-xl transition-all">
+        <Button
+          asChild
+          className="mt-8 h-12 rounded-full px-8 font-bold shadow-lg hover:shadow-xl transition-all"
+        >
           <Link href="/spots">{t("myCourse.empty.cta")}</Link>
         </Button>
       </div>
@@ -119,36 +115,35 @@ export default function MyCoursePage() {
     const lines = editableCourse
       .map((e, i) => `${i + 1}. ${e.time} ${e.item.name[lang] ?? e.item.name["en"]}`)
       .join("\n");
-    const text = `${t("myCourse.share.header")}\n${lines}\n${typeof window !== 'undefined' ? window.location.origin : ''}/my-course`;
+    const text = `${t("myCourse.share.header")}\n${lines}\n${typeof window !== "undefined" ? window.location.origin : ""}/my-course`;
     if (navigator.share) {
       try {
         await navigator.share({ text });
         return;
-      } catch {
-      }
+      } catch {}
     }
     const lineUrl = `https://line.me/R/msg/text/?${encodeURIComponent(text)}`;
     window.open(lineUrl, "_blank");
   };
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(typeof window !== 'undefined' ? window.location.href : '');
+    await navigator.clipboard.writeText(typeof window !== "undefined" ? window.location.href : "");
     toast.success(t("common.copied"));
   };
 
   const onUpdateMemo = (idx: number, val: string) => {
     skipRegenRef.current = true;
-    setEditableCourse(cur => courseService.updateMemo(cur, idx, val));
+    setEditableCourse((cur) => courseService.updateMemo(cur, idx, val));
   };
 
   const onUpdateTravelTime = (idx: number, val: number) => {
     skipRegenRef.current = true;
-    setEditableCourse(cur => courseService.updateTravelTime(cur, idx, val));
+    setEditableCourse((cur) => courseService.updateTravelTime(cur, idx, val));
   };
 
   const onUpdateTravelMode = (idx: number, mode: "walk" | "taxi" | "subway" | "bus") => {
     skipRegenRef.current = true;
-    setEditableCourse(cur => courseService.updateTravelMode(cur, idx, mode));
+    setEditableCourse((cur) => courseService.updateTravelMode(cur, idx, mode));
   };
 
   const handleMove = (idx: number, direction: "up" | "down") => {
@@ -157,9 +152,9 @@ export default function MyCoursePage() {
     if (targetIdx < 0 || targetIdx >= editableCourse.length) return;
 
     // Deep clone to avoid mutation and trigger re-render
-    const newCourse = editableCourse.map(e => ({
+    const newCourse = editableCourse.map((e) => ({
       ...e,
-      travelToNext: e.travelToNext ? { ...e.travelToNext } : undefined
+      travelToNext: e.travelToNext ? { ...e.travelToNext } : undefined,
     }));
 
     // Swap
@@ -204,7 +199,7 @@ export default function MyCoursePage() {
     const newEntry: EditableTimelineEntry = {
       time: "00:00", // placeholder
       durationMin: duration,
-      item: item as any
+      item: item as any,
     };
 
     newCourse.push(newEntry);
@@ -230,13 +225,14 @@ export default function MyCoursePage() {
       {/* Header */}
       <header className="flex items-start justify-between">
         <div className="space-y-1">
-          <h1 className="text-3xl font-black text-foreground tracking-tight">{t("myCourse.title")}</h1>
+          <h1 className="text-3xl font-black text-foreground tracking-tight">
+            {t("myCourse.title")}
+          </h1>
           <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">
             <span className="size-1.5 rounded-full bg-primary animate-pulse" />
             Live Preview
           </div>
         </div>
-
       </header>
 
       {/* Stats Card */}
@@ -246,21 +242,27 @@ export default function MyCoursePage() {
             <div className="grid size-10 place-items-center rounded-2xl bg-primary/10 text-primary">
               <MapPin className="size-5" />
             </div>
-            <p className="text-[10px] font-bold text-muted-foreground uppercase">{t("myCourse.groups.spots")}</p>
+            <p className="text-[10px] font-bold text-muted-foreground uppercase">
+              {t("myCourse.groups.spots")}
+            </p>
             <p className="text-lg font-black">{spots.length}</p>
           </div>
           <div className="flex flex-col items-center gap-1 text-center">
             <div className="grid size-10 place-items-center rounded-2xl bg-amber-500/10 text-amber-500">
               <Utensils className="size-5" />
             </div>
-            <p className="text-[10px] font-bold text-muted-foreground uppercase">{t("myCourse.groups.restaurants")}</p>
+            <p className="text-[10px] font-bold text-muted-foreground uppercase">
+              {t("myCourse.groups.restaurants")}
+            </p>
             <p className="text-lg font-black">{restaurants.length}</p>
           </div>
           <div className="flex flex-col items-center gap-1 text-center">
             <div className="grid size-10 place-items-center rounded-2xl bg-emerald-500/10 text-emerald-500">
               <Coffee className="size-5" />
             </div>
-            <p className="text-[10px] font-bold text-muted-foreground uppercase">{t("myCourse.groups.cafes")}</p>
+            <p className="text-[10px] font-bold text-muted-foreground uppercase">
+              {t("myCourse.groups.cafes")}
+            </p>
             <p className="text-lg font-black">{cafes.length}</p>
           </div>
         </div>
@@ -271,8 +273,11 @@ export default function MyCoursePage() {
         <button
           type="button"
           onClick={() => setTab("course")}
-          className={`flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-bold transition-all ${tab === "course" ? "bg-background text-foreground shadow-md scale-[1.02]" : "text-muted-foreground hover:text-foreground"
-            }`}
+          className={`flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-bold transition-all ${
+            tab === "course"
+              ? "bg-background text-foreground shadow-md scale-[1.02]"
+              : "text-muted-foreground hover:text-foreground"
+          }`}
         >
           <Shuffle className="size-3.5" />
           {t("myCourse.tabs.course")}
@@ -280,8 +285,11 @@ export default function MyCoursePage() {
         <button
           type="button"
           onClick={() => setTab("list")}
-          className={`flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-bold transition-all ${tab === "list" ? "bg-background text-foreground shadow-md scale-[1.02]" : "text-muted-foreground hover:text-foreground"
-            }`}
+          className={`flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-bold transition-all ${
+            tab === "list"
+              ? "bg-background text-foreground shadow-md scale-[1.02]"
+              : "text-muted-foreground hover:text-foreground"
+          }`}
         >
           <FolderOpen className="size-3.5" />
           {t("myCourse.tabs.list")}
@@ -316,7 +324,8 @@ export default function MyCoursePage() {
               </div>
               <h2 className="text-2xl font-black mb-2 tracking-tight">AI 추천 최적 경로</h2>
               <p className="text-white/80 text-xs leading-relaxed max-w-[80%] font-medium">
-                동선을 고려하여 가장 효율적인 방문 순서를 계산했습니다. {totalKm.toFixed(1)}km의 여정을 지금 확인해보세요!
+                동선을 고려하여 가장 효율적인 방문 순서를 계산했습니다. {totalKm.toFixed(1)}km의
+                여정을 지금 확인해보세요!
               </p>
             </div>
           </div>
@@ -341,7 +350,7 @@ export default function MyCoursePage() {
         isOpen={isAddSheetOpen}
         onClose={() => setIsAddSheetOpen(false)}
         onAdd={handleAddEntry}
-        existingIds={editableCourse.map(e => e.item.id)}
+        existingIds={editableCourse.map((e) => e.item.id)}
         lang={lang}
       />
 
@@ -367,22 +376,35 @@ export default function MyCoursePage() {
 
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="default" className="flex-1 h-12 gap-2 rounded-xl font-bold shadow-md active:scale-95 transition-transform">
+                <Button
+                  variant="default"
+                  className="flex-1 h-12 gap-2 rounded-xl font-bold shadow-md active:scale-95 transition-transform"
+                >
                   <Share2 className="h-4 w-4" /> {t("myCourse.actions.share")}
                 </Button>
               </SheetTrigger>
               <SheetContent side="bottom" className="h-[85vh] rounded-t-[32px] p-0 overflow-hidden">
                 <SheetHeader className="p-6 pb-0">
-                  <SheetTitle className="text-center font-black tracking-tight">{t("myCourse.actions.share")}</SheetTitle>
+                  <SheetTitle className="text-center font-black tracking-tight">
+                    {t("myCourse.actions.share")}
+                  </SheetTitle>
                 </SheetHeader>
                 <div className="h-full overflow-y-auto p-6 pb-20">
                   <div className="space-y-6">
                     <ShareLayout course={editableCourse} lang={lang} />
                     <div className="grid grid-cols-2 gap-3">
-                      <Button onClick={handleShare} variant="outline" className="h-12 gap-2 rounded-xl border-border/60 font-bold">
+                      <Button
+                        onClick={handleShare}
+                        variant="outline"
+                        className="h-12 gap-2 rounded-xl border-border/60 font-bold"
+                      >
                         <MessageCircle className="size-4" /> LINE
                       </Button>
-                      <Button onClick={handleCopy} variant="outline" className="h-12 gap-2 rounded-xl border-border/60 font-bold">
+                      <Button
+                        onClick={handleCopy}
+                        variant="outline"
+                        className="h-12 gap-2 rounded-xl border-border/60 font-bold"
+                      >
                         <Instagram className="size-4" /> Instagram
                       </Button>
                     </div>
@@ -422,9 +444,27 @@ function ListView({
 }) {
   const { t } = useTranslation();
   const groups = [
-    { key: "spots", label: t("myCourse.groups.spots"), items: spots, icon: MapPin, color: "text-primary bg-primary/10" },
-    { key: "restaurants", label: t("myCourse.groups.restaurants"), items: restaurants, icon: Utensils, color: "text-amber-500 bg-amber-500/10" },
-    { key: "cafes", label: t("myCourse.groups.cafes"), items: cafes, icon: Coffee, color: "text-emerald-500 bg-emerald-500/10" },
+    {
+      key: "spots",
+      label: t("myCourse.groups.spots"),
+      items: spots,
+      icon: MapPin,
+      color: "text-primary bg-primary/10",
+    },
+    {
+      key: "restaurants",
+      label: t("myCourse.groups.restaurants"),
+      items: restaurants,
+      icon: Utensils,
+      color: "text-amber-500 bg-amber-500/10",
+    },
+    {
+      key: "cafes",
+      label: t("myCourse.groups.cafes"),
+      items: cafes,
+      icon: Coffee,
+      color: "text-emerald-500 bg-emerald-500/10",
+    },
   ] as const;
 
   return (
@@ -438,7 +478,9 @@ function ListView({
                   <g.icon className="size-4" />
                 </div>
                 <span className="text-sm font-black tracking-tight">{g.label}</span>
-                <span className="text-[10px] font-bold text-muted-foreground/60">({g.items.length})</span>
+                <span className="text-[10px] font-bold text-muted-foreground/60">
+                  ({g.items.length})
+                </span>
               </div>
             </AccordionTrigger>
             <AccordionContent className="pt-3">
@@ -465,7 +507,9 @@ function ListView({
                         </span>
                         {it.region && (
                           <span className="text-[10px] font-medium text-muted-foreground">
-                            {typeof it.region === 'string' ? it.region : (it.region[lang] ?? it.region.ko)}
+                            {typeof it.region === "string"
+                              ? it.region
+                              : (it.region[lang] ?? it.region.ko)}
                           </span>
                         )}
                       </div>
@@ -522,11 +566,15 @@ function CourseView({
     const e = course[0];
     return (
       <div className="rounded-3xl border border-border/60 bg-card p-6 shadow-sm animate-fade-up">
-        <p className="text-[10px] font-black uppercase tracking-widest text-primary">{t("myCourse.single.label")}</p>
+        <p className="text-[10px] font-black uppercase tracking-widest text-primary">
+          {t("myCourse.single.label")}
+        </p>
         <h3 className="mt-2 text-xl font-black text-foreground tracking-tight">
           {e.item.name[lang] ?? e.item.name["en"]}
         </h3>
-        <p className="mt-3 text-xs font-medium leading-relaxed text-muted-foreground/80">{t("myCourse.single.hint")}</p>
+        <p className="mt-3 text-xs font-medium leading-relaxed text-muted-foreground/80">
+          {t("myCourse.single.hint")}
+        </p>
       </div>
     );
   }
@@ -538,7 +586,9 @@ function CourseView({
       {tooFar && (
         <div className="flex items-start gap-3 rounded-2xl border border-yellow-300/40 bg-yellow-50/50 p-4 text-xs font-medium text-yellow-800 animate-in slide-in-from-top-4 duration-500">
           <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-yellow-600" />
-          <span className="leading-relaxed">{t("myCourse.warnings.tooFar", { km: totalKm.toFixed(1) })}</span>
+          <span className="leading-relaxed">
+            {t("myCourse.warnings.tooFar", { km: totalKm.toFixed(1) })}
+          </span>
         </div>
       )}
 
@@ -553,12 +603,17 @@ function CourseView({
           return (
             <li key={`${item.kind}-${item.id}-${i}`} className="relative pb-10 pl-16">
               <div className="absolute left-0 top-1 w-12 text-right">
-                <span className="text-xs font-black text-foreground tabular-nums tracking-tight">{entry.time}</span>
+                <span className="text-xs font-black text-foreground tabular-nums tracking-tight">
+                  {entry.time}
+                </span>
               </div>
 
               <div
                 className="absolute left-[2.9rem] top-1.5 z-10 grid size-3 place-items-center rounded-full border-2 border-background shadow-sm"
-                style={{ backgroundColor: dotColor(item.kind), boxShadow: `0 0 0 2px ${dotColor(item.kind)}20` }}
+                style={{
+                  backgroundColor: dotColor(item.kind),
+                  boxShadow: `0 0 0 2px ${dotColor(item.kind)}20`,
+                }}
               />
 
               <div className="relative group">
@@ -594,7 +649,10 @@ function CourseView({
                           variant="ghost"
                           size="icon"
                           disabled={i === 0}
-                          onClick={(e) => { e.stopPropagation(); onMove(i, "up"); }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onMove(i, "up");
+                          }}
                           className="h-8 w-8 rounded-lg bg-primary/10 text-primary hover:bg-primary hover:text-white disabled:opacity-20 disabled:bg-muted"
                         >
                           <ChevronUp className="h-4 w-4" />
@@ -602,7 +660,10 @@ function CourseView({
                         <Button
                           variant="ghost"
                           size="icon"
-                          onClick={(e) => { e.stopPropagation(); onRemove(i); }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onRemove(i);
+                          }}
                           className="h-8 w-8 rounded-lg bg-rose-100 text-rose-600 hover:bg-rose-500 hover:text-white"
                         >
                           <Trash2 className="h-4 w-4" />
@@ -611,7 +672,10 @@ function CourseView({
                           variant="ghost"
                           size="icon"
                           disabled={isLast}
-                          onClick={(e) => { e.stopPropagation(); onMove(i, "down"); }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onMove(i, "down");
+                          }}
                           className="h-8 w-8 rounded-lg bg-primary/10 text-primary hover:bg-primary hover:text-white disabled:opacity-20 disabled:bg-muted"
                         >
                           <ChevronDown className="h-4 w-4" />
@@ -644,10 +708,11 @@ function CourseView({
                       <button
                         key={m}
                         onClick={() => onUpdateTravelMode(i, m)}
-                        className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[10px] font-bold transition-all ${entry.travelToNext?.mode === m
-                          ? "bg-primary text-white shadow-md ring-2 ring-primary/20 scale-105"
-                          : "bg-transparent text-muted-foreground hover:bg-muted/30"
-                          }`}
+                        className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[10px] font-bold transition-all ${
+                          entry.travelToNext?.mode === m
+                            ? "bg-primary text-white shadow-md ring-2 ring-primary/20 scale-105"
+                            : "bg-transparent text-muted-foreground hover:bg-muted/30"
+                        }`}
                       >
                         <ModeIcon mode={m} />
                         <span className="uppercase">{t(`myCourse.travel.${m}`)}</span>
@@ -726,17 +791,20 @@ function AddSpotSheet({
   const [activeTab, setActiveTab] = useState<"spots" | "restaurants" | "cafes">("spots");
 
   const filteredItems = useMemo(() => {
-    const data = activeTab === "spots" ? allSpots : activeTab === "restaurants" ? allRestaurants : allCafes;
+    const data =
+      activeTab === "spots" ? allSpots : activeTab === "restaurants" ? allRestaurants : allCafes;
     const q = query.toLowerCase();
-    return data.filter(it =>
-      it.name[lang]?.toLowerCase().includes(q) ||
-      it.name["en"]?.toLowerCase().includes(q)
+    return data.filter(
+      (it) => it.name[lang]?.toLowerCase().includes(q) || it.name["en"]?.toLowerCase().includes(q),
     );
   }, [activeTab, query, lang]);
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent side="bottom" className="h-[90vh] rounded-t-[32px] p-0 overflow-hidden flex flex-col">
+      <SheetContent
+        side="bottom"
+        className="h-[90vh] rounded-t-[32px] p-0 overflow-hidden flex flex-col"
+      >
         <SheetHeader className="p-6 pb-2 shrink-0">
           <SheetTitle className="text-left font-black tracking-tight flex items-center gap-2">
             <Plus className="size-5 text-primary" />
@@ -759,8 +827,11 @@ function AddSpotSheet({
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${activeTab === tab ? "bg-background text-primary shadow-sm" : "text-muted-foreground"
-                  }`}
+                className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
+                  activeTab === tab
+                    ? "bg-background text-primary shadow-sm"
+                    : "text-muted-foreground"
+                }`}
               >
                 {t(`myCourse.groups.${tab}`)}
               </button>
@@ -771,18 +842,26 @@ function AddSpotSheet({
         <div className="flex-1 overflow-y-auto p-6 space-y-3">
           {filteredItems.length === 0 ? (
             <div className="py-20 text-center">
-              <p className="text-sm font-medium text-muted-foreground">{t("common.noResults", "No results found")}</p>
+              <p className="text-sm font-medium text-muted-foreground">
+                {t("common.noResults", "No results found")}
+              </p>
             </div>
           ) : (
             filteredItems.map((item) => {
               const isAdded = existingIds.includes(item.id);
-              const kind = activeTab === "spots" ? "spot" : activeTab === "restaurants" ? "restaurant" : "cafe";
+              const kind =
+                activeTab === "spots"
+                  ? "spot"
+                  : activeTab === "restaurants"
+                    ? "restaurant"
+                    : "cafe";
 
               return (
                 <div
                   key={item.id}
-                  className={`flex items-center gap-3 rounded-2xl border border-border/40 bg-card p-2 shadow-sm transition-all ${isAdded ? "opacity-60 bg-muted/20" : "hover:shadow-md active:scale-[0.98]"
-                    }`}
+                  className={`flex items-center gap-3 rounded-2xl border border-border/40 bg-card p-2 shadow-sm transition-all ${
+                    isAdded ? "opacity-60 bg-muted/20" : "hover:shadow-md active:scale-[0.98]"
+                  }`}
                 >
                   <img src={item.thumbnail} alt="" className="h-16 w-16 rounded-xl object-cover" />
                   <div className="flex-1 min-w-0">
@@ -790,7 +869,11 @@ function AddSpotSheet({
                       {item.name[lang] ?? item.name["en"]}
                     </p>
                     <p className="text-[10px] font-medium text-muted-foreground">
-                      {item.region ? (typeof item.region === 'string' ? item.region : (item.region[lang as keyof typeof item.region] ?? item.region.ko)) : ''}
+                      {item.region
+                        ? typeof item.region === "string"
+                          ? item.region
+                          : (item.region[lang as keyof typeof item.region] ?? item.region.ko)
+                        : ""}
                     </p>
                   </div>
                   <Button
@@ -843,7 +926,11 @@ function ShareLayout({ course, lang }: { course: EditableTimelineEntry[]; lang: 
 
         <div className="space-y-8">
           {course.slice(0, 5).map((entry, idx) => (
-            <div key={idx} className="flex gap-5 animate-slide-in" style={{ animationDelay: `${idx * 0.1}s` }}>
+            <div
+              key={idx}
+              className="flex gap-5 animate-slide-in"
+              style={{ animationDelay: `${idx * 0.1}s` }}
+            >
               <div className="relative flex-none">
                 <div className="flex h-12 w-12 items-center justify-center rounded-[18px] bg-white/15 text-[11px] font-black backdrop-blur-xl border border-white/20 shadow-xl tabular-nums">
                   {entry.time}
@@ -858,9 +945,7 @@ function ShareLayout({ course, lang }: { course: EditableTimelineEntry[]; lang: 
                   <span className="rounded-md bg-white/10 px-1.5 py-0.5 text-[9px]">
                     {t(`myCourse.kinds.${entry.item.kind}`)}
                   </span>
-                  {entry.memo && (
-                    <span className="line-clamp-1 italic">— {entry.memo}</span>
-                  )}
+                  {entry.memo && <span className="line-clamp-1 italic">— {entry.memo}</span>}
                 </div>
               </div>
             </div>

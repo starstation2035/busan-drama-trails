@@ -42,9 +42,7 @@ export const useAppStore = create<AppState>()(
         const items = get().myCourseItems;
         const exists = items.some((x) => x.id === item.id);
         set({
-          myCourseItems: exists
-            ? items.filter((x) => x.id !== item.id)
-            : [...items, item],
+          myCourseItems: exists ? items.filter((x) => x.id !== item.id) : [...items, item],
         });
       },
     }),

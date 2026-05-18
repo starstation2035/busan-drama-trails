@@ -13,10 +13,31 @@ export function BottomNav() {
 
   const items = [
     { href: "/", icon: Home, label: t("nav.home"), match: (p: string) => p === "/" },
-    { href: "/spots", icon: MapPin, label: t("nav.spots"), match: (p: string) => p.startsWith("/spots") },
-    { href: "/community", icon: MessageSquare, label: t("nav.community") || "Community", match: (p: string) => p.startsWith("/community") },
-    { href: "/my-course", icon: Heart, label: t("nav.myCourse"), match: (p: string) => p.startsWith("/my-course"), id: "bottom-nav-my-course" },
-    { href: "/style-test", icon: Sparkles, label: t("nav.styleTest") || "Style", match: (p: string) => p.startsWith("/style-test") },
+    {
+      href: "/spots",
+      icon: MapPin,
+      label: t("nav.spots"),
+      match: (p: string) => p.startsWith("/spots"),
+    },
+    {
+      href: "/community",
+      icon: MessageSquare,
+      label: t("nav.community") || "Community",
+      match: (p: string) => p.startsWith("/community"),
+    },
+    {
+      href: "/my-course",
+      icon: Heart,
+      label: t("nav.myCourse"),
+      match: (p: string) => p.startsWith("/my-course"),
+      id: "bottom-nav-my-course",
+    },
+    {
+      href: "/style-test",
+      icon: Sparkles,
+      label: t("nav.styleTest") || "Style",
+      match: (p: string) => p.startsWith("/style-test"),
+    },
   ] as const;
 
   return (
@@ -27,7 +48,7 @@ export function BottomNav() {
           const id = (item as any).id;
           const active = match(pathname);
           const isMyCourse = href === "/my-course";
-          
+
           return (
             <Link
               key={href}
@@ -38,14 +59,20 @@ export function BottomNav() {
               }`}
             >
               <div className="relative">
-                <Icon className={`h-6 w-6 stroke-[1.5px] transition-transform ${active ? "scale-110" : "scale-100"}`} />
+                <Icon
+                  className={`h-6 w-6 stroke-[1.5px] transition-transform ${active ? "scale-110" : "scale-100"}`}
+                />
                 {isMyCourse && favorites.length > 0 && (
                   <span className="absolute -right-2 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#FF385C] text-[9px] font-black text-white ring-2 ring-white animate-in zoom-in duration-300">
                     {favorites.length}
                   </span>
                 )}
               </div>
-              <span className={`text-[11px] tracking-tight ${active ? "font-bold" : "font-medium"}`}>{label}</span>
+              <span
+                className={`text-[11px] tracking-tight ${active ? "font-bold" : "font-medium"}`}
+              >
+                {label}
+              </span>
             </Link>
           );
         })}

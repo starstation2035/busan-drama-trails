@@ -35,10 +35,10 @@ export const courseService = {
 
     // Re-calculate times from the next entry onwards
     let currentStartTime = addMinutes(entry.time, entry.durationMin + minutes);
-    
+
     for (let i = index + 1; i < newCourse.length; i++) {
       newCourse[i] = { ...newCourse[i], time: currentStartTime };
-      
+
       const nextTravel = newCourse[i].travelToNext?.minutes || 0;
       currentStartTime = addMinutes(currentStartTime, newCourse[i].durationMin + nextTravel);
     }

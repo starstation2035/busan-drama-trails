@@ -21,7 +21,7 @@ export function FloatingActions() {
         <div className="flex flex-col gap-4 pointer-events-auto items-end">
           {/* Chat Toggle Button */}
           {!isChatOpen && (
-            <button 
+            <button
               onClick={() => setIsChatOpen(true)}
               className="flex h-12 w-12 md:h-14 md:w-14 animate-bounce items-center justify-center rounded-full bg-[#FAE100] text-[#3B1E1E] shadow-2xl transition-all hover:scale-110 active:scale-90 ring-4 ring-white/10"
               title="Global Chat"
@@ -37,7 +37,9 @@ export function FloatingActions() {
             title="Write Community Post"
           >
             <PenLine className="h-4 w-4 md:h-5 md:w-5" />
-            <span className="font-bold text-sm md:text-[16px] whitespace-nowrap">{t("community.write") || "후기 작성"}</span>
+            <span className="font-bold text-sm md:text-[16px] whitespace-nowrap">
+              {t("community.write") || "후기 작성"}
+            </span>
           </button>
         </div>
       </div>

@@ -25,11 +25,7 @@ export default function PhotoGrid({ images }: PhotoGridProps) {
             onClick={() => setSelectedIdx(idx)}
             className="relative overflow-hidden rounded-3xl bg-gray-100 cursor-zoom-in"
           >
-            <img
-              src={img.url}
-              alt={img.description}
-              className="w-full h-full object-cover"
-            />
+            <img src={img.url} alt={img.description} className="w-full h-full object-cover" />
           </motion.div>
         ))}
       </div>
@@ -45,7 +41,7 @@ export default function PhotoGrid({ images }: PhotoGridProps) {
               onClick={() => setSelectedIdx(null)}
               className="absolute inset-0 bg-black/90 backdrop-blur-sm"
             />
-            
+
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}

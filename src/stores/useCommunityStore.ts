@@ -26,18 +26,18 @@ export const useCommunityStore = create<CommunityState>()(
       toggleLike: (postId) =>
         set((state) => ({
           posts: state.posts.map((p) =>
-            p.id === postId 
-              ? { 
-                  ...p, 
+            p.id === postId
+              ? {
+                  ...p,
                   isLiked: !p.isLiked,
-                  likes: p.isLiked ? p.likes - 1 : p.likes + 1 
-                } 
-              : p
+                  likes: p.isLiked ? p.likes - 1 : p.likes + 1,
+                }
+              : p,
           ),
         })),
     }),
     {
       name: "community-storage",
-    }
-  )
+    },
+  ),
 );

@@ -74,17 +74,38 @@ export function classifyFavorites(favIds: string[]): {
   for (const id of favIds) {
     const s = spots.find((x) => x.id === id);
     if (s) {
-      sp.push({ kind: "spot", id: s.id, name: s.name, thumbnail: s.thumbnail, coords: s.coords, region: (s as any).region });
+      sp.push({
+        kind: "spot",
+        id: s.id,
+        name: s.name,
+        thumbnail: s.thumbnail,
+        coords: s.coords,
+        region: (s as any).region,
+      });
       continue;
     }
     const r = restaurants.find((x) => x.id === id);
     if (r) {
-      rs.push({ kind: "restaurant", id: r.id, name: r.name, thumbnail: r.thumbnail, food: r.food, region: (r as any).region });
+      rs.push({
+        kind: "restaurant",
+        id: r.id,
+        name: r.name,
+        thumbnail: r.thumbnail,
+        food: r.food,
+        region: (r as any).region,
+      });
       continue;
     }
     const c = cafes.find((x) => x.id === id);
     if (c) {
-      cf.push({ kind: "cafe", id: c.id, name: c.name, thumbnail: c.thumbnail, vibe: (c as any).vibe, region: (c as any).region });
+      cf.push({
+        kind: "cafe",
+        id: c.id,
+        name: c.name,
+        thumbnail: c.thumbnail,
+        vibe: (c as any).vibe,
+        region: (c as any).region,
+      });
     }
   }
   return { spots: sp, restaurants: rs, cafes: cf };
@@ -97,8 +118,7 @@ function haversineKm(a: Coords, b: Coords): number {
   const dLng = toRad(b.lng - a.lng);
   const lat1 = toRad(a.lat);
   const lat2 = toRad(b.lat);
-  const x =
-    Math.sin(dLat / 2) ** 2 + Math.sin(dLng / 2) ** 2 * Math.cos(lat1) * Math.cos(lat2);
+  const x = Math.sin(dLat / 2) ** 2 + Math.sin(dLng / 2) ** 2 * Math.cos(lat1) * Math.cos(lat2);
   return 2 * R * Math.asin(Math.sqrt(x));
 }
 
@@ -144,7 +164,6 @@ function nearestNeighborOrder(spotsIn: SpotItem[]): SpotItem[] {
         bestKm = km;
         bestIdx = i;
       }
-
     }
     ordered.push(remaining.splice(bestIdx, 1)[0]);
   }

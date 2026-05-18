@@ -20,22 +20,28 @@ export function GoogleMapPicker({ open, onClose, onSelect }: GoogleMapPickerProp
 
   const filteredSpots = useMemo(() => {
     if (!searchQuery.trim()) return spotsData.slice(0, 5);
-    return (spotsData as any[]).filter(spot => 
-      Object.values(spot.name).some((v: any) => v.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      Object.values(spot.region).some((v: any) => v.toLowerCase().includes(searchQuery.toLowerCase()))
+    return (spotsData as any[]).filter(
+      (spot) =>
+        Object.values(spot.name).some((v: any) =>
+          v.toLowerCase().includes(searchQuery.toLowerCase()),
+        ) ||
+        Object.values(spot.region).some((v: any) =>
+          v.toLowerCase().includes(searchQuery.toLowerCase()),
+        ),
     );
   }, [searchQuery]);
 
-  const selectedSpot = useMemo(() => 
-    spotsData.find(s => s.id === selectedSpotId) || spotsData[0]
-  , [selectedSpotId]);
+  const selectedSpot = useMemo(
+    () => spotsData.find((s) => s.id === selectedSpotId) || spotsData[0],
+    [selectedSpotId],
+  );
 
   const lang = (i18n.language || "ko") as any;
   const selectedName = (selectedSpot as any).name[lang] ?? (selectedSpot as any).name.ko;
   const selectedAddr = (selectedSpot as any).address[lang] ?? (selectedSpot as any).address.ko;
 
   const mapUrl = `https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY_HERE&q=${encodeURIComponent(selectedName + " " + selectedAddr)}&zoom=15`;
-  
+
   // Note: Since we don't have a real API key for the iframe, we'll use a more general embed or a mock UI
   const mockMapUrl = `https://maps.google.com/maps?q=${selectedSpot.coords.lat},${selectedSpot.coords.lng}&z=15&output=embed`;
 
@@ -44,10 +50,17 @@ export function GoogleMapPicker({ open, onClose, onSelect }: GoogleMapPickerProp
       <DialogContent className="max-w-3xl p-0 overflow-hidden rounded-2xl gap-0 bg-white border-none shadow-2xl h-[80vh]">
         <DialogHeader className="px-4 py-3 border-b border-gray-100 flex-row items-center justify-between space-y-0">
           <DialogTitle className="text-base font-bold flex items-center gap-2">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/39/Google_Maps_icon_%282020%29.svg" className="h-5 w-5" alt="Google Maps" />
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/3/39/Google_Maps_icon_%282020%29.svg"
+              className="h-5 w-5"
+              alt="Google Maps"
+            />
             {t("community.modal.mapTitle")}
           </DialogTitle>
-          <button onClick={onClose} className="p-1 hover:bg-gray-100 rounded-full transition-colors">
+          <button
+            onClick={onClose}
+            className="p-1 hover:bg-gray-100 rounded-full transition-colors"
+          >
             <X className="h-5 w-5 text-gray-500" />
           </button>
         </DialogHeader>
@@ -81,17 +94,25 @@ export function GoogleMapPicker({ open, onClose, onSelect }: GoogleMapPickerProp
                     <MapPin className="h-4 w-4" />
                   </div>
                   <div className="flex flex-col items-start text-left">
-                    <span className="text-sm font-bold text-gray-900">{(spot as any).name[lang] ?? (spot as any).name.ko}</span>
-                    <span className="text-xs text-gray-500 mt-0.5">{(spot as any).address[lang] ?? (spot as any).address.ko}</span>
-                    <span className="text-[10px] text-blue-600 font-semibold mt-1 uppercase tracking-wider">{(spot as any).region[lang] ?? (spot as any).region.ko}</span>
+                    <span className="text-sm font-bold text-gray-900">
+                      {(spot as any).name[lang] ?? (spot as any).name.ko}
+                    </span>
+                    <span className="text-xs text-gray-500 mt-0.5">
+                      {(spot as any).address[lang] ?? (spot as any).address.ko}
+                    </span>
+                    <span className="text-[10px] text-blue-600 font-semibold mt-1 uppercase tracking-wider">
+                      {(spot as any).region[lang] ?? (spot as any).region.ko}
+                    </span>
                   </div>
-                  {selectedSpotId === spot.id && <Check className="ml-auto h-4 w-4 text-blue-600" />}
+                  {selectedSpotId === spot.id && (
+                    <Check className="ml-auto h-4 w-4 text-blue-600" />
+                  )}
                 </button>
               ))}
             </div>
 
             <div className="p-4 bg-gray-50 mt-auto">
-              <Button 
+              <Button
                 onClick={() => {
                   onSelect(selectedName);
                   onClose();
@@ -114,7 +135,7 @@ export function GoogleMapPicker({ open, onClose, onSelect }: GoogleMapPickerProp
               src={mockMapUrl}
               allowFullScreen
             ></iframe>
-            
+
             {/* Center Marker Overlay (Visual Only) */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-full pointer-events-none drop-shadow-xl animate-bounce">
               <div className="relative">

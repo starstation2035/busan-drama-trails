@@ -105,7 +105,7 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
   const isFavorite = favorites.includes(id);
 
   const [expandedTips, setExpandedTips] = useState(false);
-  const [activeMap, setActiveMap] = useState<'google' | 'kakao'>('google');
+  const [activeMap, setActiveMap] = useState<"google" | "kakao">("google");
 
   const nearbyRestaurants = useMemo(() => {
     if (!spot?.nearby_restaurants) return [];
@@ -162,9 +162,9 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
     <div className="relative min-h-screen bg-background pb-28">
       {/* 1. HERO (Airbnb Style 5:4 Forced) */}
       <section className="mx-auto w-full max-w-screen-xl relative px-0 md:px-6 md:pt-6">
-        <div 
+        <div
           className="group relative w-full max-h-[75vh] overflow-hidden md:rounded-3xl bg-muted shadow-2xl"
-          style={{ aspectRatio: '5/4' }}
+          style={{ aspectRatio: "5/4" }}
         >
           <img
             src={spot.thumbnail}
@@ -201,7 +201,9 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
 
           {/* Bottom Overlay Title (Mobile) */}
           <div className="absolute bottom-0 left-0 right-0 p-6 text-white md:hidden">
-            <p className="mb-1 text-[10px] font-bold uppercase tracking-wider opacity-90">📍 {regionName}</p>
+            <p className="mb-1 text-[10px] font-bold uppercase tracking-wider opacity-90">
+              📍 {regionName}
+            </p>
             <h1 className="text-2xl font-bold leading-tight">{name}</h1>
           </div>
         </div>
@@ -212,9 +214,11 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
         <div className="mb-8 hidden md:block border-b pb-8">
           <div className="flex items-end justify-between">
             <div className="space-y-4">
-              <p className="mb-2 text-sm font-bold text-primary uppercase tracking-widest">📍 {regionName}</p>
+              <p className="mb-2 text-sm font-bold text-primary uppercase tracking-widest">
+                📍 {regionName}
+              </p>
               <h1 className="text-3xl font-black tracking-tight text-[#222222]">{name}</h1>
-              
+
               <div className="mt-4 space-y-4">
                 {spot.drama.map((d, idx) => (
                   <div key={idx} className="space-y-2">
@@ -276,10 +280,10 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
 
           <section className="flex-1 w-full rounded-3xl border border-border bg-card py-5 px-6 shadow-lg space-y-4 md:mt-24">
             <div className="flex items-center gap-3 border-b border-border pb-3">
-               <div className="size-2 rounded-full bg-primary animate-pulse" />
-               <h3 className="text-sm font-bold text-foreground uppercase tracking-widest">
-                 Spot Information
-               </h3>
+              <div className="size-2 rounded-full bg-primary animate-pulse" />
+              <h3 className="text-sm font-bold text-foreground uppercase tracking-widest">
+                Spot Information
+              </h3>
             </div>
             <ul className="space-y-3 text-sm">
               {addr && (
@@ -288,8 +292,12 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
                     <MapPin className="size-4" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter mb-0.5">{t("detail.info.address")}</p>
-                    <p className="font-bold text-foreground leading-snug break-words whitespace-normal">{addr}</p>
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter mb-0.5">
+                      {t("detail.info.address")}
+                    </p>
+                    <p className="font-bold text-foreground leading-snug break-words whitespace-normal">
+                      {addr}
+                    </p>
                   </div>
                   <button
                     onClick={() => {
@@ -308,8 +316,12 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
                     <Clock className="size-4" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter mb-0.5">{t("detail.info.hours")}</p>
-                    <p className="font-bold text-foreground leading-snug break-words whitespace-normal">{spot.hours}</p>
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter mb-0.5">
+                      {t("detail.info.hours")}
+                    </p>
+                    <p className="font-bold text-foreground leading-snug break-words whitespace-normal">
+                      {spot.hours}
+                    </p>
                   </div>
                 </li>
               )}
@@ -319,8 +331,12 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
                     <Clock className="size-4" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter mb-0.5">{t("detail.info.status")}</p>
-                    <p className="font-bold text-foreground leading-snug break-words whitespace-normal">{statusInfo}</p>
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter mb-0.5">
+                      {t("detail.info.status")}
+                    </p>
+                    <p className="font-bold text-foreground leading-snug break-words whitespace-normal">
+                      {statusInfo}
+                    </p>
                   </div>
                 </li>
               )}
@@ -333,44 +349,52 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
         {/* Map Section */}
         <section className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold tracking-tight text-foreground">{t("detail.map.title")}</h2>
+            <h2 className="text-xl font-bold tracking-tight text-foreground">
+              {t("detail.map.title")}
+            </h2>
             <div className="flex gap-3">
-               <Button 
-                 variant="ghost" 
-                 size="sm" 
-                 onClick={() => setActiveMap('google')}
-                 className={cn(
-                   "text-xs h-9 font-bold transition-all",
-                   activeMap === 'google' 
-                    ? "text-primary bg-primary/10 hover:bg-primary/20 shadow-sm" 
-                    : "text-muted-foreground hover:bg-primary/5 hover:text-primary"
-                 )}
-               >
-                  <a href={`https://www.google.com/maps/search/?api=1&query=${spot.coords.lat},${spot.coords.lng}`} target="_blank" rel="noopener noreferrer">
-                    Google Maps <ExternalLink className="ml-1.5 size-3" />
-                  </a>
-               </Button>
-               <Button 
-                 variant="ghost" 
-                 size="sm" 
-                 onClick={() => setActiveMap('kakao')}
-                 className={cn(
-                   "text-xs h-9 font-bold transition-all duration-200",
-                   activeMap === 'kakao' 
-                    ? "text-[#3C1E1E] bg-[#FAE100]/20 hover:bg-[#FAE100]/30 shadow-sm" 
-                    : "text-muted-foreground hover:bg-[#FAE100]/20 hover:text-[#3C1E1E]"
-                 )}
-               >
-                  <a href={`https://map.kakao.com/link/map/${encodeURIComponent(name)},${spot.coords.lat},${spot.coords.lng}`} target="_blank" rel="noopener noreferrer">
-                    Kakao Map <ExternalLink className="ml-1.5 size-3" />
-                  </a>
-               </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setActiveMap("google")}
+                className={cn(
+                  "text-xs h-9 font-bold transition-all",
+                  activeMap === "google"
+                    ? "text-primary bg-primary/10 hover:bg-primary/20 shadow-sm"
+                    : "text-muted-foreground hover:bg-primary/5 hover:text-primary",
+                )}
+              >
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${spot.coords.lat},${spot.coords.lng}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Google Maps <ExternalLink className="ml-1.5 size-3" />
+                </a>
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setActiveMap("kakao")}
+                className={cn(
+                  "text-xs h-9 font-bold transition-all duration-200",
+                  activeMap === "kakao"
+                    ? "text-[#3C1E1E] bg-[#FAE100]/20 hover:bg-[#FAE100]/30 shadow-sm"
+                    : "text-muted-foreground hover:bg-[#FAE100]/20 hover:text-[#3C1E1E]",
+                )}
+              >
+                <a
+                  href={`https://map.kakao.com/link/map/${encodeURIComponent(name)},${spot.coords.lat},${spot.coords.lng}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Kakao Map <ExternalLink className="ml-1.5 size-3" />
+                </a>
+              </Button>
             </div>
           </div>
           <div className="rounded-2xl overflow-hidden border border-border shadow-md">
-            <MapSection
-              coords={spot.coords}
-            />
+            <MapSection coords={spot.coords} />
           </div>
         </section>
 
@@ -451,20 +475,12 @@ export default function SpotDetail({ params }: { params: Promise<{ id: string }>
   );
 }
 
-function MapSection({
-  coords,
-}: {
-  coords: { lat: number; lng: number };
-}) {
+function MapSection({ coords }: { coords: { lat: number; lng: number } }) {
   const { ref, inView } = useInView<HTMLDivElement>({ threshold: 0.05 });
   const embed = `https://www.google.com/maps?q=${coords.lat},${coords.lng}&hl=en&z=16&output=embed`;
 
   return (
-    <div
-      ref={ref}
-      className="w-full"
-      style={{ height: '400px' }}
-    >
+    <div ref={ref} className="w-full" style={{ height: "400px" }}>
       {inView ? (
         <iframe
           src={embed}

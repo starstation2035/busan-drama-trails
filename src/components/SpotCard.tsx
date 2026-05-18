@@ -35,7 +35,8 @@ export function SpotCard({ spot }: { spot: Spot }) {
   };
 
   // Mock heart count
-  const baseCount = spot.id.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0) % 500 + 100;
+  const baseCount =
+    (spot.id.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0) % 500) + 100;
   const displayCount = isFav ? baseCount + 1 : baseCount;
 
   return (
@@ -44,10 +45,7 @@ export function SpotCard({ spot }: { spot: Spot }) {
       className="group block overflow-hidden rounded-2xl bg-card shadow-sm transition active:scale-[0.98] hover:shadow-xl border border-border/40"
     >
       {/* 5:4 Aspect Ratio Image (Forced via style for precision) */}
-      <div
-        className="relative overflow-hidden rounded-xl bg-muted"
-        style={{ aspectRatio: '5/4' }}
-      >
+      <div className="relative overflow-hidden rounded-xl bg-muted" style={{ aspectRatio: "5/4" }}>
         <img
           src={spot.thumbnail}
           alt={name}
@@ -59,7 +57,9 @@ export function SpotCard({ spot }: { spot: Spot }) {
         <div className="absolute left-2 top-2">
           <span className="inline-flex items-center gap-1 rounded-full bg-[#F3F4F6] px-2.5 py-1 text-[11px] font-bold text-[#4B5563] shadow-md backdrop-blur-md border border-white/10">
             <MapPin className="size-3 text-[#9CA3AF]" />
-            {typeof spot.region === 'string' ? spot.region : (spot.region?.[lang as keyof typeof spot.region] ?? spot.region?.ko ?? '')}
+            {typeof spot.region === "string"
+              ? spot.region
+              : (spot.region?.[lang as keyof typeof spot.region] ?? spot.region?.ko ?? "")}
           </span>
         </div>
 
@@ -83,9 +83,7 @@ export function SpotCard({ spot }: { spot: Spot }) {
               🎬 {spot.drama[0][lang] ?? spot.drama[0].ko}
             </span>
           )}
-          <h3 className="text-[14px] font-bold text-foreground leading-tight">
-            {name}
-          </h3>
+          <h3 className="text-[14px] font-bold text-foreground leading-tight">{name}</h3>
         </div>
 
         {/* Description Area with fixed min-height for alignment */}
@@ -102,9 +100,7 @@ export function SpotCard({ spot }: { spot: Spot }) {
         {status && (
           <div className="flex items-center gap-1.5 pt-1 border-t border-muted/30">
             <span className="inline-block size-1.5 rounded-full bg-green-500/80" />
-            <span className="text-[10px] font-medium text-muted-foreground">
-              {status}
-            </span>
+            <span className="text-[10px] font-medium text-muted-foreground">{status}</span>
           </div>
         )}
       </div>

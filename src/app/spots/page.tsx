@@ -20,7 +20,7 @@ import { STYLE_META, type StyleKey, STYLE_KEYS } from "@/data/quiz";
 
 const SORT_KEYS = ["popular", "newest", "nearest"] as const;
 
-interface SpotData extends Omit<Spot, 'drama'> {
+interface SpotData extends Omit<Spot, "drama"> {
   drama: Record<LangCode, string>[];
   popularity: number;
   category?: "drama" | "landmark";
@@ -59,17 +59,13 @@ function SpotsContent() {
     router.push(`/spots?${params.toString()}`);
   };
 
-
-
-
-
   const baseFiltered = useMemo(() => {
     const needle = q.trim().toLowerCase();
     return ALL_SPOTS.filter((s) => {
       if (needle) {
         const hay = [
           ...Object.values(s.name),
-          ...s.drama.flatMap(d => Object.values(d)),
+          ...s.drama.flatMap((d) => Object.values(d)),
           ...Object.values(s.region),
         ]
           .join(" ")
@@ -81,22 +77,30 @@ function SpotsContent() {
   }, [q]);
 
   const sortList = (list: SpotData[], sortKey: string) => {
-    let sorted = [...list];
+    const sorted = [...list];
     if (sortKey === "popular") sorted.sort((a, b) => b.popularity - a.popularity);
     else if (sortKey === "newest") sorted.reverse();
-    else if (sortKey === "nearest")
-      sorted.sort((a, b) => a.id.localeCompare(b.id));
+    else if (sortKey === "nearest") sorted.sort((a, b) => a.id.localeCompare(b.id));
     return sorted;
   };
 
-  const filmingSites = useMemo(() =>
-    sortList(baseFiltered.filter(s => s.category === "drama"), dramaSort),
-    [baseFiltered, dramaSort]);
+  const filmingSites = useMemo(
+    () =>
+      sortList(
+        baseFiltered.filter((s) => s.category === "drama"),
+        dramaSort,
+      ),
+    [baseFiltered, dramaSort],
+  );
 
-  const landmarks = useMemo(() =>
-    sortList(baseFiltered.filter(s => s.category === "landmark"), landmarkSort),
-    [baseFiltered, landmarkSort]);
-
+  const landmarks = useMemo(
+    () =>
+      sortList(
+        baseFiltered.filter((s) => s.category === "landmark"),
+        landmarkSort,
+      ),
+    [baseFiltered, landmarkSort],
+  );
 
   const clearStyle = () => updateSearch({ style: null });
 
@@ -117,7 +121,7 @@ function SpotsContent() {
     const match = ALL_SPOTS.find(
       (s) =>
         Object.values(s.name).some((v) => v.toLowerCase() === term) ||
-        s.drama.some((d) => Object.values(d).some(v => v.toLowerCase() === term))
+        s.drama.some((d) => Object.values(d).some((v) => v.toLowerCase() === term)),
     );
 
     if (match) {
@@ -125,8 +129,10 @@ function SpotsContent() {
     }
   };
 
-  const styleColor = style && STYLE_KEYS.includes(style as any) ? STYLE_META[style as StyleKey].colorVar : null;
-  const styleIcon = style && STYLE_KEYS.includes(style as any) ? STYLE_META[style as StyleKey].icon : null;
+  const styleColor =
+    style && STYLE_KEYS.includes(style as any) ? STYLE_META[style as StyleKey].colorVar : null;
+  const styleIcon =
+    style && STYLE_KEYS.includes(style as any) ? STYLE_META[style as StyleKey].icon : null;
 
   return (
     <div className="space-y-4 pb-20 min-h-screen">
@@ -136,13 +142,9 @@ function SpotsContent() {
           {t("spots.hero.title")}
         </h1>
         <p className="text-sm max-w-md whitespace-pre-line leading-relaxed text-[#222222]">
-          <span className="font-bold">
-            {t("spots.hero.subtitleLine1")}
-          </span>
+          <span className="font-bold">{t("spots.hero.subtitleLine1")}</span>
           {"\n"}
-          <span>
-            {t("spots.hero.subtitleLine2")}
-          </span>
+          <span>{t("spots.hero.subtitleLine2")}</span>
         </p>
       </section>
 
@@ -188,10 +190,12 @@ function SpotsContent() {
               HOT
             </span>
             <div className="relative h-6 flex-1 overflow-hidden">
-               <RollingTicker onSelect={(spot) => {
-                 const lang = useAppStore.getState().lang as LangCode;
-                 setSearchInput(spot.name[lang] ?? spot.name.ko);
-               }} />
+              <RollingTicker
+                onSelect={(spot) => {
+                  const lang = useAppStore.getState().lang as LangCode;
+                  setSearchInput(spot.name[lang] ?? spot.name.ko);
+                }}
+              />
             </div>
           </div>
         </div>
@@ -218,18 +222,11 @@ function SpotsContent() {
         </div>
       )}
 
-
-
-
       {baseFiltered.length === 0 ? (
         <div className="flex flex-col items-center justify-center gap-3 py-16 text-center">
           <div className="text-6xl">🔍</div>
-          <p className="text-base font-semibold text-foreground">
-            {t("spots.empty.title")}
-          </p>
-          <p className="max-w-xs text-sm text-muted-foreground">
-            {t("spots.empty.subtitle")}
-          </p>
+          <p className="text-base font-semibold text-foreground">{t("spots.empty.title")}</p>
+          <p className="max-w-xs text-sm text-muted-foreground">{t("spots.empty.subtitle")}</p>
           <Button onClick={resetAll} className="mt-2 rounded-full">
             {t("spots.empty.reset")}
           </Button>
@@ -243,12 +240,11 @@ function SpotsContent() {
                   <h2 className="text-2xl font-bold flex items-center gap-2">
                     {t("spots.sections.drama")}
                   </h2>
-                  <p className="text-xs text-muted-foreground mt-1">{t("spots.sections.dramaDesc")}</p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {t("spots.sections.dramaDesc")}
+                  </p>
                 </div>
-                <Select
-                  value={dramaSort}
-                  onValueChange={(v) => updateSearch({ dramaSort: v })}
-                >
+                <Select value={dramaSort} onValueChange={(v) => updateSearch({ dramaSort: v })}>
                   <SelectTrigger className="h-9 w-auto gap-2 rounded-full border-border bg-card text-xs px-4">
                     <SlidersHorizontal className="size-3.5" />
                     <SelectValue />
@@ -277,7 +273,9 @@ function SpotsContent() {
                   <h2 className="text-2xl font-bold flex items-center gap-2">
                     {t("spots.sections.landmark")}
                   </h2>
-                  <p className="text-xs text-muted-foreground mt-1">{t("spots.sections.landmarkDesc")}</p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {t("spots.sections.landmarkDesc")}
+                  </p>
                 </div>
                 <Select
                   value={landmarkSort}
@@ -318,7 +316,6 @@ function SpotsContent() {
   );
 }
 
-
 const HOT_SPOTS = [
   { id: "pachinko", name: "영도 감지해변" },
   { id: "spot_001", name: "청사포 다릿돌전망대" },
@@ -336,7 +333,9 @@ function RollingTicker({ onSelect }: { onSelect: (spot: SpotData) => void }) {
 
   // Use real data from spots.json instead of hardcoded strings
   const tickerSpots = useMemo(() => {
-    return HOT_SPOTS.map(hot => ALL_SPOTS.find(s => s.id === hot.id)).filter(Boolean) as SpotData[];
+    return HOT_SPOTS.map((hot) => ALL_SPOTS.find((s) => s.id === hot.id)).filter(
+      Boolean,
+    ) as SpotData[];
   }, []);
 
   useEffect(() => {
@@ -366,7 +365,9 @@ function RollingTicker({ onSelect }: { onSelect: (spot: SpotData) => void }) {
 
 export default function Spots() {
   return (
-    <Suspense fallback={<div className="p-8 text-center text-muted-foreground">Loading spots...</div>}>
+    <Suspense
+      fallback={<div className="p-8 text-center text-muted-foreground">Loading spots...</div>}
+    >
       <SpotsContent />
     </Suspense>
   );
