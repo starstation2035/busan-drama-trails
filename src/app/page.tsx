@@ -9,56 +9,48 @@ import { Button } from "@/components/ui/button";
 
 const POSTERS = [
   { 
-    title: "이상한 변호사 우영우", 
+    id: "woo",
     year: "2022", 
-    genre: "법정/휴먼",
     img: "https://image.tmdb.org/t/p/original/u6Cx6ijenevIQjtrjFpPgQzgI10.jpg", 
     link: "/spots/spot_001" 
   },
   { 
-    title: "런닝맨", 
+    id: "runningman",
     year: "2010", 
-    genre: "리얼리티/액션",
     img: "https://image.tmdb.org/t/p/original/15SMnscZqd7HZ0bzruatOcKUlOV.jpg", 
     link: "/spots/spot_002" 
   },
   { 
-    title: "파친코", 
+    id: "pachinko",
     year: "2022", 
-    genre: "드라마",
     img: "https://image.tmdb.org/t/p/w500/aK640gWriIscSoSf30MNqtsvseo.jpg", 
     link: "/spots/pachinko" 
   },
   { 
-    title: "변호인", 
+    id: "attorney",
     year: "2013", 
-    genre: "드라마",
     img: "https://upload.wikimedia.org/wikipedia/en/b/b5/The_Attorney_poster.jpg", 
     link: "/spots/spot_004" 
   },
   { 
-    title: "해운대", 
+    id: "haeundae",
     year: "2009", 
-    genre: "재난",
     img: "https://upload.wikimedia.org/wikipedia/en/b/b7/Haeundae_film_poster.jpg", 
     link: "/spots/spot_003" 
   },
   { 
-    title: "국제시장", 
+    id: "market",
     year: "2014", 
-    genre: "드라마",
     img: "https://image.tmdb.org/t/p/original/rmZ4qkpDVdTgjwliJ84aJ43hStt.jpg", 
     link: "/spots?dramas=국제시장" 
   }
 ];
 
-export default function Landing() {
+export default function LandingPage() {
   const { t } = useTranslation();
-  const recentReviews = MOCK_REVIEWS.slice(0, 3);
-  
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [mousePos, setMousePos] = useState({ x: 0, w: 0 });
   const requestRef = useRef<number>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, w: 0 });
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!scrollRef.current) return;
@@ -105,6 +97,8 @@ export default function Landing() {
     };
   }, [mousePos]);
 
+  const recentReviews = MOCK_REVIEWS.slice(0, 3);
+  
   return (
     <div className="bg-background/0 text-foreground min-h-screen pb-20 space-y-16">
       {/* 🌟 Brand Hero Section (Restored & Centered) */}
@@ -117,12 +111,12 @@ export default function Landing() {
         
         {/* Title */}
         <h1 className="text-6xl sm:text-8xl font-black text-[#222222] tracking-tighter mb-6 leading-tight">
-          원 샷 트랩
+          {t("common.appName")}
         </h1>
         
         {/* Subtitle */}
         <p className="text-xl sm:text-2xl font-medium text-[#717171] flex items-center gap-2">
-          K-컬처를 느껴보세요 <span className="animate-pulse">✨</span>
+          {t("landing.subtitle")} <span className="animate-pulse">✨</span>
         </p>
       </section>
 
@@ -131,8 +125,8 @@ export default function Landing() {
         <section className="animate-fade-up space-y-6">
           <div className="flex items-end justify-between px-2">
             <div>
-              <h2 className="text-2xl font-bold text-[#222222]">Busan in Cinema</h2>
-              <p className="text-[13px] font-medium text-[#717171] uppercase tracking-widest mt-1">Filming Locations</p>
+              <h2 className="text-2xl font-bold text-[#222222]">{t("landing.cinema.title")}</h2>
+              <p className="text-[13px] font-medium text-[#717171] uppercase tracking-widest mt-1">{t("landing.cinema.subtitle")}</p>
             </div>
             <Link href="/spots" className="text-sm font-bold text-[#FF385C] hover:underline underline-offset-4 decoration-2 transition-all">
               {t("landing.recentReviews.viewAll")}
@@ -143,7 +137,7 @@ export default function Landing() {
             ref={scrollRef}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className="overflow-x-auto no-scrollbar scroll-smooth"
+            className="flex gap-6 overflow-x-auto pb-10 pt-4 px-2 scroll-smooth custom-scrollbar"
           >
             <div className="flex gap-6 w-max py-4 px-2">
               {POSTERS.map((poster, i) => (
@@ -166,10 +160,10 @@ export default function Landing() {
                   </div>
                   <div className="px-1">
                     <h3 className="text-base font-bold text-[#222222] line-clamp-1 group-hover:text-[#FF385C] transition-colors">
-                      {poster.title}
+                      {t(`movies.${poster.id}.title`)}
                     </h3>
                     <p className="text-[13px] text-[#717171] font-medium">
-                      {poster.year} • {poster.genre}
+                      {poster.year} • {t(`movies.${poster.id}.genre`)}
                     </p>
                   </div>
                 </Link>
@@ -197,10 +191,10 @@ export default function Landing() {
               </div>
               <div className="space-y-1">
                 <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tighter drop-shadow-lg">
-                  영화 속 그곳
+                  {t("landing.splitHero.leftTitle")}
                 </h2>
                 <p className="text-white/80 text-sm font-medium tracking-wide uppercase">
-                  Filming Locations
+                  {t("landing.splitHero.leftSubtitle")}
                 </p>
               </div>
             </div>
@@ -223,10 +217,10 @@ export default function Landing() {
               </div>
               <div className="space-y-1">
                 <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tighter drop-shadow-lg">
-                  너의 플레이리스트, 부산
+                  {t("landing.splitHero.rightTitle")}
                 </h2>
                 <p className="text-white/80 text-sm font-medium tracking-wide uppercase">
-                  Your Playlist, Busan
+                  {t("landing.splitHero.rightSubtitle")}
                 </p>
               </div>
             </div>

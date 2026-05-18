@@ -6,7 +6,17 @@
     "retake": "다시 하기",
     "share": "결과 공유",
     "copied": "링크가 복사되었어요!",
-    "save": "완료"
+    "save": "완료",
+    "quickStart": "빠른 시작",
+    "settings": "설정",
+    "movies": {
+      "woo": { "title": "이상한 변호사 우영우", "genre": "법정/휴먼" },
+      "runningman": { "title": "런닝맨", "genre": "리얼리티/액션" },
+      "pachinko": { "title": "파친코", "genre": "드라마" },
+      "attorney": { "title": "변호인", "genre": "드라마" },
+      "haeundae": { "title": "해운대", "genre": "재난" },
+      "market": { "title": "국제시장", "genre": "드라마" }
+    }
   },
   "nav": {
     "home": "홈",
@@ -54,11 +64,47 @@
       "viewAll": "전체 리뷰 보기"
     },
     "categories": {
-      "food": "밥집",
-      "cafe": "카페",
-      "community": "커뮤니티",
       "spots": "명소",
-      "myCourse": "내 코스"
+      "myCourse": "내 코스",
+      "goods": "굿즈"
+    },
+    "cinema": {
+      "title": "영화 속 부산",
+      "subtitle": "촬영지 & 명소"
+    },
+    "splitHero": {
+      "leftTitle": "영화 속 그곳",
+      "leftSubtitle": "촬영지 탐방",
+      "rightTitle": "너의 플레이리스트, 부산",
+      "rightSubtitle": "나만의 코스"
+    }
+  },
+  "goods": {
+    "title": "공식 스토어",
+    "home": "홈으로",
+    "heroTitle": "부산의 추억을 간직하세요",
+    "heroSubtitle": "드라마 속 그 장소의 감동을 그대로 담은 오리지널 굿즈",
+    "items": {
+      "item1": {
+        "title": "자갈치 오지매 (건어물 스낵)",
+        "desc": "\"휴식을 맛있고 즐겁게\" 6종의 건어물 제품으로 맛있는 휴식을 제공합니다.",
+        "category": "식품"
+      },
+      "item2": {
+        "title": "예쁜떡오늘 (부산 디자인 특화떡)",
+        "desc": "부산에서 나고 자라는 재료를 사용하고, 부산 대표 테마를 형상화한 디자인 특화떡",
+        "category": "식품"
+      },
+      "item3": {
+        "title": "부산고등어빵 & 고도리빵",
+        "desc": "부산시어 고등어를 모티브로 만든 쌀빵으로 글루텐프리 제품입니다.",
+        "category": "식품"
+      },
+      "item4": {
+        "title": "온도담 (장인의 진심 유기그릇)",
+        "desc": "진심을 담다. 장인의 정성이 깃든 진짜 유기, 2003년부터 연구한 믿을 수 있는 유기 브랜드",
+        "category": "리빙/식기"
+      }
     }
   },
   "community": {

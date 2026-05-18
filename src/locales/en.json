@@ -6,7 +6,17 @@
     "retake": "Retake",
     "share": "Share result",
     "copied": "Link copied!",
-    "save": "Done"
+    "save": "Save",
+    "quickStart": "Quick Start",
+    "settings": "Settings",
+    "movies": {
+      "woo": { "title": "Extraordinary Attorney Woo", "genre": "Legal/Human" },
+      "runningman": { "title": "Running Man", "genre": "Reality/Action" },
+      "pachinko": { "title": "Pachinko", "genre": "Drama" },
+      "attorney": { "title": "The Attorney", "genre": "Drama" },
+      "haeundae": { "title": "Haeundae", "genre": "Disaster" },
+      "market": { "title": "Ode to My Father", "genre": "Drama" }
+    }
   },
   "nav": {
     "home": "Home",
@@ -58,7 +68,46 @@
       "cafe": "Cafe",
       "community": "Community",
       "spots": "Spots",
-      "myCourse": "My Course"
+      "myCourse": "My Course",
+      "goods": "Goods"
+    },
+    "cinema": {
+      "title": "Busan in Cinema",
+      "subtitle": "Filming Locations"
+    },
+    "splitHero": {
+      "leftTitle": "Cinema Spots",
+      "leftSubtitle": "Explore Filming Sites",
+      "rightTitle": "Your Playlist, Busan",
+      "rightSubtitle": "Custom Course"
+    }
+  },
+  "goods": {
+    "title": "Official Store",
+    "home": "Home",
+    "heroTitle": "Keep Your Busan Memories",
+    "heroSubtitle": "Original goods containing the emotions of the filming locations",
+    "items": {
+      "item1": {
+        "title": "Jagalchi Ojimae (Dried Fish Snack)",
+        "desc": "\"Make your break delicious and fun\" We offer a delicious break with 6 types of dried seafood products.",
+        "category": "Food"
+      },
+      "item2": {
+        "title": "Yeppeunddeog Oneul (Busan Design Rice Cake)",
+        "desc": "Design-specialized rice cakes using ingredients grown in Busan and embodying representative Busan themes.",
+        "category": "Food"
+      },
+      "item3": {
+        "title": "Busan Mackerel Bread & Godori Bread",
+        "desc": "A gluten-free rice bread made with the motif of Busan's city fish, mackerel.",
+        "category": "Food"
+      },
+      "item4": {
+        "title": "Ondodam (Brassware with Artisan Sincerity)",
+        "desc": "Contains sincerity. Real brassware with artisan's devotion, a reliable brassware brand researched since 2003.",
+        "category": "Living/Tableware"
+      }
     }
   },
   "community": {

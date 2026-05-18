@@ -4,7 +4,18 @@
     "back": "戻る",
     "retake": "もう一度",
     "share": "結果をシェア",
-    "copied": "リンクをコピーしました!"
+    "copied": "링크가 복사되었어요!",
+    "save": "完了",
+    "quickStart": "クイックスタート",
+    "settings": "設定",
+    "movies": {
+      "woo": { "title": "ウ・ヨンウ弁護士は天才肌", "genre": "法廷/ヒュー만" },
+      "runningman": { "title": "ランニングマン", "genre": "リアリティ/アクション" },
+      "pachinko": { "title": "パチンコ", "genre": "ドラマ" },
+      "attorney": { "title": "弁護人", "genre": "ドラマ" },
+      "haeundae": { "title": "TSUNAMI -ツナミ-", "genre": "パニック" },
+      "market": { "title": "国際市場で逢いましょう", "genre": "ドラマ" }
+    }
   },
   "nav": {
     "home": "ホーム",
@@ -48,7 +59,7 @@
     "stats": "50+ スポット・200+ グルメ・5言語",
     "recentReviews": {
       "title": "最近の旅行レビュー",
-      "subtitle": "他の旅行者のリアルな釜山の物語をチェック",
+      "subtitle": "다른 여행자들의 생생한 부산 이야기를 실시간으로 확인해보세요",
       "viewAll": "すべてのレビューを見る"
     },
     "categories": {
@@ -56,7 +67,46 @@
       "cafe": "カフェ",
       "community": "コミュニティ",
       "spots": "スポット",
-      "myCourse": "マイコース"
+      "myCourse": "マイコース",
+      "goods": "グッズ"
+    },
+    "cinema": {
+      "title": "シネマの中の釜山",
+      "subtitle": "ロケ地 & 名所"
+    },
+    "splitHero": {
+      "leftTitle": "映画の中のあの場所",
+      "leftSubtitle": "ロケ地巡り",
+      "rightTitle": "あなたのプレイリスト、釜山",
+      "rightSubtitle": "マイコース"
+    }
+  },
+  "goods": {
+    "title": "公式ストア",
+    "home": "ホームへ",
+    "heroTitle": "釜山の思い出を形に",
+    "heroSubtitle": "ロケ地の感動をそのままに、オリジナルグッズをお届けします",
+    "items": {
+      "item1": {
+        "title": "ジャガル치・オジメ (乾物スナック)",
+        "desc": "「休息を美味しく楽しく」6種類の乾物製品で、美味しい休息を提供します。",
+        "category": "食品"
+      },
+      "item2": {
+        "title": "イェップントッオヌル (釜山デザイン特化餅)",
+        "desc": "釜山で育った材料を使用し、釜山代表テーマを形にしたデザイン特化餅です。",
+        "category": "食品"
+      },
+      "item3": {
+        "title": "釜山サバパン & ゴドリパン",
+        "desc": "釜山市の魚であるサバをモチーフに作った、グルテンフリーの米パンです。",
+        "category": "食品"
+      },
+      "item4": {
+        "title": "オンドダム (職人の真心 真鍮の器)",
+        "desc": "真心を込めて。職人の情熱が宿った本物の真鍮、2003年から研究された信頼のブランドです。",
+        "category": "リビング/食器"
+      }
     }
   },
   "community": {
@@ -88,7 +138,7 @@
       "line": "LINEでシェアしました！ 🟢"
     },
     "post": {
-      "success": "投稿が完了しました！ ✨",
+      "success": "投稿가 성공적으로 공유되었습니다! ✨",
       "captionError": "キャプションを入力してください！",
       "placeholder": "あなただけの釜山ドラマ旅のコツをシェアしよう！",
       "submit": "アップロード"
@@ -105,7 +155,7 @@
   },
   "quiz": {
     "intro": {
-      "badge": "全6問・約1分",
+      "badge": "全6問・約1분",
       "title": "あなたの釜山旅スタイル診断 ✨",
       "subtitle": "6つの質問でぴったりの釜山プランを見つけよう",
       "start": "診断スタート"
@@ -149,7 +199,7 @@
       "seeAll": "おすすめスポットを全部見る",
       "shareLine": "LINEでシェア",
       "shareIG": "IGストーリーズでシェア",
-      "copyLink": "リンクをコピー",
+      "copyLink": "링크 복사",
       "shareText": "私の釜山旅スタイルは「{{type}}」{{icon}} 試してみて!"
     },
     "types": {
@@ -173,9 +223,9 @@
   },
   "spots": {
     "searchPlaceholder": "場所やドラマで検索",
-    "addedToCourse": "マイコースに追加しました ❤",
+    "addedToCourse": "내 코스에 추가되었어요 ❤",
     "styleBanner": "「{{style}}」スタイルの撮影地",
-    "clearStyle": "フィルター解除",
+    "clearStyle": "필터 초기화",
     "count": "{{count}}件の撮影地",
     "filters": {
       "drama": "ドラマ",
@@ -195,8 +245,8 @@
     "hero": {
       "title": "撮影地＆名所 ワンショット",
       "brand": "",
-      "subtitleLine1": "ドラマ撮影地のあのシーンを訪ねて、",
-      "subtitleLine2": "すぐ隣のグルメまでつながる釜山コースをご案内します。"
+      "subtitleLine1": "드라마 촬영지 그 장면을 찾아가고,",
+      "subtitleLine2": "바로 옆 맛집까지 이어지는 부산 코스를 안내합니다."
     }
   },
   "detail": {
@@ -227,7 +277,7 @@
       "title": "地図",
       "google": "Google Maps",
       "kakao": "KakaoMap",
-      "copyAddr": "住所コピー"
+      "copyAddr": "주소 복사"
     },
     "restaurants": {
       "title": "周辺グルメ 🍜",
@@ -248,16 +298,16 @@
       "hide": "閉じる"
     },
     "cta": {
-      "add": "マイコースに追加",
-      "added": "マイコースを見る →",
-      "carTour": "カーツアー予約"
+      "add": "내 코스에 추가",
+      "added": "내 코스 보기 →",
+      "carTour": "커뮤니티 카 투어 예약"
     },
     "nearbyCta": "✨ {{name}} 近くのグルメ＆カフェを探索"
   },
   "myCourse": {
     "title": "私の釜山コース",
-    "subtitle": "スポット{{spots}}・グルメ{{restaurants}}・カフェ{{cafes}}",
-    "removed": "削除しました",
+    "subtitle": "スポット{{spots}}・グルメ{{restaurants}}・카페{{cafes}}",
+    "removed": "削除했습니다",
     "empty": {
       "message": "お気に入りを集めて、あなただけの釜山1日プランを作ろう",
       "cta": "撮影地を見る"
@@ -290,14 +340,14 @@
     },
     "single": {
       "label": "今日の唯一の予定",
-      "hint": "もう数か所追加すると自動コースが作れます!"
+      "hint": "もう数か所追加すると自動コース가 생성돼요!"
     },
     "actions": {
       "share": "シェア",
-      "regen": "作り直す",
-      "export": "エクスポート",
+      "regen": "다시 짜기",
+      "export": "내보내기",
       "exportSoon": "PDF出力は近日公開 ✨",
-      "copyLink": "リンクをコピー"
+      "copyLink": "링크 복사"
     },
     "share": {
       "header": "私の釜山ドラマ巡り 🎬"

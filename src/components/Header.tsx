@@ -48,15 +48,6 @@ export function Header({ onOpenLang }: Props) {
           </Link>
 
           
-          <nav className="hidden md:flex items-center gap-6">
-            <Link 
-              href="/community" 
-              className="px-6 py-2.5 rounded-full bg-[#FF385C] text-white font-black text-sm shadow-lg shadow-[#FF385C]/20 hover:scale-105 hover:bg-[#E31C5F] transition-all active:scale-95 flex items-center gap-2"
-            >
-              <MessageSquare className="h-4 w-4" />
-              {t("nav.community")}
-            </Link>
-          </nav>
         </div>
 
         <div className="flex items-center gap-2 sm:gap-4">
@@ -72,6 +63,14 @@ export function Header({ onOpenLang }: Props) {
                 {favorites.length}
               </span>
             )}
+          </Link>
+
+          <Link 
+            href="/community" 
+            className="hidden sm:flex items-center gap-2 rounded-full border border-[#DDDDDD] bg-white px-4 py-2 text-[13px] font-bold text-[#222222] hover:bg-[#F7F7F7] shadow-sm transition-all"
+          >
+            <MessageSquare className="h-4 w-4 text-[#717171]" />
+            <span>{t("nav.community")}</span>
           </Link>
           
           <button
@@ -94,50 +93,43 @@ export function Header({ onOpenLang }: Props) {
                   {t("common.appName")}
                 </SheetTitle>
               </SheetHeader>
-              <div className="flex flex-col py-2">
-                <div className="px-6 py-4 flex flex-col gap-3 border-b border-gray-100">
-                  <p className="text-[11px] font-black text-[#717171] uppercase tracking-[0.2em] mb-1">Quick Start</p>
-                  <SheetClose asChild>
-                    <Link href="/spots">
-                      <button className="w-full rounded-full bg-[#FF385C] hover:bg-[#E31C5F] text-white h-12 text-[15px] font-bold shadow-md transition-all active:scale-95 flex items-center justify-center">
-                        {t("landing.cta.explore")}
-                      </button>
-                    </Link>
-                  </SheetClose>
-                  <SheetClose asChild>
-                    <Link href="/community">
-                      <button className="w-full rounded-full border border-[#DDDDDD] bg-white text-[#222222] h-12 text-[15px] font-bold shadow-sm hover:bg-[#F7F7F7] transition-all active:scale-95 flex items-center justify-center gap-2">
-                        <MessageSquare className="h-4 w-4 text-[#FF385C]" />
-                        {t("landing.categories.community")}
-                      </button>
-                    </Link>
-                  </SheetClose>
+              <div className="flex flex-col py-4 px-3 gap-1">
+                <div className="px-3 pb-2 pt-1">
+                  <p className="text-[11px] font-black text-[#717171] uppercase tracking-[0.2em]">{t('common.quickStart')}</p>
                 </div>
+                
+                <SheetClose asChild>
+                  <Link href="/spots" className="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-[16px] font-bold text-[#222222] hover:bg-[#F7F7F7] hover:text-[#FF385C] transition-all group">
+                    <MapPin className="h-5 w-5 text-[#717171] group-hover:text-[#FF385C] transition-colors" />
+                    {t("landing.cta.explore")}
+                  </Link>
+                </SheetClose>
 
                 {menuItems.map((item) => (
                   <SheetClose asChild key={item.href}>
                     <Link
                       href={item.href}
-                      className="flex items-center gap-4 px-6 py-4 text-lg font-bold text-[#222222] hover:bg-gray-50 transition-colors border-l-4 border-transparent hover:border-[#FF385C]"
+                      className="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-[16px] font-bold text-[#222222] hover:bg-[#F7F7F7] hover:text-[#FF385C] transition-all group"
                     >
-                      <item.icon className="h-5 w-5 text-[#717171]" />
+                      <item.icon className="h-5 w-5 text-[#717171] group-hover:text-[#FF385C] transition-colors" />
                       {item.label}
                     </Link>
                   </SheetClose>
                 ))}
                 
-                <div className="mt-4 px-6 pt-6 border-t border-gray-100">
-                  <p className="text-[11px] font-black text-[#717171] uppercase tracking-[0.2em] mb-4">Settings</p>
-                  <SheetClose asChild>
-                    <button
-                      onClick={onOpenLang}
-                      className="flex items-center gap-4 w-full text-left py-2 text-base font-semibold text-[#222222] hover:text-[#FF385C]"
-                    >
-                      <Globe className="h-5 w-5 text-[#717171]" />
-                      {t("language.choose")} ({meta.native})
-                    </button>
-                  </SheetClose>
+                <div className="px-3 pb-2 pt-4 border-t border-gray-100 mt-2">
+                  <p className="text-[11px] font-black text-[#717171] uppercase tracking-[0.2em]">{t('common.settings')}</p>
                 </div>
+                
+                <SheetClose asChild>
+                  <button
+                    onClick={onOpenLang}
+                    className="flex items-center gap-4 w-full text-left px-4 py-3.5 rounded-2xl text-[16px] font-bold text-[#222222] hover:bg-[#F7F7F7] hover:text-[#FF385C] transition-all group"
+                  >
+                    <Globe className="h-5 w-5 text-[#717171] group-hover:text-[#FF385C] transition-colors" />
+                    {t("language.choose")} ({meta.native})
+                  </button>
+                </SheetClose>
               </div>
             </SheetContent>
           </Sheet>
