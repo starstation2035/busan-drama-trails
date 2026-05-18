@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Home, ShoppingBag, Heart, Star, ChevronRight } from 'lucide-react';
+import { Home, ShoppingBag, Heart, Star } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 export default function GoodsPage() {
