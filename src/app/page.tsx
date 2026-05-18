@@ -7,42 +7,56 @@ import { MOCK_REVIEWS, type Review } from "@/data/mockReviews";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 
-const POSTERS = [
+interface Poster {
+  id: string;
+  year: string;
+  img: string;
+  link: string;
+  title: string;
+}
+
+const POSTERS: Poster[] = [
   { 
     id: "woo",
     year: "2022", 
     img: "https://image.tmdb.org/t/p/original/u6Cx6ijenevIQjtrjFpPgQzgI10.jpg", 
-    link: "/spots/spot_001" 
+    link: "/spots/spot_001",
+    title: "이상한 변호사 우영우"
   },
   { 
     id: "runningman",
     year: "2010", 
     img: "https://image.tmdb.org/t/p/original/15SMnscZqd7HZ0bzruatOcKUlOV.jpg", 
-    link: "/spots/spot_002" 
+    link: "/spots/spot_002",
+    title: "런닝맨"
   },
   { 
     id: "pachinko",
     year: "2022", 
     img: "https://image.tmdb.org/t/p/w500/aK640gWriIscSoSf30MNqtsvseo.jpg", 
-    link: "/spots/pachinko" 
+    link: "/spots/pachinko",
+    title: "파친코"
   },
   { 
     id: "attorney",
     year: "2013", 
     img: "https://upload.wikimedia.org/wikipedia/en/b/b5/The_Attorney_poster.jpg", 
-    link: "/spots/spot_004" 
+    link: "/spots/spot_004",
+    title: "변호인"
   },
   { 
     id: "haeundae",
     year: "2009", 
     img: "https://upload.wikimedia.org/wikipedia/en/b/b7/Haeundae_film_poster.jpg", 
-    link: "/spots/spot_003" 
+    link: "/spots/spot_003",
+    title: "해운대"
   },
   { 
     id: "market",
     year: "2014", 
     img: "https://image.tmdb.org/t/p/original/rmZ4qkpDVdTgjwliJ84aJ43hStt.jpg", 
-    link: "/spots?dramas=국제시장" 
+    link: "/spots?dramas=국제시장",
+    title: "국제시장"
   }
 ];
 
