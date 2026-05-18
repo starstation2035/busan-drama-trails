@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
-import { Globe, Heart, Menu, MessageSquare } from "lucide-react";
+import { Globe, Heart, Menu, MessageSquare, Home, ShoppingBag, MapPin } from "lucide-react";
 import { useAppStore } from "@/stores/useAppStore";
 import {
   Sheet,
