@@ -57,11 +57,16 @@ import {
 import { type EditableTimelineEntry } from "@/domain/course";
 import { courseService } from "@/application/courseService";
 import { STYLE_META, type StyleKey } from "@/data/quiz";
+import { supabase } from "@/lib/supabase";
+import { toPng } from "html-to-image";
 
 export default function MyCoursePage() {
   const { t, i18n } = useTranslation();
   const lang = (i18n.language || "zh-TW") as LangCode;
   const favorites = useAppStore((s) => s.favorites);
+  const guestId = useAppStore((s) => s.guestId);
+  const initializeGuestId = useAppStore((s) => s.initializeGuestId);
+  const setFavorites = useAppStore((s) => s.setFavorites);
   const userStyle = useAppStore((s) => s.userStyle) as StyleKey | null;
   const toggleFavorite = useAppStore((s) => s.toggleFavorite);
   const router = useRouter();
@@ -72,6 +77,7 @@ export default function MyCoursePage() {
   const [seed, setSeed] = useState(0);
   const [isEditing, setIsEditing] = useState(false);
   const [isAddSheetOpen, setIsAddSheetOpen] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
 
   const [editableCourse, setEditableCourse] = useState<EditableTimelineEntry[]>([]);
   const skipRegenRef = useRef(false);
@@ -88,6 +94,30 @@ export default function MyCoursePage() {
       setEditableCourse([]);
     }
   }, [favorites, seed]);
+
+  // Supabase Load Logic
+  useEffect(() => {
+    initializeGuestId();
+  }, [initializeGuestId]);
+
+  useEffect(() => {
+    async function loadCourseData() {
+      if (!guestId) return;
+      const { data, error } = await supabase
+        .from("user_courses")
+        .select("course_data")
+        .eq("guest_id", guestId)
+        .single();
+
+      if (data && data.course_data) {
+        // Prevent infinite loop by checking if we really need to update
+        if (JSON.stringify(data.course_data) !== JSON.stringify(useAppStore.getState().favorites)) {
+          setFavorites(data.course_data);
+        }
+      }
+    }
+    loadCourseData();
+  }, [guestId, setFavorites]);
 
   const totalKm = useMemo(() => totalRouteKm(editableCourse), [editableCourse]);
 
@@ -129,6 +159,88 @@ export default function MyCoursePage() {
   const handleCopy = async () => {
     await navigator.clipboard.writeText(typeof window !== "undefined" ? window.location.href : "");
     toast.success(t("common.copied"));
+  };
+
+  const handleShareImage = async (platform?: 'kakao' | 'instagram' | 'line') => {
+    const node = document.getElementById("share-card");
+    if (!node) {
+      toast.error("공유 화면을 찾을 수 없습니다.");
+      return;
+    }
+    
+    const loadingToast = toast.loading("공유 이미지를 생성하는 중...");
+    
+    try {
+      // Generate clean high resolution PNG without scale/transform glitches
+      const dataUrl = await toPng(node, { 
+        backgroundColor: null,
+        style: {
+          transform: 'scale(1)',
+        }
+      });
+      
+      const response = await fetch(dataUrl);
+      const blob = await response.blob();
+      const file = new File([blob], "my-course.png", { type: "image/png" });
+      
+      // Check if Web Share API with files is supported (mostly mobile)
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: "Busan Drama Trail Course",
+          text: "내가 만든 부산 드라마 여행 코스야! 🎬✨",
+        });
+        toast.dismiss(loadingToast);
+        toast.success("공유 창이 열렸습니다!");
+      } else {
+        // Fallback: Download the image and copy to clipboard if supported (mostly desktop)
+        const link = document.createElement("a");
+        link.download = "my-course.png";
+        link.href = dataUrl;
+        link.click();
+        
+        try {
+          await navigator.clipboard.write([
+            new ClipboardItem({
+              [blob.type]: blob
+            })
+          ]);
+          toast.dismiss(loadingToast);
+          toast.success("이미지가 다운로드되고 클립보드에 복사되었습니다! 카톡, 인스타, 라인에 바로 붙여넣기(Ctrl+V) 해보세요! ✨", {
+            duration: 6000
+          });
+        } catch (clipErr) {
+          toast.dismiss(loadingToast);
+          toast.success("이미지가 성공적으로 다운로드되었습니다! 저장된 이미지를 카톡, 인스타, 라인에 공유해 보세요! 📸");
+        }
+      }
+    } catch (err: any) {
+      toast.dismiss(loadingToast);
+      toast.error(`이미지 생성 실패: ${err.message}`);
+    }
+  };
+
+  const handleSaveToSupabase = async () => {
+    if (!guestId) {
+      toast.error("Guest ID가 없습니다.");
+      return;
+    }
+    setIsSaving(true);
+    try {
+      const { error } = await supabase.from("user_courses").upsert(
+        {
+          guest_id: guestId,
+          course_data: favorites,
+        },
+        { onConflict: "guest_id" }
+      );
+      if (error) throw error;
+      toast.success("코스가 성공적으로 저장되었습니다!");
+    } catch (err: any) {
+      toast.error(`저장 실패: ${err.message}`);
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   const onUpdateMemo = (idx: number, val: string) => {
@@ -369,44 +481,59 @@ export default function MyCoursePage() {
             <Button
               variant="outline"
               onClick={() => setIsEditing(true)}
-              className="h-12 px-4 gap-2 rounded-xl border-border/60 font-bold hover:bg-muted"
+              className="flex-1 h-12 gap-2 rounded-xl border-border/60 font-bold text-muted-foreground hover:text-amber-500 hover:border-amber-500/40 hover:bg-amber-500/10 transition-colors"
             >
-              <Pencil className="h-4 w-4 text-primary" /> 코스 다시 짜기
+              <Pencil className="h-4 w-4" /> 코스 다시 짜기
             </Button>
 
             <Sheet>
               <SheetTrigger asChild>
                 <Button
-                  variant="default"
-                  className="flex-1 h-12 gap-2 rounded-xl font-bold shadow-md active:scale-95 transition-transform"
+                  variant="outline"
+                  className="flex-1 h-12 gap-2 rounded-xl border-border/60 font-bold text-muted-foreground hover:text-rose-500 hover:border-rose-500/40 hover:bg-rose-500/10 transition-all active:scale-95 duration-300"
                 >
                   <Share2 className="h-4 w-4" /> {t("myCourse.actions.share")}
                 </Button>
               </SheetTrigger>
-              <SheetContent side="bottom" className="h-[85vh] rounded-t-[32px] p-0 overflow-hidden">
-                <SheetHeader className="p-6 pb-0">
+              <SheetContent side="bottom" className="h-[90vh] sm:h-[85vh] rounded-t-[32px] p-0 overflow-hidden flex flex-col bg-background">
+                <SheetHeader className="p-6 pb-0 shrink-0">
                   <SheetTitle className="text-center font-black tracking-tight">
                     {t("myCourse.actions.share")}
                   </SheetTitle>
                 </SheetHeader>
-                <div className="h-full overflow-y-auto p-6 pb-20">
-                  <div className="space-y-6">
-                    <ShareLayout course={editableCourse} lang={lang} />
-                    <div className="grid grid-cols-2 gap-3">
-                      <Button
-                        onClick={handleShare}
-                        variant="outline"
-                        className="h-12 gap-2 rounded-xl border-border/60 font-bold"
-                      >
-                        <MessageCircle className="size-4" /> LINE
-                      </Button>
-                      <Button
-                        onClick={handleCopy}
-                        variant="outline"
-                        className="h-12 gap-2 rounded-xl border-border/60 font-bold"
-                      >
-                        <Instagram className="size-4" /> Instagram
-                      </Button>
+                <div className="flex-1 overflow-y-auto p-6 pb-24">
+                  <div className="space-y-6 flex flex-col items-center">
+                    <div className="w-full max-w-[280px] aspect-[9/16] shrink-0">
+                      <ShareLayout course={editableCourse} lang={lang} />
+                    </div>
+                    
+                    <div className="w-full max-w-[360px] space-y-3 shrink-0">
+                      <p className="text-xs font-bold text-muted-foreground text-center">
+                        원하는 플랫폼의 이미지 공유 버튼을 선택하세요! 📸
+                      </p>
+                      <div className="grid grid-cols-3 gap-2">
+                        <Button
+                          onClick={() => handleShareImage('kakao')}
+                          className="h-12 gap-1 rounded-xl bg-[#FEE500] hover:bg-[#FEE500]/90 text-[#191919] font-bold text-xs border-none shadow-sm active:scale-95 transition-transform"
+                        >
+                          <MessageCircle className="size-4 fill-current" />
+                          카카오톡
+                        </Button>
+                        <Button
+                          onClick={() => handleShareImage('instagram')}
+                          className="h-12 gap-1 rounded-xl bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#F56040] hover:opacity-90 text-white font-bold text-xs border-none shadow-sm active:scale-95 transition-transform"
+                        >
+                          <Instagram className="size-4" />
+                          인스타
+                        </Button>
+                        <Button
+                          onClick={() => handleShareImage('line')}
+                          className="h-12 gap-1 rounded-xl bg-[#06C755] hover:bg-[#06C755]/90 text-white font-bold text-xs border-none shadow-sm active:scale-95 transition-transform"
+                        >
+                          <Share2 className="size-4" />
+                          라인
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -415,10 +542,12 @@ export default function MyCoursePage() {
 
             <Button
               variant="outline"
-              onClick={() => toast.info(t("myCourse.actions.exportSoon"))}
-              className="h-12 w-12 rounded-xl border-border/60 shadow-sm"
+              onClick={handleSaveToSupabase}
+              disabled={isSaving}
+              className="flex-1 h-12 gap-2 rounded-xl border-border/60 font-bold text-muted-foreground hover:text-indigo-600 hover:border-indigo-600/40 hover:bg-indigo-600/10 transition-colors disabled:opacity-50"
             >
-              <Download className="h-4 w-4" />
+              {isSaving ? <RefreshCw className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
+              <span className="font-bold">코스 저장</span>
             </Button>
           </>
         )}
@@ -900,20 +1029,23 @@ function ShareLayout({ course, lang }: { course: EditableTimelineEntry[]; lang: 
   const { t } = useTranslation();
 
   return (
-    <div className="relative aspect-[9/16] w-full overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-[#003d99] via-[#0077cc] to-[#33ccff] p-8 text-white shadow-2xl">
+    <div
+      id="share-card"
+      className="relative aspect-[9/16] w-full overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-[#003d99] via-[#0077cc] to-[#33ccff] p-6 text-white shadow-2xl flex flex-col justify-between"
+    >
       {/* Decorative Blur Spheres */}
       <div className="absolute -top-10 -right-10 h-60 w-60 rounded-full bg-white/10 blur-[80px]" />
       <div className="absolute top-1/2 -left-20 h-80 w-80 rounded-full bg-blue-400/20 blur-[100px]" />
 
       {/* Header */}
-      <div className="relative z-10 space-y-3 pt-4 text-center">
-        <div className="mx-auto w-fit rounded-full bg-white/20 px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] backdrop-blur-xl border border-white/10">
+      <div className="relative z-10 space-y-2 pt-2 text-center flex-none">
+        <div className="mx-auto w-fit rounded-full bg-white/20 px-3 py-1 text-[9px] font-black uppercase tracking-[0.2em] backdrop-blur-xl border border-white/10">
           Personal Trip
         </div>
-        <h2 className="text-4xl font-black tracking-tighter drop-shadow-2xl">
+        <h2 className="text-3xl font-black tracking-tighter drop-shadow-2xl">
           {t("myCourse.share.layoutTitle")}
         </h2>
-        <div className="flex items-center justify-center gap-3 text-[10px] font-black uppercase tracking-widest opacity-60">
+        <div className="flex items-center justify-center gap-2 text-[9px] font-black uppercase tracking-widest opacity-60">
           <span>{new Date().toLocaleDateString(lang === "ko" ? "ko-KR" : "en-US")}</span>
           <span className="size-1 rounded-full bg-white/40" />
           <span>{course.length} Spots</span>
@@ -921,28 +1053,32 @@ function ShareLayout({ course, lang }: { course: EditableTimelineEntry[]; lang: 
       </div>
 
       {/* Timeline */}
-      <div className="relative z-10 mt-12 h-[60%] overflow-hidden">
-        <div className="absolute left-[2.25rem] top-6 bottom-6 w-px bg-gradient-to-b from-white/40 via-white/10 to-transparent" />
-
-        <div className="space-y-8">
-          {course.slice(0, 5).map((entry, idx) => (
+      <div className="relative z-10 flex-1 my-4 flex flex-col justify-center space-y-4 overflow-hidden">
+        <div className="absolute left-[1.5rem] top-4 bottom-4 w-px bg-gradient-to-b from-white/40 via-white/10 to-transparent" />
+        <div className="space-y-4">
+          {course.slice(0, 4).map((entry, idx) => (
             <div
               key={idx}
-              className="flex gap-5 animate-slide-in"
+              className="flex gap-4 items-center animate-slide-in"
               style={{ animationDelay: `${idx * 0.1}s` }}
             >
               <div className="relative flex-none">
-                <div className="flex h-12 w-12 items-center justify-center rounded-[18px] bg-white/15 text-[11px] font-black backdrop-blur-xl border border-white/20 shadow-xl tabular-nums">
+                <img
+                  src={entry.item.thumbnail}
+                  className="h-12 w-12 rounded-[14px] object-cover shadow-md border border-white/20"
+                  alt=""
+                />
+                <div className="absolute -bottom-1 -right-1 bg-black/75 text-[8px] font-extrabold px-1.5 py-0.5 rounded-md backdrop-blur-sm border border-white/10 tabular-nums">
                   {entry.time}
                 </div>
               </div>
 
-              <div className="flex-1 space-y-1.5 pt-1">
-                <h3 className="line-clamp-1 text-base font-black tracking-tight leading-none">
+              <div className="flex-1 min-w-0 space-y-1">
+                <h3 className="line-clamp-1 text-sm font-black tracking-tight leading-none">
                   {entry.item.name[lang] ?? entry.item.name["en"]}
                 </h3>
-                <div className="flex items-center gap-2 text-[10px] font-bold opacity-60 uppercase tracking-wider">
-                  <span className="rounded-md bg-white/10 px-1.5 py-0.5 text-[9px]">
+                <div className="flex items-center gap-2 text-[9px] font-bold opacity-60 uppercase tracking-wider">
+                  <span className="rounded bg-white/10 px-1.5 py-0.5 text-[8px]">
                     {t(`myCourse.kinds.${entry.item.kind}`)}
                   </span>
                   {entry.memo && <span className="line-clamp-1 italic">— {entry.memo}</span>}
@@ -950,33 +1086,23 @@ function ShareLayout({ course, lang }: { course: EditableTimelineEntry[]; lang: 
               </div>
             </div>
           ))}
-          {course.length > 5 && (
-            <div className="pl-[4.25rem] text-[10px] font-black uppercase tracking-[0.2em] opacity-40 animate-pulse">
-              + {course.length - 5} more places
+          {course.length > 4 && (
+            <div className="pl-[3.5rem] text-[9px] font-black uppercase tracking-[0.2em] opacity-40 animate-pulse">
+              + {course.length - 4} more places
             </div>
           )}
         </div>
       </div>
 
       {/* Footer Branding */}
-      <div className="absolute bottom-12 left-0 w-full px-8">
-        <div className="flex flex-col items-center justify-center gap-4">
-          <div className="h-px w-16 bg-white/20" />
-          <p className="text-[11px] font-black uppercase tracking-[0.3em] opacity-60">
-            {t("common.appName")}
-          </p>
-          <div className="flex gap-6 opacity-40">
-            <Instagram className="h-5 w-5" />
-            <MessageCircle className="h-5 w-5" />
-          </div>
-        </div>
-      </div>
-
-      {/* Instructions Overlay */}
-      <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/40 opacity-0 transition-opacity hover:opacity-100 backdrop-blur-sm cursor-pointer">
-        <p className="rounded-2xl bg-white px-6 py-3 text-xs font-black text-black shadow-2xl uppercase tracking-widest scale-90 hover:scale-100 transition-transform">
-          📸 Screenshot to share!
+      <div className="relative z-10 flex-none pt-2 border-t border-white/10 flex flex-col items-center gap-2">
+        <p className="text-[10px] font-black uppercase tracking-[0.3em] opacity-60">
+          {t("common.appName")}
         </p>
+        <div className="flex gap-4 opacity-40">
+          <Instagram className="h-4 w-4" />
+          <MessageCircle className="h-4 w-4" />
+        </div>
       </div>
     </div>
   );

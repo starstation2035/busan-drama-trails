@@ -13,11 +13,13 @@ export interface MyCourseItem {
 }
 
 interface AppState {
+  guestId: string | null;
   lang: LangCode | null;
   userStyle: UserStyle;
   favorites: string[];
   myCourseItems: MyCourseItem[];
   setLang: (lang: LangCode) => void;
+  initializeGuestId: () => void;
   setUserStyle: (style: UserStyle) => void;
   toggleFavorite: (id: string) => void;
   setFavorites: (ids: string[]) => void;
@@ -27,11 +29,17 @@ interface AppState {
 export const useAppStore = create<AppState>()(
   persist(
     (set, get) => ({
+      guestId: null,
       lang: null,
       userStyle: null,
       favorites: [],
       myCourseItems: [],
       setLang: (lang) => set({ lang }),
+      initializeGuestId: () => {
+        if (!get().guestId) {
+          set({ guestId: crypto.randomUUID() });
+        }
+      },
       setUserStyle: (userStyle) => set({ userStyle }),
       toggleFavorite: (id) => {
         const f = get().favorites;
@@ -46,6 +54,6 @@ export const useAppStore = create<AppState>()(
         });
       },
     }),
-    { name: "busan-app" },
+    { name: "busan-app-v2" },
   ),
 );

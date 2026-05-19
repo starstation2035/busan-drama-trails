@@ -11,6 +11,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { useAppStore } from "@/stores/useAppStore";
 import { HeartEffect } from "./HeartEffect";
 import "@/lib/i18n";
+import { supabase } from "@/lib/supabase";
 
 import { FloatingActions } from "./FloatingActions";
 
@@ -18,6 +19,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const { i18n } = useTranslation();
   const pathname = usePathname();
   const lang = useAppStore((s: any) => s.lang);
+  const guestId = useAppStore((s: any) => s.guestId);
+  const initializeGuestId = useAppStore((s: any) => s.initializeGuestId);
+  const setFavorites = useAppStore((s: any) => s.setFavorites);
+  
   const [modalOpen, setModalOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -29,6 +34,35 @@ export function Layout({ children }: { children: React.ReactNode }) {
       void i18n.changeLanguage(lang);
     }
   }, [lang, i18n]);
+
+  useEffect(() => {
+    initializeGuestId();
+  }, [initializeGuestId]);
+
+  useEffect(() => {
+    async function loadCourseFromSupabase() {
+      if (!guestId) return;
+      try {
+        const { data, error } = await supabase
+          .from("user_courses")
+          .select("course_data")
+          .eq("guest_id", guestId)
+          .single();
+
+        if (data && data.course_data) {
+          const localFavs = useAppStore.getState().favorites;
+          if (JSON.stringify(data.course_data) !== JSON.stringify(localFavs)) {
+            setFavorites(data.course_data);
+          }
+        }
+      } catch (err) {
+        console.error("Global Supabase sync error:", err);
+      }
+    }
+    if (mounted) {
+      loadCourseFromSupabase();
+    }
+  }, [guestId, mounted, setFavorites]);
 
   if (!mounted) {
     return (
