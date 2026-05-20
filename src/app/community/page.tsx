@@ -24,11 +24,12 @@ export default function Community() {
     toggleLike(id);
   };
 
-  const filteredReviews =
-    activeTab === "all" ? posts : posts.filter((r) => r.category === activeTab);
+  // Filter posts by category
+  const talkPosts = posts.filter((p) => p.category === "talk");
+  const reviewPosts = posts.filter((p) => p.category === "reviews");
 
   return (
-    <div className="space-y-6 pb-24">
+    <div className="space-y-8 pb-24">
       {/* Header Section */}
       <section className="animate-fade-up px-2">
         <h1 className="text-3xl font-bold tracking-tight text-foreground">
@@ -74,99 +75,167 @@ export default function Community() {
         </div>
       </section>
 
-      {/* Review Feed */}
-      <section className="grid grid-cols-1 gap-6 sm:grid-cols-2 animate-fade-up">
-        {filteredReviews.map((review) => {
-          const isLiked = review.isLiked;
-          return (
-            <Link
-              href={`/community/${review.id}`}
-              key={review.id}
-              className="group overflow-hidden rounded-[2.5rem] border border-border/50 bg-card shadow-sm transition-all hover:shadow-xl block flex flex-col h-full"
-            >
-              {/* Vertical Image (Only if present) */}
-              {review.image ? (
-                <div className="relative aspect-[9/12] overflow-hidden shrink-0">
-                  <img
-                    src={review.image}
-                    alt={review.location}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-6 text-white">
-                    <div className="flex items-center gap-2">
-                      <MapPin className="h-4 w-4 text-primary" />
-                      <span className="text-sm font-medium">{review.location}</span>
-                    </div>
-                  </div>
-                  <button
-                    onClick={(e) => handleLike(e, review.id)}
-                    className={`absolute right-4 top-4 z-30 rounded-full p-2.5 backdrop-blur-md transition-all active:scale-90 ${
-                      isLiked
-                        ? "bg-primary text-white shadow-lg"
-                        : "bg-white/20 text-white hover:bg-white/40"
-                    }`}
-                  >
-                    <Heart className={`h-5 w-5 ${isLiked ? "fill-current" : ""}`} />
-                  </button>
-                </div>
-              ) : null}
-
-              {/* Content Area */}
-              <div className="p-6 flex-1 flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center gap-3">
-                    <img
-                      src={review.avatar}
-                      alt={review.author}
-                      className="h-8 w-8 rounded-full border border-border bg-muted"
-                    />
-                    <span className="flex-1 text-sm font-bold text-foreground">{review.author}</span>
-                    <span className="rounded-full bg-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
-                      {t(`community.filters.${review.category}`)}
-                    </span>
-                  </div>
-
-                  <p className="mt-4 line-clamp-4 text-sm leading-relaxed text-muted-foreground">
-                    {review.content}
-                  </p>
-                </div>
-
-                <div className="mt-6 pt-4 border-t border-border/40 flex items-center justify-between">
-                  {/* If no image, show location here instead of in the image */}
-                  {!review.image ? (
-                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                      <MapPin className="h-3.5 w-3.5 text-primary" />
-                      <span className="font-medium truncate max-w-[120px]">{review.location}</span>
-                    </div>
-                  ) : (
-                    <span className="text-xs font-medium text-muted-foreground">
-                      {review.likes} likes
-                    </span>
+      {/* Conditional Layout Rendering */}
+      <div className="space-y-10 animate-fade-up">
+        
+        {/* 1. [전체] 탭 혹은 [자유토크] 탭일 때: 💬 실시간 자유토크 Q&A 섹션 */}
+        {(activeTab === "all" || activeTab === "talk") && (
+          <section className="space-y-4">
+            <div className="flex items-center justify-between px-2">
+              <div className="space-y-0.5">
+                <h2 className="text-lg font-bold text-[#222222] flex items-center gap-2.5">
+                  <span>💬 실시간 자유토크 Q&A</span>
+                  {activeTab === "all" && (
+                    <span className="text-[10px] bg-primary/10 text-primary px-2.5 py-0.5 rounded-full font-extrabold uppercase">최신 질문</span>
                   )}
-
-                  {!review.image ? (
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={(e) => handleLike(e, review.id)}
-                        className={`rounded-full p-1.5 transition-all active:scale-90 ${
-                          isLiked
-                            ? "text-primary"
-                            : "text-muted-foreground hover:text-foreground"
-                        }`}
-                      >
-                        <Heart className={`h-4.5 w-4.5 ${isLiked ? "fill-current" : ""}`} />
-                      </button>
-                      <span className="text-xs font-medium text-muted-foreground">
-                        {review.likes}
-                      </span>
-                    </div>
-                  ) : null}
-                </div>
+                </h2>
+                <p className="text-xs text-muted-foreground">성지순례 질문 및 자유로운 이야기를 나누어보세요.</p>
               </div>
-            </Link>
-          );
-        })}
-      </section>
+              {activeTab === "all" && talkPosts.length > 3 && (
+                <button
+                  onClick={() => setActiveTab("talk")}
+                  className="text-xs font-bold text-primary flex items-center gap-1 hover:underline transition-all"
+                >
+                  <span>전체보기</span>
+                  <ArrowRight className="h-3 w-3" />
+                </button>
+              )}
+            </div>
+
+            <div className="space-y-3.5">
+              {(activeTab === "all" ? talkPosts.slice(0, 3) : talkPosts).map((post) => (
+                <Link
+                  href={`/community/${post.id}`}
+                  key={post.id}
+                  className="flex items-center justify-between gap-4 p-4.5 rounded-2xl bg-card border border-border/60 hover:border-[#FF385C]/30 hover:shadow-md transition-all group block"
+                >
+                  <div className="flex items-center gap-3.5 flex-1 min-w-0">
+                    <img
+                      src={post.avatar}
+                      alt={post.author}
+                      className="h-8.5 w-8.5 rounded-full border border-border bg-muted shrink-0 object-cover"
+                    />
+                    <div className="flex items-center gap-2.5 flex-1 min-w-0">
+                      <span className="text-xs font-extrabold text-foreground/80 shrink-0">{post.author}</span>
+                      <span className="h-3 w-[1px] bg-border/80 shrink-0" />
+                      <p className="text-sm text-foreground/90 font-semibold truncate group-hover:text-primary transition-colors flex-1">
+                        {post.content}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 shrink-0">
+                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground bg-muted/40 px-2.5 py-1.5 rounded-xl">
+                      <MessageSquare className="h-3.5 w-3.5 text-muted-foreground/80" />
+                      <span className="font-bold text-[11px] text-muted-foreground/90">{(post.comments || []).length}</span>
+                    </div>
+                    <ArrowRight className="h-4 w-4 text-muted-foreground/60 transition-transform group-hover:translate-x-1 group-hover:text-[#FF385C]" />
+                  </div>
+                </Link>
+              ))}
+
+              {talkPosts.length === 0 && (
+                <div className="text-center py-10 bg-muted/10 rounded-2xl border border-dashed border-border/60 flex flex-col items-center justify-center gap-1.5">
+                  <span className="text-xl">💬</span>
+                  <p className="text-xs font-semibold text-muted-foreground">등록된 자유토크가 없습니다.</p>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
+        {/* 2. [전체] 탭 분리선 */}
+        {activeTab === "all" && talkPosts.length > 0 && (
+          <div className="border-t border-border/40 my-8" />
+        )}
+
+        {/* 3. [전체] 탭 혹은 [여행후기] 탭일 때: 📍 생생한 여행후기 섹션 */}
+        {(activeTab === "all" || activeTab === "reviews") && (
+          <section className="space-y-4">
+            <div className="px-2 space-y-0.5">
+              <h2 className="text-lg font-bold text-[#222222] flex items-center gap-2">
+                <span>📍 생생한 여행후기</span>
+              </h2>
+              <p className="text-xs text-muted-foreground">유저들이 전하는 실시간 부산 촬영지 생생 후기</p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              {reviewPosts.map((review) => {
+                const isLiked = review.isLiked;
+                return (
+                  <Link
+                    href={`/community/${review.id}`}
+                    key={review.id}
+                    className="group overflow-hidden rounded-[2.5rem] border border-border/50 bg-card shadow-sm transition-all hover:shadow-xl block flex flex-col h-full"
+                  >
+                    {/* Vertical Image */}
+                    {review.image && (
+                      <div className="relative aspect-[9/12] overflow-hidden shrink-0">
+                        <img
+                          src={review.image}
+                          alt={review.location}
+                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-6 text-white">
+                          <div className="flex items-center gap-2">
+                            <MapPin className="h-4 w-4 text-primary" />
+                            <span className="text-sm font-medium">{review.location}</span>
+                          </div>
+                        </div>
+                        <button
+                          onClick={(e) => handleLike(e, review.id)}
+                          className={`absolute right-4 top-4 z-30 rounded-full p-2.5 backdrop-blur-md transition-all active:scale-90 ${
+                            isLiked
+                              ? "bg-primary text-white shadow-lg"
+                              : "bg-white/20 text-white hover:bg-white/40"
+                          }`}
+                        >
+                          <Heart className={`h-5 w-5 ${isLiked ? "fill-current" : ""}`} />
+                        </button>
+                      </div>
+                    )}
+
+                    {/* Content Area */}
+                    <div className="p-6 flex-1 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center gap-3">
+                          <img
+                            src={review.avatar}
+                            alt={review.author}
+                            className="h-8 w-8 rounded-full border border-border bg-muted object-cover"
+                          />
+                          <span className="flex-1 text-sm font-bold text-foreground">{review.author}</span>
+                          <span className="rounded-full bg-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
+                            {t(`community.filters.${review.category}`)}
+                          </span>
+                        </div>
+
+                        <p className="mt-4 line-clamp-4 text-sm leading-relaxed text-muted-foreground">
+                          {review.content}
+                        </p>
+                      </div>
+
+                      <div className="mt-6 pt-4 border-t border-border/40 flex items-center justify-between">
+                        <span className="text-xs font-medium text-muted-foreground">
+                          {review.likes} likes
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })}
+
+              {reviewPosts.length === 0 && (
+                <div className="col-span-full text-center py-16 bg-muted/10 rounded-2xl border border-dashed border-border/60 flex flex-col items-center justify-center gap-1.5">
+                  <span className="text-xl">📍</span>
+                  <p className="text-xs font-semibold text-muted-foreground">등록된 여행후기가 없습니다.</p>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
+      </div>
 
       <CommunityPostModal open={isWriteModalOpen} onClose={() => setIsWriteModalOpen(false)} />
     </div>
