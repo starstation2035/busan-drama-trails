@@ -116,35 +116,28 @@ export default function LandingPage() {
   return (
     <div className="bg-background/0 text-foreground min-h-screen pb-20 space-y-16">
       {/* 🌟 Brand Hero Section (Restored & Centered) */}
-      <section className="pt-20 pb-12 flex flex-col items-center text-center animate-fade-up">
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF385C]/10 text-[#FF385C] border border-[#FF385C]/20 mb-8">
-          <Sparkles className="h-3.5 w-3.5" />
-          <span className="text-[12px] font-bold tracking-wider uppercase">One Shot Trap</span>
-        </div>
-
+      <section className="pt-20 pb-12 flex flex-col items-center text-center animate-fade-up px-4">
         {/* Title */}
-        <h1 className="text-6xl sm:text-8xl font-black text-[#222222] tracking-tighter mb-6 leading-tight">
-          {t("common.appName")}
+        <h1 className="text-4xl sm:text-6xl md:text-7xl font-black text-[#222222] tracking-tighter mb-4 sm:mb-6 leading-tight break-keep">
+          화면 속 그곳이 당신의<br className="hidden sm:block" /> 다음 여행지가 됩니다
         </h1>
 
         {/* Subtitle */}
-        <p className="text-xl sm:text-2xl font-medium text-[#717171] flex items-center gap-2">
-          {t("landing.subtitle")} <span className="animate-pulse">✨</span>
+        <p className="text-base sm:text-xl font-medium text-[#717171] mb-8 sm:mb-10 max-w-2xl break-keep">
+          영화, 드라마, 예능 속 대한민국 명소 찾기부터 나만의 코스 완성까지
         </p>
+
+        {/* CTA Button */}
+        <Link href="/spots">
+          <Button className="bg-[#FF385C] hover:bg-[#E31C5F] text-white text-base sm:text-lg font-bold px-8 py-6 rounded-full shadow-lg shadow-[#FF385C]/30 transition-all hover:-translate-y-1">
+            지금 인기 촬영지 둘러보기 <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
+        </Link>
       </section>
 
       <div className="space-y-16">
         {/* 🎬 Movie Posters Carousel */}
         <section className="animate-fade-up space-y-6">
-          <div className="flex items-end justify-between px-2">
-            <div>
-              <h2 className="text-2xl font-bold text-[#222222]">{t("landing.cinema.title")}</h2>
-              <p className="text-[13px] font-medium text-[#717171] uppercase tracking-widest mt-1">
-                {t("landing.cinema.subtitle")}
-              </p>
-            </div>
-          </div>
 
           <div
             ref={scrollRef}

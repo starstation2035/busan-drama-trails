@@ -32,11 +32,15 @@ export function Header({ onOpenLang }: Props) {
   const favorites = useAppStore((s) => s.favorites);
   const meta = FLAGS[lang] ?? FLAGS.ko;
 
-  const menuItems = [
-    { href: "/", icon: Home, label: t("nav.home") },
-    { href: "/community", icon: MessageSquare, label: t("nav.community") },
-    { href: "/my-course", icon: Heart, label: t("nav.myCourse") },
-    { href: "/goods", icon: ShoppingBag, label: t("nav.goods") },
+  const serviceItems = [
+    { href: "/", icon: Home, label: "홈" },
+    { href: "/spots", icon: MapPin, label: "촬영지 탐방" },
+    { href: "/my-course", icon: Heart, label: "내 코스" },
+  ];
+
+  const moreItems = [
+    { href: "/community", icon: MessageSquare, label: "커뮤니티" },
+    { href: "/goods", icon: ShoppingBag, label: "굿즈 쇼핑몰" },
   ];
 
   return (
@@ -93,24 +97,8 @@ export function Header({ onOpenLang }: Props) {
                   {t("common.appName")}
                 </SheetTitle>
               </SheetHeader>
-              <div className="flex flex-col py-4 px-3 gap-1">
-                <div className="px-3 pb-2 pt-1">
-                  <p className="text-[11px] font-black text-[#717171] uppercase tracking-[0.2em]">
-                    {t("common.quickStart")}
-                  </p>
-                </div>
-
-                <SheetClose asChild>
-                  <Link
-                    href="/spots"
-                    className="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-[16px] font-bold text-[#222222] hover:bg-[#F7F7F7] hover:text-[#FF385C] transition-all group"
-                  >
-                    <MapPin className="h-5 w-5 text-[#717171] group-hover:text-[#FF385C] transition-colors" />
-                    {t("landing.cta.explore")}
-                  </Link>
-                </SheetClose>
-
-                {menuItems.map((item) => (
+              <div className="flex flex-col py-6 px-3 gap-2">
+                {[...serviceItems, ...moreItems].map((item) => (
                   <SheetClose asChild key={item.href}>
                     <Link
                       href={item.href}
@@ -122,19 +110,13 @@ export function Header({ onOpenLang }: Props) {
                   </SheetClose>
                 ))}
 
-                <div className="px-3 pb-2 pt-4 border-t border-gray-100 mt-2">
-                  <p className="text-[11px] font-black text-[#717171] uppercase tracking-[0.2em]">
-                    {t("common.settings")}
-                  </p>
-                </div>
-
                 <SheetClose asChild>
                   <button
                     onClick={onOpenLang}
                     className="flex items-center gap-4 w-full text-left px-4 py-3.5 rounded-2xl text-[16px] font-bold text-[#222222] hover:bg-[#F7F7F7] hover:text-[#FF385C] transition-all group"
                   >
                     <Globe className="h-5 w-5 text-[#717171] group-hover:text-[#FF385C] transition-colors" />
-                    {t("language.choose")} ({meta.native})
+                    언어 설정 ({meta.native})
                   </button>
                 </SheetClose>
               </div>
