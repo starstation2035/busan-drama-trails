@@ -62,6 +62,7 @@ export const useCommunityStore = create<CommunityState>()(
     }),
     {
       name: "community-storage",
+      version: 1, // Bump version to automatically invalidate legacy v0 storage containing old reviews
     },
   ),
 );
