@@ -89,7 +89,7 @@ export default function Community() {
                     <span className="text-[10px] bg-primary/10 text-primary px-2.5 py-0.5 rounded-full font-extrabold uppercase">최신 질문</span>
                   )}
                 </h2>
-                <p className="text-xs text-muted-foreground">성지순례 질문 및 자유로운 이야기를 나누어보세요.</p>
+                <p className="text-xs text-muted-foreground">내가 사랑한 작품 속 장소, 궁금한 점을 자유롭게 물어보세요.</p>
               </div>
               {activeTab === "all" && talkPosts.length > 3 && (
                 <button
