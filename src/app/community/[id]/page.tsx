@@ -17,9 +17,26 @@ export default function CommunityDetail({ params }: { params: Promise<{ id: stri
 
   const posts = useCommunityStore((s) => s.posts);
   const toggleLike = useCommunityStore((s) => s.toggleLike);
+  const addComment = useCommunityStore((s) => s.addComment);
   const post = useMemo(() => posts.find((p) => p.id === postId), [posts, postId]);
 
   const [isWriteModalOpen, setIsWriteModalOpen] = useState(false);
+  const [commentText, setCommentText] = useState("");
+
+  const handleCommentSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!commentText.trim()) {
+      toast.error("댓글 내용을 입력해주세요.");
+      return;
+    }
+    addComment(post!.id, {
+      author: "Busan Traveler",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Me",
+      content: commentText.trim(),
+    });
+    setCommentText("");
+    toast.success("답변이 정상적으로 등록되었습니다!");
+  };
 
   if (!post) {
     return (
@@ -146,26 +163,92 @@ export default function CommunityDetail({ params }: { params: Promise<{ id: stri
           </p>
         </div>
 
-        {/* 3. CTA Card */}
-        <div className="mt-8 rounded-2xl bg-[#F4F5F7] p-6 border border-black/5 shadow-sm">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div className="flex-1 space-y-1 text-center sm:text-left">
-              <h3 className="text-[17px] font-bold text-[#222222] tracking-tight">
-                당신의 특별한 K-콘텐츠 투어 경험도 공유해 보세요!
-              </h3>
-              <p className="text-sm text-[#666666]">
-                사진 한 장으로 시작하는 나만의 여행 기록
-              </p>
+        {/* 3. CTA or Comment Section based on category */}
+        {post.category === "reviews" ? (
+          /* 3. CTA Card for reviews */
+          <div className="mt-8 rounded-2xl bg-[#F4F5F7] p-6 border border-black/5 shadow-sm">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+              <div className="flex-1 space-y-1 text-center sm:text-left">
+                <h3 className="text-[17px] font-bold text-[#222222] tracking-tight">
+                  당신의 특별한 K-콘텐츠 투어 경험도 공유해 보세요!
+                </h3>
+                <p className="text-sm text-[#666666]">
+                  사진 한 장으로 시작하는 나만의 여행 기록
+                </p>
+              </div>
+              <button
+                onClick={() => setIsWriteModalOpen(true)}
+                className="w-full sm:w-auto flex flex-shrink-0 items-center justify-center gap-2 rounded-xl bg-[#FF385C] px-6 py-3.5 text-sm font-bold text-white shadow-md transition-all hover:bg-[#E31C5F] active:scale-95"
+              >
+                <PenLine className="size-4" />
+                <span>나도 후기 쓰기</span>
+              </button>
             </div>
-            <button
-              onClick={() => setIsWriteModalOpen(true)}
-              className="w-full sm:w-auto flex flex-shrink-0 items-center justify-center gap-2 rounded-xl bg-[#FF385C] px-6 py-3.5 text-sm font-bold text-white shadow-md transition-all hover:bg-[#E31C5F] active:scale-95"
-            >
-              <PenLine className="size-4" />
-              <span>나도 후기 쓰기</span>
-            </button>
           </div>
-        </div>
+        ) : (
+          /* 3. Comment Section for talk */
+          <div className="mt-12 border-t border-border/60 pt-10">
+            {/* Header: 댓글 개수 */}
+            <div className="flex items-center justify-between mb-8">
+              <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
+                <span>답변</span>
+                <span className="text-[#FF385C] bg-[#FF385C]/10 px-2.5 py-0.5 rounded-full text-xs font-bold">
+                  {(post.comments || []).length}
+                </span>
+              </h3>
+            </div>
+
+            {/* List: 댓글 리스트 */}
+            {(post.comments || []).length > 0 ? (
+              <div className="space-y-6 mb-10">
+                {(post.comments || []).map((comment) => (
+                  <div key={comment.id} className="flex gap-4 items-start animate-fade-in">
+                    <img
+                      src={comment.avatar}
+                      alt={comment.author}
+                      className="size-10 rounded-full border border-border bg-muted object-cover shrink-0"
+                    />
+                    <div className="flex-1 space-y-1">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm font-bold text-foreground">{comment.author}</span>
+                        <span className="text-xs text-muted-foreground">{comment.createdAt}</span>
+                      </div>
+                      <p className="text-sm text-[#444444] leading-relaxed whitespace-pre-line bg-muted/30 rounded-2xl p-4.5 border border-black/5 mt-1">
+                        {comment.content}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12 bg-muted/10 rounded-2xl border border-dashed border-border/60 mb-10 flex flex-col items-center justify-center gap-2">
+                <span className="text-2xl">💬</span>
+                <p className="text-sm text-muted-foreground font-medium">아직 등록된 답변이 없습니다.</p>
+                <p className="text-xs text-muted-foreground/80">첫 번째 따뜻한 답변을 남겨보세요!</p>
+              </div>
+            )}
+
+            {/* Input: 댓글 입력창 */}
+            <form onSubmit={handleCommentSubmit} className="space-y-3">
+              <div className="relative rounded-2xl border border-[#DDDDDD] bg-[#F7F7F7] focus-within:ring-2 focus-within:ring-[#FF385C]/20 focus-within:border-[#FF385C] transition-all overflow-hidden p-2">
+                <textarea
+                  value={commentText}
+                  onChange={(e) => setCommentText(e.target.value)}
+                  placeholder="이 질문에 대한 따뜻한 답변을 남겨주세요..."
+                  className="w-full min-h-[90px] bg-transparent resize-none border-none focus:outline-none p-3 text-[14px] text-foreground leading-relaxed placeholder:text-[#A0A0A0]"
+                />
+                <div className="flex justify-end pt-1">
+                  <button
+                    type="submit"
+                    className="bg-[#FF385C] text-white font-bold px-5 py-2 rounded-xl hover:bg-[#E31C5F] transition-all shadow-sm active:scale-95 text-xs"
+                  >
+                    등록
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        )}
       </section>
 
       {/* The Write Post Modal - defaults to reviews */}

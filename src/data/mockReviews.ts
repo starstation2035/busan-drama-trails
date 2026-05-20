@@ -1,3 +1,11 @@
+export interface Comment {
+  id: number;
+  author: string;
+  avatar: string;
+  content: string;
+  createdAt: string;
+}
+
 export interface Review {
   id: number;
   author: string;
@@ -9,6 +17,7 @@ export interface Review {
   category: "reviews" | "talk";
   avatar: string;
   isLiked?: boolean;
+  comments?: Comment[];
 }
 
 export const MOCK_REVIEWS: Review[] = [
