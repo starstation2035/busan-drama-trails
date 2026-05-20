@@ -56,34 +56,13 @@ export function Header({ onOpenLang }: Props) {
           <Link
             href="/my-course"
             id="header-nav-my-course"
-            className="hidden sm:flex relative items-center justify-center p-2.5 rounded-full border border-[#DDDDDD] bg-white hover:bg-[#F7F7F7] transition-all shadow-sm"
-            title={t("nav.myCourse")}
+            className="flex items-center gap-1.5 rounded-full border border-[#DDDDDD] bg-white px-4 py-2 text-[14px] font-bold text-[#222222] hover:bg-[#F7F7F7] shadow-sm transition-all"
+            title="내 코스"
           >
-            <Heart
-              className={`h-4 w-4 transition-colors ${favorites.length > 0 ? "fill-[#FF385C] text-[#FF385C]" : "text-[#717171]"}`}
-            />
-            {favorites.length > 0 && (
-              <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#FF385C] text-[10px] font-black text-white ring-2 ring-white animate-in zoom-in duration-300">
-                {favorites.length}
-              </span>
-            )}
+            <span>내코스</span>
+            <Heart className={`h-4 w-4 text-[#FF385C] ${favorites.length > 0 ? "fill-[#FF385C]" : ""}`} />
+            <span className="font-black text-[#FF385C]">{favorites.length}</span>
           </Link>
-
-          <Link
-            href="/community"
-            className="hidden sm:flex items-center gap-2 rounded-full border border-[#DDDDDD] bg-white px-4 py-2 text-[13px] font-bold text-[#222222] hover:bg-[#F7F7F7] shadow-sm transition-all"
-          >
-            <MessageSquare className="h-4 w-4 text-[#717171]" />
-            <span>{t("nav.community")}</span>
-          </Link>
-
-          <button
-            onClick={onOpenLang}
-            className="hidden sm:flex items-center gap-2 rounded-full border border-[#DDDDDD] bg-white px-4 py-2 text-[13px] font-bold text-[#222222] hover:bg-[#F7F7F7] shadow-sm transition-all"
-          >
-            <Globe className="h-4 w-4 text-[#717171]" />
-            <span>{meta.native}</span>
-          </button>
 
           <Sheet>
             <SheetTrigger asChild>
