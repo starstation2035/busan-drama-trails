@@ -120,14 +120,14 @@ export default function LandingPage() {
     return posts.filter((p) => p.category === "reviews" && p.image);
   }, [posts]);
 
-  // 🔥 Popular Reviews: sorted by likes descending, limit to 3
+  // 🔥 Popular Reviews: sorted by likes descending, limit to 4
   const popularReviews = useMemo(() => {
-    return [...onlyReviews].sort((a, b) => b.likes - a.likes).slice(0, 3);
+    return [...onlyReviews].sort((a, b) => b.likes - a.likes).slice(0, 4);
   }, [onlyReviews]);
 
-  // ⏰ Recent Reviews: sorted by id descending (newest), limit to 3
+  // ⏰ Recent Reviews: sorted by id descending (newest), limit to 4
   const recentReviews = useMemo(() => {
-    return [...onlyReviews].sort((a, b) => b.id - a.id).slice(0, 3);
+    return [...onlyReviews].sort((a, b) => b.id - a.id).slice(0, 4);
   }, [onlyReviews]);
 
   const displayedReviews = useMemo(() => {
@@ -307,7 +307,7 @@ export default function LandingPage() {
             </Link>
           </div>
  
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 transition-all duration-500">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 transition-all duration-500">
             {displayedReviews.map((review: Review) => (
               <Link
                 key={`${reviewTab}-${review.id}`}

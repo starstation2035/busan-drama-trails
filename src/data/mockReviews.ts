@@ -55,7 +55,7 @@ export const MOCK_REVIEWS: Review[] = [
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Yuki",
   },
   {
-    id: 101,
+    id: 108,
     author: "WooFan_LEO",
     location: "청사포 다릿돌전망대",
     spotId: "spot_001",
@@ -77,7 +77,7 @@ export const MOCK_REVIEWS: Review[] = [
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=KDrama",
   },
   {
-    id: 103,
+    id: 101,
     author: "MovieBuff_Busan",
     location: "자갈치시장",
     spotId: "spot_005",
@@ -88,7 +88,7 @@ export const MOCK_REVIEWS: Review[] = [
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=MovieBuff",
   },
   {
-    id: 104,
+    id: 103,
     author: "Sunja_Heart",
     location: "영도 감지해변",
     spotId: "pachinko",
@@ -99,7 +99,7 @@ export const MOCK_REVIEWS: Review[] = [
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sunja",
   },
   {
-    id: 105,
+    id: 104,
     author: "Running_Runner",
     location: "감천문화마을",
     spotId: "spot_002",
@@ -110,7 +110,7 @@ export const MOCK_REVIEWS: Review[] = [
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Running",
   },
   {
-    id: 106,
+    id: 105,
     author: "Haeundae_Tsunami",
     location: "해운대 해수욕장",
     spotId: "spot_003",
@@ -121,7 +121,7 @@ export const MOCK_REVIEWS: Review[] = [
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Tsunami",
   },
   {
-    id: 107,
+    id: 106,
     author: "Gwangalli_Star",
     location: "광안리 해수욕장",
     spotId: "spot_007",
@@ -164,7 +164,7 @@ export const MOCK_REVIEWS: Review[] = [
     ],
   },
   {
-    id: 108,
+    id: 109,
     author: "부산투어러_준호",
     location: "Busan, Korea",
     spotId: "spot_001",
