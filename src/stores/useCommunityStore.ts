@@ -62,7 +62,7 @@ export const useCommunityStore = create<CommunityState>()(
     }),
     {
       name: "community-storage",
-      version: 7, // Bump version to 7 to load newly sorted traveler reviews with both Cheongsapo observatory reviews
+      version: 8, // v8: use unique image for 부산투어러_준호 (pink dress at Cheongsapo)
     },
   ),
 );

@@ -166,9 +166,9 @@ export const MOCK_REVIEWS: Review[] = [
   {
     id: 109,
     author: "부산투어러_준호",
-    location: "Busan, Korea",
+    location: "청사포 다릿돌전망대",
     spotId: "spot_001",
-    image: "/images/spots/cheongsapo.png",
+    image: "/images/spots/junho_review.png",
     content: "청사포 다릿돌 전망대 다녀왔어요. 사진보다 실제로 가서 보면 훨씬 더 예뻐요. 강추",
     likes: 0,
     category: "reviews",
