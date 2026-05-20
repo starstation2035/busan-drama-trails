@@ -117,8 +117,8 @@
     "empty": "Be the first to share your Busan story!",
     "filters": {
       "all": "All",
-      "tips": "Tips",
-      "reviews": "Reviews"
+      "reviews": "Reviews",
+      "talk": "Talk"
     },
     "modal": {
       "title": "Create New Post",

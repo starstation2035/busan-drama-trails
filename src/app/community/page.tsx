@@ -2,16 +2,18 @@
 
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
-import { MessageSquare, Heart, MapPin, Search, ArrowRight } from "lucide-react";
+import { MessageSquare, Heart, MapPin, Search, ArrowRight, PenLine } from "lucide-react";
 import { useState } from "react";
 import { useCommunityStore } from "@/stores/useCommunityStore";
+import { CommunityPostModal } from "@/components/CommunityPostModal";
 
-const CATEGORIES = ["all", "tips", "reviews"] as const;
+const CATEGORIES = ["all", "reviews", "talk"] as const;
 type Category = (typeof CATEGORIES)[number];
 
 export default function Community() {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<Category>("all");
+  const [isWriteModalOpen, setIsWriteModalOpen] = useState(false);
 
   const posts = useCommunityStore((s) => s.posts);
   const toggleLike = useCommunityStore((s) => s.toggleLike);
@@ -53,13 +55,22 @@ export default function Community() {
           ))}
         </div>
 
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <input
-            type="text"
-            placeholder={t("spots.searchPlaceholder")}
-            className="w-full rounded-2xl border-none bg-muted/60 py-3 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20"
-          />
+        <div className="flex items-center gap-2">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <input
+              type="text"
+              placeholder={t("spots.searchPlaceholder")}
+              className="w-full rounded-2xl border-none bg-muted/60 py-3 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20"
+            />
+          </div>
+          <button 
+            onClick={() => setIsWriteModalOpen(true)}
+            className="flex items-center gap-1.5 whitespace-nowrap rounded-2xl bg-[#FF385C] px-5 py-3 text-sm font-bold text-white hover:bg-[#FF385C]/90 transition-colors shadow-sm"
+          >
+            <PenLine className="h-4 w-4" />
+            <span>글쓰기</span>
+          </button>
         </div>
       </section>
 
@@ -126,7 +137,7 @@ export default function Community() {
         })}
       </section>
 
-      {/* Global buttons are handled in Layout.tsx */}
+      <CommunityPostModal open={isWriteModalOpen} onClose={() => setIsWriteModalOpen(false)} />
     </div>
   );
 }

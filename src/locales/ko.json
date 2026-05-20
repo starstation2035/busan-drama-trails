@@ -114,8 +114,8 @@
     "empty": "첫 번째 여행 후기를 남겨주세요!",
     "filters": {
       "all": "전체",
-      "tips": "꿀팁",
-      "reviews": "방문후기"
+      "reviews": "여행후기",
+      "talk": "자유토크"
     },
     "modal": {
       "title": "새 게시물 만들기",

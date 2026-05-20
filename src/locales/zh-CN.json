@@ -65,8 +65,8 @@
     "empty": "来当第一个分享釜山故事的人吧！",
     "filters": {
       "all": "全部",
-      "tips": "旅游攻略",
-      "reviews": "景点评价"
+      "reviews": "游记",
+      "talk": "自由闲聊"
     },
     "modal": {
       "title": "创建新动态",
