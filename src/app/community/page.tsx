@@ -119,13 +119,6 @@ export default function Community() {
                   <span className="text-xs font-medium text-muted-foreground">
                     {review.likes} likes
                   </span>
-                  <Link
-                    href={`/spots/${review.spotId}`}
-                    className="flex items-center gap-1 text-sm font-bold text-primary transition-all hover:gap-2"
-                  >
-                    {t("detail.cta.added").split("→")[0]}
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
                 </div>
               </div>
             </div>
