@@ -16,17 +16,6 @@ interface CommunityPostModalProps {
   initialCategory?: "reviews" | "talk";
 }
 
-const PRESET_IMAGES = [
-  "/images/spots/haeundae.png",
-  "/images/spots/gwangalli.png",
-  "https://images.unsplash.com/photo-1544551763-47a0159f963f?w=1200", // Gamcheon Culture Village
-  "/images/spots/huinnyeoul.png",
-  "/images/spots/cheongsapo.png",
-  "/images/spots/jagalchi.png",
-  "/images/spots/taejongdae.png",
-  "/images/spots/songdo.png",
-];
-
 export function CommunityPostModal({ open, onClose, initialCategory }: CommunityPostModalProps) {
   const { t } = useTranslation();
   const addPost = useCommunityStore((s) => s.addPost);
@@ -76,7 +65,10 @@ export function CommunityPostModal({ open, onClose, initialCategory }: Community
   };
 
   const handleSubmit = () => {
-    if (!category) return;
+    if (!category) {
+      toast.error("어떤 글을 작성하실지 카테고리를 선택해주세요.");
+      return;
+    }
     
     if (!selectedImage) {
       toast.error(t("community.post.imageError"));
@@ -123,14 +115,12 @@ export function CommunityPostModal({ open, onClose, initialCategory }: Community
                 글쓰기
               </DialogTitle>
             </div>
-            {category && (
-              <Button
-                onClick={handleSubmit}
-                className="bg-[#FF385C] text-white font-bold px-5 h-9 rounded-full hover:bg-[#E31C5F] transition-all shadow-sm active:scale-95"
-              >
-                등록
-              </Button>
-            )}
+            <Button
+              onClick={handleSubmit}
+              className="bg-[#FF385C] text-white font-bold px-5 h-9 rounded-full hover:bg-[#E31C5F] transition-all shadow-sm active:scale-95"
+            >
+              등록
+            </Button>
           </DialogHeader>
 
           <div className="p-6 flex flex-col gap-8 pb-10">
@@ -187,9 +177,8 @@ export function CommunityPostModal({ open, onClose, initialCategory }: Community
               </div>
             </div>
 
-            {/* 2. Rest of the form (Visible only if category selected) */}
-            {category && (
-              <div className="animate-fade-in flex flex-col gap-8 border-t border-border/50 pt-8">
+            {/* 2. Rest of the form (Always visible) */}
+            <div className="flex flex-col gap-8 border-t border-border/50 pt-8">
                 
                 {/* Text Content */}
                 <div className="flex flex-col gap-3">
@@ -256,19 +245,6 @@ export function CommunityPostModal({ open, onClose, initialCategory }: Community
                           기기에서 사진 업로드
                         </span>
                       </button>
-
-                      {/* Presets (Optional quick picks) */}
-                      <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-                        {PRESET_IMAGES.slice(0, 4).map((img) => (
-                          <button
-                            key={img}
-                            onClick={() => setSelectedImage(img)}
-                            className="relative w-20 h-20 shrink-0 rounded-lg overflow-hidden border border-[#DDDDDD] transition-all hover:opacity-80 focus:ring-2 focus:ring-[#FF385C]"
-                          >
-                            <img src={img} alt="Preset" className="w-full h-full object-cover" />
-                          </button>
-                        ))}
-                      </div>
                     </div>
                   )}
                 </div>
@@ -297,8 +273,7 @@ export function CommunityPostModal({ open, onClose, initialCategory }: Community
                   </div>
                 </div>
 
-              </div>
-            )}
+            </div>
           </div>
         </DialogContent>
       </Dialog>
