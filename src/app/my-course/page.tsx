@@ -173,7 +173,7 @@ export default function MyCoursePage() {
     try {
       // Generate clean high resolution PNG without scale/transform glitches
       const dataUrl = await toPng(node, { 
-        backgroundColor: null,
+        backgroundColor: 'transparent',
         style: {
           transform: 'scale(1)',
         }
