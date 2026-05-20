@@ -16,6 +16,19 @@ interface CommunityPostModalProps {
   initialCategory?: "reviews" | "talk";
 }
 
+const RANDOM_AUTHORS = [
+  "드라마덕후_민지",
+  "부산행열차_지훈",
+  "K_Content_Lover",
+  "바다바람_서연",
+  "영화매니아_태민",
+  "우영우귀여워_예린",
+  "파친코인생작_도윤",
+  "부산갈매기_민우",
+  "시네마천국_수진",
+  "부산투어러_준호"
+];
+
 export function CommunityPostModal({ open, onClose, initialCategory }: CommunityPostModalProps) {
   const { t } = useTranslation();
   const addPost = useCommunityStore((s) => s.addPost);
@@ -81,9 +94,13 @@ export function CommunityPostModal({ open, onClose, initialCategory }: Community
       return;
     }
 
+    const randomIdx = Math.floor(Math.random() * RANDOM_AUTHORS.length);
+    const authorName = RANDOM_AUTHORS[randomIdx];
+    const avatarSeed = encodeURIComponent(authorName);
+
     addPost({
-      author: "Busan Traveler",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Me",
+      author: authorName,
+      avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${avatarSeed}`,
       image: (selectedImage as string) || "",
       content,
       location: location || "Busan, Korea",

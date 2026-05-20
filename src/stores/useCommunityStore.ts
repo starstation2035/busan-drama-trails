@@ -62,7 +62,7 @@ export const useCommunityStore = create<CommunityState>()(
     }),
     {
       name: "community-storage",
-      version: 2, // Bump version to 2 to automatically refresh legacy storage for Haeundae/Gwangalli reviews
+      version: 3, // Bump version to 3 to clear legacy Busan Traveler posts and force random nickname generators to kick in
     },
   ),
 );
