@@ -38,3 +38,4 @@ busan-drama-trails/
 *.njsproj
 *.sln
 *.sw?
+.vercel

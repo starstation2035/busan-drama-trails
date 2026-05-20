@@ -62,7 +62,7 @@ export const useCommunityStore = create<CommunityState>()(
     }),
     {
       name: "community-storage",
-      version: 5, // Bump version to 5 to restore original 3 traveler reviews along with Korean premium reviews
+      version: 6, // Bump version to 6 to load newly added traveler review from '부산투어러_준호'
     },
   ),
 );
