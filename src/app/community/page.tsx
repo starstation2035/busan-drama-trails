@@ -61,7 +61,7 @@ export default function Community() {
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <input
               type="text"
-              placeholder={t("spots.searchPlaceholder")}
+              placeholder={t("community.searchPlaceholder")}
               className="w-full rounded-2xl border-none bg-muted/60 py-3 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20"
             />
           </div>
@@ -70,7 +70,7 @@ export default function Community() {
             className="flex items-center gap-1.5 whitespace-nowrap rounded-2xl bg-[#FF385C] px-5 py-3 text-sm font-bold text-white hover:bg-[#FF385C]/90 transition-colors shadow-sm"
           >
             <PenLine className="h-4 w-4" />
-            <span>글쓰기</span>
+            <span>{t("community.writeButton")}</span>
           </button>
         </div>
       </section>
@@ -84,19 +84,19 @@ export default function Community() {
             <div className="flex items-center justify-between px-2">
               <div className="space-y-0.5">
                 <h2 className="text-lg font-bold text-[#222222] flex items-center gap-2.5">
-                  <span>💬 실시간 자유토크 Q&A</span>
+                  <span>💬 {t("community.sections.freeTalkTitle")}</span>
                   {activeTab === "all" && (
-                    <span className="text-[10px] bg-primary/10 text-primary px-2.5 py-0.5 rounded-full font-extrabold uppercase">최신 질문</span>
+                    <span className="text-[10px] bg-primary/10 text-primary px-2.5 py-0.5 rounded-full font-extrabold uppercase">{t("community.sections.latestQuestion", "최신 질문")}</span>
                   )}
                 </h2>
-                <p className="text-xs text-muted-foreground">내가 사랑한 작품 속 장소, 궁금한 점을 자유롭게 물어보세요.</p>
+                <p className="text-xs text-muted-foreground">{t("community.sections.freeTalkSubtitle")}</p>
               </div>
               {activeTab === "all" && talkPosts.length > 3 && (
                 <button
                   onClick={() => setActiveTab("talk")}
                   className="text-xs font-bold text-primary flex items-center gap-1 hover:underline transition-all"
                 >
-                  <span>전체보기</span>
+                  <span>{t("community.viewAll", "전체보기")}</span>
                   <ArrowRight className="h-3 w-3" />
                 </button>
               )}
@@ -137,7 +137,7 @@ export default function Community() {
               {talkPosts.length === 0 && (
                 <div className="text-center py-10 bg-muted/10 rounded-2xl border border-dashed border-border/60 flex flex-col items-center justify-center gap-1.5">
                   <span className="text-xl">💬</span>
-                  <p className="text-xs font-semibold text-muted-foreground">등록된 자유토크가 없습니다.</p>
+                  <p className="text-xs font-semibold text-muted-foreground">{t("community.emptyTalk", "등록된 자유토크가 없습니다.")}</p>
                 </div>
               )}
             </div>
@@ -154,9 +154,9 @@ export default function Community() {
           <section className="space-y-4">
             <div className="px-2 space-y-0.5">
               <h2 className="text-lg font-bold text-[#222222] flex items-center gap-2">
-                <span>📍 생생한 여행후기</span>
+                <span>📍 {t("community.sections.reviewsTitle")}</span>
               </h2>
-              <p className="text-xs text-muted-foreground">유저들이 전하는 실시간 부산 촬영지 생생 후기</p>
+              <p className="text-xs text-muted-foreground">{t("community.sections.reviewsSubtitle")}</p>
             </div>
 
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -228,7 +228,7 @@ export default function Community() {
               {reviewPosts.length === 0 && (
                 <div className="col-span-full text-center py-16 bg-muted/10 rounded-2xl border border-dashed border-border/60 flex flex-col items-center justify-center gap-1.5">
                   <span className="text-xl">📍</span>
-                  <p className="text-xs font-semibold text-muted-foreground">등록된 여행후기가 없습니다.</p>
+                  <p className="text-xs font-semibold text-muted-foreground">{t("community.emptyReviews", "등록된 여행후기가 없습니다.")}</p>
                 </div>
               )}
             </div>

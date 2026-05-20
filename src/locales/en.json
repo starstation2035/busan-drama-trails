@@ -24,7 +24,8 @@
     "community": "Community",
     "myCourse": "My Course",
     "styleTest": "Style Test",
-    "goods": "Goods Mall"
+    "goods": "Goods Mall",
+    "language": "Language Settings"
   },
   "language": {
     "choose": "Choose your language",
@@ -112,13 +113,25 @@
   },
   "community": {
     "title": "Traveler Community",
-    "subtitle": "Discover real Busan stories from travelers",
+    "subtitle": "Discover vivid Busan travel reviews and stories",
     "write": "Write Post",
+    "writeButton": "Write",
+    "searchPlaceholder": "Search by location or drama title",
+    "viewAll": "View All",
+    "emptyTalk": "No free talk posts yet.",
+    "emptyReviews": "No travel reviews yet.",
     "empty": "Be the first to share your Busan story!",
+    "sections": {
+      "freeTalkTitle": "Live Free Talk Q&A",
+      "freeTalkSubtitle": "Feel free to ask questions about the places you loved in the dramas.",
+      "latestQuestion": "Latest",
+      "reviewsTitle": "Vivid Travel Reviews",
+      "reviewsSubtitle": "Real-time vivid Busan filming location reviews shared by travelers"
+    },
     "filters": {
       "all": "All",
-      "reviews": "Reviews",
-      "talk": "자유토크"
+      "reviews": "Travel Reviews",
+      "talk": "Free Talk"
     },
     "modal": {
       "title": "Create New Post",

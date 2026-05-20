@@ -24,7 +24,8 @@
     "community": "커뮤니티",
     "myCourse": "내 코스",
     "styleTest": "스타일 테스트",
-    "goods": "굿즈 쇼핑MALL"
+    "goods": "굿즈 쇼핑MALL",
+    "language": "언어 설정"
   },
   "language": {
     "choose": "언어를 선택하세요",
@@ -111,7 +112,19 @@
     "title": "여행자 커뮤니티",
     "subtitle": "생생한 부산 여행 후기를 만나보세요",
     "write": "후기 작성",
+    "writeButton": "글쓰기",
+    "searchPlaceholder": "장소 또는 드라마 제목으로 검색",
+    "viewAll": "전체보기",
+    "emptyTalk": "등록된 자유토크가 없습니다.",
+    "emptyReviews": "등록된 여행후기가 없습니다.",
     "empty": "첫 번째 여행 후기를 남겨주세요!",
+    "sections": {
+      "freeTalkTitle": "실시간 자유토크 Q&A",
+      "freeTalkSubtitle": "내가 사랑한 작품 속 장소, 궁금한 점을 자유롭게 물어보세요.",
+      "latestQuestion": "최신 질문",
+      "reviewsTitle": "생생한 여행후기",
+      "reviewsSubtitle": "유저들이 전하는 실시간 부산 촬영지 생생 후기"
+    },
     "filters": {
       "all": "전체",
       "reviews": "여행후기",

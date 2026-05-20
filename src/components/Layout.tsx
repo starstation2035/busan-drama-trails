@@ -28,7 +28,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
     setMounted(true);
     if (!lang) {
       setModalOpen(true);
-    } else if (i18n.language !== lang) {
+    } else {
+      // Always sync i18n language with persisted store language
       void i18n.changeLanguage(lang);
     }
   }, [lang, i18n]);

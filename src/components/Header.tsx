@@ -33,14 +33,14 @@ export function Header({ onOpenLang }: Props) {
   const meta = FLAGS[lang] ?? FLAGS.ko;
 
   const serviceItems = [
-    { href: "/", icon: Home, label: "홈" },
-    { href: "/spots", icon: MapPin, label: "촬영지 탐방" },
-    { href: "/my-course", icon: Heart, label: "내 코스" },
+    { href: "/", icon: Home, label: t("nav.home") },
+    { href: "/spots", icon: MapPin, label: t("nav.spots") },
+    { href: "/my-course", icon: Heart, label: t("nav.myCourse") },
   ];
 
   const moreItems = [
-    { href: "/community", icon: MessageSquare, label: "커뮤니티" },
-    { href: "/goods", icon: ShoppingBag, label: "굿즈 쇼핑몰" },
+    { href: "/community", icon: MessageSquare, label: t("nav.community") },
+    { href: "/goods", icon: ShoppingBag, label: t("nav.goods") },
   ];
 
   return (
@@ -59,7 +59,7 @@ export function Header({ onOpenLang }: Props) {
             className="flex items-center gap-1.5 rounded-full border border-[#DDDDDD] bg-white px-4 py-2 text-[14px] font-bold text-[#222222] hover:bg-[#F7F7F7] shadow-sm transition-all"
             title="내 코스"
           >
-            <span>내코스</span>
+            <span>{t("nav.myCourse")}</span>
             <Heart className={`h-4 w-4 text-[#FF385C] ${favorites.length > 0 ? "fill-[#FF385C]" : ""}`} />
             <span className="font-black text-[#FF385C]">{favorites.length}</span>
           </Link>
@@ -95,7 +95,7 @@ export function Header({ onOpenLang }: Props) {
                     className="flex items-center gap-4 w-full text-left px-4 py-3.5 rounded-2xl text-[16px] font-bold text-[#222222] hover:bg-[#F7F7F7] hover:text-[#FF385C] transition-all group"
                   >
                     <Globe className="h-5 w-5 text-[#717171] group-hover:text-[#FF385C] transition-colors" />
-                    언어 설정 ({meta.native})
+                    {t("nav.language", "언어 설정")} ({meta.native})
                   </button>
                 </SheetClose>
               </div>
