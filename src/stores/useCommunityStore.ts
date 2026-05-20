@@ -62,7 +62,7 @@ export const useCommunityStore = create<CommunityState>()(
     }),
     {
       name: "community-storage",
-      version: 4, // Bump version to 4 to restore user's precious talk posts and comments into initial state
+      version: 5, // Bump version to 5 to restore original 3 traveler reviews along with Korean premium reviews
     },
   ),
 );
