@@ -3,9 +3,10 @@
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { Heart, MapPin, ArrowRight, Sparkles } from "lucide-react";
-import { MOCK_REVIEWS, type Review } from "@/data/mockReviews";
-import { useEffect, useRef, useState } from "react";
+import { type Review } from "@/data/mockReviews";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
+import { useCommunityStore } from "@/stores/useCommunityStore";
 
 interface Poster {
   id: string;
@@ -111,7 +112,27 @@ export default function LandingPage() {
     };
   }, [mousePos]);
 
-  const recentReviews = MOCK_REVIEWS.slice(0, 3);
+  const posts = useCommunityStore((s) => s.posts);
+  const [reviewTab, setReviewTab] = useState<"popular" | "recent">("popular");
+
+  // Filter posts to only include travel reviews ('reviews') with images
+  const onlyReviews = useMemo(() => {
+    return posts.filter((p) => p.category === "reviews" && p.image);
+  }, [posts]);
+
+  // 🔥 Popular Reviews: sorted by likes descending, limit to 3
+  const popularReviews = useMemo(() => {
+    return [...onlyReviews].sort((a, b) => b.likes - a.likes).slice(0, 3);
+  }, [onlyReviews]);
+
+  // ⏰ Recent Reviews: sorted by id descending (newest), limit to 3
+  const recentReviews = useMemo(() => {
+    return [...onlyReviews].sort((a, b) => b.id - a.id).slice(0, 3);
+  }, [onlyReviews]);
+
+  const displayedReviews = useMemo(() => {
+    return reviewTab === "popular" ? popularReviews : recentReviews;
+  }, [reviewTab, popularReviews, recentReviews]);
 
   return (
     <div className="bg-background/0 text-foreground min-h-screen pb-20 space-y-16">
@@ -237,59 +258,107 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* Recent Reviews Section */}
+        {/* Travel Reviews Section (Popular / Recent tabs) */}
         <section className="bg-[#F7F7F7] -mx-6 px-6 py-16 rounded-[40px] animate-fade-up shadow-inner">
-          <div className="flex items-center justify-between mb-8 px-2">
-            <div>
-              <h2 className="text-2xl font-bold text-[#222222]">
-                {t("landing.recentReviews.title")}
-              </h2>
-              <p className="text-base text-[#717171] mt-1">{t("landing.recentReviews.subtitle")}</p>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 px-2">
+            <div className="space-y-4">
+              <div>
+                <h2 className="text-2xl sm:text-3xl font-black text-[#222222] tracking-tight">
+                  여행자들의 생생한 후기
+                </h2>
+                <p className="text-sm sm:text-base text-[#717171] mt-1.5 font-medium">
+                  다른 여행자들의 생생한 부산 이야기를 실시간으로 확인해보세요
+                </p>
+              </div>
+              
+              {/* Pill Tabs Filter */}
+              <div className="flex gap-2.5">
+                <button
+                  onClick={() => setReviewTab("popular")}
+                  className={`rounded-full px-5 py-2.5 text-xs sm:text-sm font-extrabold transition-all duration-300 flex items-center gap-1.5 active:scale-95 ${
+                    reviewTab === "popular"
+                      ? "bg-[#FF385C] text-white shadow-md shadow-[#FF385C]/20"
+                      : "bg-white text-[#222222] border border-[#DDDDDD] hover:bg-[#F7F7F7]"
+                  }`}
+                >
+                  <span>🔥 인기 후기</span>
+                </button>
+                <button
+                  onClick={() => setReviewTab("recent")}
+                  className={`rounded-full px-5 py-2.5 text-xs sm:text-sm font-extrabold transition-all duration-300 flex items-center gap-1.5 active:scale-95 ${
+                    reviewTab === "recent"
+                      ? "bg-[#FF385C] text-white shadow-md shadow-[#FF385C]/20"
+                      : "bg-white text-[#222222] border border-[#DDDDDD] hover:bg-[#F7F7F7]"
+                  }`}
+                >
+                  <span>⏰ 최신 후기</span>
+                </button>
+              </div>
             </div>
-            <Link href="/community">
+
+            <Link href="/community" className="shrink-0 self-start md:self-end">
               <Button
                 variant="ghost"
-                className="text-[#222222] font-bold hover:bg-white/50 rounded-full"
+                className="text-[#222222] font-black hover:bg-white/50 rounded-full text-sm py-5.5 px-6 border border-black/5 bg-white/20 backdrop-blur-sm"
               >
-                {t("landing.recentReviews.viewAll")}
-                <ArrowRight className="ml-2 h-4 w-4" strokeWidth={2.5} />
+                전체 리뷰 보기
+                <ArrowRight className="ml-2 h-4 w-4 text-[#FF385C]" strokeWidth={2.5} />
               </Button>
             </Link>
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {recentReviews.map((review: Review) => (
+ 
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 transition-all duration-500">
+            {displayedReviews.map((review: Review) => (
               <Link
-                key={review.id}
-                href="/community"
-                className="group bg-white rounded-3xl p-5 shadow-airbnb border border-[#DDDDDD] transition-all hover:-translate-y-1 active:scale-[0.98]"
+                key={`${reviewTab}-${review.id}`}
+                href={`/community/${review.id}`}
+                className="group bg-white rounded-[2rem] p-5 shadow-airbnb border border-[#DDDDDD]/60 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-xl active:scale-[0.98] block flex flex-col justify-between h-full animate-fade-in"
               >
-                <div className="aspect-square w-full overflow-hidden rounded-2xl mb-4">
-                  <img
-                    src={review.image}
-                    alt={review.location}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                </div>
-                <div className="space-y-3">
-                  <div className="flex items-center gap-2">
+                <div>
+                  <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl mb-4 relative">
                     <img
-                      src={review.avatar}
-                      alt={review.author}
-                      className="h-6 w-6 rounded-full border border-[#DDDDDD]"
+                      src={review.image}
+                      alt={review.location}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
-                    <span className="text-[13px] font-bold text-[#222222]">{review.author}</span>
+                    <div className="absolute right-3.5 top-3.5 bg-black/40 backdrop-blur-md text-white text-[11px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
+                      <Heart className="h-3 w-3 text-[#FF385C] fill-[#FF385C]" />
+                      <span>{review.likes}</span>
+                    </div>
                   </div>
-                  <p className="text-[15px] leading-relaxed text-[#222222] line-clamp-3 font-medium">
-                    "{review.content}"
-                  </p>
-                  <div className="flex items-center gap-1.5 text-[13px] font-semibold text-[#717171]">
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2.5">
+                      <img
+                        src={review.avatar}
+                        alt={review.author}
+                        className="h-6.5 w-6.5 rounded-full border border-[#DDDDDD] object-cover"
+                      />
+                      <span className="text-[13px] font-extrabold text-[#222222]">{review.author}</span>
+                    </div>
+                    <p className="text-[14px] leading-relaxed text-[#444444] line-clamp-3 font-semibold group-hover:text-primary transition-colors">
+                      "{review.content}"
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-5 pt-3.5 border-t border-[#F0F0F0] flex items-center justify-between">
+                  <div className="flex items-center gap-1.5 text-[12px] font-bold text-[#717171]">
                     <MapPin className="h-3.5 w-3.5 text-[#FF385C]" strokeWidth={1.5} />
-                    <span className="truncate">{review.location}</span>
+                    <span className="truncate max-w-[150px]">{review.location}</span>
                   </div>
+                  <span className="text-[11px] font-extrabold text-primary flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                    자세히 보기 <ArrowRight className="h-3 w-3" />
+                  </span>
                 </div>
               </Link>
             ))}
+
+            {displayedReviews.length === 0 && (
+              <div className="col-span-full text-center py-16 bg-white rounded-3xl border border-dashed border-[#DDDDDD] flex flex-col items-center justify-center gap-2">
+                <span className="text-2xl">📍</span>
+                <p className="text-sm font-semibold text-muted-foreground">아직 등록된 여행후기가 없습니다.</p>
+              </div>
+            )}
           </div>
         </section>
       </div>
