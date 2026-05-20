@@ -54,37 +54,58 @@ export default function CommunityDetail({ params }: { params: Promise<{ id: stri
   return (
     <div className="min-h-screen bg-background pb-28">
       {/* 1. HERO (Image at the top) */}
-      <section className="mx-auto w-full max-w-screen-md relative px-0 md:px-6 md:pt-6">
-        <div
-          className="group relative w-full overflow-hidden md:rounded-3xl bg-muted shadow-2xl"
-          style={{ aspectRatio: "4/5" }}
-        >
-          <img
-            src={post.image}
-            alt={post.location}
-            className="h-full w-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+      {post.image ? (
+        <section className="mx-auto w-full max-w-screen-md relative px-0 md:px-6 md:pt-6">
+          <div
+            className="group relative w-full overflow-hidden md:rounded-3xl bg-muted shadow-2xl"
+            style={{ aspectRatio: "4/5" }}
+          >
+            <img
+              src={post.image}
+              alt={post.location}
+              className="h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
 
-          {/* Floating top controls */}
-          <div className="absolute left-0 right-0 top-0 flex items-center justify-between p-4">
-            <button
-              onClick={() => router.back()}
-              className="grid size-9 place-items-center rounded-full bg-white/95 text-foreground shadow-md backdrop-blur transition active:scale-90 hover:bg-white"
-            >
-              <ArrowLeft className="size-4" />
-            </button>
-            <div className="flex gap-2">
+            {/* Floating top controls */}
+            <div className="absolute left-0 right-0 top-0 flex items-center justify-between p-4">
               <button
-                onClick={handleShare}
+                onClick={() => router.back()}
                 className="grid size-9 place-items-center rounded-full bg-white/95 text-foreground shadow-md backdrop-blur transition active:scale-90 hover:bg-white"
               >
-                <Share2 className="size-3.5" />
+                <ArrowLeft className="size-4" />
               </button>
+              <div className="flex gap-2">
+                <button
+                  onClick={handleShare}
+                  className="grid size-9 place-items-center rounded-full bg-white/95 text-foreground shadow-md backdrop-blur transition active:scale-90 hover:bg-white"
+                >
+                  <Share2 className="size-3.5" />
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : (
+        /* Minimal navigation bar if no image */
+        <section className="mx-auto w-full max-w-screen-md px-6 pt-6">
+          <div className="flex items-center justify-between py-3 border-b border-border/40">
+            <button
+              onClick={() => router.back()}
+              className="flex items-center gap-2 text-sm font-bold text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <ArrowLeft className="size-4" />
+              <span>뒤로가기</span>
+            </button>
+            <button
+              onClick={handleShare}
+              className="grid size-9 place-items-center rounded-full bg-muted/65 text-foreground hover:bg-muted transition active:scale-90"
+            >
+              <Share2 className="size-3.5" />
+            </button>
+          </div>
+        </section>
+      )}
 
       {/* 2. Content */}
       <section className="mx-auto w-full max-w-screen-md px-6 pt-8">

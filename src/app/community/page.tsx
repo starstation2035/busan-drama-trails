@@ -82,55 +82,85 @@ export default function Community() {
             <Link
               href={`/community/${review.id}`}
               key={review.id}
-              className="group overflow-hidden rounded-[2.5rem] border border-border/50 bg-card shadow-sm transition-all hover:shadow-xl block"
+              className="group overflow-hidden rounded-[2.5rem] border border-border/50 bg-card shadow-sm transition-all hover:shadow-xl block flex flex-col h-full"
             >
-              {/* Vertical Image */}
-              <div className="relative aspect-[9/12] overflow-hidden">
-                <img
-                  src={review.image}
-                  alt={review.location}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-6 text-white">
-                  <div className="flex items-center gap-2">
-                    <MapPin className="h-4 w-4 text-primary" />
-                    <span className="text-sm font-medium">{review.location}</span>
+              {/* Vertical Image (Only if present) */}
+              {review.image ? (
+                <div className="relative aspect-[9/12] overflow-hidden shrink-0">
+                  <img
+                    src={review.image}
+                    alt={review.location}
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-6 text-white">
+                    <div className="flex items-center gap-2">
+                      <MapPin className="h-4 w-4 text-primary" />
+                      <span className="text-sm font-medium">{review.location}</span>
+                    </div>
                   </div>
+                  <button
+                    onClick={(e) => handleLike(e, review.id)}
+                    className={`absolute right-4 top-4 z-30 rounded-full p-2.5 backdrop-blur-md transition-all active:scale-90 ${
+                      isLiked
+                        ? "bg-primary text-white shadow-lg"
+                        : "bg-white/20 text-white hover:bg-white/40"
+                    }`}
+                  >
+                    <Heart className={`h-5 w-5 ${isLiked ? "fill-current" : ""}`} />
+                  </button>
                 </div>
-                <button
-                  onClick={(e) => handleLike(e, review.id)}
-                  className={`absolute right-4 top-4 z-30 rounded-full p-2.5 backdrop-blur-md transition-all active:scale-90 ${
-                    isLiked
-                      ? "bg-primary text-white shadow-lg"
-                      : "bg-white/20 text-white hover:bg-white/40"
-                  }`}
-                >
-                  <Heart className={`h-5 w-5 ${isLiked ? "fill-current" : ""}`} />
-                </button>
-              </div>
+              ) : null}
 
               {/* Content Area */}
-              <div className="p-6">
-                <div className="flex items-center gap-3">
-                  <img
-                    src={review.avatar}
-                    alt={review.author}
-                    className="h-8 w-8 rounded-full border border-border bg-muted"
-                  />
-                  <span className="flex-1 text-sm font-bold text-foreground">{review.author}</span>
-                  <span className="rounded-full bg-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
-                    {t(`community.filters.${review.category}`)}
-                  </span>
+              <div className="p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={review.avatar}
+                      alt={review.author}
+                      className="h-8 w-8 rounded-full border border-border bg-muted"
+                    />
+                    <span className="flex-1 text-sm font-bold text-foreground">{review.author}</span>
+                    <span className="rounded-full bg-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
+                      {t(`community.filters.${review.category}`)}
+                    </span>
+                  </div>
+
+                  <p className="mt-4 line-clamp-4 text-sm leading-relaxed text-muted-foreground">
+                    {review.content}
+                  </p>
                 </div>
 
-                <p className="mt-4 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
-                  {review.content}
-                </p>
+                <div className="mt-6 pt-4 border-t border-border/40 flex items-center justify-between">
+                  {/* If no image, show location here instead of in the image */}
+                  {!review.image ? (
+                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                      <MapPin className="h-3.5 w-3.5 text-primary" />
+                      <span className="font-medium truncate max-w-[120px]">{review.location}</span>
+                    </div>
+                  ) : (
+                    <span className="text-xs font-medium text-muted-foreground">
+                      {review.likes} likes
+                    </span>
+                  )}
 
-                <div className="mt-6 flex items-center justify-between">
-                  <span className="text-xs font-medium text-muted-foreground">
-                    {review.likes} likes
-                  </span>
+                  {!review.image ? (
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={(e) => handleLike(e, review.id)}
+                        className={`rounded-full p-1.5 transition-all active:scale-90 ${
+                          isLiked
+                            ? "text-primary"
+                            : "text-muted-foreground hover:text-foreground"
+                        }`}
+                      >
+                        <Heart className={`h-4.5 w-4.5 ${isLiked ? "fill-current" : ""}`} />
+                      </button>
+                      <span className="text-xs font-medium text-muted-foreground">
+                        {review.likes}
+                      </span>
+                    </div>
+                  ) : null}
                 </div>
               </div>
             </Link>

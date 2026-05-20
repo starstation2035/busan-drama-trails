@@ -70,8 +70,9 @@ export function CommunityPostModal({ open, onClose, initialCategory }: Community
       return;
     }
     
-    if (!selectedImage) {
-      toast.error(t("community.post.imageError"));
+    // 여행후기 카테고리일 때만 사진 필수 검증
+    if (category === "reviews" && !selectedImage) {
+      toast.error("인증 사진을 최소 1장 이상 첨부해주세요!");
       return;
     }
 
@@ -83,7 +84,7 @@ export function CommunityPostModal({ open, onClose, initialCategory }: Community
     addPost({
       author: "Busan Traveler",
       avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Me",
-      image: selectedImage,
+      image: (selectedImage as string) || "",
       content,
       location: location || "Busan, Korea",
       spotId: "custom",
