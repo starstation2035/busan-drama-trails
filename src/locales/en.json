@@ -118,7 +118,7 @@
     "filters": {
       "all": "All",
       "reviews": "Reviews",
-      "talk": "Talk"
+      "talk": "자유토크"
     },
     "modal": {
       "title": "Create New Post",

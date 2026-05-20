@@ -46,7 +46,7 @@ export function CommunityPostModal({ open, onClose }: CommunityPostModalProps) {
   const [selectedImage, setSelectedImage] = useState("");
   const [content, setContent] = useState("");
   const [location, setLocation] = useState("");
-  const [category, setCategory] = useState<"reviews" | "tips">("reviews");
+  const [category, setCategory] = useState<"reviews" | "talk">("reviews");
   const [isMapOpen, setIsMapOpen] = useState(false);
 
   const reset = () => {
@@ -333,7 +333,7 @@ export function CommunityPostModal({ open, onClose }: CommunityPostModalProps) {
                       <Tag className="h-4 w-4 text-gray-400" />
                     </div>
                     <div className="flex gap-2">
-                      {(["reviews", "tips"] as const).map((cat) => (
+                      {(["reviews", "talk"] as const).map((cat) => (
                         <button
                           key={cat}
                           onClick={() => setCategory(cat)}
@@ -346,7 +346,7 @@ export function CommunityPostModal({ open, onClose }: CommunityPostModalProps) {
                         >
                           {cat === "reviews"
                             ? t("community.filters.reviews")
-                            : t("community.filters.tips")}
+                            : t("community.filters.talk")}
                         </button>
                       ))}
                     </div>
