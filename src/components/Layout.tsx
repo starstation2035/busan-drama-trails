@@ -13,8 +13,6 @@ import { HeartEffect } from "./HeartEffect";
 import "@/lib/i18n";
 import { supabase } from "@/lib/supabase";
 
-import { FloatingActions } from "./FloatingActions";
-
 export function Layout({ children }: { children: React.ReactNode }) {
   const { i18n } = useTranslation();
   const pathname = usePathname();
@@ -99,9 +97,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {children}
       </main>
       <BottomNav />
-
-      {/* Global Action Buttons (Chat & Write) */}
-      <FloatingActions />
 
       <LanguageModal open={modalOpen} onClose={() => setModalOpen(false)} />
       <Toaster position="top-center" />
