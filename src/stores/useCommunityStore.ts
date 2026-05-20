@@ -62,7 +62,7 @@ export const useCommunityStore = create<CommunityState>()(
     }),
     {
       name: "community-storage",
-      version: 3, // Bump version to 3 to clear legacy Busan Traveler posts and force random nickname generators to kick in
+      version: 4, // Bump version to 4 to restore user's precious talk posts and comments into initial state
     },
   ),
 );
