@@ -29,9 +29,20 @@ export default function CommunityDetail({ params }: { params: Promise<{ id: stri
       toast.error("댓글 내용을 입력해주세요.");
       return;
     }
+
+    const COMMENT_AUTHORS = [
+      { name: "부산 토박이", seed: "local" },
+      { name: "성지순례 가이드", seed: "guide" },
+      { name: "해운대 갈매기", seed: "seagull" },
+      { name: "K-드라마 덕후", seed: "drama" },
+      { name: "광안리 서퍼", seed: "surfer" },
+      { name: "영도 등대지기", seed: "lighthouse" },
+    ];
+    const randomAuthor = COMMENT_AUTHORS[Math.floor(Math.random() * COMMENT_AUTHORS.length)];
+
     addComment(post!.id, {
-      author: "Busan Traveler",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Me",
+      author: randomAuthor.name,
+      avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${randomAuthor.seed}`,
       content: commentText.trim(),
     });
     setCommentText("");
