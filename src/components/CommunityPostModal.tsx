@@ -2,22 +2,13 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  X,
-  MapPin,
-  Camera,
-  ChevronRight,
-  ChevronLeft,
-  Check,
-  Search,
-  Tag,
-  Upload,
-} from "lucide-react";
+import { X, MapPin, Camera, Image as ImageIcon, Check } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import { Button } from "./ui/button";
 import { useCommunityStore } from "@/stores/useCommunityStore";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { GoogleMapPicker } from "./GoogleMapPicker";
 
 interface CommunityPostModalProps {
   open: boolean;
@@ -36,18 +27,15 @@ const PRESET_IMAGES = [
   "/images/spots/songdo.png",
 ];
 
-import { GoogleMapPicker } from "./GoogleMapPicker";
-
-export function CommunityPostModal({ open, onClose, initialCategory = "reviews" }: CommunityPostModalProps) {
+export function CommunityPostModal({ open, onClose, initialCategory }: CommunityPostModalProps) {
   const { t } = useTranslation();
   const addPost = useCommunityStore((s) => s.addPost);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const [step, setStep] = useState(1); // 1: Image, 2: Details
+  const [category, setCategory] = useState<"reviews" | "talk" | undefined>(initialCategory);
   const [selectedImage, setSelectedImage] = useState("");
   const [content, setContent] = useState("");
   const [location, setLocation] = useState("");
-  const [category, setCategory] = useState<"reviews" | "talk">(initialCategory);
   const [isMapOpen, setIsMapOpen] = useState(false);
 
   // Initialize category when modal opens
@@ -58,19 +46,15 @@ export function CommunityPostModal({ open, onClose, initialCategory = "reviews" 
   }, [open, initialCategory]);
 
   const reset = () => {
-    setStep(1);
     setSelectedImage("");
     setContent("");
     setLocation("");
-    setCategory("reviews");
+    setCategory(undefined);
   };
 
-  const handleNext = () => {
-    if (!selectedImage) {
-      toast.error(t("community.post.imageError"));
-      return;
-    }
-    setStep(2);
+  const handleClose = () => {
+    reset();
+    onClose();
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,6 +76,13 @@ export function CommunityPostModal({ open, onClose, initialCategory = "reviews" 
   };
 
   const handleSubmit = () => {
+    if (!category) return;
+    
+    if (!selectedImage) {
+      toast.error(t("community.post.imageError"));
+      return;
+    }
+
     if (!content.trim()) {
       toast.error(t("community.post.captionError"));
       return;
@@ -99,7 +90,7 @@ export function CommunityPostModal({ open, onClose, initialCategory = "reviews" 
 
     addPost({
       author: "Busan Traveler",
-      avatar: "https://i.pravatar.cc/150?img=33",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Me",
       image: selectedImage,
       content,
       location: location || "Busan, Korea",
@@ -114,266 +105,204 @@ export function CommunityPostModal({ open, onClose, initialCategory = "reviews" 
 
   return (
     <>
-      <Dialog open={open} onOpenChange={(val) => !val && onClose()}>
+      <Dialog open={open} onOpenChange={(val) => !val && handleClose()}>
         <DialogContent
           hideClose
-          className="max-w-4xl p-0 overflow-hidden rounded-none sm:rounded-2xl gap-0 bg-white border-none shadow-2xl h-[95vh] sm:h-[600px]"
+          className="max-w-[600px] w-full p-0 overflow-y-auto rounded-2xl bg-white border-none shadow-2xl max-h-[90vh]"
         >
-          {/* Instagram Header */}
-          <DialogHeader className="h-12 border-b border-gray-100 flex-row items-center justify-between px-4 shrink-0 bg-white z-10 space-y-0">
+          {/* Header */}
+          <DialogHeader className="h-14 border-b border-border/50 flex-row items-center justify-between px-4 shrink-0 bg-white sticky top-0 z-20 space-y-0">
             <div className="flex items-center gap-2">
-              {step === 2 ? (
-                <button
-                  onClick={() => setStep(1)}
-                  className="p-1 hover:bg-gray-100 rounded-full transition-colors"
-                >
-                  <ChevronLeft className="h-6 w-6 text-[#262626]" />
-                </button>
-              ) : (
-                <button
-                  onClick={onClose}
-                  className="p-1 hover:bg-gray-100 rounded-full transition-colors"
-                >
-                  <X className="h-6 w-6 text-[#262626]" />
-                </button>
-              )}
-              <DialogTitle className="font-semibold text-[#262626]">
-                {step === 1 ? t("community.modal.title") : t("community.modal.details")}
+              <button
+                onClick={handleClose}
+                className="p-1.5 hover:bg-muted rounded-full transition-colors"
+              >
+                <X className="h-5 w-5 text-foreground" />
+              </button>
+              <DialogTitle className="font-bold text-foreground">
+                글쓰기
               </DialogTitle>
             </div>
-
-            <div className="flex items-center gap-3">
-              {step === 2 && (
-                <div className="flex items-center gap-2 mr-2">
-                  <button
-                    onClick={() => toast.success(t("community.social.kakao"))}
-                    className="hover:scale-110 transition-transform"
-                    title="KakaoTalk"
-                  >
-                    <img
-                      src="https://upload.wikimedia.org/wikipedia/commons/e/e3/KakaoTalk_logo.svg"
-                      className="h-5 w-5"
-                      alt="Kakao"
-                    />
-                  </button>
-                  <button
-                    onClick={() => toast.success(t("community.social.line"))}
-                    className="hover:scale-110 transition-transform"
-                    title="LINE"
-                  >
-                    <img
-                      src="https://upload.wikimedia.org/wikipedia/commons/4/41/LINE_logo.svg"
-                      className="h-5 w-5"
-                      alt="Line"
-                    />
-                  </button>
-                </div>
-              )}
-
-              {step === 1 ? (
-                <button
-                  onClick={handleNext}
-                  className="text-[#0095F6] font-bold text-sm hover:text-[#00376b] transition-colors"
-                >
-                  {t("common.next")}
-                </button>
-              ) : (
-                <button
-                  onClick={handleSubmit}
-                  className="bg-[#0095F6] text-white font-bold text-sm px-4 py-1.5 rounded-lg hover:bg-[#1877F2] transition-colors shadow-sm"
-                >
-                  {t("community.modal.post")}
-                </button>
-              )}
-            </div>
+            {category && (
+              <Button
+                onClick={handleSubmit}
+                className="bg-[#FF385C] text-white font-bold px-5 h-9 rounded-full hover:bg-[#E31C5F] transition-all shadow-sm active:scale-95"
+              >
+                등록
+              </Button>
+            )}
           </DialogHeader>
 
-          <div className="flex flex-col sm:flex-row h-full overflow-hidden">
-            {/* Left Side: Image Area */}
-            <div
-              className={cn(
-                "flex-1 bg-[#FAFAFA] flex items-center justify-center relative group overflow-hidden",
-                step === 2 ? "hidden sm:flex" : "flex",
-              )}
-            >
-              <input
-                type="file"
-                ref={fileInputRef}
-                className="hidden"
-                accept="image/*"
-                onChange={handleFileChange}
-              />
-              {selectedImage ? (
-                <div className="relative w-full h-full">
-                  <img
-                    src={selectedImage}
-                    alt="Selected"
-                    className="w-full h-full object-cover animate-fade-in"
-                  />
-                  {step === 1 && (
-                    <button
-                      onClick={() => fileInputRef.current?.click()}
-                      className="absolute bottom-4 right-4 bg-black/60 hover:bg-black/80 text-white p-3 rounded-full backdrop-blur-md transition-all shadow-xl"
-                    >
-                      <Upload className="h-5 w-5" />
-                    </button>
+          <div className="p-6 flex flex-col gap-8 pb-10">
+            {/* 1. Category Selection (Always Visible) */}
+            <div className="flex flex-col gap-4">
+              <h3 className="text-[19px] font-bold text-[#222222] tracking-tight">
+                어떤 글을 작성하시겠어요?
+              </h3>
+              <div className="grid grid-cols-2 gap-3">
+                <button
+                  onClick={() => setCategory("reviews")}
+                  className={cn(
+                    "flex flex-col items-center justify-center gap-2 p-5 rounded-2xl border-2 transition-all active:scale-[0.98]",
+                    category === "reviews"
+                      ? "border-[#FF385C] bg-[#FF385C]/5"
+                      : "border-[#DDDDDD] bg-white hover:border-[#BBBBBB]"
                   )}
-                </div>
-              ) : (
-                <div className="flex flex-col items-center text-[#262626]">
-                  <Camera className="h-20 w-20 mb-4 stroke-[0.5]" />
-                  <p className="text-xl font-light">{t("community.modal.imageHint")}</p>
-                  <Button
-                    onClick={() => fileInputRef.current?.click()}
-                    className="mt-6 bg-[#0095F6] hover:bg-[#1877F2] text-white rounded-lg px-4 py-1.5 text-sm h-auto"
-                  >
-                    {t("community.modal.selectComputer")}
-                  </Button>
-                </div>
-              )}
+                >
+                  <span className="text-2xl">📍</span>
+                  <div className="flex flex-col items-center gap-1">
+                    <span className={cn(
+                      "font-bold text-[15px]",
+                      category === "reviews" ? "text-[#FF385C]" : "text-[#222222]"
+                    )}>
+                      여행후기
+                    </span>
+                    <span className="text-[11px] text-[#717171] font-medium hidden sm:block">
+                      K-콘텐츠 촬영지 방문 인증
+                    </span>
+                  </div>
+                </button>
+                <button
+                  onClick={() => setCategory("talk")}
+                  className={cn(
+                    "flex flex-col items-center justify-center gap-2 p-5 rounded-2xl border-2 transition-all active:scale-[0.98]",
+                    category === "talk"
+                      ? "border-[#FF385C] bg-[#FF385C]/5"
+                      : "border-[#DDDDDD] bg-white hover:border-[#BBBBBB]"
+                  )}
+                >
+                  <span className="text-2xl">💬</span>
+                  <div className="flex flex-col items-center gap-1">
+                    <span className={cn(
+                      "font-bold text-[15px]",
+                      category === "talk" ? "text-[#FF385C]" : "text-[#222222]"
+                    )}>
+                      자유토크
+                    </span>
+                    <span className="text-[11px] text-[#717171] font-medium hidden sm:block">
+                      질문 및 자유로운 대화
+                    </span>
+                  </div>
+                </button>
+              </div>
             </div>
 
-            {/* Right Side: Inputs / Selectors */}
-            <div
-              className={cn(
-                "w-full sm:w-[400px] bg-white border-l border-gray-100 flex flex-col overflow-y-auto",
-                step === 1 ? "h-auto max-h-[300px] sm:max-h-none" : "flex-1",
-              )}
-            >
-              {step === 1 ? (
-                /* Step 1: Image Grid */
-                <div className="p-1">
-                  <div className="grid grid-cols-3 gap-1">
-                    {PRESET_IMAGES.map((img) => (
-                      <button
-                        key={img}
-                        onClick={() => setSelectedImage(img)}
-                        className={`relative aspect-square overflow-hidden transition-all group ${
-                          selectedImage === img ? "brightness-50" : "hover:brightness-90"
-                        }`}
-                      >
-                        <img src={img} alt="Preset" className="w-full h-full object-cover" />
-                        {selectedImage === img && (
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <Check className="h-8 w-8 text-white" />
-                          </div>
-                        )}
-                      </button>
-                    ))}
-                  </div>
+            {/* 2. Rest of the form (Visible only if category selected) */}
+            {category && (
+              <div className="animate-fade-in flex flex-col gap-8 border-t border-border/50 pt-8">
+                
+                {/* Text Content */}
+                <div className="flex flex-col gap-3">
+                  <h4 className="font-bold text-[15px] text-[#222222]">내용</h4>
+                  <textarea
+                    autoFocus
+                    placeholder="다른 여행자들과 나누고 싶은 이야기를 적어보세요..."
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                    className="w-full min-h-[140px] rounded-xl border border-[#DDDDDD] bg-[#F7F7F7] p-4 text-[15px] leading-relaxed resize-none focus:outline-none focus:ring-2 focus:ring-[#FF385C]/20 focus:border-[#FF385C] transition-all placeholder:text-[#A0A0A0]"
+                  />
                 </div>
-              ) : (
-                /* Step 2: Content Details */
-                <div className="flex flex-col divide-y divide-gray-100 animate-fade-in">
-                  {/* User Info */}
-                  <div className="p-4 flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-200">
+
+                {/* Image Selection */}
+                <div className="flex flex-col gap-3">
+                  <div className="flex items-center justify-between">
+                    <h4 className="font-bold text-[15px] text-[#222222]">사진 첨부</h4>
+                    {selectedImage && (
+                      <button
+                        onClick={() => setSelectedImage("")}
+                        className="text-xs font-bold text-[#717171] hover:text-[#222222] underline underline-offset-2"
+                      >
+                        지우기
+                      </button>
+                    )}
+                  </div>
+                  
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    className="hidden"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                  />
+
+                  {selectedImage ? (
+                    <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-[#DDDDDD] group">
                       <img
-                        src="https://i.pravatar.cc/150?img=33"
-                        alt="Avatar"
+                        src={selectedImage}
+                        alt="Selected"
                         className="w-full h-full object-cover"
                       />
-                    </div>
-                    <span className="text-sm font-bold text-[#262626]">Busan Traveler</span>
-                  </div>
-
-                  {/* Caption Input */}
-                  <div className="p-4">
-                    <textarea
-                      autoFocus
-                      placeholder={t("community.modal.captionPlaceholder")}
-                      value={content}
-                      onChange={(e) => setContent(e.target.value)}
-                      className="w-full min-h-[160px] resize-none border-none focus:ring-0 p-0 text-sm leading-relaxed placeholder:text-[#8e8e8e]"
-                    />
-                    <div className="flex justify-between items-center mt-2">
-                      <button className="p-1 text-gray-400 hover:text-gray-600">
-                        <svg
-                          aria-label="이모티콘"
-                          color="#8e8e8e"
-                          fill="#8e8e8e"
-                          height="20"
-                          role="img"
-                          viewBox="0 0 24 24"
-                          width="20"
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <Button
+                          variant="outline"
+                          className="bg-white/90 text-black border-none hover:bg-white font-bold rounded-full px-6"
+                          onClick={() => fileInputRef.current?.click()}
                         >
-                          <path d="M15.83 10.997a1.167 1.167 0 101.167 1.167 1.167 1.167 0 00-1.167-1.167zm-7.66 0a1.167 1.167 0 101.166 1.167 1.167 1.167 0 00-1.166-1.167zm3.83 6.11a5.457 5.457 0 01-4.004-1.745l-.478.478A6.134 6.134 0 0012 18c2.404 0 4.298-1.464 5.215-2.613l-.534-.39a4.708 4.708 0 01-3.681 2.11zM12 2.5a9.5 9.5 0 109.5 9.5A9.51 9.51 0 0012 2.5zm0 18a8.5 8.5 0 118.5-8.5 8.51 8.51 0 01-8.5 8.5z"></path>
-                        </svg>
-                      </button>
-                      <span className="text-[12px] text-gray-300">{content.length}/2,200</span>
-                    </div>
-                  </div>
-
-                  {/* Location Input */}
-                  <div className="flex flex-col">
-                    <div
-                      onClick={() => setIsMapOpen(true)}
-                      className="p-4 flex items-center justify-between group cursor-pointer hover:bg-gray-50 transition-colors"
-                    >
-                      <div className="flex items-center gap-3 flex-1">
-                        <MapPin className="h-5 w-5 text-[#262626] group-hover:text-primary transition-colors" />
-                        <div className="flex flex-col">
-                          <span
-                            className={cn(
-                              "text-sm",
-                              location ? "text-[#262626] font-medium" : "text-[#8e8e8e]",
-                            )}
-                          >
-                            {location || t("community.modal.locationPlaceholder")}
-                          </span>
-                          {location && (
-                            <span className="text-[10px] text-blue-500 font-bold uppercase tracking-wider">
-                              {t("community.modal.selectedViaMap")}
-                            </span>
-                          )}
-                        </div>
+                          사진 변경
+                        </Button>
                       </div>
-                      <ChevronRight className="h-4 w-4 text-gray-300" />
                     </div>
-                  </div>
+                  ) : (
+                    <div className="flex flex-col gap-4">
+                      {/* Upload Area */}
+                      <button
+                        onClick={() => fileInputRef.current?.click()}
+                        className="w-full aspect-video rounded-xl border-2 border-dashed border-[#DDDDDD] bg-[#F7F7F7] hover:bg-[#F0F0F0] hover:border-[#BBBBBB] transition-colors flex flex-col items-center justify-center gap-3"
+                      >
+                        <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center">
+                          <ImageIcon className="h-5 w-5 text-[#717171]" />
+                        </div>
+                        <span className="text-[14px] font-medium text-[#717171]">
+                          기기에서 사진 업로드
+                        </span>
+                      </button>
 
-                  {/* Accessibility / Category */}
-                  <div className="p-4 flex flex-col gap-3">
-                    <div className="flex items-center justify-between group cursor-pointer">
-                      <span className="text-sm font-medium text-[#262626]">
-                        {t("community.modal.categoryTitle")}
+                      {/* Presets (Optional quick picks) */}
+                      <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                        {PRESET_IMAGES.slice(0, 4).map((img) => (
+                          <button
+                            key={img}
+                            onClick={() => setSelectedImage(img)}
+                            className="relative w-20 h-20 shrink-0 rounded-lg overflow-hidden border border-[#DDDDDD] transition-all hover:opacity-80 focus:ring-2 focus:ring-[#FF385C]"
+                          >
+                            <img src={img} alt="Preset" className="w-full h-full object-cover" />
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Location */}
+                <div className="flex flex-col gap-3">
+                  <h4 className="font-bold text-[15px] text-[#222222]">장소 태그</h4>
+                  <div
+                    onClick={() => setIsMapOpen(true)}
+                    className="flex items-center justify-between p-4 rounded-xl border border-[#DDDDDD] bg-white cursor-pointer hover:border-[#BBBBBB] transition-colors group"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-[#F7F7F7] group-hover:bg-[#FF385C]/10 flex items-center justify-center transition-colors">
+                        <MapPin className={cn(
+                          "h-4 w-4 transition-colors",
+                          location ? "text-[#FF385C]" : "text-[#717171] group-hover:text-[#FF385C]"
+                        )} />
+                      </div>
+                      <span className={cn(
+                        "text-[15px]",
+                        location ? "text-[#222222] font-bold" : "text-[#717171]"
+                      )}>
+                        {location || "장소를 선택해주세요"}
                       </span>
-                      <Tag className="h-4 w-4 text-gray-400" />
-                    </div>
-                    <div className="flex gap-2">
-                      {(["reviews", "talk"] as const).map((cat) => (
-                        <button
-                          key={cat}
-                          onClick={() => setCategory(cat)}
-                          className={cn(
-                            "px-4 py-1.5 rounded-full text-xs font-bold transition-all border",
-                            category === cat
-                              ? "bg-[#262626] text-white border-[#262626]"
-                              : "bg-white text-[#262626] border-gray-200 hover:border-gray-400",
-                          )}
-                        >
-                          {cat === "reviews"
-                            ? t("community.filters.reviews")
-                            : t("community.filters.talk")}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Post Preview Info */}
-                  <div className="p-4 bg-[#FAFAFA] flex-1">
-                    <div className="p-4 rounded-xl bg-white border border-gray-100 shadow-sm">
-                      <p className="text-[11px] text-[#8e8e8e] leading-relaxed">
-                        {t("community.modal.disclaimer")}
-                      </p>
                     </div>
                   </div>
                 </div>
-              )}
-            </div>
+
+              </div>
+            )}
           </div>
         </DialogContent>
       </Dialog>
+
       <GoogleMapPicker
         open={isMapOpen}
         onClose={() => setIsMapOpen(false)}
