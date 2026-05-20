@@ -79,9 +79,10 @@ export default function Community() {
         {filteredReviews.map((review) => {
           const isLiked = review.isLiked;
           return (
-            <div
+            <Link
+              href={`/community/${review.id}`}
               key={review.id}
-              className="group overflow-hidden rounded-[2.5rem] border border-border/50 bg-card shadow-sm transition-all hover:shadow-xl"
+              className="group overflow-hidden rounded-[2.5rem] border border-border/50 bg-card shadow-sm transition-all hover:shadow-xl block"
             >
               {/* Vertical Image */}
               <div className="relative aspect-[9/12] overflow-hidden">
@@ -132,7 +133,7 @@ export default function Community() {
                   </span>
                 </div>
               </div>
-            </div>
+            </Link>
           );
         })}
       </section>

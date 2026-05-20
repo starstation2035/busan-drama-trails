@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import {
   X,
@@ -22,6 +22,7 @@ import { cn } from "@/lib/utils";
 interface CommunityPostModalProps {
   open: boolean;
   onClose: () => void;
+  initialCategory?: "reviews" | "talk";
 }
 
 const PRESET_IMAGES = [
@@ -37,7 +38,7 @@ const PRESET_IMAGES = [
 
 import { GoogleMapPicker } from "./GoogleMapPicker";
 
-export function CommunityPostModal({ open, onClose }: CommunityPostModalProps) {
+export function CommunityPostModal({ open, onClose, initialCategory = "reviews" }: CommunityPostModalProps) {
   const { t } = useTranslation();
   const addPost = useCommunityStore((s) => s.addPost);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -46,8 +47,15 @@ export function CommunityPostModal({ open, onClose }: CommunityPostModalProps) {
   const [selectedImage, setSelectedImage] = useState("");
   const [content, setContent] = useState("");
   const [location, setLocation] = useState("");
-  const [category, setCategory] = useState<"reviews" | "talk">("reviews");
+  const [category, setCategory] = useState<"reviews" | "talk">(initialCategory);
   const [isMapOpen, setIsMapOpen] = useState(false);
+
+  // Initialize category when modal opens
+  useEffect(() => {
+    if (open) {
+      setCategory(initialCategory);
+    }
+  }, [open, initialCategory]);
 
   const reset = () => {
     setStep(1);

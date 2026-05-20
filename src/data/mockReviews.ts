@@ -33,7 +33,7 @@ export const MOCK_REVIEWS: Review[] = [
     content:
       "Don't miss the Little Prince statue! The view of the colorful houses is even better in person. Best photo spot in Busan! 📸",
     likes: 89,
-    category: "talk",
+    category: "reviews",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Seung",
   },
   {
