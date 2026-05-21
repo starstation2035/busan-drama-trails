@@ -14,23 +14,42 @@ interface DiscoveryCardProps {
 const translateAddress = (addr: string, lang: string) => {
   if (lang !== "en" || !addr) return addr;
   let translated = addr
+    .replace("부산광역시 ", "")
     .replace("부산 ", "")
     .replace("영도구 ", "Yeongdo-gu, ")
     .replace("해운대구 ", "Haeundae-gu, ")
     .replace("중구 ", "Jung-gu, ")
     .replace("수영구 ", "Suyeong-gu, ")
-    .replace("서구 ", "Seo-gu, ");
+    .replace("서구 ", "Seo-gu, ")
+    .replace("사하구 ", "Saha-gu, ")
+    .replace("동구 ", "Dong-gu, ")
+    .replace("남구 ", "Nam-gu, ")
+    .replace("북구 ", "Buk-gu, ")
+    .replace("강서구 ", "Gangseo-gu, ")
+    .replace("금정구 ", "Geumjeong-gu, ");
 
   const tr: Record<string, string> = {
+    // 감천문화마을 일대
+    "감내2로": "Gamnae 2-ro", "감내1로": "Gamnae 1-ro",
+    "옥천로": "Okcheon-ro", "감천로": "Gamcheon-ro",
+    // 영도구
     "흰여울길": "Huinnyeoul-gil", "절영로": "Jeoryeong-ro", "중리남로": "Jungrinam-ro",
     "꿈나무길": "Kkumnamu-gil", "하나길": "Hana-gil", "중리북로": "Jungribuk-ro",
     "태종로": "Taejong-ro", "와치로": "Wachi-ro", "해양로": "Haeyang-ro",
     "봉래나루로": "Bongnaenaru-ro", "청학동로": "Cheonghakdong-ro",
+    // 해운대구
     "청사포로": "Cheongsapo-ro", "구남로": "Gunam-ro", "중동2로": "Jungdong 2-ro",
-    "중동1로": "Jungdong 1-ro", "달맞이길": "Dalmaji-gil", "자갈치로": "Jagalchi-ro",
-    "자갈치해안로": "Jagalchihaean-ro", "백산길": "Baeksan-gil", "전망로": "Jeonmang-ro",
+    "중동1로": "Jungdong 1-ro", "달맞이길": "Dalmaji-gil",
+    "해운대해변로": "Haeundaehaebyeon-ro",
+    // 중구
+    "자갈치로": "Jagalchi-ro", "자갈치해안로": "Jagalchihaean-ro",
+    "백산길": "Baeksan-gil",
+    // 영도구 기타
+    "전망로": "Jeonmang-ro",
+    // 수영구
     "광안해변로": "Gwanganhaebyeon-ro", "민락수변로": "Millaksubyeon-ro",
-    "송도해변로": "Songdohaebyeon-ro", "충무대로": "Chungmudae-ro"
+    // 서구
+    "송도해변로": "Songdohaebyeon-ro", "충무대로": "Chungmudae-ro",
   };
 
   for (const [ko, en] of Object.entries(tr)) {
@@ -38,7 +57,7 @@ const translateAddress = (addr: string, lang: string) => {
   }
   translated = translated.replace(/([0-9]+)번길/g, " $1-beongil");
 
-  const match = translated.match(/^([A-Za-z\-]+-gu,)\s+(.*?)\s+([0-9\-]+)$/);
+  const match = translated.match(/^([A-Za-z\-]+-gu,)\s+(.*?)\s+([0-9\-]+(?:\s+\S+-beongil)?)$/);
   if (match) {
     return `${match[3]} ${match[2]}, ${match[1]} Busan`;
   }
