@@ -907,6 +907,30 @@ export default function NearbyDiscovery({
         "무명일기": { "en": "Unknown Diary", "zh-TW": "無名日記", "zh-CN": "无名日记", "ja": "無名日記" },
         "창고형": { "en": "Warehouse Type", "zh-TW": "倉庫型", "zh-CN": "仓库型", "ja": "倉庫型" },
 
+        // ─── 추가 누락 항목 ───
+        "카린 영도 플레이스": { "en": "Karin Yeongdo Place", "zh-TW": "Karin 影島店", "zh-CN": "Karin 影岛店", "ja": "カリン 影島プレイス" },
+        "스칸디나비안 뷰": { "en": "Scandinavian View", "zh-TW": "北歐風景觀", "zh-CN": "北欧风景观", "ja": "スカンジナビアンビュー" },
+        "머거방": { "en": "Meogeo Bang", "zh-TW": "吃飯坊", "zh-CN": "吃饭坊", "ja": "モゴバン" },
+        "순두부/볶음밥/돈가스": { "en": "Soondubu/Fried Rice/Tonkatsu", "zh-TW": "嫩豆腐/炒飯/炸豬排", "zh-CN": "嫩豆腐/炒饭/炸猪排", "ja": "スンドゥブ/チャーハン/とんかつ" },
+        "감천 보리밥집": { "en": "Gamcheon Barley Rice", "zh-TW": "甘川麥飯", "zh-CN": "甘川麦饭", "ja": "甘川麦ご飯屋" },
+        "보리밥/된장찌개": { "en": "Barley Rice/Doenjang Jjigae", "zh-TW": "麥飯/大醬鍋", "zh-CN": "麦饭/大酱汤", "ja": "麦ご飯/味噌チゲ" },
+        "더플레이트": { "en": "The Plate", "zh-TW": "The Plate", "zh-CN": "The Plate", "ja": "ザプレート" },
+        "수제버거/피쉬앤칩스": { "en": "Handmade Burger/Fish & Chips", "zh-TW": "手工漢堡/魚薯條", "zh-CN": "手工汉堡/鱼薯条", "ja": "手作りバーガー/フィッシュ&チップス" },
+        "한식": { "en": "Korean Cuisine", "zh-TW": "韓式料理", "zh-CN": "韩式料理", "ja": "韓国料理" },
+        "커피잇집": { "en": "Coffee Itjip", "zh-TW": "咖啡好喝店", "zh-CN": "咖啡好喝店", "ja": "コーヒーイッジプ" },
+        "루프탑 마을 전경 뷰": { "en": "Rooftop Village Panorama", "zh-TW": "屋頂村莊全景", "zh-CN": "屋顶村庄全景", "ja": "ルーフトップ村落パノラマ" },
+        "감내카페": { "en": "Gamnae Cafe", "zh-TW": "甘內咖啡廳", "zh-CN": "甘内咖啡厅", "ja": "カムネカフェ" },
+        "팥빙수/마을 전망": { "en": "Bingsu/Village View", "zh-TW": "紅豆刨冰/村莊景觀", "zh-CN": "红豆刨冰/村庄景观", "ja": "パッピンス/村落ビュー" },
+        "프롬초이": { "en": "From Choi", "zh-TW": "From Choi", "zh-CN": "From Choi", "ja": "フロムチョイ" },
+        "루프탑 디저트": { "en": "Rooftop Dessert", "zh-TW": "屋頂甜點", "zh-CN": "屋顶甜点", "ja": "ルーフトップデザート" },
+        "감천제빵소": { "en": "Gamcheon Bakery", "zh-TW": "甘川麵包坊", "zh-CN": "甘川面包坊", "ja": "甘川製パン所" },
+        "감돌이빵/달빵": { "en": "Gamdori Bread/Moon Bread", "zh-TW": "甘石麵包/月亮麵包", "zh-CN": "甘石面包/月亮面包", "ja": "カムドリパン/月パン" },
+        "앨리스 도넛": { "en": "Alice Donut", "zh-TW": "愛麗絲甜甜圈", "zh-CN": "爱丽丝甜甜圈", "ja": "アリスドーナツ" },
+        "청사포 도넛": { "en": "Cheongsapo Donut", "zh-TW": "青沙浦甜甜圈", "zh-CN": "青沙浦甜甜圈", "ja": "青沙浦ドーナツ" },
+        "카페 루프탑": { "en": "Cafe Rooftop", "zh-TW": "屋頂咖啡廳", "zh-CN": "屋顶咖啡厅", "ja": "カフェルーフトップ" },
+        "태종대 자갈마당 해녀촌": { "en": "Taejongdae Jagal Haenyeo Village", "zh-TW": "太宗台石灘海女村", "zh-CN": "太宗台石滩海女村", "ja": "太宗台ジャガルマダン海女村" },
+        "드립커피": { "en": "Drip Coffee", "zh-TW": "手沖咖啡", "zh-CN": "手冲咖啡", "ja": "ドリップコーヒー" },
+
       };
 
       const koName = item.name?.ko || item.name || "";

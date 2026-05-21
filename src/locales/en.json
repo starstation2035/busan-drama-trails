@@ -276,7 +276,7 @@
       "seeAll": "See all spots for me",
       "shareLine": "Share to LINE",
       "shareIG": "Share to IG Story",
-      "copyLink": "Copy link",
+      "copyLink": "Copy Link",
       "shareText": "My Busan travel style is \"{{type}}\" {{icon}} — try it!"
     },
     "types": {
@@ -302,7 +302,7 @@
     "searchPlaceholder": "Search by location or drama",
     "addedToCourse": "Added to My Course ❤",
     "styleBanner": "Showing spots for {{style}}",
-    "clearStyle": "Clear filter",
+    "clearStyle": "Reset Filter",
     "count": "{{count}} locations",
     "filters": {
       "drama": "Drama",
@@ -322,8 +322,8 @@
     "hero": {
       "title": "Filming Spots & Landmarks One-Shot",
       "brand": "",
-      "subtitleLine1": "Visit the exact scenes from your favorite dramas,",
-      "subtitleLine2": "Discover a Busan course that leads straight to nearby restaurants."
+      "subtitleLine1": "Visit the scenes from drama filming locations,",
+      "subtitleLine2": "and we will guide you to a Busan course that continues to the delicious restaurant right next to it."
     },
     "sections": {
       "drama": "🎬 Filming Sites",
@@ -366,7 +366,7 @@
       "title": "Location",
       "google": "Google Maps",
       "kakao": "KakaoMap",
-      "copyAddr": "Copy address"
+      "copyAddr": "Copy Address"
     },
     "restaurants": {
       "title": "Where to Eat Nearby 🍜",
@@ -389,7 +389,7 @@
     "cta": {
       "add": "Add to My Course",
       "added": "View My Course →",
-      "carTour": "Book a Car Tour"
+      "carTour": "Book Community Car Tour"
     },
     "nearbyCta": "✨ Explore restaurants & cafes near {{name}}",
     "answers": "Answers",
@@ -402,7 +402,7 @@
   },
   "myCourse": {
     "title": "My Busan Course",
-    "subtitle": "{{spots}} spots・{{restaurants}} restaurants・{{cafes}} cafes",
+    "subtitle": "Spots {{spots}} · Restaurants {{restaurants}} · Cafes {{cafes}}",
     "removed": "Removed",
     "empty": {
       "message": "Start building your perfect Busan day trip",
@@ -437,14 +437,14 @@
     },
     "single": {
       "label": "Today's only stop",
-      "hint": "Add a few more spots to auto-generate a route!"
+      "hint": "Add a few more spots to generate your auto course!"
     },
     "actions": {
       "share": "Share",
       "regen": "Regenerate",
       "export": "Export",
       "exportSoon": "PDF export coming soon ✨",
-      "copyLink": "Copy course link"
+      "copyLink": "Copy Link"
     },
     "share": {
       "header": "My Busan K-Drama Course 🎬",

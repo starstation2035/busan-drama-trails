@@ -241,9 +241,9 @@
   },
   "spots": {
     "searchPlaceholder": "搜索地点或韩剧",
-    "addedToCourse": "已加入我的行程 ❤",
+    "addedToCourse": "已加入我的路线 ❤",
     "styleBanner": "正在显示「{{style}}」风格的拍摄地",
-    "clearStyle": "清除筛选",
+    "clearStyle": "重置筛选",
     "count": "{{count}} 个拍摄地",
     "filters": {
       "drama": "韩剧",
@@ -263,8 +263,8 @@
     "hero": {
       "title": "拍摄地 & 名胜 一站式",
       "brand": "",
-      "subtitleLine1": "探访韩剧拍摄地的经典场景，",
-      "subtitleLine2": "为您开启直达周边美食的釜山之旅。"
+      "subtitleLine1": "寻找韩剧拍摄地的那一幕，",
+      "subtitleLine2": "为您介绍紧邻美食店的釜山路线。"
     },
     "sections": {
       "drama": "🎬 韩剧拍摄地",
@@ -287,7 +287,7 @@
     "info": {
       "address": "地址",
       "hours": "运营信息",
-      "admission": "门票",
+      "admission": "入场费",
       "bestTime": "最佳时间",
       "status": "运营信息"
     },
@@ -328,9 +328,9 @@
       "hide": "收起"
     },
     "cta": {
-      "add": "加入我的行程",
-      "added": "查看我的行程 →",
-      "carTour": "预订包车游"
+      "add": "加入我的路线",
+      "added": "查看我的路线 →",
+      "carTour": "预约社群包车行程"
     },
     "nearbyCta": "✨ 探索 {{name}} 附近的餐厅和咖啡馆",
     "answers": "回复",
@@ -343,8 +343,8 @@
   },
   "myCourse": {
     "title": "我的釜山行程",
-    "subtitle": "{{spots}} 个景点・{{restaurants}} 间餐厅・{{cafes}} 间咖啡馆",
-    "removed": "已移除",
+    "subtitle": "景点{{spots}}・餐厅{{restaurants}}・咖啡厅{{cafes}}",
+    "removed": "已删除",
     "empty": {
       "message": "开始打造你的釜山一日游，把喜欢的地点加进来吧!",
       "cta": "去逛拍摄地"
@@ -377,14 +377,14 @@
     },
     "single": {
       "label": "今日唯一行程",
-      "hint": "再加几个地点就能自动生成路线!"
+      "hint": "再多加几个景点，系统就会自动帮您规划路线！"
     },
     "actions": {
       "share": "分享",
       "regen": "重新规划",
       "export": "导出",
       "exportSoon": "PDF 导出即将推出 ✨",
-      "copyLink": "复制行程链接"
+      "copyLink": "复制链接"
     },
     "share": {
       "header": "我的釜山韩剧之旅 🎬"

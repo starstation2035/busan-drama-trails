@@ -4,7 +4,7 @@
     "back": "戻る",
     "retake": "もう一度",
     "share": "結果をシェア",
-    "copied": "링크가 복사되었어요!",
+    "copied": "リンクをコピーしました！",
     "save": "完了",
     "quickStart": "クイックスタート",
     "settings": "設定",
@@ -244,7 +244,7 @@
       "seeAll": "おすすめスポットを全部見る",
       "shareLine": "LINEでシェア",
       "shareIG": "IGストーリーズでシェア",
-      "copyLink": "링크 복사",
+      "copyLink": "リンクをコピー",
       "shareText": "私の釜山旅スタイルは「{{type}}」{{icon}} 試してみて!"
     },
     "types": {
@@ -268,9 +268,9 @@
   },
   "spots": {
     "searchPlaceholder": "場所やドラマで検索",
-    "addedToCourse": "내 코스에 추가되었어요 ❤",
+    "addedToCourse": "マイコースに追加しました ❤",
     "styleBanner": "「{{style}}」スタイルの撮影地",
-    "clearStyle": "필터 초기화",
+    "clearStyle": "フィルターをリセット",
     "count": "{{count}}件の撮影地",
     "filters": {
       "drama": "ドラマ",
@@ -290,8 +290,8 @@
     "hero": {
       "title": "撮影地＆名所 ワンショット",
       "brand": "",
-      "subtitleLine1": "드라마 촬영지 그 장면을 찾아가고,",
-      "subtitleLine2": "바로 옆 맛집까지 이어지는 부산 코스를 안내합니다."
+      "subtitleLine1": "ドラマのあのシーンを訪ね、",
+      "subtitleLine2": "すぐそばの美味しいお店まで続く釜山コースをご案内します。"
     },
     "sections": {
       "drama": "🎬 ドラマロケ地",
@@ -314,7 +314,7 @@
     "info": {
       "address": "住所",
       "hours": "運営情報",
-      "admission": "入場료",
+      "admission": "入場料",
       "bestTime": "おすすめ時間",
       "status": "運営情報"
     },
@@ -334,7 +334,7 @@
       "title": "地図",
       "google": "Google Maps",
       "kakao": "KakaoMap",
-      "copyAddr": "주소 복사"
+      "copyAddr": "住所をコピー"
     },
     "restaurants": {
       "title": "周辺グルメ 🍜",
@@ -355,9 +355,9 @@
       "hide": "閉じる"
     },
     "cta": {
-      "add": "내 코스에 추가",
-      "added": "내 코스 보기 →",
-      "carTour": "커뮤니티 카 투어 예약"
+      "add": "マイコースに追加",
+      "added": "マイコースを見る →",
+      "carTour": "コミュニティカーツアー予約"
     },
     "nearbyCta": "✨ {{name}} 近くのグルメ＆カフェを探索",
     "answers": "回答",
@@ -370,8 +370,8 @@
   },
   "myCourse": {
     "title": "私の釜山コース",
-    "subtitle": "スポット{{spots}}・グルメ{{restaurants}}・카페{{cafes}}",
-    "removed": "削除했습니다",
+    "subtitle": "スポット{{spots}}・グルメ{{restaurants}}・カフェ{{cafes}}",
+    "removed": "削除しました",
     "empty": {
       "message": "お気に入りを集めて、あなただけの釜山1日プランを作ろう",
       "cta": "撮影地を見る"
@@ -404,14 +404,14 @@
     },
     "single": {
       "label": "今日の唯一の予定",
-      "hint": "もう数か所追加すると自動コース가 생성돼요!"
+      "hint": "あと数か所追加すると自動コースが作成されます！"
     },
     "actions": {
       "share": "シェア",
-      "regen": "다시 짜기",
-      "export": "내보내기",
+      "regen": "もう一度組み直す",
+      "export": "エクスポート",
       "exportSoon": "PDF出力は近日公開 ✨",
-      "copyLink": "링크 복사"
+      "copyLink": "リンクをコピー"
     },
     "share": {
       "header": "私の釜山ドラマ巡り 🎬"
