@@ -15,6 +15,7 @@ export interface Review {
   spotId: string;
   image: string;
   content: string;
+  content_en?: string;
   likes: number;
   category: "reviews" | "talk";
   avatar: string;
