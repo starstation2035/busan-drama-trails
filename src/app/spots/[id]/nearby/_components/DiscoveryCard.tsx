@@ -28,39 +28,56 @@ const translateAddress = (addr: string, lang: string) => {
     .replace("강서구 ", "Gangseo-gu, ")
     .replace("금정구 ", "Geumjeong-gu, ");
 
-  const tr: Record<string, string> = {
-    // 감천문화마을 일대
+  // 동(洞) 이름 번역 (반드시 로/길 번역 전에 처리)
+  const dongTr: Record<string, string> = {
+    "감천동": "Gamcheon-dong", "감내동": "Gamnae-dong",
+    "흰여울동": "Huinnyeoul-dong", "동삼동": "Dongsam-dong",
+    "청학동": "Cheonghak-dong", "봉래동": "Bongnae-dong",
+    "영선동": "Yeongseon-dong", "태종동": "Taejong-dong",
+    "중리동": "Jungri-dong", "신선동": "Sinseon-dong",
+    "청사포동": "Cheongsapo-dong", "중동": "Jungdong",
+    "좌동": "Jwadong", "송정동": "Songjung-dong",
+    "반여동": "Banyeo-dong", "재송동": "Jaesong-dong",
+    "남포동": "Nampodong", "광복동": "Gwangbok-dong",
+    "중앙동": "Jungangdong", "보수동": "Bosu-dong",
+    "광안동": "Gwangan-dong", "민락동": "Millak-dong",
+    "수영동": "Suyeong-dong", "망미동": "Mangmi-dong",
+    "암남동": "Amnam-dong", "충무동": "Chungmu-dong",
+  };
+
+  for (const [ko, en] of Object.entries(dongTr)) {
+    translated = translated.replace(ko, en);
+  }
+
+  // 도로/길 이름 번역
+  const roadTr: Record<string, string> = {
     "감내2로": "Gamnae 2-ro", "감내1로": "Gamnae 1-ro",
     "옥천로": "Okcheon-ro", "감천로": "Gamcheon-ro",
-    // 영도구
-    "흰여울길": "Huinnyeoul-gil", "절영로": "Jeoryeong-ro", "중리남로": "Jungrinam-ro",
-    "꿈나무길": "Kkumnamu-gil", "하나길": "Hana-gil", "중리북로": "Jungribuk-ro",
-    "태종로": "Taejong-ro", "와치로": "Wachi-ro", "해양로": "Haeyang-ro",
-    "봉래나루로": "Bongnaenaru-ro", "청학동로": "Cheonghakdong-ro",
-    // 해운대구
-    "청사포로": "Cheongsapo-ro", "구남로": "Gunam-ro", "중동2로": "Jungdong 2-ro",
-    "중동1로": "Jungdong 1-ro", "달맞이길": "Dalmaji-gil",
-    "해운대해변로": "Haeundaehaebyeon-ro",
-    // 중구
+    "흰여울길": "Huinnyeoul-gil", "절영로": "Jeoryeong-ro",
+    "중리남로": "Jungrinam-ro", "꿈나무길": "Kkumnamu-gil",
+    "하나길": "Hana-gil", "중리북로": "Jungribuk-ro",
+    "태종로": "Taejong-ro", "와치로": "Wachi-ro",
+    "해양로": "Haeyang-ro", "봉래나루로": "Bongnaenaru-ro",
+    "청사포로": "Cheongsapo-ro", "구남로": "Gunam-ro",
+    "중동2로": "Jungdong 2-ro", "중동1로": "Jungdong 1-ro",
+    "달맞이길": "Dalmaji-gil", "해운대해변로": "Haeundaehaebyeon-ro",
     "자갈치로": "Jagalchi-ro", "자갈치해안로": "Jagalchihaean-ro",
-    "백산길": "Baeksan-gil",
-    // 영도구 기타
-    "전망로": "Jeonmang-ro",
-    // 수영구
+    "백산길": "Baeksan-gil", "전망로": "Jeonmang-ro",
     "광안해변로": "Gwanganhaebyeon-ro", "민락수변로": "Millaksubyeon-ro",
-    // 서구
     "송도해변로": "Songdohaebyeon-ro", "충무대로": "Chungmudae-ro",
   };
 
-  for (const [ko, en] of Object.entries(tr)) {
+  for (const [ko, en] of Object.entries(roadTr)) {
     translated = translated.replace(ko, en);
   }
-  translated = translated.replace(/([0-9]+)번길/g, " $1-beongil");
 
-  const match = translated.match(/^([A-Za-z\-]+-gu,)\s+(.*?)\s+([0-9\-]+(?:\s+\S+-beongil)?)$/);
-  if (match) {
-    return `${match[3]} ${match[2]}, ${match[1]} Busan`;
-  }
+  // 번길 처리
+  translated = translated.replace(/([0-9]+)번길/g, "$1-beongil");
+  // 층 → Floor 변환 (예: 2층 → 2F)
+  translated = translated.replace(/([0-9]+)층/g, "$1F");
+
+  // 남은 한글 제거 (번역 안 된 한글 단어 삭제 대신 로마자로 표기)
+  // 예: "감선동 6-1052 2F" → "6-1052 Gamcheon-dong, 2F ..."
   return translated.trim() + ", Busan";
 };
 
