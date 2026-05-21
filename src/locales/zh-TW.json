@@ -4,7 +4,18 @@
     "back": "上一題",
     "retake": "再測一次",
     "share": "分享結果",
-    "copied": "已複製連結！"
+    "copied": "已複製連結！",
+    "save": "儲存",
+    "quickStart": "快速開始",
+    "settings": "設定",
+    "movies": {
+      "woo": { "title": "非常律師禹英禑", "genre": "法律/劇情" },
+      "runningman": { "title": "Running Man", "genre": "實境秀/動作" },
+      "pachinko": { "title": "柏青哥", "genre": "劇情" },
+      "attorney": { "title": "辯護人", "genre": "劇情" },
+      "haeundae": { "title": "大浩劫", "genre": "災難" },
+      "market": { "title": "國際市場", "genre": "劇情" }
+    }
   },
   "nav": {
     "home": "首頁",
@@ -68,7 +79,12 @@
       "cafe": "咖啡",
       "community": "社群",
       "spots": "熱門景點",
-      "myCourse": "我的行程"
+      "myCourse": "我的行程",
+      "goods": "周邊商城"
+    },
+    "cinema": {
+      "title": "釜山影視場景",
+      "subtitle": "探索拍攝地點"
     }
   },
   "community": {

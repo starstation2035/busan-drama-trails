@@ -338,7 +338,13 @@ export default function LandingPage() {
                       </span>
                     </div>
                     <p className="text-[14px] leading-relaxed text-[#444444] line-clamp-3 font-semibold group-hover:text-primary transition-colors">
-                      &ldquo;{lang === "en" && review.content_en ? review.content_en : review.content}&rdquo;
+                      &ldquo;
+                      {lang === "en" && review.content_en
+                        ? review.content_en
+                        : lang === "zh-TW" && review.content_zh_TW
+                          ? review.content_zh_TW
+                          : review.content}
+                      &rdquo;
                     </p>
                   </div>
                 </div>
@@ -347,7 +353,11 @@ export default function LandingPage() {
                   <div className="flex items-center gap-1.5 text-[12px] font-bold text-[#717171]">
                     <MapPin className="h-3.5 w-3.5 text-[#FF385C]" strokeWidth={1.5} />
                     <span className="truncate max-w-[150px]">
-                      {lang === "en" && review.location_en ? review.location_en : review.location}
+                      {lang === "en" && review.location_en
+                        ? review.location_en
+                        : lang === "zh-TW" && review.location_zh_TW
+                          ? review.location_zh_TW
+                          : review.location}
                     </span>
                   </div>
                   <span className="text-[11px] font-extrabold text-primary flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">

@@ -62,7 +62,7 @@ export const useCommunityStore = create<CommunityState>()(
     }),
     {
       name: "community-storage",
-      version: 8, // v8: use unique image for 부산투어러_준호 (pink dress at Cheongsapo)
+      version: 9, // v9: add traditional chinese translations for reviews
     },
   ),
 );

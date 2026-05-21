@@ -4,7 +4,18 @@
     "back": "上一题",
     "retake": "再测一次",
     "share": "分享结果",
-    "copied": "链接已复制!"
+    "copied": "已复制链接！",
+    "save": "保存",
+    "quickStart": "快速开始",
+    "settings": "设置",
+    "movies": {
+      "woo": { "title": "非常律师禹英禑", "genre": "法律/剧情" },
+      "runningman": { "title": "Running Man", "genre": "真人秀/动作" },
+      "pachinko": { "title": "柏青哥", "genre": "剧情" },
+      "attorney": { "title": "辩护人", "genre": "剧情" },
+      "haeundae": { "title": "海云台", "genre": "灾难" },
+      "market": { "title": "国际市场", "genre": "剧情" }
+    }
   },
   "nav": {
     "home": "首页",
@@ -68,7 +79,12 @@
       "cafe": "咖啡",
       "community": "社区",
       "spots": "热门景点",
-      "myCourse": "我的行程"
+      "myCourse": "我的行程",
+      "goods": "周边商城"
+    },
+    "cinema": {
+      "title": "釜山影视场景",
+      "subtitle": "探索拍摄地点"
     }
   },
   "community": {
