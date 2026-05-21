@@ -876,8 +876,6 @@ export default function NearbyDiscovery({
         "광안리 뚜벅스": { "en": "Gwangalli Twobuks", "zh-TW": "廣安里 Twobuks", "zh-CN": "广安里 Twobuks", "ja": "広安里 Twobuks" },
         "흰여울점빵": { "en": "Huinnyeoul Jeomppang", "zh-TW": "白淺灘點心店", "zh-CN": "白浅滩点心店", "ja": "ヒンヨウルチョンパン" },
         "라면/토스트": { "en": "Ramen/Toast", "zh-TW": "拉麵/吐司", "zh-CN": "拉面/吐司", "ja": "ラーメン/トースト" },
-        "거청식당": { "en": "Geocheong Sikdang", "zh-TW": "巨清食堂", "zh-CN": "巨清食堂", "ja": "コチョン食堂" },
-        "생선구이": { "en": "Grilled Fish", "zh-TW": "烤魚", "zh-CN": "烤鱼", "ja": "焼き魚" },
         "달뜨네": { "en": "Dalteune", "zh-TW": "月升", "zh-CN": "月升", "ja": "タルトゥネ" },
         "회밥/시나몬맥주": { "en": "Sashimi Rice/Cinnamon Beer", "zh-TW": "生魚片飯/肉桂啤酒", "zh-CN": "生鱼片饭/肉桂啤酒", "ja": "刺身ご飯/シナモンビール" },
         "영도해녀촌": { "en": "Yeongdo Haenyeo Village", "zh-TW": "影島海女村", "zh-CN": "影岛海女村", "ja": "影島海女村" },
@@ -898,14 +896,7 @@ export default function NearbyDiscovery({
         "대나무뷰": { "en": "Bamboo View", "zh-TW": "竹林景觀", "zh-CN": "竹林景观", "ja": "竹林ビュー" },
         "손목서가": { "en": "Sonmok Seoga", "zh-TW": "手腕書架", "zh-CN": "手腕书架", "ja": "ソンモクソガ" },
         "오션뷰 서점": { "en": "Ocean View Bookstore", "zh-TW": "海景書店", "zh-CN": "海景书店", "ja": "オーシャンビュー書店" },
-        "에테르": { "en": "Aether", "zh-TW": "以太", "zh-CN": "以太", "ja": "エーテル" },
-        "루프탑": { "en": "Rooftop", "zh-TW": "頂樓", "zh-CN": "顶楼", "ja": "ルーフトップ" },
-        "구름에": { "en": "Gurume", "zh-TW": "雲端", "zh-CN": "云端", "ja": "クルメ" },
-        "디저트": { "en": "Dessert", "zh-TW": "甜點", "zh-CN": "甜点", "ja": "デザート" },
-        "피아크 (P.ARK)": { "en": "P.ARK", "zh-TW": "P.ARK", "zh-CN": "P.ARK", "ja": "ピアーク(P.ARK)" },
-        "초대형": { "en": "Extra Large", "zh-TW": "超大型", "zh-CN": "超大型", "ja": "超大型" },
-        "모모스커피 영도": { "en": "Momos Coffee Yeongdo", "zh-TW": "Momos Coffee 影島", "zh-CN": "Momos Coffee 影岛", "ja": "モモスコヒー 影島" },
-        "스페셜티": { "en": "Specialty", "zh-TW": "精品咖啡", "zh-CN": "精品咖啡", "ja": "スペシャルティ" },
+
         "무명일기": { "en": "Unknown Diary", "zh-TW": "無名日記", "zh-CN": "无名日记", "ja": "無名日記" },
         "창고형": { "en": "Warehouse Type", "zh-TW": "倉庫型", "zh-CN": "仓库型", "ja": "倉庫型" }
       };
