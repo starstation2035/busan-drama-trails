@@ -146,7 +146,11 @@ export default function CommunityDetail({ params }: { params: Promise<{ id: stri
               <div className="flex items-center gap-1.5 text-sm text-muted-foreground mt-0.5">
                 <MapPin className="size-3.5 text-primary" />
                 <span className="font-medium">
-                  {lang === "en" && post.location_en ? post.location_en : post.location}
+                  {lang === "en" && post.location_en 
+                    ? post.location_en 
+                    : lang === "zh-TW" && post.location_zh_TW
+                      ? post.location_zh_TW
+                      : post.location}
                 </span>
               </div>
             </div>
@@ -169,7 +173,11 @@ export default function CommunityDetail({ params }: { params: Promise<{ id: stri
             {t(`community.filters.${post.category}`)}
           </span>
           <p className="whitespace-pre-line text-[15px] leading-relaxed text-[#333333]">
-            {lang === "en" && post.content_en ? post.content_en : post.content}
+            {lang === "en" && post.content_en 
+              ? post.content_en 
+              : lang === "zh-TW" && post.content_zh_TW
+                ? post.content_zh_TW
+                : post.content}
           </p>
         </div>
 
@@ -222,7 +230,11 @@ export default function CommunityDetail({ params }: { params: Promise<{ id: stri
                         <span className="text-xs text-muted-foreground">{comment.createdAt}</span>
                       </div>
                       <p className="text-sm text-[#444444] leading-relaxed whitespace-pre-line bg-muted/30 rounded-2xl p-4.5 border border-black/5 mt-1">
-                        {lang === "en" && comment.content_en ? comment.content_en : comment.content}
+                        {lang === "en" && comment.content_en 
+                          ? comment.content_en 
+                          : lang === "zh-TW" && comment.content_zh_TW
+                            ? comment.content_zh_TW
+                            : comment.content}
                       </p>
                     </div>
                   </div>

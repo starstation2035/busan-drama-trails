@@ -62,7 +62,7 @@ export const useCommunityStore = create<CommunityState>()(
     }),
     {
       name: "community-storage",
-      version: 9, // v9: add traditional chinese translations for reviews
+      version: 10,
     },
   ),
 );

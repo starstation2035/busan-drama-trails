@@ -194,7 +194,9 @@ export default function Community() {
                             <span className="text-sm font-medium">
                               {lang === "en" && review.location_en
                                 ? review.location_en
-                                : review.location}
+                                : lang === "zh-TW" && review.location_zh_TW
+                                  ? review.location_zh_TW
+                                  : review.location}
                             </span>
                           </div>
                         </div>
@@ -229,7 +231,11 @@ export default function Community() {
                         </div>
 
                         <p className="mt-4 line-clamp-4 text-sm leading-relaxed text-muted-foreground">
-                          {lang === "en" && review.content_en ? review.content_en : review.content}
+                          {lang === "en" && review.content_en 
+                            ? review.content_en 
+                            : lang === "zh-TW" && review.content_zh_TW
+                              ? review.content_zh_TW
+                              : review.content}
                         </p>
                       </div>
 

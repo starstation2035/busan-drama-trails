@@ -116,7 +116,22 @@
     "title": "旅行者コミュニティ",
     "subtitle": "釜山旅行のリアルな体験談を見つけよう",
     "write": "投稿する",
+    "writeReview": "私もレビューを書く",
+    "shareTitle": "あなただけの特別なK-コンテンツ旅行をシェアしよう！",
+    "shareSubtitle": "一枚の写真から始まるあなただけの旅行記",
+    "writeButton": "投稿",
+    "searchPlaceholder": "場所やドラマのタイトルで検索",
+    "viewAll": "すべて見る",
+    "emptyTalk": "まだフリートークの投稿はありません。",
+    "emptyReviews": "まだレビューはありません。",
     "empty": "あなたの釜山の思い出を一番にシェアしよう！",
+    "sections": {
+      "freeTalkTitle": "リアルタイム フリートーク Q&A",
+      "freeTalkSubtitle": "釜山旅行について質問してみましょう！",
+      "latestQuestion": "最新の質問",
+      "reviewsTitle": "リアルな旅行レビュー",
+      "reviewsSubtitle": "他の旅行者がおすすめするスポットはどこ？"
+    },
     "filters": {
       "all": "すべて",
       "reviews": "レビュー",

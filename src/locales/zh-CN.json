@@ -88,10 +88,25 @@
     }
   },
   "community": {
-    "title": "旅人社区",
-    "subtitle": "发掘旅人们分享的釜山真实故事",
-    "write": "发表动态",
-    "empty": "来当第一个分享釜山故事的人吧！",
+    "title": "旅客社区",
+    "subtitle": "寻找釜山旅游的真实体验",
+    "write": "撰写动态",
+    "writeReview": "我也要写评价",
+    "shareTitle": "分享您特别的 K-Content 旅游体验！",
+    "shareSubtitle": "用一张照片开始您专属的旅行记录",
+    "writeButton": "撰写",
+    "searchPlaceholder": "按地点或韩剧名称搜索",
+    "viewAll": "查看全部",
+    "emptyTalk": "目前还没有自由讨论的帖子。",
+    "emptyReviews": "目前还没有旅游评价。",
+    "empty": "成为第一个分享釜山故事的人吧！",
+    "sections": {
+      "freeTalkTitle": "实时自由讨论 Q&A",
+      "freeTalkSubtitle": "对釜山旅游有疑问吗？欢迎随时提问！",
+      "latestQuestion": "最新提问",
+      "reviewsTitle": "生动的旅游评价",
+      "reviewsSubtitle": "其他旅客推荐的最佳地点是哪里呢？"
+    },
     "filters": {
       "all": "全部",
       "reviews": "游记",

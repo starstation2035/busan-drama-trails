@@ -88,10 +88,25 @@
     }
   },
   "community": {
-    "title": "旅人社群",
-    "subtitle": "發掘旅人們分享的釜山真實故事",
-    "write": "發表貼文",
-    "empty": "來當第一個分享釜山故事的人吧！",
+    "title": "旅客社群",
+    "subtitle": "尋找釜山旅遊的真實體驗",
+    "write": "撰寫貼文",
+    "writeReview": "我也要寫評價",
+    "shareTitle": "分享您特別的 K-Content 旅遊體驗！",
+    "shareSubtitle": "用一張照片開始您專屬的旅行記錄",
+    "writeButton": "撰寫",
+    "searchPlaceholder": "依地點或韓劇名稱搜尋",
+    "viewAll": "查看全部",
+    "emptyTalk": "目前還沒有自由討論的貼文。",
+    "emptyReviews": "目前還沒有旅遊評價。",
+    "empty": "成為第一個分享釜山故事的人吧！",
+    "sections": {
+      "freeTalkTitle": "即時自由討論 Q&A",
+      "freeTalkSubtitle": "對釜山旅遊有疑問嗎？歡迎隨時提問！",
+      "latestQuestion": "最新提問",
+      "reviewsTitle": "生動的旅遊評價",
+      "reviewsSubtitle": "其他旅客推薦的最佳地點是哪裡呢？"
+    },
     "filters": {
       "all": "全部",
       "reviews": "遊記",

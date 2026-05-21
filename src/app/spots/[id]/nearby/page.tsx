@@ -870,7 +870,10 @@ export default function NearbyDiscovery({
         "연경재": { "en": "Yeongyeongjae", "zh-TW": "延慶齋", "zh-CN": "延庆斋", "ja": "ヨンギョンジェ" },
         "연경재 하이엔드 우차(Tea)": { "en": "Yeongyeongjae High-end Tea", "zh-TW": "延慶齋 頂級茶", "zh-CN": "延庆斋 顶级茶", "ja": "ヨンギョンジェ ハイエンド茶" },
         "굿올데즈": { "en": "Good Old Days", "zh-TW": "Good Old Days", "zh-CN": "Good Old Days", "ja": "グッドオールドデイズ" },
-        "굿올데즈 원도심 블렌딩": { "en": "Good Old Days Original Blend", "zh-TW": "Good Old Days 招牌特調", "zh-CN": "Good Old Days 招牌特调", "ja": "グッドオールドデイズ オリジナルブレンド" }
+        "굿올데즈 원도심 블렌딩": { "en": "Good Old Days Original Blend", "zh-TW": "Good Old Days 招牌特調", "zh-CN": "Good Old Days 招牌特调", "ja": "グッドオールドデイズ オリジナルブレンド" },
+        "TCC 송도": { "en": "TCC Songdo", "zh-TW": "TCC 松島", "zh-CN": "TCC 松岛", "ja": "TCC 松島" },
+        "루프탑 뷰": { "en": "Rooftop View", "zh-TW": "頂樓景觀", "zh-CN": "顶楼景观", "ja": "ルーフトップビュー" },
+        "광안리 뚜벅스": { "en": "Gwangalli Twobuks", "zh-TW": "廣安里 Twobuks", "zh-CN": "广安里 Twobuks", "ja": "広安里 Twobuks" }
       };
 
       const koName = item.name?.ko || item.name || "";
