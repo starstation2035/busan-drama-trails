@@ -160,7 +160,11 @@
       "disclaimer": "Your post will be public on the Busan Drama Trails community for others to see.",
       "mapTitle": "Select Location",
       "mapPlaceholder": "Search place or address",
-      "mapConfirm": "Select this location"
+      "mapConfirm": "Select this location",
+      "photo": "Attach Photo",
+      "clear": "Clear",
+      "changePhoto": "Change Photo",
+      "location": "Location Tag"
     },
     "social": {
       "kakao": "Shared to KakaoTalk! 💬",

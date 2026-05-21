@@ -123,8 +123,11 @@
       "categoryTitle": "分类设置",
       "disclaimer": "你发表的内容将公开于釜山剧迷足迹社区中。",
       "mapTitle": "选择地点",
-      "mapPlaceholder": "搜索地点或地址",
-      "mapConfirm": "选择此地点"
+      "mapConfirm": "选择此地点",
+      "photo": "附加照片",
+      "clear": "清除",
+      "changePhoto": "更改照片",
+      "location": "地点标签"
     },
     "social": {
       "kakao": "已分享至 KakaoTalk！ 💬",
@@ -132,6 +135,8 @@
     },
     "post": {
       "success": "动态发布成功！ ✨",
+      "imageError": "请先选择照片！",
+      "categoryError": "请选择分类！",
       "captionError": "请输入内容！",
       "placeholder": "分享你的釜山韩剧之旅心得吧！",
       "submit": "上传"
@@ -345,5 +350,15 @@
     "share": {
       "header": "我的釜山韩剧之旅 🎬"
     }
+  },
+  "nearby": {
+    "explore": "周边探索",
+    "popular": "半径 1km 内热门地点",
+    "restaurants": "餐厅",
+    "cafes": "咖啡馆",
+    "recommendedSignature": "推荐招牌",
+    "mostPopularMenu": "评论者最常点的餐点",
+    "signature": "招牌",
+    "addedToMyCourse": "已加入我的行程！"
   }
 }

@@ -80,13 +80,13 @@ export function CommunityPostModal({ open, onClose, initialCategory }: Community
 
   const handleSubmit = () => {
     if (!category) {
-      toast.error(t("post.categoryError", lang === "en" ? "Please select a category." : "어떤 글을 작성하실지 카테고리를 선택해주세요."));
+      toast.error(t("community.post.categoryError", lang === "en" ? "Please select a category." : "어떤 글을 작성하실지 카테고리를 선택해주세요."));
       return;
     }
 
     // 여행후기 카테고리일 때만 사진 필수 검증
     if (category === "reviews" && !selectedImage) {
-      toast.error(t("post.imageError", lang === "en" ? "Please attach at least one photo!" : "인증 사진을 최소 1장 이상 첨부해주세요!"));
+      toast.error(t("community.post.imageError", lang === "en" ? "Please attach at least one photo!" : "인증 사진을 최소 1장 이상 첨부해주세요!"));
       return;
     }
 
@@ -130,13 +130,13 @@ export function CommunityPostModal({ open, onClose, initialCategory }: Community
               >
                 <X className="h-5 w-5 text-foreground" />
               </button>
-              <DialogTitle className="font-bold text-foreground">{t("modal.title", lang === "en" ? "Create New Post" : "글쓰기")}</DialogTitle>
+              <DialogTitle className="font-bold text-foreground">{t("community.modal.title", lang === "en" ? "Create New Post" : "글쓰기")}</DialogTitle>
             </div>
             <Button
               onClick={handleSubmit}
               className="bg-[#FF385C] text-white font-bold px-5 h-9 rounded-full hover:bg-[#E31C5F] transition-all shadow-sm active:scale-95"
             >
-              {t("post.submit", lang === "en" ? "Upload" : "등록")}
+              {t("community.post.submit", lang === "en" ? "Upload" : "등록")}
             </Button>
           </DialogHeader>
 
@@ -144,7 +144,7 @@ export function CommunityPostModal({ open, onClose, initialCategory }: Community
             {/* 1. Category Selection (Always Visible) */}
             <div className="flex flex-col gap-4">
               <h3 className="text-[19px] font-bold text-[#222222] tracking-tight">
-                {t("modal.categoryTitle", lang === "en" ? "Category Settings" : "어떤 글을 작성하시겠어요?")}
+                {t("community.modal.categoryTitle", lang === "en" ? "Category Settings" : "어떤 글을 작성하시겠어요?")}
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 <button
@@ -164,7 +164,7 @@ export function CommunityPostModal({ open, onClose, initialCategory }: Community
                         category === "reviews" ? "text-[#FF385C]" : "text-[#222222]",
                       )}
                     >
-                      {t("filters.reviews", lang === "en" ? "Travel Reviews" : "여행후기")}
+                      {t("community.filters.reviews", lang === "en" ? "Travel Reviews" : "여행후기")}
                     </span>
                     <span className="text-[11px] text-[#717171] font-medium hidden sm:block">
                       {t("community.sections.reviewsSubtitle", lang === "en" ? "K-Content location visits" : "K-콘텐츠 촬영지 방문 인증")}
@@ -188,7 +188,7 @@ export function CommunityPostModal({ open, onClose, initialCategory }: Community
                         category === "talk" ? "text-[#FF385C]" : "text-[#222222]",
                       )}
                     >
-                      {t("filters.talk", lang === "en" ? "Free Talk" : "자유토크")}
+                      {t("community.filters.talk", lang === "en" ? "Free Talk" : "자유토크")}
                     </span>
                     <span className="text-[11px] text-[#717171] font-medium hidden sm:block">
                       {t("community.sections.freeTalkSubtitle", lang === "en" ? "Questions and free talk" : "질문 및 자유로운 대화")}
@@ -202,10 +202,10 @@ export function CommunityPostModal({ open, onClose, initialCategory }: Community
             <div className="flex flex-col gap-8 border-t border-border/50 pt-8">
               {/* Text Content */}
               <div className="flex flex-col gap-3">
-                <h4 className="font-bold text-[15px] text-[#222222]">{t("modal.details", lang === "en" ? "Post Details" : "내용")}</h4>
+                <h4 className="font-bold text-[15px] text-[#222222]">{t("community.modal.details", lang === "en" ? "Post Details" : "내용")}</h4>
                 <textarea
                   autoFocus
-                  placeholder={t("post.placeholder", lang === "en" ? "Share your stories with other travelers..." : "다른 여행자들과 나누고 싶은 이야기를 적어보세요...")}
+                  placeholder={t("community.post.placeholder", lang === "en" ? "Share your stories with other travelers..." : "다른 여행자들과 나누고 싶은 이야기를 적어보세요...")}
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
                   className="w-full min-h-[140px] rounded-xl border border-[#DDDDDD] bg-[#F7F7F7] p-4 text-[15px] leading-relaxed resize-none focus:outline-none focus:ring-2 focus:ring-[#FF385C]/20 focus:border-[#FF385C] transition-all placeholder:text-[#A0A0A0]"
@@ -215,13 +215,13 @@ export function CommunityPostModal({ open, onClose, initialCategory }: Community
               {/* Image Selection */}
               <div className="flex flex-col gap-3">
                 <div className="flex items-center justify-between">
-                  <h4 className="font-bold text-[15px] text-[#222222]">{t("modal.photo", lang === "en" ? "Attach Photo" : "사진 첨부")}</h4>
+                  <h4 className="font-bold text-[15px] text-[#222222]">{t("community.modal.photo", lang === "en" ? "Attach Photo" : "사진 첨부")}</h4>
                   {selectedImage && (
                     <button
                       onClick={() => setSelectedImage("")}
                       className="text-xs font-bold text-[#717171] hover:text-[#222222] underline underline-offset-2"
                     >
-                      {t("modal.clear", lang === "en" ? "Clear" : "지우기")}
+                      {t("community.modal.clear", lang === "en" ? "Clear" : "지우기")}
                     </button>
                   )}
                 </div>
@@ -247,7 +247,7 @@ export function CommunityPostModal({ open, onClose, initialCategory }: Community
                         className="bg-white/90 text-black border-none hover:bg-white font-bold rounded-full px-6"
                         onClick={() => fileInputRef.current?.click()}
                       >
-                        {t("modal.changePhoto", lang === "en" ? "Change Photo" : "사진 변경")}
+                        {t("community.modal.changePhoto", lang === "en" ? "Change Photo" : "사진 변경")}
                       </Button>
                     </div>
                   </div>
@@ -262,7 +262,7 @@ export function CommunityPostModal({ open, onClose, initialCategory }: Community
                         <ImageIcon className="h-5 w-5 text-[#717171]" />
                       </div>
                       <span className="text-[14px] font-medium text-[#717171]">
-                        {t("modal.selectComputer", lang === "en" ? "Select from computer" : "기기에서 사진 업로드")}
+                        {t("community.modal.selectComputer", lang === "en" ? "Select from computer" : "기기에서 사진 업로드")}
                       </span>
                     </button>
                   </div>
@@ -271,7 +271,7 @@ export function CommunityPostModal({ open, onClose, initialCategory }: Community
 
               {/* Location */}
               <div className="flex flex-col gap-3">
-                <h4 className="font-bold text-[15px] text-[#222222]">{t("modal.location", lang === "en" ? "Location Tag" : "장소 태그")}</h4>
+                <h4 className="font-bold text-[15px] text-[#222222]">{t("community.modal.location", lang === "en" ? "Location Tag" : "장소 태그")}</h4>
                 <div
                   onClick={() => setIsMapOpen(true)}
                   className="flex items-center justify-between p-4 rounded-xl border border-[#DDDDDD] bg-white cursor-pointer hover:border-[#BBBBBB] transition-colors group"
@@ -291,7 +291,7 @@ export function CommunityPostModal({ open, onClose, initialCategory }: Community
                         location ? "text-[#222222] font-bold" : "text-[#717171]",
                       )}
                     >
-                      {location || t("modal.locationPlaceholder", lang === "en" ? "Please select a location" : "장소를 선택해주세요")}
+                      {location || t("community.modal.locationPlaceholder", lang === "en" ? "Please select a location" : "장소를 선택해주세요")}
                     </span>
                   </div>
                 </div>

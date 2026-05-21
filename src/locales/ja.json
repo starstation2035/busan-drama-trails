@@ -148,8 +148,11 @@
       "categoryTitle": "カテゴリー設定",
       "disclaimer": "投稿した内容は釜山ドラマトレイルコミュニティに公開されます。",
       "mapTitle": "場所を選択",
-      "mapPlaceholder": "場所や住所を検索",
-      "mapConfirm": "この場所に設定"
+      "mapConfirm": "この場所に設定",
+      "photo": "写真添付",
+      "clear": "クリア",
+      "changePhoto": "写真を変更",
+      "location": "場所タグ"
     },
     "social": {
       "kakao": "カカオ톡でシェアしました！ 💬",
@@ -157,6 +160,8 @@
     },
     "post": {
       "success": "投稿가 성공적으로 공유되었습니다! ✨",
+      "imageError": "写真を先に選択してください！",
+      "categoryError": "カテゴリーを選択してください！",
       "captionError": "キャプションを入力してください！",
       "placeholder": "あなただけの釜山ドラマ旅のコツをシェアしよう！",
       "submit": "アップロード"
@@ -370,5 +375,15 @@
     "share": {
       "header": "私の釜山ドラマ巡り 🎬"
     }
+  },
+  "nearby": {
+    "explore": "周辺探索",
+    "popular": "半径 1km 以内の人気スポット",
+    "restaurants": "グルメ",
+    "cafes": "カフェ",
+    "recommendedSignature": "おすすめメニュー",
+    "mostPopularMenu": "レビューで一番人気のメニュー",
+    "signature": "シグネチャー",
+    "addedToMyCourse": "マイコースに追加しました！"
   }
 }

@@ -157,7 +157,11 @@
       "disclaimer": "작성하신 게시물은 부산 드라마 트레일 커뮤니티에 공개되며, 다른 사용자들이 좋아요를 누르거나 위치 정보를 확인할 수 있습니다.",
       "mapTitle": "위치 선택",
       "mapPlaceholder": "장소 또는 주소 검색",
-      "mapConfirm": "이 위치로 선택"
+      "mapConfirm": "이 위치로 선택",
+      "photo": "사진 첨부",
+      "clear": "지우기",
+      "changePhoto": "사진 변경",
+      "location": "장소 태그"
     },
     "social": {
       "kakao": "카카오톡으로 공유되었습니다! 💬",

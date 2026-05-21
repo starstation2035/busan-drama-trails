@@ -12,10 +12,115 @@ interface DiscoveryCardProps {
 }
 
 const translateAddress = (addr: string, lang: string) => {
-  if (lang !== "en" && lang !== "zh-TW" && lang !== "zh-CN" && lang !== "ja") return addr;
-  // If the language is not Korean, we fall back to translating it to English for Chinese/Japanese since there is no mapping for Hanja yet,
-  // or we could map basic ones. For now, we translate it to English address if the user is in Chinese or Japanese.
-  let translated = addr
+  if (lang === "ko") return addr;
+
+  let translated = addr;
+
+  if (lang === "zh-TW" || lang === "zh-CN") {
+    const isTW = lang === "zh-TW";
+    const dict: Record<string, string> = {
+      "부산광역시 ": "釜山廣域市 ",
+      "부산 ": "釜山 ",
+      "영도구 ": isTW ? "影島區 " : "影岛区 ",
+      "해운대구 ": isTW ? "海雲台區 " : "海云台区 ",
+      "중구 ": isTW ? "中區 " : "中区 ",
+      "수영구 ": isTW ? "水營區 " : "水营区 ",
+      "서구 ": isTW ? "西區 " : "西区 ",
+      "사하구 ": isTW ? "沙下區 " : "沙下区 ",
+      "동구 ": isTW ? "東區 " : "东区 ",
+      "남구 ": isTW ? "南區 " : "南区 ",
+      "북구 ": isTW ? "北區 " : "北区 ",
+      "강서구 ": isTW ? "江西區 " : "江西区 ",
+      "금정구 ": isTW ? "金井區 " : "金井区 ",
+      "감천동": "甘川洞",
+      "감내동": isTW ? "甘內洞" : "甘内洞",
+      "흰여울동": isTW ? "白淺灘洞" : "白浅滩洞",
+      "동삼동": "東三洞",
+      "청학동": isTW ? "青鶴洞" : "青鹤洞",
+      "봉래동": isTW ? "蓬萊洞" : "蓬莱洞",
+      "영선동": "瀛仙洞",
+      "태종동": "太宗洞",
+      "중리동": "中里洞",
+      "신선동": "新仙洞",
+      "청사포동": "青沙浦洞",
+      "좌동": "佐洞",
+      "송정동": "松亭洞",
+      "반여동": "盤如洞",
+      "재송동": "栽松洞",
+      "남포동": "南浦洞",
+      "광복동": "光復洞",
+      "중앙동": "中央洞",
+      "보수동": "寶水洞",
+      "광안동": "廣安洞",
+      "민락동": "民樂洞",
+      "수영동": "水營洞",
+      "망미동": "望美洞",
+      "암남동": "岩南洞",
+      "충무동": "忠武洞",
+      "번길": isTW ? "號街" : "号街",
+      "길": "街",
+      "로": "路",
+      "층": "樓"
+    };
+    for (const [ko, tr] of Object.entries(dict)) {
+      translated = translated.replace(new RegExp(ko, "g"), tr);
+    }
+    return translated;
+  }
+
+  if (lang === "ja") {
+    const dict: Record<string, string> = {
+      "부산광역시 ": "釜山広域市 ",
+      "부산 ": "釜山 ",
+      "영도구 ": "影島区 ",
+      "해운대구 ": "海雲台区 ",
+      "중구 ": "中区 ",
+      "수영구 ": "水営区 ",
+      "서구 ": "西区 ",
+      "사하구 ": "沙下区 ",
+      "동구 ": "東区 ",
+      "남구 ": "南区 ",
+      "북구 ": "北区 ",
+      "강서구 ": "江西区 ",
+      "금정구 ": "金井区 ",
+      "감천동": "甘川洞",
+      "감내동": "甘内洞",
+      "흰여울동": "ヒンヨウル洞",
+      "동삼동": "東三洞",
+      "청학동": "青鶴洞",
+      "봉래동": "蓬莱洞",
+      "영선동": "瀛仙洞",
+      "태종동": "太宗洞",
+      "중리동": "中里洞",
+      "신선동": "新仙洞",
+      "청사포동": "青沙浦洞",
+      "좌동": "佐洞",
+      "송정동": "松亭洞",
+      "반여동": "盤如洞",
+      "재송동": "栽松洞",
+      "남포동": "南浦洞",
+      "광복동": "光復洞",
+      "중앙동": "中央洞",
+      "보수동": "宝水洞",
+      "광안동": "広安洞",
+      "민락동": "民楽洞",
+      "수영동": "水営洞",
+      "망미동": "望美洞",
+      "암남동": "岩南洞",
+      "충무동": "忠武洞",
+      "번길": "番道",
+      "길": "通り",
+      "로": "路",
+      "층": "階"
+    };
+    for (const [ko, tr] of Object.entries(dict)) {
+      translated = translated.replace(new RegExp(ko, "g"), tr);
+    }
+    return translated;
+  }
+
+  // English translation
+  translated = translated
     .replace("부산광역시 ", "")
     .replace("부산 ", "")
     .replace("영도구 ", "Yeongdo-gu, ")
@@ -30,7 +135,6 @@ const translateAddress = (addr: string, lang: string) => {
     .replace("강서구 ", "Gangseo-gu, ")
     .replace("금정구 ", "Geumjeong-gu, ");
 
-  // ① 도로/길 이름 번역 (반드시 동 이름보다 먼저 처리해야 중동1로 등이 깨지지 않음)
   const roadTr: Record<string, string> = {
     "감내2로": "Gamnae 2-ro", "감내1로": "Gamnae 1-ro",
     "옥천로": "Okcheon-ro", "감천로": "Gamcheon-ro",
@@ -49,13 +153,11 @@ const translateAddress = (addr: string, lang: string) => {
   };
 
   for (const [ko, en] of Object.entries(roadTr)) {
-    translated = translated.replace(ko, en);
+    translated = translated.replace(new RegExp(ko, "g"), en);
   }
 
-  // 번길 처리 (도로명 처리 직후)
   translated = translated.replace(/([0-9]+)번길/g, "$1-beongil");
 
-  // ② 동(洞) 이름 번역 (도로명 처리 후에 실행 - 중동 제외: 중동1로/중동2로와 충돌)
   const dongTr: Record<string, string> = {
     "감천동": "Gamcheon-dong", "감내동": "Gamnae-dong",
     "흰여울동": "Huinnyeoul-dong", "동삼동": "Dongsam-dong",
@@ -73,13 +175,10 @@ const translateAddress = (addr: string, lang: string) => {
   };
 
   for (const [ko, en] of Object.entries(dongTr)) {
-    translated = translated.replace(ko, en);
+    translated = translated.replace(new RegExp(ko, "g"), en);
   }
 
-  // 층 → F (예: 2층 → 2F)
   translated = translated.replace(/([0-9]+)층/g, "$1F");
-
-  // 혹시 남은 한글 '로', '길' 단독 문자 정리 (ex: 1로 → 1-ro)
   translated = translated.replace(/([0-9]+)로/g, "$1-ro");
   translated = translated.replace(/([0-9]+)길/g, "$1-gil");
 
