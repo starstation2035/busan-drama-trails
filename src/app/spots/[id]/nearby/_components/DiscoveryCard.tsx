@@ -28,28 +28,7 @@ const translateAddress = (addr: string, lang: string) => {
     .replace("강서구 ", "Gangseo-gu, ")
     .replace("금정구 ", "Geumjeong-gu, ");
 
-  // 동(洞) 이름 번역 (반드시 로/길 번역 전에 처리)
-  const dongTr: Record<string, string> = {
-    "감천동": "Gamcheon-dong", "감내동": "Gamnae-dong",
-    "흰여울동": "Huinnyeoul-dong", "동삼동": "Dongsam-dong",
-    "청학동": "Cheonghak-dong", "봉래동": "Bongnae-dong",
-    "영선동": "Yeongseon-dong", "태종동": "Taejong-dong",
-    "중리동": "Jungri-dong", "신선동": "Sinseon-dong",
-    "청사포동": "Cheongsapo-dong", "중동": "Jungdong",
-    "좌동": "Jwadong", "송정동": "Songjung-dong",
-    "반여동": "Banyeo-dong", "재송동": "Jaesong-dong",
-    "남포동": "Nampodong", "광복동": "Gwangbok-dong",
-    "중앙동": "Jungangdong", "보수동": "Bosu-dong",
-    "광안동": "Gwangan-dong", "민락동": "Millak-dong",
-    "수영동": "Suyeong-dong", "망미동": "Mangmi-dong",
-    "암남동": "Amnam-dong", "충무동": "Chungmu-dong",
-  };
-
-  for (const [ko, en] of Object.entries(dongTr)) {
-    translated = translated.replace(ko, en);
-  }
-
-  // 도로/길 이름 번역
+  // ① 도로/길 이름 번역 (반드시 동 이름보다 먼저 처리해야 중동1로 등이 깨지지 않음)
   const roadTr: Record<string, string> = {
     "감내2로": "Gamnae 2-ro", "감내1로": "Gamnae 1-ro",
     "옥천로": "Okcheon-ro", "감천로": "Gamcheon-ro",
@@ -71,13 +50,37 @@ const translateAddress = (addr: string, lang: string) => {
     translated = translated.replace(ko, en);
   }
 
-  // 번길 처리
+  // 번길 처리 (도로명 처리 직후)
   translated = translated.replace(/([0-9]+)번길/g, "$1-beongil");
-  // 층 → Floor 변환 (예: 2층 → 2F)
+
+  // ② 동(洞) 이름 번역 (도로명 처리 후에 실행 - 중동 제외: 중동1로/중동2로와 충돌)
+  const dongTr: Record<string, string> = {
+    "감천동": "Gamcheon-dong", "감내동": "Gamnae-dong",
+    "흰여울동": "Huinnyeoul-dong", "동삼동": "Dongsam-dong",
+    "청학동": "Cheonghak-dong", "봉래동": "Bongnae-dong",
+    "영선동": "Yeongseon-dong", "태종동": "Taejong-dong",
+    "중리동": "Jungri-dong", "신선동": "Sinseon-dong",
+    "청사포동": "Cheongsapo-dong",
+    "좌동": "Jwadong", "송정동": "Songjung-dong",
+    "반여동": "Banyeo-dong", "재송동": "Jaesong-dong",
+    "남포동": "Nampodong", "광복동": "Gwangbok-dong",
+    "중앙동": "Jungangdong", "보수동": "Bosu-dong",
+    "광안동": "Gwangan-dong", "민락동": "Millak-dong",
+    "수영동": "Suyeong-dong", "망미동": "Mangmi-dong",
+    "암남동": "Amnam-dong", "충무동": "Chungmu-dong",
+  };
+
+  for (const [ko, en] of Object.entries(dongTr)) {
+    translated = translated.replace(ko, en);
+  }
+
+  // 층 → F (예: 2층 → 2F)
   translated = translated.replace(/([0-9]+)층/g, "$1F");
 
-  // 남은 한글 제거 (번역 안 된 한글 단어 삭제 대신 로마자로 표기)
-  // 예: "감선동 6-1052 2F" → "6-1052 Gamcheon-dong, 2F ..."
+  // 혹시 남은 한글 '로', '길' 단독 문자 정리 (ex: 1로 → 1-ro)
+  translated = translated.replace(/([0-9]+)로/g, "$1-ro");
+  translated = translated.replace(/([0-9]+)길/g, "$1-gil");
+
   return translated.trim() + ", Busan";
 };
 
