@@ -795,63 +795,100 @@ export default function NearbyDiscovery({
         item.calculatedDistance || getDistance(baseLat, baseLng, item.latitude, item.longitude);
 
       // Dynamic translation dictionary for places without English data
-      const tr: Record<string, string> = {
-        "거청식당": "Geocheong Restaurant", "생선구이": "Grilled Fish",
-        "에테르": "Aether", "루프탑": "Rooftop", "구름에": "Gureume", "디저트": "Dessert",
-        "피아크 (P.ARK)": "P.ARK", "초대형": "Mega Cafe",
-        "모모스커피 영도": "Momos Coffee Yeongdo", "스페셜티": "Specialty Coffee",
-        "쓰릴미": "Thrill Me", "오션뷰": "Ocean View",
-        "카페 변호인": "Cafe Attorney", "촬영지": "Filming Location",
-        "수민이네": "Suminine", "조개구이/장어구이": "Grilled Clams/Eel",
-        "하진이네": "Hajinine", "조개구이": "Grilled Clams",
-        "청사포 다희네": "Cheongsapo Dahine", "장어구이": "Grilled Eel",
-        "해운대 암소갈비집": "Haeundae Amso Galbi", "한우생갈비": "Hanwoo Fresh Ribs",
-        "상국이네": "Sanggukine", "떡볶이": "Tteokbokki",
-        "밀양순대돼지국밥 해운대점": "Miryang Sundae Dwaeji Gukbap", "돼지국밥": "Pork Rice Soup",
-        "금수복국 해운대본점": "Geumsu Bokguk Main", "뚝배기 복국": "Pufferfish Soup",
-        "해성막창집 본점": "Haeseong Makchang Main", "대창/곱창전골": "Beef Tripe Hot Pot",
-        "호랑이젤라떡": "Horangi Gelatteok", "젤라떡": "Gelato Tteok",
-        "랑데자뷰 해운대": "Rendezvous Haeundae", "제주 감성/오션뷰": "Jeju Vibe/Ocean View",
-        "스누피플레이스 부산": "Snoopy Place Busan", "스누피 테마": "Snoopy Theme",
-        "오션어스": "Ocean Us", "오션뷰 커피": "Ocean View Coffee",
-        "빌라혼네": "Villa Honne", "에스프레소 바": "Espresso Bar",
-        "백화양곱창": "Baekhwa Yanggopchang", "양곱창": "Beef Tripe",
-        "제일꼼장어": "Jeil Kkomjangeo", "꼼장어": "Hagfish",
-        "남포동 생선구이 골목": "Nampodong Grilled Fish Alley", "생선구이백반": "Grilled Fish Set",
-        "태종대 짬뽕": "Taejongdae Jjamppong", "해물짬뽕": "Seafood Jjamppong",
-        "충북식당": "Chungbuk Restaurant", "정식": "Set Menu",
-        "태종대 자갈마당 촌락": "Taejongdae Jagal Madang", "조개구이/해산물": "Grilled Clams/Seafood",
-        "엔제리너스 태종대점": "Angel-in-us Taejongdae", "프랜차이즈 카페": "Franchise Cafe",
-        "톤쇼우 광안점": "Tonshou Gwangan", "돈카츠": "Tonkatsu",
-        "수변최고돼지국밥": "Subyeon Choego Dwaeji Gukbap", "광안리 스타벅스": "Gwangalli Starbucks",
-        "밀락더마켓": "Millac the Market", "복합문화공간": "Cultural Space",
-        "송도 1913": "Songdo 1913", "사천해물탕": "Sacheon Seafood Stew", "해물탕": "Seafood Stew",
-        "이디야커피 부산송도해상케이블카점": "Ediya Coffee Songdo Cable Car", "케이블카 뷰": "Cable Car View",
-        "바우노바 백산": "Baunova Baeksan", "바우노바 시그니처 블렌드": "Baunova Signature Blend",
-        "쿠오리노": "Kuorino", "쿠오리노 수제 팬케이크": "Kuorino Handmade Pancake",
-        "노티스": "Notice", "노티스 콜드브루 라떼": "Notice Coldbrew Latte",
-        "연경재": "Yeongyeongjae", "연경재 하이엔드 우차(Tea)": "Yeongyeongjae High-end Tea",
-        "굿올데즈": "Good Old Days", "굿올데즈 원도심 블렌딩": "Good Old Days Original Blend"
+      const tr: Record<string, Record<string, string>> = {
+        "거청식당": { "en": "Geocheong Restaurant", "zh-TW": "巨清食堂", "zh-CN": "巨清食堂", "ja": "巨清食堂" },
+        "생선구이": { "en": "Grilled Fish", "zh-TW": "烤魚", "zh-CN": "烤鱼", "ja": "焼き魚" },
+        "에테르": { "en": "Aether", "zh-TW": "Aether", "zh-CN": "Aether", "ja": "エテル" },
+        "루프탑": { "en": "Rooftop", "zh-TW": "屋頂", "zh-CN": "屋顶", "ja": "ルーフトップ" },
+        "구름에": { "en": "Gureume", "zh-TW": "雲端", "zh-CN": "云端", "ja": "クルメ" },
+        "디저트": { "en": "Dessert", "zh-TW": "甜點", "zh-CN": "甜点", "ja": "デザート" },
+        "피아크 (P.ARK)": { "en": "P.ARK", "zh-TW": "P.ARK", "zh-CN": "P.ARK", "ja": "ピアーク" },
+        "초대형": { "en": "Mega Cafe", "zh-TW": "超大型咖啡廳", "zh-CN": "超大型咖啡厅", "ja": "超大型カフェ" },
+        "모모스커피 영도": { "en": "Momos Coffee Yeongdo", "zh-TW": "Momos Coffee 影島", "zh-CN": "Momos Coffee 影岛", "ja": "モモスコヒー影島" },
+        "스페셜티": { "en": "Specialty Coffee", "zh-TW": "精品咖啡", "zh-CN": "精品咖啡", "ja": "スペシャルティコーヒー" },
+        "쓰릴미": { "en": "Thrill Me", "zh-TW": "Thrill Me", "zh-CN": "Thrill Me", "ja": "スリルミー" },
+        "오션뷰": { "en": "Ocean View", "zh-TW": "無敵海景", "zh-CN": "无敌海景", "ja": "オーシャンビュー" },
+        "카페 변호인": { "en": "Cafe Attorney", "zh-TW": "咖啡廳 辯護人", "zh-CN": "咖啡厅 辩护人", "ja": "カフェ弁護人" },
+        "촬영지": { "en": "Filming Location", "zh-TW": "拍攝地", "zh-CN": "拍摄地", "ja": "撮影地" },
+        "수민이네": { "en": "Suminine", "zh-TW": "秀敏家", "zh-CN": "秀敏家", "ja": "スミンイネ" },
+        "조개구이/장어구이": { "en": "Grilled Clams/Eel", "zh-TW": "烤貝類/烤鰻魚", "zh-CN": "烤贝类/烤鳗鱼", "ja": "貝焼き/うなぎ焼き" },
+        "하진이네": { "en": "Hajinine", "zh-TW": "河珍家", "zh-CN": "河珍家", "ja": "ハジンイネ" },
+        "조개구이": { "en": "Grilled Clams", "zh-TW": "烤貝類", "zh-CN": "烤贝类", "ja": "貝焼き" },
+        "청사포 다희네": { "en": "Cheongsapo Dahine", "zh-TW": "青沙浦多熙家", "zh-CN": "青沙浦多熙家", "ja": "青沙浦ダヒネ" },
+        "장어구이": { "en": "Grilled Eel", "zh-TW": "烤鰻魚", "zh-CN": "烤鳗鱼", "ja": "うなぎ焼き" },
+        "해운대 암소갈비집": { "en": "Haeundae Amso Galbi", "zh-TW": "海雲台母牛排骨", "zh-CN": "海云台母牛排骨", "ja": "海雲台アムソカルビ" },
+        "한우생갈비": { "en": "Hanwoo Fresh Ribs", "zh-TW": "韓牛生排骨", "zh-CN": "韩牛生排骨", "ja": "韓牛生カルビ" },
+        "상국이네": { "en": "Sanggukine", "zh-TW": "相國家", "zh-CN": "相国家", "ja": "サングク家" },
+        "떡볶이": { "en": "Tteokbokki", "zh-TW": "辣炒年糕", "zh-CN": "辣炒年糕", "ja": "トッポッキ" },
+        "밀양순대돼지국밥 해운대점": { "en": "Miryang Sundae Dwaeji Gukbap", "zh-TW": "密陽血腸豬肉湯飯 海雲台店", "zh-CN": "密阳血肠猪肉汤饭 海云台店", "ja": "密陽スンデデジクッパ 海雲台店" },
+        "돼지국밥": { "en": "Pork Rice Soup", "zh-TW": "豬肉湯飯", "zh-CN": "猪肉汤饭", "ja": "豚骨スープご飯" },
+        "금수복국 해운대본점": { "en": "Geumsu Bokguk Main", "zh-TW": "錦繡河豚 海雲台總店", "zh-CN": "锦绣河豚 海云台总店", "ja": "クムスボックッ 海雲台本店" },
+        "뚝배기 복국": { "en": "Pufferfish Soup", "zh-TW": "砂鍋河豚湯", "zh-CN": "砂锅河豚汤", "ja": "土鍋フグスープ" },
+        "해성막창집 본점": { "en": "Haeseong Makchang Main", "zh-TW": "海成烤腸 總店", "zh-CN": "海成烤肠 总店", "ja": "海星マクチャン 本店" },
+        "대창/곱창전골": { "en": "Beef Tripe Hot Pot", "zh-TW": "大腸/牛腸鍋", "zh-CN": "大肠/牛肠锅", "ja": "テッチャン/ホルモン鍋" },
+        "호랑이젤라떡": { "en": "Horangi Gelatteok", "zh-TW": "老虎義式冰淇淋大福", "zh-CN": "老虎意式冰淇淋大福", "ja": "虎ジェラ餅" },
+        "젤라떡": { "en": "Gelato Tteok", "zh-TW": "義式冰淇淋大福", "zh-CN": "意式冰淇淋大福", "ja": "ジェラ餅" },
+        "랑데자뷰 해운대": { "en": "Rendezvous Haeundae", "zh-TW": "Rendezvous 海雲台", "zh-CN": "Rendezvous 海云台", "ja": "ランデジャビュー 海雲台" },
+        "제주 감성/오션뷰": { "en": "Jeju Vibe/Ocean View", "zh-TW": "濟州風情/海景", "zh-CN": "济州风情/海景", "ja": "済州感性/オーシャンビュー" },
+        "스누피플레이스 부산": { "en": "Snoopy Place Busan", "zh-TW": "史努比咖啡廳 釜山", "zh-CN": "史努比咖啡厅 釜山", "ja": "スヌーピープレイス 釜山" },
+        "스누피 테마": { "en": "Snoopy Theme", "zh-TW": "史努比主題", "zh-CN": "史努比主题", "ja": "スヌーピーテーマ" },
+        "오션어스": { "en": "Ocean Us", "zh-TW": "Ocean Us", "zh-CN": "Ocean Us", "ja": "オーシャンアス" },
+        "오션뷰 커피": { "en": "Ocean View Coffee", "zh-TW": "海景咖啡", "zh-CN": "海景咖啡", "ja": "オーシャンビューコーヒー" },
+        "빌라혼네": { "en": "Villa Honne", "zh-TW": "Villa Honne", "zh-CN": "Villa Honne", "ja": "ビラホンネ" },
+        "에스프레소 바": { "en": "Espresso Bar", "zh-TW": "義式濃縮咖啡吧", "zh-CN": "意式浓缩咖啡吧", "ja": "エスプレッソバー" },
+        "백화양곱창": { "en": "Baekhwa Yanggopchang", "zh-TW": "百化羊腸", "zh-CN": "百化羊肠", "ja": "百花ヤンコプチャン" },
+        "양곱창": { "en": "Beef Tripe", "zh-TW": "牛腸", "zh-CN": "牛肠", "ja": "ヤンコプチャン" },
+        "제일꼼장어": { "en": "Jeil Kkomjangeo", "zh-TW": "第一盲鰻", "zh-CN": "第一盲鳗", "ja": "チェイルコムジャンオ" },
+        "꼼장어": { "en": "Hagfish", "zh-TW": "盲鰻", "zh-CN": "盲鳗", "ja": "コムジャンオ" },
+        "남포동 생선구이 골목": { "en": "Nampodong Grilled Fish Alley", "zh-TW": "南浦洞烤魚胡同", "zh-CN": "南浦洞烤鱼胡同", "ja": "南浦洞焼き魚横丁" },
+        "생선구이백반": { "en": "Grilled Fish Set", "zh-TW": "烤魚套餐", "zh-CN": "烤鱼套餐", "ja": "焼き魚定食" },
+        "태종대 짬뽕": { "en": "Taejongdae Jjamppong", "zh-TW": "太宗台炒碼麵", "zh-CN": "太宗台炒码面", "ja": "太宗台チャンポン" },
+        "해물짬뽕": { "en": "Seafood Jjamppong", "zh-TW": "海鮮炒碼麵", "zh-CN": "海鲜炒码面", "ja": "海鮮チャンポン" },
+        "충북식당": { "en": "Chungbuk Restaurant", "zh-TW": "忠北食堂", "zh-CN": "忠北食堂", "ja": "忠北食堂" },
+        "정식": { "en": "Set Menu", "zh-TW": "定食", "zh-CN": "定食", "ja": "定食" },
+        "태종대 자갈마당 촌락": { "en": "Taejongdae Jagal Madang", "zh-TW": "太宗台碎石灘", "zh-CN": "太宗台碎石滩", "ja": "太宗台ジャガルマダン" },
+        "조개구이/해산물": { "en": "Grilled Clams/Seafood", "zh-TW": "烤貝類/海鮮", "zh-CN": "烤贝类/海鲜", "ja": "貝焼き/海鮮" },
+        "엔제리너스 태종대점": { "en": "Angel-in-us Taejongdae", "zh-TW": "Angel-in-us 太宗台店", "zh-CN": "Angel-in-us 太宗台店", "ja": "エンジェリナス 太宗台店" },
+        "프랜차이즈 카페": { "en": "Franchise Cafe", "zh-TW": "連鎖咖啡廳", "zh-CN": "连锁咖啡厅", "ja": "フランチャイズカフェ" },
+        "톤쇼우 광안점": { "en": "Tonshou Gwangan", "zh-TW": "Tonshou 廣安", "zh-CN": "Tonshou 广安", "ja": "トンショウ 広安" },
+        "돈카츠": { "en": "Tonkatsu", "zh-TW": "炸豬排", "zh-CN": "炸猪排", "ja": "豚カツ" },
+        "수변최고돼지국밥": { "en": "Subyeon Choego Dwaeji Gukbap", "zh-TW": "水邊最高豬肉湯飯", "zh-CN": "水边最高猪肉汤饭", "ja": "水辺最高豚骨スープご飯" },
+        "광안리 스타벅스": { "en": "Gwangalli Starbucks", "zh-TW": "廣安里星巴克", "zh-CN": "广安里星巴克", "ja": "広安里スターバックス" },
+        "밀락더마켓": { "en": "Millac the Market", "zh-TW": "Millac the Market", "zh-CN": "Millac the Market", "ja": "ミラックザマーケット" },
+        "복합문화공간": { "en": "Cultural Space", "zh-TW": "綜合文化空間", "zh-CN": "综合文化空间", "ja": "複合文化空間" },
+        "송도 1913": { "en": "Songdo 1913", "zh-TW": "松島 1913", "zh-CN": "松岛 1913", "ja": "松島 1913" },
+        "사천해물탕": { "en": "Sacheon Seafood Stew", "zh-TW": "四川海鮮湯", "zh-CN": "四川海鲜汤", "ja": "四川海鮮鍋" }, 
+        "해물탕": { "en": "Seafood Stew", "zh-TW": "海鮮湯", "zh-CN": "海鲜汤", "ja": "海鮮鍋" },
+        "이디야커피 부산송도해상케이블카점": { "en": "Ediya Coffee Songdo Cable Car", "zh-TW": "Ediya Coffee 松島纜車店", "zh-CN": "Ediya Coffee 松岛缆车店", "ja": "イディヤコーヒー 松島ケーブルカー店" },
+        "케이블카 뷰": { "en": "Cable Car View", "zh-TW": "纜車景觀", "zh-CN": "缆车景观", "ja": "ケーブルカービュー" },
+        "바우노바 백산": { "en": "Baunova Baeksan", "zh-TW": "Baunova 白山", "zh-CN": "Baunova 白山", "ja": "バウノバ 白山" },
+        "바우노바 시그니처 블렌드": { "en": "Baunova Signature Blend", "zh-TW": "Baunova 招牌特調", "zh-CN": "Baunova 招牌特调", "ja": "バウノバ シグネチャーブレンド" },
+        "쿠오리노": { "en": "Kuorino", "zh-TW": "Kuorino", "zh-CN": "Kuorino", "ja": "クオリノ" },
+        "쿠오리노 수제 팬케이크": { "en": "Kuorino Handmade Pancake", "zh-TW": "Kuorino 手工鬆餅", "zh-CN": "Kuorino 手工松饼", "ja": "クオリノ 手作りパンケーキ" },
+        "노티스": { "en": "Notice", "zh-TW": "Notice", "zh-CN": "Notice", "ja": "ノーティス" },
+        "노티스 콜드브루 라떼": { "en": "Notice Coldbrew Latte", "zh-TW": "Notice 冷萃拿鐵", "zh-CN": "Notice 冷萃拿铁", "ja": "ノーティス コールドブリューラテ" },
+        "연경재": { "en": "Yeongyeongjae", "zh-TW": "延慶齋", "zh-CN": "延庆斋", "ja": "ヨンギョンジェ" },
+        "연경재 하이엔드 우차(Tea)": { "en": "Yeongyeongjae High-end Tea", "zh-TW": "延慶齋 頂級茶", "zh-CN": "延庆斋 顶级茶", "ja": "ヨンギョンジェ ハイエンド茶" },
+        "굿올데즈": { "en": "Good Old Days", "zh-TW": "Good Old Days", "zh-CN": "Good Old Days", "ja": "グッドオールドデイズ" },
+        "굿올데즈 원도심 블렌딩": { "en": "Good Old Days Original Blend", "zh-TW": "Good Old Days 招牌特調", "zh-CN": "Good Old Days 招牌特调", "ja": "グッドオールドデイズ オリジナルブレンド" }
       };
 
       const koName = item.name?.ko || item.name || "";
-      const enName = item.name?.en || tr[koName] || koName;
-      const finalName = lang === "en" ? enName : koName;
+      const langName = item.name?.[lang] || (tr[koName] && tr[koName][lang]) || (lang === "en" && tr[koName]?.en) || koName;
 
       const koSig = item.signatureMenu || item.signature?.ko || item.food?.ko || item.food || "";
-      const enSig = item.signature?.en || item.food?.en || tr[koSig] || koSig;
-      const finalSig = lang === "en" ? enSig : koSig;
+      const langSig = item.signature?.[lang] || item.food?.[lang] || (tr[koSig] && tr[koSig][lang]) || (lang === "en" && tr[koSig]?.en) || koSig;
 
       return {
         ...item,
         calculatedDistance: dist,
-        name: finalName,
+        name: langName,
         thumbnail:
           item.thumbnail ||
           (activeTab === "restaurant"
             ? KOREAN_FOOD_IMAGES[idx % KOREAN_FOOD_IMAGES.length]
             : KOREAN_CAFE_IMAGES[idx % KOREAN_CAFE_IMAGES.length]),
-        signatureMenu: finalSig || (lang === "en" ? "Recommended Spot" : "추천 명소"),
+        signatureMenu: langSig || (lang === "en" ? "Recommended Spot" : lang === "zh-TW" ? "推薦名勝" : lang === "zh-CN" ? "推荐名胜" : lang === "ja" ? "おすすめスポット" : "추천 명소"),
       };
     });
 

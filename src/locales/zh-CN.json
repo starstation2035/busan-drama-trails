@@ -10,7 +10,7 @@
     "settings": "设置",
     "movies": {
       "woo": { "title": "非常律师禹英禑", "genre": "法律/剧情" },
-      "runningman": { "title": "Running Man", "genre": "真人秀/动作" },
+      "runningman": { "title": "Running Man (韩国综艺)", "genre": "真人秀/动作" },
       "pachinko": { "title": "柏青哥", "genre": "剧情" },
       "attorney": { "title": "辩护人", "genre": "剧情" },
       "haeundae": { "title": "海云台", "genre": "灾难" },

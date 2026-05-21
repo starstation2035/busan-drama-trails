@@ -12,7 +12,9 @@ interface DiscoveryCardProps {
 }
 
 const translateAddress = (addr: string, lang: string) => {
-  if (lang !== "en" || !addr) return addr;
+  if (lang !== "en" && lang !== "zh-TW" && lang !== "zh-CN" && lang !== "ja") return addr;
+  // If the language is not Korean, we fall back to translating it to English for Chinese/Japanese since there is no mapping for Hanja yet,
+  // or we could map basic ones. For now, we translate it to English address if the user is in Chinese or Japanese.
   let translated = addr
     .replace("부산광역시 ", "")
     .replace("부산 ", "")
@@ -99,9 +101,13 @@ export default function DiscoveryCard({ item, parentSpotName }: DiscoveryCardPro
   const signatureMenu = item.signatureMenu || categoryStr;
   const finalAddress = translateAddress(item.address, lang);
   const reviewSummary =
+    item.reviewSummary?.[lang] ||
     item.reviewSummary ||
-    (lang === 'en' ? "Highly recommended spot by locals. Great atmosphere and taste!" : "현지인들이 강력 추천하는 방문 필수 코스입니다. 분위기와 맛 모두 만족스러워요!");
-
+    (lang === "en" ? "Highly recommended spot by locals. Great atmosphere and taste!" : 
+     lang === "zh-TW" ? "當地人強烈推薦的必訪地點。氣氛和味道都令人滿意！" : 
+     lang === "zh-CN" ? "当地人强烈推荐的必访地点。气氛和味道都令人满意！" : 
+     lang === "ja" ? "地元の人たちが強くお勧めする必須コースです。雰囲気も味も満足です！" : 
+     "현지인들이 강력 추천하는 방문 필수 코스입니다. 분위기와 맛 모두 만족스러워요!");
   return (
     <div className="group cursor-pointer flex flex-col w-[280px] md:w-auto shrink-0 md:shrink bg-white rounded-[28px] border border-[#F3F4F6] p-3 shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all">
       {/* Thumbnail */}
