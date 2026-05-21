@@ -223,7 +223,7 @@ export default function StyleTest() {
           className="mt-8 flex h-14 w-full items-center justify-center rounded-2xl bg-primary text-base font-semibold text-primary-foreground shadow-lg transition active:scale-[0.98]"
           onClick={handleStartCourse}
         >
-          이 코스 그대로 내 여행 시작하기 ✨
+          {t("quiz.result.startCourse")}
         </button>
 
         <a

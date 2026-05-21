@@ -218,7 +218,7 @@
   },
   "quiz": {
     "intro": {
-      "badge": "10 questions・about 2 mins",
+      "badge": "10 Questions · ~2 min",
       "title": "Find Your Busan Travel Style ✨",
       "subtitle": "Ten quick questions to match you with the perfect Busan itinerary",
       "start": "Start the quiz"
@@ -283,7 +283,8 @@
       "shareLine": "Share to LINE",
       "shareIG": "Share to IG Story",
       "copyLink": "Copy Link",
-      "shareText": "My Busan travel style is \"{{type}}\" {{icon}} — try it!"
+      "shareText": "My Busan travel style is \"{{type}}\" {{icon}} — try it!",
+      "startCourse": "Start My Trip With This Course ✨"
     },
     "types": {
       "healing": {
