@@ -180,7 +180,8 @@
       "location": "Location Tag (Optional)",
       "selectLocation": "Please select a location",
       "cancel": "Cancel",
-      "submit": "Post"
+      "submit": "Post",
+      "categoryTitle": "Category Settings"
     },
     "social": {
       "kakao": "Shared to KakaoTalk! 💬",
@@ -327,7 +328,7 @@
     "sections": {
       "drama": "🎬 Filming Sites",
       "dramaDesc": "Experience the emotions of K-dramas and movies.",
-      "landmark": "🌊 Busan 명소",
+      "landmark": "🌊 Busan Landmarks",
       "landmarkDesc": "Must-visit spots when you are in Busan."
     },
     "categories": {

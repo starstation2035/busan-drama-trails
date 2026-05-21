@@ -141,7 +141,8 @@
       "location": "打卡地點 (選填)",
       "selectLocation": "請選擇地點",
       "cancel": "取消",
-      "submit": "發布"
+      "submit": "發布",
+      "categoryTitle": "您想撰寫什麼文章呢？"
     },
     "social": {
       "kakao": "已分享至 KakaoTalk！ 💬",
@@ -264,6 +265,18 @@
       "brand": "",
       "subtitleLine1": "探訪韓劇拍攝地的經典場景，",
       "subtitleLine2": "為您開啟直達周邊美食的釜山之旅。"
+    },
+    "sections": {
+      "drama": "🎬 韓劇拍攝地",
+      "dramaDesc": "親自感受螢幕中的感動吧。",
+      "landmark": "🌊 釜山必去名勝",
+      "landmarkDesc": "來釜山旅遊絕對不能錯過的核心景點。"
+    },
+    "categories": {
+      "drama": "韓劇拍攝地",
+      "landmark": "釜山名勝",
+      "dramaDesc": "親自感受螢幕中的感動吧。",
+      "landmarkDesc": "來釜山旅遊絕對不能錯過的核心景點。"
     }
   },
   "detail": {

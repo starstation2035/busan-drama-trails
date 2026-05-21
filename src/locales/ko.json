@@ -177,7 +177,8 @@
       "location": "장소 태그 (선택)",
       "selectLocation": "장소를 선택해주세요",
       "cancel": "취소",
-      "submit": "작성 완료"
+      "submit": "작성 완료",
+      "categoryTitle": "어떤 글을 작성하시겠어요?"
     },
     "social": {
       "kakao": "카카오톡으로 공유되었습니다! 💬",
@@ -328,16 +329,16 @@
       "subtitleLine2": "바로 옆 맛집까지 이어지는 부산 코스를 안내합니다."
     },
     "sections": {
-      "drama": "🎬 영화 촬영지",
-      "dramaDesc": "드라마와 영화 속 감동을 직접 느껴보세요.",
-      "landmark": "🌊 부산 명소",
-      "landmarkDesc": "부산에 왔다면 꼭 가봐야 할 필수 코스입니다."
+      "drama": "🎬 드라마 촬영지",
+      "dramaDesc": "스크린 속 감동을 부산에서 직접 느껴보세요.",
+      "landmark": "🌊 부산 필수 명소",
+      "landmarkDesc": "부산 여행 시 빼놓을 수 없는 핵심 스팟들입니다."
     },
     "categories": {
-      "drama": "영화 촬영지",
+      "drama": "드라마 촬영지",
       "landmark": "부산 명소",
-      "dramaDesc": "드라마와 영화 속 감동을 직접 느껴보세요.",
-      "landmarkDesc": "부산에 왔다면 꼭 가봐야 할 필수 코스입니다."
+      "dramaDesc": "스크린 속 감동을 직접 느껴보세요.",
+      "landmarkDesc": "부산 여행 시 빼놓을 수 없는 핵심 스팟들입니다."
     }
   },
   "detail": {

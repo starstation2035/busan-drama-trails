@@ -166,7 +166,8 @@
       "location": "場所タグ (任意)",
       "selectLocation": "場所を選択してください",
       "cancel": "キャンセル",
-      "submit": "投稿"
+      "submit": "投稿",
+      "categoryTitle": "どんな記事を作成しますか？"
     },
     "social": {
       "kakao": "カカオ톡でシェアしました！ 💬",
@@ -289,6 +290,18 @@
       "brand": "",
       "subtitleLine1": "드라마 촬영지 그 장면을 찾아가고,",
       "subtitleLine2": "바로 옆 맛집까지 이어지는 부산 코스를 안내합니다."
+    },
+    "sections": {
+      "drama": "🎬 ドラマロケ地",
+      "dramaDesc": "スクリーンの中の感動を直接感じてみてください。",
+      "landmark": "🌊 釜山必須名所",
+      "landmarkDesc": "釜山旅行で外せない重要スポットです。"
+    },
+    "categories": {
+      "drama": "ドラマロケ地",
+      "landmark": "釜山名所",
+      "dramaDesc": "スクリーンの中の感動を直接感じてみてください。",
+      "landmarkDesc": "釜山旅行で外せない重要スポットです。"
     }
   },
   "detail": {
