@@ -65,14 +65,8 @@
       "zh-CN": "釜山海云台区青沙浦路132番街",
       "zh-TW": "釜山海雲台區青沙浦路132番街"
     },
-    "nearby_restaurants": [
-      "r1",
-      "r12"
-    ],
-    "nearby_cafes": [
-      "c1",
-      "c7"
-    ]
+    "nearby_restaurants": ["r1", "r12"],
+    "nearby_cafes": ["c1", "c7"]
   },
   {
     "id": "spot_004",
@@ -140,14 +134,8 @@
       "zh-CN": "釜山影岛区白浅滩路307",
       "zh-TW": "釜山影島區白淺灘路307"
     },
-    "nearby_restaurants": [
-      "r4",
-      "r8"
-    ],
-    "nearby_cafes": [
-      "c4",
-      "c12"
-    ]
+    "nearby_restaurants": ["r4", "r8"],
+    "nearby_cafes": ["c4", "c12"]
   },
   {
     "id": "spot_005",
@@ -215,13 +203,8 @@
       "zh-CN": "釜山中区札嘎其海岸路52",
       "zh-TW": "釜山中區札嘎其市場路52"
     },
-    "nearby_restaurants": [
-      "r5",
-      "r8"
-    ],
-    "nearby_cafes": [
-      "c9"
-    ]
+    "nearby_restaurants": ["r5", "r8"],
+    "nearby_cafes": ["c9"]
   },
   {
     "id": "pachinko",
@@ -289,14 +272,8 @@
       "zh-CN": "釜山广域市影岛区东三洞甘池海边",
       "zh-TW": "釜山廣域市影島區東三洞甘池海邊"
     },
-    "nearby_restaurants": [
-      "r4",
-      "r11"
-    ],
-    "nearby_cafes": [
-      "c4",
-      "c12"
-    ],
+    "nearby_restaurants": ["r4", "r11"],
+    "nearby_cafes": ["c4", "c12"],
     "visit_tips": {
       "ko": "해변을 따라 늘어선 해녀촌에서 신선한 해산물을 맛볼 수 있습니다.",
       "en": "You can taste fresh seafood at the Haenyeo (female diver) village lined up along the beach.",
@@ -371,14 +348,8 @@
       "zh-CN": "釜山沙下区甘内2路203",
       "zh-TW": "釜山沙下區甘內2路203"
     },
-    "nearby_restaurants": [
-      "r2",
-      "r11"
-    ],
-    "nearby_cafes": [
-      "c2",
-      "c10"
-    ]
+    "nearby_restaurants": ["r2", "r11"],
+    "nearby_cafes": ["c2", "c10"]
   },
   {
     "id": "spot_003",
@@ -446,14 +417,8 @@
       "zh-CN": "釜山海云台区海云台海边路264",
       "zh-TW": "釜山海雲台區海雲台海邊路264"
     },
-    "nearby_restaurants": [
-      "r3",
-      "r10"
-    ],
-    "nearby_cafes": [
-      "c3",
-      "c11"
-    ]
+    "nearby_restaurants": ["r3", "r10"],
+    "nearby_cafes": ["c3", "c11"]
   },
   {
     "id": "spot_007",
@@ -506,13 +471,8 @@
       "zh-CN": "釜山水营区广安海边路219",
       "zh-TW": "釜山水營區廣安海邊路219"
     },
-    "nearby_restaurants": [
-      "r6",
-      "r9"
-    ],
-    "nearby_cafes": [
-      "c5"
-    ]
+    "nearby_restaurants": ["r6", "r9"],
+    "nearby_cafes": ["c5"]
   },
   {
     "id": "spot_008",
@@ -565,13 +525,8 @@
       "zh-CN": "釜山西区松岛海边路100",
       "zh-TW": "釜山西區松島海邊路100"
     },
-    "nearby_restaurants": [
-      "r5",
-      "r8"
-    ],
-    "nearby_cafes": [
-      "c9"
-    ]
+    "nearby_restaurants": ["r5", "r8"],
+    "nearby_cafes": ["c9"]
   },
   {
     "id": "spot_taejongdae",
@@ -624,12 +579,7 @@
       "zh-CN": "釜山影岛区展望路24",
       "zh-TW": "釜山影島區展望路24"
     },
-    "nearby_restaurants": [
-      "r4",
-      "r8"
-    ],
-    "nearby_cafes": [
-      "c12"
-    ]
+    "nearby_restaurants": ["r4", "r8"],
+    "nearby_cafes": ["c12"]
   }
 ]

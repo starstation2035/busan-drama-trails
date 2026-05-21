@@ -60,7 +60,9 @@ export function Header({ onOpenLang }: Props) {
             title="내 코스"
           >
             <span>{t("nav.myCourse")}</span>
-            <Heart className={`h-4 w-4 text-[#FF385C] ${favorites.length > 0 ? "fill-[#FF385C]" : ""}`} />
+            <Heart
+              className={`h-4 w-4 text-[#FF385C] ${favorites.length > 0 ? "fill-[#FF385C]" : ""}`}
+            />
             <span className="font-black text-[#FF385C]">{favorites.length}</span>
           </Link>
 

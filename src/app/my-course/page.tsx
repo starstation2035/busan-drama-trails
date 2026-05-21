@@ -161,28 +161,28 @@ export default function MyCoursePage() {
     toast.success(t("common.copied"));
   };
 
-  const handleShareImage = async (platform?: 'kakao' | 'instagram' | 'line') => {
+  const handleShareImage = async (platform?: "kakao" | "instagram" | "line") => {
     const node = document.getElementById("share-card");
     if (!node) {
       toast.error("공유 화면을 찾을 수 없습니다.");
       return;
     }
-    
+
     const loadingToast = toast.loading("공유 이미지를 생성하는 중...");
-    
+
     try {
       // Generate clean high resolution PNG without scale/transform glitches
-      const dataUrl = await toPng(node, { 
-        backgroundColor: 'transparent',
+      const dataUrl = await toPng(node, {
+        backgroundColor: "transparent",
         style: {
-          transform: 'scale(1)',
-        }
+          transform: "scale(1)",
+        },
       });
-      
+
       const response = await fetch(dataUrl);
       const blob = await response.blob();
       const file = new File([blob], "my-course.png", { type: "image/png" });
-      
+
       // Check if Web Share API with files is supported (mostly mobile)
       if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
         await navigator.share({
@@ -198,20 +198,25 @@ export default function MyCoursePage() {
         link.download = "my-course.png";
         link.href = dataUrl;
         link.click();
-        
+
         try {
           await navigator.clipboard.write([
             new ClipboardItem({
-              [blob.type]: blob
-            })
+              [blob.type]: blob,
+            }),
           ]);
           toast.dismiss(loadingToast);
-          toast.success("이미지가 다운로드되고 클립보드에 복사되었습니다! 카톡, 인스타, 라인에 바로 붙여넣기(Ctrl+V) 해보세요! ✨", {
-            duration: 6000
-          });
+          toast.success(
+            "이미지가 다운로드되고 클립보드에 복사되었습니다! 카톡, 인스타, 라인에 바로 붙여넣기(Ctrl+V) 해보세요! ✨",
+            {
+              duration: 6000,
+            },
+          );
         } catch (clipErr) {
           toast.dismiss(loadingToast);
-          toast.success("이미지가 성공적으로 다운로드되었습니다! 저장된 이미지를 카톡, 인스타, 라인에 공유해 보세요! 📸");
+          toast.success(
+            "이미지가 성공적으로 다운로드되었습니다! 저장된 이미지를 카톡, 인스타, 라인에 공유해 보세요! 📸",
+          );
         }
       }
     } catch (err: any) {
@@ -232,7 +237,7 @@ export default function MyCoursePage() {
           guest_id: guestId,
           course_data: favorites,
         },
-        { onConflict: "guest_id" }
+        { onConflict: "guest_id" },
       );
       if (error) throw error;
       toast.success("코스가 성공적으로 저장되었습니다!");
@@ -495,7 +500,10 @@ export default function MyCoursePage() {
                   <Share2 className="h-4 w-4" /> {t("myCourse.actions.share")}
                 </Button>
               </SheetTrigger>
-              <SheetContent side="bottom" className="h-[90vh] sm:h-[85vh] rounded-t-[32px] p-0 overflow-hidden flex flex-col bg-background">
+              <SheetContent
+                side="bottom"
+                className="h-[90vh] sm:h-[85vh] rounded-t-[32px] p-0 overflow-hidden flex flex-col bg-background"
+              >
                 <SheetHeader className="p-6 pb-0 shrink-0">
                   <SheetTitle className="text-center font-black tracking-tight">
                     {t("myCourse.actions.share")}
@@ -506,28 +514,28 @@ export default function MyCoursePage() {
                     <div className="w-full max-w-[280px] aspect-[9/16] shrink-0">
                       <ShareLayout course={editableCourse} lang={lang} />
                     </div>
-                    
+
                     <div className="w-full max-w-[360px] space-y-3 shrink-0">
                       <p className="text-xs font-bold text-muted-foreground text-center">
                         원하는 플랫폼의 이미지 공유 버튼을 선택하세요! 📸
                       </p>
                       <div className="grid grid-cols-3 gap-2">
                         <Button
-                          onClick={() => handleShareImage('kakao')}
+                          onClick={() => handleShareImage("kakao")}
                           className="h-12 gap-1 rounded-xl bg-[#FEE500] hover:bg-[#FEE500]/90 text-[#191919] font-bold text-xs border-none shadow-sm active:scale-95 transition-transform"
                         >
                           <MessageCircle className="size-4 fill-current" />
                           카카오톡
                         </Button>
                         <Button
-                          onClick={() => handleShareImage('instagram')}
+                          onClick={() => handleShareImage("instagram")}
                           className="h-12 gap-1 rounded-xl bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#F56040] hover:opacity-90 text-white font-bold text-xs border-none shadow-sm active:scale-95 transition-transform"
                         >
                           <Instagram className="size-4" />
                           인스타
                         </Button>
                         <Button
-                          onClick={() => handleShareImage('line')}
+                          onClick={() => handleShareImage("line")}
                           className="h-12 gap-1 rounded-xl bg-[#06C755] hover:bg-[#06C755]/90 text-white font-bold text-xs border-none shadow-sm active:scale-95 transition-transform"
                         >
                           <Share2 className="size-4" />
@@ -546,7 +554,11 @@ export default function MyCoursePage() {
               disabled={isSaving}
               className="flex-1 h-12 gap-2 rounded-xl border-border/60 font-bold text-muted-foreground hover:text-indigo-600 hover:border-indigo-600/40 hover:bg-indigo-600/10 transition-colors disabled:opacity-50"
             >
-              {isSaving ? <RefreshCw className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
+              {isSaving ? (
+                <RefreshCw className="h-4 w-4 animate-spin" />
+              ) : (
+                <Download className="h-4 w-4" />
+              )}
               <span className="font-bold">코스 저장</span>
             </Button>
           </>

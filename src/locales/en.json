@@ -41,7 +41,9 @@
   },
   "landing": {
     "hero": {
-      "badge": "One Shot Trap"
+      "badge": "One Shot Trap",
+      "title": "Where the screen ends, your journey begins",
+      "subtitle": "Find iconic K-drama & movie locations, then build your perfect Busan itinerary"
     },
     "title": "One Shot Trap",
     "subtitle": "Experience the best of K-culture ✨",
@@ -60,9 +62,12 @@
     },
     "stats": "50+ Spots・200+ Restaurants・5 Languages",
     "recentReviews": {
-      "title": "Recent Travel Reviews",
-      "subtitle": "Check out real stories from other travelers in real-time",
-      "viewAll": "View All Reviews"
+      "title": "Traveler Reviews",
+      "subtitle": "Real stories from travelers in Busan — updated in real-time",
+      "viewAll": "View All Reviews",
+      "popular": "Popular",
+      "recent": "Recent",
+      "readMore": "Read more"
     },
     "categories": {
       "food": "Eat",
@@ -82,6 +87,13 @@
       "rightTitle": "Your Playlist, Busan",
       "rightSubtitle": "Custom Course"
     }
+  },
+  "nearby": {
+    "openNow": "Open Now",
+    "directions": "Getting There",
+    "distanceFrom": "From your location",
+    "walkAbout": "About",
+    "minutes": " min walk"
   },
   "goods": {
     "title": "Official Store",
@@ -113,8 +125,11 @@
   },
   "community": {
     "title": "Traveler Community",
-    "subtitle": "Discover vivid Busan travel reviews and stories",
+    "subtitle": "Share your K-Drama travel stories",
     "write": "Write Post",
+    "writeReview": "Write a Review",
+    "shareTitle": "Share your special K-Content tour experience!",
+    "shareSubtitle": "Start your own travel record with a single photo.",
     "writeButton": "Write",
     "searchPlaceholder": "Search by location or drama title",
     "viewAll": "View All",
@@ -407,5 +422,15 @@
       "instaHint": "Save the image and upload to your Story!",
       "imageSaveHint": "Please screenshot this page. Auto-save is under development!"
     }
+  },
+  "nearby": {
+    "explore": "Nearby Places",
+    "popular": "Popular spots within 1km",
+    "restaurants": "Restaurants",
+    "cafes": "Cafes",
+    "recommendedSignature": "Recommended Signature",
+    "mostPopularMenu": "Most popular menu by reviewers",
+    "signature": "Signature",
+    "addedToMyCourse": "Added to My Course!"
   }
 }

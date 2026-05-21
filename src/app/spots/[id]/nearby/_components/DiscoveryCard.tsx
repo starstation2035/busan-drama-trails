@@ -11,8 +11,43 @@ interface DiscoveryCardProps {
   parentSpotName: string;
 }
 
+const translateAddress = (addr: string, lang: string) => {
+  if (lang !== "en" || !addr) return addr;
+  let translated = addr
+    .replace("부산 ", "")
+    .replace("영도구 ", "Yeongdo-gu, ")
+    .replace("해운대구 ", "Haeundae-gu, ")
+    .replace("중구 ", "Jung-gu, ")
+    .replace("수영구 ", "Suyeong-gu, ")
+    .replace("서구 ", "Seo-gu, ");
+
+  const tr: Record<string, string> = {
+    "흰여울길": "Huinnyeoul-gil", "절영로": "Jeoryeong-ro", "중리남로": "Jungrinam-ro",
+    "꿈나무길": "Kkumnamu-gil", "하나길": "Hana-gil", "중리북로": "Jungribuk-ro",
+    "태종로": "Taejong-ro", "와치로": "Wachi-ro", "해양로": "Haeyang-ro",
+    "봉래나루로": "Bongnaenaru-ro", "청학동로": "Cheonghakdong-ro",
+    "청사포로": "Cheongsapo-ro", "구남로": "Gunam-ro", "중동2로": "Jungdong 2-ro",
+    "중동1로": "Jungdong 1-ro", "달맞이길": "Dalmaji-gil", "자갈치로": "Jagalchi-ro",
+    "자갈치해안로": "Jagalchihaean-ro", "백산길": "Baeksan-gil", "전망로": "Jeonmang-ro",
+    "광안해변로": "Gwanganhaebyeon-ro", "민락수변로": "Millaksubyeon-ro",
+    "송도해변로": "Songdohaebyeon-ro", "충무대로": "Chungmudae-ro"
+  };
+
+  for (const [ko, en] of Object.entries(tr)) {
+    translated = translated.replace(ko, en);
+  }
+  translated = translated.replace(/([0-9]+)번길/g, " $1-beongil");
+
+  const match = translated.match(/^([A-Za-z\-]+-gu,)\s+(.*?)\s+([0-9\-]+)$/);
+  if (match) {
+    return `${match[3]} ${match[2]}, ${match[1]} Busan`;
+  }
+  return translated.trim() + ", Busan";
+};
+
 export default function DiscoveryCard({ item, parentSpotName }: DiscoveryCardProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language || "ko";
 
   const myCourseItems = useAppStore((s) => s.myCourseItems);
   const toggleMyCourseItem = useAppStore((s) => s.toggleMyCourseItem);
@@ -21,11 +56,12 @@ export default function DiscoveryCard({ item, parentSpotName }: DiscoveryCardPro
   const isFav = myCourseItems.some((x) => x.id === item.id);
 
   const imgUrl = item.thumbnail || item.images?.[0]?.url || "";
-  const categoryStr = item.food?.ko || item.food || item.signature?.ko || "추천 명소";
+  const categoryStr = item.category || item.signatureMenu || item.food?.[lang] || item.food?.ko || item.food || item.signature?.[lang] || item.signature?.ko || (lang === 'en' ? "Recommended Spot" : "추천 명소");
   const signatureMenu = item.signatureMenu || categoryStr;
+  const finalAddress = translateAddress(item.address, lang);
   const reviewSummary =
     item.reviewSummary ||
-    "현지인들이 강력 추천하는 방문 필수 코스입니다. 분위기와 맛 모두 만족스러워요!";
+    (lang === 'en' ? "Highly recommended spot by locals. Great atmosphere and taste!" : "현지인들이 강력 추천하는 방문 필수 코스입니다. 분위기와 맛 모두 만족스러워요!");
 
   return (
     <div className="group cursor-pointer flex flex-col w-[280px] md:w-auto shrink-0 md:shrink bg-white rounded-[28px] border border-[#F3F4F6] p-3 shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all">
@@ -53,7 +89,7 @@ export default function DiscoveryCard({ item, parentSpotName }: DiscoveryCardPro
             };
             if (!isFav) {
               triggerHeartFly(e.clientX, e.clientY);
-              toast("마이코스에 찜했습니다!");
+              toast(t("nearby.addedToMyCourse"));
             }
             toggleMyCourseItem(payload);
             toggleFavorite(item.id);
@@ -86,14 +122,14 @@ export default function DiscoveryCard({ item, parentSpotName }: DiscoveryCardPro
         {/* Signature Menu */}
         <p className="text-[13px] font-bold text-[#FF385C] mb-1.5 flex items-center gap-1.5">
           <span className="w-1.5 h-1.5 rounded-full bg-[#FF385C]"></span>
-          시그니처: {signatureMenu}
+          {t("nearby.signature")}: {signatureMenu}
         </p>
 
         {/* Address */}
-        {item.address && (
+        {finalAddress && (
           <p className="text-[12px] font-medium text-[#717171] mb-2 flex items-start gap-1.5">
             <MapPin className="size-3.5 mt-0.5 shrink-0" />
-            <span className="line-clamp-2 leading-relaxed">{item.address}</span>
+            <span className="line-clamp-2 leading-relaxed">{finalAddress}</span>
           </p>
         )}
 

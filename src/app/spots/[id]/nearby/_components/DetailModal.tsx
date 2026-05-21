@@ -65,7 +65,9 @@ export default function DetailModal({ isOpen, item, onClose }: DetailModalProps)
                 </h2>
                 <div className="flex items-center gap-1.5">
                   <div className="w-2 h-2 rounded-full bg-[#10B981]" />
-                  <span className="text-[12px] font-bold text-[#6B7280]">현재 영업 중</span>
+                  <span className="text-[12px] font-bold text-[#6B7280]">
+                    {t("nearby.openNow", "현재 영업 중")}
+                  </span>
                 </div>
               </div>
               <button
@@ -92,7 +94,9 @@ export default function DetailModal({ isOpen, item, onClose }: DetailModalProps)
               <div className="px-8 pb-10">
                 <div className="flex items-center gap-3 mb-6">
                   <Navigation className="size-5 text-[#3B82F6]" />
-                  <h4 className="text-[17px] font-black text-[#1F2937]">이동 정보</h4>
+                  <h4 className="text-[17px] font-black text-[#1F2937]">
+                    {t("nearby.directions", "이동 정보")}
+                  </h4>
                 </div>
 
                 <div className="relative w-full aspect-[16/10] bg-[#F9FAFB] rounded-[32px] overflow-hidden border border-[#F3F4F6] mb-8">
@@ -113,12 +117,14 @@ export default function DetailModal({ isOpen, item, onClose }: DetailModalProps)
                 <div className="text-center p-8 bg-[#F8FAFC] rounded-[40px] border border-[#F1F5F9]">
                   <div className="flex flex-col items-center gap-1">
                     <h3 className="text-[26px] font-black text-[#1F2937] tracking-tight">
-                      현 위치에서 <span className="text-[#3B82F6]">{walkingData?.km}km</span>
+                      {t("nearby.distanceFrom", "현 위치에서")}{" "}
+                      <span className="text-[#3B82F6]">{walkingData?.km}km</span>
                     </h3>
                     <p className="text-[19px] font-bold text-[#6B7280]">
-                      도보 약{" "}
+                      {t("nearby.walkAbout", "도보 약")}{" "}
                       <span className="text-[#1F2937] underline decoration-[#3B82F6] decoration-4 underline-offset-4">
-                        {walkingData?.minutes}분
+                        {walkingData?.minutes}
+                        {t("nearby.minutes", "분")}
                       </span>
                     </p>
                   </div>

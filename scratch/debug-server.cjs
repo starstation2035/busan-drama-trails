@@ -1,5 +1,5 @@
-const handler = require('../.vercel/output/functions/index.func/index.js');
-const { createServer } = require('http');
+const handler = require("../.vercel/output/functions/index.func/index.js");
+const { createServer } = require("http");
 
 console.log("Starting CJS debug server on http://localhost:3001");
 

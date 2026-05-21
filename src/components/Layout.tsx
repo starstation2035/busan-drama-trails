@@ -20,7 +20,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const guestId = useAppStore((s: any) => s.guestId);
   const initializeGuestId = useAppStore((s: any) => s.initializeGuestId);
   const setFavorites = useAppStore((s: any) => s.setFavorites);
-  
+
   const [modalOpen, setModalOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 

@@ -62,7 +62,8 @@ const POSTERS: Poster[] = [
 ];
 
 export default function LandingPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language || "ko";
   const scrollRef = useRef<HTMLDivElement>(null);
   const requestRef = useRef<number>(null);
   const [mousePos, setMousePos] = useState({ x: 0, w: 0 });
@@ -140,18 +141,18 @@ export default function LandingPage() {
       <section className="pt-20 pb-12 flex flex-col items-center text-center animate-fade-up px-4">
         {/* Title */}
         <h1 className="text-4xl sm:text-6xl md:text-7xl font-black text-[#222222] tracking-tighter mb-4 sm:mb-6 leading-tight break-keep">
-          화면 속 그곳이 당신의<br className="hidden sm:block" /> 다음 여행지가 됩니다
+          {t("landing.hero.title")}
         </h1>
 
         {/* Subtitle */}
         <p className="text-base sm:text-xl font-medium text-[#717171] mb-8 sm:mb-10 max-w-2xl break-keep">
-          영화, 드라마, 예능 속 대한민국 명소 찾기부터 나만의 코스 완성까지
+          {t("landing.hero.subtitle")}
         </p>
 
         {/* CTA Button */}
         <Link href="/spots">
           <Button className="bg-[#FF385C] hover:bg-[#E31C5F] text-white text-base sm:text-lg font-bold px-8 py-6 rounded-full shadow-lg shadow-[#FF385C]/30 transition-all hover:-translate-y-1">
-            지금 인기 촬영지 둘러보기 <ArrowRight className="ml-2 h-5 w-5" />
+            {t("landing.cta.explore")} <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
         </Link>
       </section>
@@ -159,7 +160,6 @@ export default function LandingPage() {
       <div className="space-y-16">
         {/* 🎬 Movie Posters Carousel */}
         <section className="animate-fade-up space-y-6">
-
           <div
             ref={scrollRef}
             onMouseMove={handleMouseMove}
@@ -187,10 +187,10 @@ export default function LandingPage() {
                   </div>
                   <div className="px-1">
                     <h3 className="text-base font-bold text-[#222222] line-clamp-1 group-hover:text-[#FF385C] transition-colors">
-                      {t(`movies.${poster.id}.title`)}
+                      {t(`common.movies.${poster.id}.title`, poster.title)}
                     </h3>
                     <p className="text-[13px] text-[#717171] font-medium">
-                      {poster.year} • {t(`movies.${poster.id}.genre`)}
+                      {poster.year} • {t(`common.movies.${poster.id}.genre`, "")}
                     </p>
                   </div>
                 </Link>
@@ -264,13 +264,13 @@ export default function LandingPage() {
             <div className="space-y-4">
               <div>
                 <h2 className="text-2xl sm:text-3xl font-black text-[#222222] tracking-tight">
-                  여행자들의 생생한 후기
+                  {t("landing.recentReviews.title")}
                 </h2>
                 <p className="text-sm sm:text-base text-[#717171] mt-1.5 font-medium">
-                  다른 여행자들의 생생한 부산 이야기를 실시간으로 확인해보세요
+                  {t("landing.recentReviews.subtitle")}
                 </p>
               </div>
-              
+
               {/* Pill Tabs Filter */}
               <div className="flex gap-2.5">
                 <button
@@ -281,7 +281,7 @@ export default function LandingPage() {
                       : "bg-white text-[#222222] border border-[#DDDDDD] hover:bg-[#F7F7F7]"
                   }`}
                 >
-                  <span>🔥 인기 후기</span>
+                  <span>🔥 {t("landing.recentReviews.popular")}</span>
                 </button>
                 <button
                   onClick={() => setReviewTab("recent")}
@@ -291,7 +291,7 @@ export default function LandingPage() {
                       : "bg-white text-[#222222] border border-[#DDDDDD] hover:bg-[#F7F7F7]"
                   }`}
                 >
-                  <span>⏰ 최신 후기</span>
+                  <span>⏰ {t("landing.recentReviews.recent")}</span>
                 </button>
               </div>
             </div>
@@ -301,12 +301,12 @@ export default function LandingPage() {
                 variant="ghost"
                 className="text-[#222222] font-black hover:bg-white/50 rounded-full text-sm py-5.5 px-6 border border-black/5 bg-white/20 backdrop-blur-sm"
               >
-                전체 리뷰 보기
+                {t("landing.recentReviews.viewAll")}
                 <ArrowRight className="ml-2 h-4 w-4 text-[#FF385C]" strokeWidth={2.5} />
               </Button>
             </Link>
           </div>
- 
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 transition-all duration-500">
             {displayedReviews.map((review: Review) => (
               <Link
@@ -333,10 +333,12 @@ export default function LandingPage() {
                         alt={review.author}
                         className="h-6.5 w-6.5 rounded-full border border-[#DDDDDD] object-cover"
                       />
-                      <span className="text-[13px] font-extrabold text-[#222222]">{review.author}</span>
+                      <span className="text-[13px] font-extrabold text-[#222222]">
+                        {review.author}
+                      </span>
                     </div>
                     <p className="text-[14px] leading-relaxed text-[#444444] line-clamp-3 font-semibold group-hover:text-primary transition-colors">
-                      "{review.content}"
+                      "{lang === "en" && review.content_en ? review.content_en : review.content}"
                     </p>
                   </div>
                 </div>
@@ -344,10 +346,12 @@ export default function LandingPage() {
                 <div className="mt-5 pt-3.5 border-t border-[#F0F0F0] flex items-center justify-between">
                   <div className="flex items-center gap-1.5 text-[12px] font-bold text-[#717171]">
                     <MapPin className="h-3.5 w-3.5 text-[#FF385C]" strokeWidth={1.5} />
-                    <span className="truncate max-w-[150px]">{review.location}</span>
+                    <span className="truncate max-w-[150px]">
+                      {lang === "en" && review.location_en ? review.location_en : review.location}
+                    </span>
                   </div>
                   <span className="text-[11px] font-extrabold text-primary flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
-                    자세히 보기 <ArrowRight className="h-3 w-3" />
+                    {t("landing.recentReviews.readMore")} <ArrowRight className="h-3 w-3" />
                   </span>
                 </div>
               </Link>
@@ -356,7 +360,9 @@ export default function LandingPage() {
             {displayedReviews.length === 0 && (
               <div className="col-span-full text-center py-16 bg-white rounded-3xl border border-dashed border-[#DDDDDD] flex flex-col items-center justify-center gap-2">
                 <span className="text-2xl">📍</span>
-                <p className="text-sm font-semibold text-muted-foreground">아직 등록된 여행후기가 없습니다.</p>
+                <p className="text-sm font-semibold text-muted-foreground">
+                  {t("community.emptyReviews")}
+                </p>
               </div>
             )}
           </div>

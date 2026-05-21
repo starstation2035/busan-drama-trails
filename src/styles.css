@@ -32,54 +32,54 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-ring-offset-background: var(--background);
-  --font-sans: 'Pretendard', 'Inter', system-ui, sans-serif;
-  
+  --font-sans: "Pretendard", "Inter", system-ui, sans-serif;
+
   --shadow-airbnb: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
 :root {
   --radius: 12px;
-  --background: #FFFFFF;
+  --background: #ffffff;
   --foreground: #222222;
-  --card: #FFFFFF;
+  --card: #ffffff;
   --card-foreground: #222222;
-  --popover: #FFFFFF;
+  --popover: #ffffff;
   --popover-foreground: #222222;
-  --primary: #FF385C;
-  --primary-foreground: #FFFFFF;
-  --secondary: #F7F7F7;
+  --primary: #ff385c;
+  --primary-foreground: #ffffff;
+  --secondary: #f7f7f7;
   --secondary-foreground: #222222;
-  --muted: #F7F7F7;
+  --muted: #f7f7f7;
   --muted-foreground: #717171;
-  --accent: #F7F7F7;
+  --accent: #f7f7f7;
   --accent-foreground: #222222;
-  --destructive: #FF385C;
-  --destructive-foreground: #FFFFFF;
-  --border: #DDDDDD;
-  --input: #DDDDDD;
-  --ring: #FF385C;
+  --destructive: #ff385c;
+  --destructive-foreground: #ffffff;
+  --border: #dddddd;
+  --input: #dddddd;
+  --ring: #ff385c;
 }
 
 .dark {
   --background: #121212;
-  --foreground: #EDEDED;
-  --card: #1E1E1E;
-  --card-foreground: #EDEDED;
-  --popover: #1E1E1E;
-  --popover-foreground: #EDEDED;
-  --primary: #FF385C;
-  --primary-foreground: #FFFFFF;
-  --secondary: #2C2C2C;
-  --secondary-foreground: #EDEDED;
-  --muted: #2C2C2C;
-  --muted-foreground: #A0A0A0;
-  --accent: #2C2C2C;
-  --accent-foreground: #EDEDED;
-  --destructive: #FF385C;
-  --destructive-foreground: #FFFFFF;
+  --foreground: #ededed;
+  --card: #1e1e1e;
+  --card-foreground: #ededed;
+  --popover: #1e1e1e;
+  --popover-foreground: #ededed;
+  --primary: #ff385c;
+  --primary-foreground: #ffffff;
+  --secondary: #2c2c2c;
+  --secondary-foreground: #ededed;
+  --muted: #2c2c2c;
+  --muted-foreground: #a0a0a0;
+  --accent: #2c2c2c;
+  --accent-foreground: #ededed;
+  --destructive: #ff385c;
+  --destructive-foreground: #ffffff;
   --border: #333333;
   --input: #333333;
-  --ring: #FF385C;
+  --ring: #ff385c;
 }
 
 @layer base {
@@ -95,8 +95,14 @@
 }
 
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .animate-fade-up {
@@ -104,8 +110,14 @@
 }
 
 @keyframes slide-in-right {
-  from { opacity: 0; transform: translateX(24px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .animate-slide-in {
@@ -123,19 +135,29 @@
   }
   /* Spiral out and up */
   30% {
-    transform: translate(calc(var(--start-x) - 40px), calc(var(--start-y) - 100px)) scale(1.6) rotate(-45deg);
+    transform: translate(calc(var(--start-x) - 40px), calc(var(--start-y) - 100px)) scale(1.6)
+      rotate(-45deg);
   }
   50% {
-    transform: translate(calc(var(--start-x) + 40px), calc(var(--start-y) - 180px)) scale(1.4) rotate(-180deg);
+    transform: translate(calc(var(--start-x) + 40px), calc(var(--start-y) - 180px)) scale(1.4)
+      rotate(-180deg);
   }
   /* Spiral in towards target */
   75% {
-    transform: translate(calc(var(--start-x) + (var(--target-x) * 0.7)), calc(var(--start-y) + (var(--target-y) * 0.7))) scale(0.8) rotate(-360deg);
+    transform: translate(
+        calc(var(--start-x) + (var(--target-x) * 0.7)),
+        calc(var(--start-y) + (var(--target-y) * 0.7))
+      )
+      scale(0.8) rotate(-360deg);
     opacity: 0.9;
   }
   /* Perfect landing */
   100% {
-    transform: translate(calc(var(--start-x) + var(--target-x)), calc(var(--start-y) + var(--target-y))) scale(0) rotate(-720deg);
+    transform: translate(
+        calc(var(--start-x) + var(--target-x)),
+        calc(var(--start-y) + var(--target-y))
+      )
+      scale(0) rotate(-720deg);
     opacity: 0;
   }
 }
@@ -149,8 +171,12 @@
 }
 
 @keyframes marquee {
-  0% { transform: translateX(0%); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .animate-marquee {

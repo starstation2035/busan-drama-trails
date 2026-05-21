@@ -78,26 +78,43 @@ writeFileSync(path.join(functionDir, "index.js"), bridgeCode);
 
 console.log("⚡ Running esbuild...");
 // Use CJS and PRODUCTION mode
-execSync(`npx esbuild dist/server/server.js --bundle --platform=node --target=node22 --format=cjs --outfile=${path.join(functionDir, "server.raw.js")} --define:process.env.NODE_ENV=\\"production\\" --external:fsevents`, { stdio: "inherit" });
+execSync(
+  `npx esbuild dist/server/server.js --bundle --platform=node --target=node22 --format=cjs --outfile=${path.join(functionDir, "server.raw.js")} --define:process.env.NODE_ENV=\\"production\\" --external:fsevents`,
+  { stdio: "inherit" },
+);
 
 // 6. Create Vercel Configs
-writeFileSync(path.join(functionDir, ".vc-config.json"), JSON.stringify({
-  runtime: "nodejs22.x",
-  handler: "index.js",
-  launcherType: "Nodejs",
-  shouldAddHelpers: true
-}, null, 2));
+writeFileSync(
+  path.join(functionDir, ".vc-config.json"),
+  JSON.stringify(
+    {
+      runtime: "nodejs22.x",
+      handler: "index.js",
+      launcherType: "Nodejs",
+      shouldAddHelpers: true,
+    },
+    null,
+    2,
+  ),
+);
 
-writeFileSync(path.join(functionDir, "package.json"), JSON.stringify({ }));
+writeFileSync(path.join(functionDir, "package.json"), JSON.stringify({}));
 
 // 7. Global Config for Routing
-writeFileSync(path.join(vercelOutput, "config.json"), JSON.stringify({
-  version: 3,
-  routes: [
-    { src: "/assets/(.*)", dest: "/assets/$1" },
-    { handle: "filesystem" },
-    { src: "/(.*)", dest: "/" }
-  ]
-}, null, 2));
+writeFileSync(
+  path.join(vercelOutput, "config.json"),
+  JSON.stringify(
+    {
+      version: 3,
+      routes: [
+        { src: "/assets/(.*)", dest: "/assets/$1" },
+        { handle: "filesystem" },
+        { src: "/(.*)", dest: "/" },
+      ],
+    },
+    null,
+    2,
+  ),
+);
 
 console.log("✅ Build Complete! Ready for Deployment.");

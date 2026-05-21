@@ -11,7 +11,8 @@ const CATEGORIES = ["all", "reviews", "talk"] as const;
 type Category = (typeof CATEGORIES)[number];
 
 export default function Community() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language || "ko";
   const [activeTab, setActiveTab] = useState<Category>("all");
   const [isWriteModalOpen, setIsWriteModalOpen] = useState(false);
 
@@ -65,7 +66,7 @@ export default function Community() {
               className="w-full rounded-2xl border-none bg-muted/60 py-3 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20"
             />
           </div>
-          <button 
+          <button
             onClick={() => setIsWriteModalOpen(true)}
             className="flex items-center gap-1.5 whitespace-nowrap rounded-2xl bg-[#FF385C] px-5 py-3 text-sm font-bold text-white hover:bg-[#FF385C]/90 transition-colors shadow-sm"
           >
@@ -77,7 +78,6 @@ export default function Community() {
 
       {/* Conditional Layout Rendering */}
       <div className="space-y-10 animate-fade-up">
-        
         {/* 1. [전체] 탭 혹은 [자유토크] 탭일 때: 💬 실시간 자유토크 Q&A 섹션 */}
         {(activeTab === "all" || activeTab === "talk") && (
           <section className="space-y-4">
@@ -86,17 +86,21 @@ export default function Community() {
                 <h2 className="text-lg font-bold text-[#222222] flex items-center gap-2.5">
                   <span>💬 {t("community.sections.freeTalkTitle")}</span>
                   {activeTab === "all" && (
-                    <span className="text-[10px] bg-primary/10 text-primary px-2.5 py-0.5 rounded-full font-extrabold uppercase">{t("community.sections.latestQuestion", "최신 질문")}</span>
+                    <span className="text-[10px] bg-primary/10 text-primary px-2.5 py-0.5 rounded-full font-extrabold uppercase">
+                      {t("community.sections.latestQuestion", lang === "en" ? "Latest" : "최신 질문")}
+                    </span>
                   )}
                 </h2>
-                <p className="text-xs text-muted-foreground">{t("community.sections.freeTalkSubtitle")}</p>
+                <p className="text-xs text-muted-foreground">
+                  {t("community.sections.freeTalkSubtitle")}
+                </p>
               </div>
               {activeTab === "all" && talkPosts.length > 3 && (
                 <button
                   onClick={() => setActiveTab("talk")}
                   className="text-xs font-bold text-primary flex items-center gap-1 hover:underline transition-all"
                 >
-                  <span>{t("community.viewAll", "전체보기")}</span>
+                  <span>{t("community.viewAll", lang === "en" ? "View All" : "전체보기")}</span>
                   <ArrowRight className="h-3 w-3" />
                 </button>
               )}
@@ -116,10 +120,12 @@ export default function Community() {
                       className="h-8.5 w-8.5 rounded-full border border-border bg-muted shrink-0 object-cover"
                     />
                     <div className="flex items-center gap-2.5 flex-1 min-w-0">
-                      <span className="text-xs font-extrabold text-foreground/80 shrink-0">{post.author}</span>
+                      <span className="text-xs font-extrabold text-foreground/80 shrink-0">
+                        {post.author}
+                      </span>
                       <span className="h-3 w-[1px] bg-border/80 shrink-0" />
                       <p className="text-sm text-foreground/90 font-semibold truncate group-hover:text-primary transition-colors flex-1">
-                        {post.content}
+                        {lang === "en" && post.content_en ? post.content_en : post.content}
                       </p>
                     </div>
                   </div>
@@ -127,7 +133,9 @@ export default function Community() {
                   <div className="flex items-center gap-3 shrink-0">
                     <div className="flex items-center gap-1.5 text-xs text-muted-foreground bg-muted/40 px-2.5 py-1.5 rounded-xl">
                       <MessageSquare className="h-3.5 w-3.5 text-muted-foreground/80" />
-                      <span className="font-bold text-[11px] text-muted-foreground/90">{(post.comments || []).length}</span>
+                      <span className="font-bold text-[11px] text-muted-foreground/90">
+                        {(post.comments || []).length}
+                      </span>
                     </div>
                     <ArrowRight className="h-4 w-4 text-muted-foreground/60 transition-transform group-hover:translate-x-1 group-hover:text-[#FF385C]" />
                   </div>
@@ -137,7 +145,9 @@ export default function Community() {
               {talkPosts.length === 0 && (
                 <div className="text-center py-10 bg-muted/10 rounded-2xl border border-dashed border-border/60 flex flex-col items-center justify-center gap-1.5">
                   <span className="text-xl">💬</span>
-                  <p className="text-xs font-semibold text-muted-foreground">{t("community.emptyTalk", "등록된 자유토크가 없습니다.")}</p>
+                  <p className="text-xs font-semibold text-muted-foreground">
+                    {t("community.emptyTalk", lang === "en" ? "No free talk posts yet." : "등록된 자유토크가 없습니다.")}
+                  </p>
                 </div>
               )}
             </div>
@@ -156,7 +166,9 @@ export default function Community() {
               <h2 className="text-lg font-bold text-[#222222] flex items-center gap-2">
                 <span>📍 {t("community.sections.reviewsTitle")}</span>
               </h2>
-              <p className="text-xs text-muted-foreground">{t("community.sections.reviewsSubtitle")}</p>
+              <p className="text-xs text-muted-foreground">
+                {t("community.sections.reviewsSubtitle")}
+              </p>
             </div>
 
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -179,7 +191,11 @@ export default function Community() {
                         <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-6 text-white">
                           <div className="flex items-center gap-2">
                             <MapPin className="h-4 w-4 text-primary" />
-                            <span className="text-sm font-medium">{review.location}</span>
+                            <span className="text-sm font-medium">
+                              {lang === "en" && review.location_en
+                                ? review.location_en
+                                : review.location}
+                            </span>
                           </div>
                         </div>
                         <button
@@ -204,14 +220,16 @@ export default function Community() {
                             alt={review.author}
                             className="h-8 w-8 rounded-full border border-border bg-muted object-cover"
                           />
-                          <span className="flex-1 text-sm font-bold text-foreground">{review.author}</span>
+                          <span className="flex-1 text-sm font-bold text-foreground">
+                            {review.author}
+                          </span>
                           <span className="rounded-full bg-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
                             {t(`community.filters.${review.category}`)}
                           </span>
                         </div>
 
                         <p className="mt-4 line-clamp-4 text-sm leading-relaxed text-muted-foreground">
-                          {review.content}
+                          {lang === "en" && review.content_en ? review.content_en : review.content}
                         </p>
                       </div>
 
@@ -228,13 +246,14 @@ export default function Community() {
               {reviewPosts.length === 0 && (
                 <div className="col-span-full text-center py-16 bg-muted/10 rounded-2xl border border-dashed border-border/60 flex flex-col items-center justify-center gap-1.5">
                   <span className="text-xl">📍</span>
-                  <p className="text-xs font-semibold text-muted-foreground">{t("community.emptyReviews", "등록된 여행후기가 없습니다.")}</p>
+                  <p className="text-xs font-semibold text-muted-foreground">
+                    {t("community.emptyReviews", lang === "en" ? "No travel reviews yet." : "등록된 여행후기가 없습니다.")}
+                  </p>
                 </div>
               )}
             </div>
           </section>
         )}
-
       </div>
 
       <CommunityPostModal open={isWriteModalOpen} onClose={() => setIsWriteModalOpen(false)} />

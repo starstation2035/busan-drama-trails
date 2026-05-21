@@ -2,6 +2,7 @@
 
 import { Sparkles, UtensilsCrossed, Star } from "lucide-react";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 interface ReviewSummaryProps {
   summary: string;
@@ -10,6 +11,7 @@ interface ReviewSummaryProps {
 }
 
 export default function ReviewSummary({ summary, signature, rating }: ReviewSummaryProps) {
+  const { t } = useTranslation();
   return (
     <div className="px-8 pb-10 space-y-8 bg-white">
       {/* AI Summary Section */}
@@ -52,7 +54,7 @@ export default function ReviewSummary({ summary, signature, rating }: ReviewSumm
       >
         <div className="flex items-center gap-3 mb-4">
           <UtensilsCrossed className="size-5 text-[#FF4D8D]" />
-          <h4 className="text-[17px] font-black text-[#1F2937]">추천 시그니처</h4>
+          <h4 className="text-[17px] font-black text-[#1F2937]">{t("nearby.recommendedSignature")}</h4>
         </div>
 
         <div className="bg-[#FFF9FB] p-6 rounded-[32px] border border-[#FFE4E6] flex items-center justify-between group cursor-default">
@@ -65,7 +67,7 @@ export default function ReviewSummary({ summary, signature, rating }: ReviewSumm
                 {signature}
               </div>
               <div className="text-[12px] text-[#9CA3AF] font-bold">
-                리뷰어들이 가장 많이 선택한 메뉴
+                {t("nearby.mostPopularMenu")}
               </div>
             </div>
           </div>

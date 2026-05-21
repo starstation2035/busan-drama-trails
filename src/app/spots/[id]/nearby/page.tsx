@@ -44,9 +44,9 @@ const KOREAN_CAFE_IMAGES = [
 const HARDCODED_RESTAURANTS = [
   {
     id: "hr1",
-    name: { ko: "흰여울점빵" },
+    name: { ko: "흰여울점빵", en: "Huinnam-yeoul Bakery" },
     address: "부산 영도구 흰여울길 121",
-    food: { ko: "라면/토스트" },
+    food: { ko: "라면/토스트", en: "Ramen/Toast" },
     latitude: 35.0795,
     longitude: 129.0432,
     thumbnail: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=800&q=80",
@@ -100,9 +100,9 @@ const HARDCODED_RESTAURANTS = [
   },
   {
     id: "hr3",
-    name: { ko: "달뜨네" },
+    name: { ko: "달뜨네", en: "Dalteune" },
     address: "부산 영도구 절영로 13",
-    food: { ko: "회밥/시나몬맥주" },
+    food: { ko: "회밥/시나몬맥주", en: "Sashimi Rice/Cinnamon Beer" },
     latitude: 35.0801,
     longitude: 129.0445,
     thumbnail: "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=400",
@@ -110,9 +110,9 @@ const HARDCODED_RESTAURANTS = [
   },
   {
     id: "hr4",
-    name: { ko: "영도해녀촌" },
+    name: { ko: "영도해녀촌", en: "Yeongdo Haenyeo Village" },
     address: "부산 영도구 중리남로 2-35",
-    food: { ko: "성게알/김밥" },
+    food: { ko: "성게알/김밥", en: "Sea Urchin/Gimbap" },
     latitude: 35.0715,
     longitude: 129.0685,
     thumbnail: "https://images.unsplash.com/photo-1626804475297-41609ea064eb?w=400",
@@ -120,9 +120,9 @@ const HARDCODED_RESTAURANTS = [
   },
   {
     id: "hr5",
-    name: { ko: "도날드" },
+    name: { ko: "도날드", en: "Donald" },
     address: "부산 영도구 꿈나무길 267",
-    food: { ko: "즉석떡볶이" },
+    food: { ko: "즉석떡볶이", en: "Instant Tteokbokki" },
     latitude: 35.0768,
     longitude: 129.0558,
     thumbnail: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400",
@@ -130,9 +130,9 @@ const HARDCODED_RESTAURANTS = [
   },
   {
     id: "hr6",
-    name: { ko: "왔다식당" },
+    name: { ko: "왔다식당", en: "Watta Restaurant" },
     address: "부산 영도구 하나길 811",
-    food: { ko: "한우스지전골" },
+    food: { ko: "한우스지전골", en: "Hanwoo Beef Tendon Hot Pot" },
     latitude: 35.0895,
     longitude: 129.0542,
     thumbnail: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400",
@@ -140,9 +140,9 @@ const HARDCODED_RESTAURANTS = [
   },
   {
     id: "hr7",
-    name: { ko: "재기돼지국밥" },
+    name: { ko: "재기돼지국밥", en: "Jaegi Pork Rice Soup" },
     address: "부산 영도구 절영로49번길 25",
-    food: { ko: "남항시장" },
+    food: { ko: "남항시장", en: "Namhang Market" },
     latitude: 35.0921,
     longitude: 129.0375,
     thumbnail: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=400",
@@ -150,9 +150,9 @@ const HARDCODED_RESTAURANTS = [
   },
   {
     id: "hr8",
-    name: { ko: "와글와글" },
+    name: { ko: "와글와글", en: "Wagle Wagle" },
     address: "부산 영도구 중리북로22번길 5",
-    food: { ko: "라밥" },
+    food: { ko: "라밥", en: "Rabab" },
     latitude: 35.0812,
     longitude: 129.0571,
     thumbnail: "/wagle.jpg",
@@ -160,9 +160,9 @@ const HARDCODED_RESTAURANTS = [
   },
   {
     id: "hr9",
-    name: { ko: "청학동구이" },
+    name: { ko: "청학동구이", en: "Cheonghakdong Grill" },
     address: "부산 영도구 태종로 315",
-    food: { ko: "고기" },
+    food: { ko: "고기", en: "Meat" },
     latitude: 35.0955,
     longitude: 129.0621,
     thumbnail: "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=400",
@@ -170,9 +170,9 @@ const HARDCODED_RESTAURANTS = [
   },
   {
     id: "hr10",
-    name: { ko: "삼진어묵 본점" },
+    name: { ko: "삼진어묵 본점", en: "Samjin Amook Main Store" },
     address: "부산 영도구 태종로99번길 36",
-    food: { ko: "어묵" },
+    food: { ko: "어묵", en: "Fish Cake" },
     latitude: 35.0915,
     longitude: 129.0415,
     thumbnail: "/samjin.jpg",
@@ -183,9 +183,9 @@ const HARDCODED_RESTAURANTS = [
 const HARDCODED_CAFES = [
   {
     id: "hc1",
-    name: { ko: "신기숲" },
+    name: { ko: "신기숲", en: "Singisup" },
     address: "부산 영도구 와치로 65",
-    signature: { ko: "대나무뷰" },
+    signature: { ko: "대나무뷰", en: "Bamboo View" },
     latitude: 35.0861,
     longitude: 129.0531,
     thumbnail: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=400",
@@ -193,9 +193,9 @@ const HARDCODED_CAFES = [
   },
   {
     id: "hc2",
-    name: { ko: "손목서가" },
+    name: { ko: "손목서가", en: "Sonmok Seoga" },
     address: "부산 영도구 흰여울길 307",
-    signature: { ko: "오션뷰 서점" },
+    signature: { ko: "오션뷰 서점", en: "Ocean View Bookstore" },
     latitude: 35.0792,
     longitude: 129.0435,
     thumbnail: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400",
@@ -203,7 +203,7 @@ const HARDCODED_CAFES = [
   },
   {
     id: "hc3",
-    name: { ko: "에테르" },
+    name: { ko: "에테르", en: "Aether" },
     address: "부산 영도구 절영로 234",
     signature: { ko: "루프탑" },
     latitude: 35.0778,
@@ -243,7 +243,7 @@ const HARDCODED_CAFES = [
   },
   {
     id: "hc7",
-    name: { ko: "무명일기" },
+    name: { ko: "무명일기", en: "Unknown Diary" },
     address: "부산 영도구 봉래나루로 178",
     signature: { ko: "창고형" },
     latitude: 35.0945,
@@ -273,7 +273,7 @@ const HARDCODED_CAFES = [
   },
   {
     id: "hc10",
-    name: { ko: "카린 영도 플레이스" },
+    name: { ko: "카린 영도 플레이스", en: "Karin Yeongdo Place" },
     address: "부산 영도구 청학동로 16",
     signature: { ko: "스칸디나비안 뷰" },
     latitude: 35.0905,
@@ -714,22 +714,65 @@ export default function NearbyDiscovery({
     const processed = rawData.map((item: any, idx: number) => {
       const dist =
         item.calculatedDistance || getDistance(baseLat, baseLng, item.latitude, item.longitude);
+
+      // Dynamic translation dictionary for places without English data
+      const tr: Record<string, string> = {
+        "거청식당": "Geocheong Restaurant", "생선구이": "Grilled Fish",
+        "에테르": "Aether", "루프탑": "Rooftop", "구름에": "Gureume", "디저트": "Dessert",
+        "피아크 (P.ARK)": "P.ARK", "초대형": "Mega Cafe",
+        "모모스커피 영도": "Momos Coffee Yeongdo", "스페셜티": "Specialty Coffee",
+        "쓰릴미": "Thrill Me", "오션뷰": "Ocean View",
+        "카페 변호인": "Cafe Attorney", "촬영지": "Filming Location",
+        "수민이네": "Suminine", "조개구이/장어구이": "Grilled Clams/Eel",
+        "하진이네": "Hajinine", "조개구이": "Grilled Clams",
+        "청사포 다희네": "Cheongsapo Dahine", "장어구이": "Grilled Eel",
+        "해운대 암소갈비집": "Haeundae Amso Galbi", "한우생갈비": "Hanwoo Fresh Ribs",
+        "상국이네": "Sanggukine", "떡볶이": "Tteokbokki",
+        "밀양순대돼지국밥 해운대점": "Miryang Sundae Dwaeji Gukbap", "돼지국밥": "Pork Rice Soup",
+        "금수복국 해운대본점": "Geumsu Bokguk Main", "뚝배기 복국": "Pufferfish Soup",
+        "해성막창집 본점": "Haeseong Makchang Main", "대창/곱창전골": "Beef Tripe Hot Pot",
+        "호랑이젤라떡": "Horangi Gelatteok", "젤라떡": "Gelato Tteok",
+        "랑데자뷰 해운대": "Rendezvous Haeundae", "제주 감성/오션뷰": "Jeju Vibe/Ocean View",
+        "스누피플레이스 부산": "Snoopy Place Busan", "스누피 테마": "Snoopy Theme",
+        "오션어스": "Ocean Us", "오션뷰 커피": "Ocean View Coffee",
+        "빌라혼네": "Villa Honne", "에스프레소 바": "Espresso Bar",
+        "백화양곱창": "Baekhwa Yanggopchang", "양곱창": "Beef Tripe",
+        "제일꼼장어": "Jeil Kkomjangeo", "꼼장어": "Hagfish",
+        "남포동 생선구이 골목": "Nampodong Grilled Fish Alley", "생선구이백반": "Grilled Fish Set",
+        "태종대 짬뽕": "Taejongdae Jjamppong", "해물짬뽕": "Seafood Jjamppong",
+        "충북식당": "Chungbuk Restaurant", "정식": "Set Menu",
+        "태종대 자갈마당 촌락": "Taejongdae Jagal Madang", "조개구이/해산물": "Grilled Clams/Seafood",
+        "엔제리너스 태종대점": "Angel-in-us Taejongdae", "프랜차이즈 카페": "Franchise Cafe",
+        "톤쇼우 광안점": "Tonshou Gwangan", "돈카츠": "Tonkatsu",
+        "수변최고돼지국밥": "Subyeon Choego Dwaeji Gukbap", "광안리 스타벅스": "Gwangalli Starbucks",
+        "밀락더마켓": "Millac the Market", "복합문화공간": "Cultural Space",
+        "송도 1913": "Songdo 1913", "사천해물탕": "Sacheon Seafood Stew", "해물탕": "Seafood Stew",
+        "이디야커피 부산송도해상케이블카점": "Ediya Coffee Songdo Cable Car", "케이블카 뷰": "Cable Car View",
+        "바우노바 백산": "Baunova Baeksan", "바우노바 시그니처 블렌드": "Baunova Signature Blend",
+        "쿠오리노": "Kuorino", "쿠오리노 수제 팬케이크": "Kuorino Handmade Pancake",
+        "노티스": "Notice", "노티스 콜드브루 라떼": "Notice Coldbrew Latte",
+        "연경재": "Yeongyeongjae", "연경재 하이엔드 우차(Tea)": "Yeongyeongjae High-end Tea",
+        "굿올데즈": "Good Old Days", "굿올데즈 원도심 블렌딩": "Good Old Days Original Blend"
+      };
+
+      const koName = item.name?.ko || item.name || "";
+      const enName = item.name?.en || tr[koName] || koName;
+      const finalName = lang === "en" ? enName : koName;
+
+      const koSig = item.signatureMenu || item.signature?.ko || item.food?.ko || item.food || "";
+      const enSig = item.signature?.en || item.food?.en || tr[koSig] || koSig;
+      const finalSig = lang === "en" ? enSig : koSig;
+
       return {
         ...item,
         calculatedDistance: dist,
-        name: item.name.ko || item.name,
+        name: finalName,
         thumbnail:
           item.thumbnail ||
           (activeTab === "restaurant"
             ? KOREAN_FOOD_IMAGES[idx % KOREAN_FOOD_IMAGES.length]
             : KOREAN_CAFE_IMAGES[idx % KOREAN_CAFE_IMAGES.length]),
-        signatureMenu:
-          item.signatureMenu ||
-          item.signature?.[lang] ||
-          item.signature?.ko ||
-          item.food?.ko ||
-          item.food ||
-          "추천 명소",
+        signatureMenu: finalSig || (lang === "en" ? "Recommended Spot" : "추천 명소"),
       };
     });
 
@@ -756,10 +799,10 @@ export default function NearbyDiscovery({
           </button>
           <div>
             <h1 className="text-[20px] font-black text-[#1F2937] tracking-tight">
-              {spot.name[lang] ?? spot.name.ko} 주변 탐방
+              {spot.name[lang] ?? spot.name.ko} {t("nearby.explore")}
             </h1>
             <p className="text-[12px] text-[#9CA3AF] font-bold flex items-center gap-1.5 mt-0.5">
-              <MapPin className="size-3.5 text-[#FFB6C1]" /> 반경 1km 이내 인기 장소
+              <MapPin className="size-3.5 text-[#FFB6C1]" /> {t("nearby.popular")}
             </p>
           </div>
         </div>
@@ -778,7 +821,7 @@ export default function NearbyDiscovery({
             <Utensils
               className={`size-4 ${activeTab === "restaurant" ? "text-[#FF4D8D]" : "text-[#D1D5DB]"}`}
             />
-            맛집
+            {t("nearby.restaurants")}
           </button>
           <button
             onClick={() => setActiveTab("cafe")}
@@ -791,7 +834,7 @@ export default function NearbyDiscovery({
             <Coffee
               className={`size-4 ${activeTab === "cafe" ? "text-[#FF4D8D]" : "text-[#D1D5DB]"}`}
             />
-            카페
+            {t("nearby.cafes")}
           </button>
         </div>
 
