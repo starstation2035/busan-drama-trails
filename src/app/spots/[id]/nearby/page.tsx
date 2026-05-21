@@ -653,9 +653,9 @@ const SPOT_CONFIGS: Record<string, any> = {
       },
       {
         id: "r7_2",
-        name: { ko: "수변최고돼지국밥" },
+        name: { ko: "수변최고돼지국밥", en: "Subyeon Best Pork Soup" },
         address: "부산 수영구 광안해변로370번길 9-32",
-        food: { ko: "돼지국밥" },
+        food: { ko: "돼지국밥", en: "Pork Rice Soup" },
         latitude: 35.155,
         longitude: 129.124,
         thumbnail: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=400",
@@ -665,9 +665,9 @@ const SPOT_CONFIGS: Record<string, any> = {
     cafes: [
       {
         id: "c7_1",
-        name: { ko: "광안리 뚜벅스" },
+        name: { ko: "광안리 뚜벅스", en: "Gwangalli Twobuks" },
         address: "부산 수영구 광안해변로 239",
-        signature: { ko: "오션뷰" },
+        signature: { ko: "오션뷰", en: "Ocean View" },
         latitude: 35.153,
         longitude: 129.118,
         thumbnail: "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?w=400",
@@ -675,9 +675,9 @@ const SPOT_CONFIGS: Record<string, any> = {
       },
       {
         id: "c7_2",
-        name: { ko: "밀락더마켓" },
+        name: { ko: "밀락더마켓", en: "Millac the Market" },
         address: "부산 수영구 민락수변로17번길 56",
-        signature: { ko: "복합문화공간" },
+        signature: { ko: "복합문화공간", en: "Cultural Space" },
         latitude: 35.1545,
         longitude: 129.1235,
         thumbnail: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400",
@@ -692,19 +692,19 @@ const SPOT_CONFIGS: Record<string, any> = {
     restaurants: [
       {
         id: "r8_1",
-        name: { ko: "송도 1913" },
+        name: { ko: "송도 1913", en: "Songdo 1913" },
         address: "부산 서구 송도해변로 19-1",
-        food: { ko: "조개구이" },
+        food: { ko: "조개구이", en: "Grilled Clams" },
         latitude: 35.075,
         longitude: 129.018,
-        thumbnail: "https://images.unsplash.com/photo-1626804475297-41609ea064eb?w=400",
+        thumbnail: "https://images.unsplash.com/photo-1559847844-5315695dadae?w=400",
         rating: 4.4,
       },
       {
         id: "r8_2",
-        name: { ko: "사천해물탕" },
+        name: { ko: "사천해물탕", en: "Sacheon Seafood Stew" },
         address: "부산 서구 충무대로 12",
-        food: { ko: "해물탕" },
+        food: { ko: "해물탕", en: "Seafood Stew" },
         latitude: 35.077,
         longitude: 129.0165,
         thumbnail: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=400",
@@ -714,9 +714,9 @@ const SPOT_CONFIGS: Record<string, any> = {
     cafes: [
       {
         id: "c8_1",
-        name: { ko: "TCC 송도" },
+        name: { ko: "TCC 송도", en: "TCC Songdo" },
         address: "부산 서구 송도해변로 143",
-        signature: { ko: "루프탑 뷰" },
+        signature: { ko: "루프탑 뷰", en: "Rooftop View" },
         latitude: 35.0755,
         longitude: 129.0175,
         thumbnail: "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?w=400",
@@ -724,12 +724,12 @@ const SPOT_CONFIGS: Record<string, any> = {
       },
       {
         id: "c8_2",
-        name: { ko: "이디야커피 부산송도해상케이블카점" },
+        name: { ko: "이디야커피 부산송도해상케이블카점", en: "Ediya Coffee Songdo Cable Car" },
         address: "부산 서구 송도해변로 171",
-        signature: { ko: "케이블카 뷰" },
+        signature: { ko: "케이블카 뷰", en: "Cable Car View" },
         latitude: 35.078,
         longitude: 129.02,
-        thumbnail: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=400",
+        thumbnail: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=400",
         rating: 4.3,
       },
     ],
@@ -931,7 +931,7 @@ export default function NearbyDiscovery({
             ))
           ) : (
             <div className="w-full md:col-span-2 lg:col-span-4 text-center py-10 text-[#717171] font-medium text-[15px]">
-              해당 반경 내에 장소가 없습니다.
+              {lang === "en" ? "No places found within this radius." : "해당 반경 내에 장소가 없습니다."}
             </div>
           )}
         </div>
