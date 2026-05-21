@@ -4,10 +4,10 @@ import { useAppStore, type LangCode } from "@/stores/useAppStore";
 import { detectBrowserLang } from "@/lib/i18n";
 
 const OPTIONS: { code: LangCode; flag: string; native: string }[] = [
-  { code: "zh-TW", flag: "🇹🇼", native: "繁體中文" },
   { code: "ko", flag: "🇰🇷", native: "한국어" },
   { code: "en", flag: "🇺🇸", native: "English" },
   { code: "ja", flag: "🇯🇵", native: "日本語" },
+  { code: "zh-TW", flag: "🇹🇼", native: "繁體中文" },
   { code: "zh-CN", flag: "🇨🇳", native: "简体中文" },
 ];
 
