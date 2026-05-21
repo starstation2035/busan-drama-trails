@@ -9,12 +9,30 @@
     "quickStart": "快速開始",
     "settings": "設定",
     "movies": {
-      "woo": { "title": "非常律師禹英禑", "genre": "法律/劇情" },
-      "runningman": { "title": "Running Man (韓國綜藝)", "genre": "實境秀/動作" },
-      "pachinko": { "title": "柏青哥", "genre": "劇情" },
-      "attorney": { "title": "辯護人", "genre": "劇情" },
-      "haeundae": { "title": "大浩劫", "genre": "災難" },
-      "market": { "title": "國際市場", "genre": "劇情" }
+      "woo": {
+        "title": "非常律師禹英禑",
+        "genre": "劇情 / 法律"
+      },
+      "runningman": {
+        "title": "Running Man",
+        "genre": "綜藝"
+      },
+      "pachinko": {
+        "title": "柏青哥",
+        "genre": "歷史 / 劇情"
+      },
+      "attorney": {
+        "title": "辯護人",
+        "genre": "劇情 / 法律"
+      },
+      "haeundae": {
+        "title": "海雲台",
+        "genre": "災難 / 動作"
+      },
+      "market": {
+        "title": "國際市場",
+        "genre": "劇情 / 家庭"
+      }
     }
   },
   "nav": {
@@ -88,58 +106,58 @@
     }
   },
   "community": {
-    "title": "旅客社群",
-    "subtitle": "尋找釜山旅遊的真實體驗",
+    "title": "社區",
+    "subtitle": "尋找一起去釜山旅行的夥伴，分享你的故事。",
     "write": "撰寫貼文",
     "writeReview": "我也要寫評價",
     "shareTitle": "分享您特別的 K-Content 旅遊體驗！",
     "shareSubtitle": "用一張照片開始您專屬的旅行記錄",
-    "writeButton": "撰寫",
+    "writeButton": "寫文章",
     "searchPlaceholder": "依地點或韓劇名稱搜尋",
     "viewAll": "查看全部",
-    "emptyTalk": "目前還沒有自由討論的貼文。",
+    "emptyTalk": "目前還沒有自由討論文章。",
     "emptyReviews": "目前還沒有旅遊評價。",
     "empty": "成為第一個分享釜山故事的人吧！",
     "sections": {
-      "freeTalkTitle": "即時自由討論 Q&A",
-      "freeTalkSubtitle": "對釜山旅遊有疑問嗎？歡迎隨時提問！",
-      "latestQuestion": "最新提問",
-      "reviewsTitle": "生動的旅遊評價",
-      "reviewsSubtitle": "其他旅客推薦的最佳地點是哪裡呢？"
+      "reviewsTitle": "生動的旅遊後記",
+      "reviewsSubtitle": "K-Content拍攝地造訪認證",
+      "freeTalkTitle": "自由討論",
+      "freeTalkSubtitle": "提問及自由討論"
     },
     "filters": {
       "all": "全部",
-      "reviews": "遊記",
-      "talk": "自由閒聊"
+      "reviews": "旅遊後記",
+      "talk": "自由討論"
     },
     "modal": {
-      "title": "建立新貼文",
-      "details": "輸入內容",
-      "imageHint": "將照片拖曳至此處",
-      "selectComputer": "從電腦選取",
-      "captionPlaceholder": "撰寫內容...",
-      "locationPlaceholder": "新增地點",
-      "selectedViaMap": "已透過 Google Maps 選取",
-      "categoryTitle": "分類設定",
-      "disclaimer": "你發表的貼文將公開於釜山劇迷足跡社群中。",
-      "mapTitle": "選取地點",
-      "mapConfirm": "選取此地點",
-      "photo": "附加照片",
+      "title": "撰寫新文章",
+      "subtitle": "想分享什麼故事呢？",
+      "category": "文章分類",
+      "details": "內容",
+      "photo": "附上照片",
       "clear": "清除",
-      "changePhoto": "變更照片",
-      "location": "地點標籤"
+      "changePhoto": "更換照片",
+      "addPhoto": "點擊新增照片",
+      "location": "打卡地點 (選填)",
+      "cancel": "取消",
+      "submit": "發布"
     },
     "social": {
       "kakao": "已分享至 KakaoTalk！ 💬",
       "line": "已分享至 LINE！ 🟢"
     },
     "post": {
-      "success": "貼文發布成功！ ✨",
-      "imageError": "請先選擇照片！",
-      "categoryError": "請選擇分類！",
-      "captionError": "請輸入內容！",
-      "placeholder": "分享你的釜山韓劇之旅心得吧！",
-      "submit": "上傳"
+      "categoryError": "請選擇要撰寫的文章分類。",
+      "imageError": "請至少附上一張認證照片！",
+      "captionError": "請填寫內容。",
+      "success": "文章已成功發布！",
+      "fail": "文章發布失敗，請稍後再試。",
+      "placeholder": "寫下你想與其他旅人分享的故事...",
+      "locationPlaceholder": "例：甘川文化村"
+    },
+    "list": {
+      "latest": "最新",
+      "popular": "熱門"
     }
   },
   "chat": {
@@ -300,7 +318,14 @@
       "added": "查看我的行程 →",
       "carTour": "預約車輛導覽"
     },
-    "nearbyCta": "✨ 探索 {{name}} 附近的餐廳和咖啡店"
+    "nearbyCta": "✨ 探索 {{name}} 附近的餐廳和咖啡店",
+    "answers": "回覆",
+    "noAnswers": "目前還沒有回覆。",
+    "firstAnswer": "留下第一個溫暖的回覆吧！",
+    "answerPlaceholder": "請對這個問題留下溫暖的回覆...",
+    "submit": "發布",
+    "commentSuccess": "回覆已成功發布！",
+    "commentError": "請輸入回覆內容。"
   },
   "myCourse": {
     "title": "我的釜山行程",

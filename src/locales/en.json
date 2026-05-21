@@ -10,12 +10,30 @@
     "quickStart": "Quick Start",
     "settings": "Settings",
     "movies": {
-      "woo": { "title": "Extraordinary Attorney Woo", "genre": "Legal/Human" },
-      "runningman": { "title": "Running Man", "genre": "Reality/Action" },
-      "pachinko": { "title": "Pachinko", "genre": "Drama" },
-      "attorney": { "title": "The Attorney", "genre": "Drama" },
-      "haeundae": { "title": "Haeundae", "genre": "Disaster" },
-      "market": { "title": "Ode to My Father", "genre": "Drama" }
+      "woo": {
+        "title": "Extraordinary Attorney Woo",
+        "genre": "Drama / Law"
+      },
+      "runningman": {
+        "title": "Running Man",
+        "genre": "Variety Show"
+      },
+      "pachinko": {
+        "title": "Pachinko",
+        "genre": "Historical / Drama"
+      },
+      "attorney": {
+        "title": "The Attorney",
+        "genre": "Drama / Law"
+      },
+      "haeundae": {
+        "title": "Haeundae",
+        "genre": "Disaster / Action"
+      },
+      "market": {
+        "title": "Ode to My Father",
+        "genre": "Drama / Family"
+      }
     }
   },
   "nav": {
@@ -89,11 +107,14 @@
     }
   },
   "nearby": {
-    "openNow": "Open Now",
-    "directions": "Getting There",
-    "distanceFrom": "From your location",
-    "walkAbout": "About",
-    "minutes": " min walk"
+    "explore": "Nearby Places",
+    "popular": "Popular spots within 1km",
+    "restaurants": "Restaurants",
+    "cafes": "Cafes",
+    "recommendedSignature": "Recommended Signature",
+    "mostPopularMenu": "Most popular menu by reviewers",
+    "signature": "Signature",
+    "addedToMyCourse": "Added to My Course!"
   },
   "goods": {
     "title": "Official Store",
@@ -124,24 +145,23 @@
     }
   },
   "community": {
-    "title": "Traveler Community",
-    "subtitle": "Share your K-Drama travel stories",
+    "title": "Community",
+    "subtitle": "Find travel buddies and share stories.",
     "write": "Write Post",
     "writeReview": "Write a Review",
     "shareTitle": "Share your special K-Content tour experience!",
     "shareSubtitle": "Start your own travel record with a single photo.",
-    "writeButton": "Write",
+    "writeButton": "Write Post",
     "searchPlaceholder": "Search by location or drama title",
     "viewAll": "View All",
     "emptyTalk": "No free talk posts yet.",
     "emptyReviews": "No travel reviews yet.",
     "empty": "Be the first to share your Busan story!",
     "sections": {
-      "freeTalkTitle": "Live Free Talk Q&A",
-      "freeTalkSubtitle": "Feel free to ask questions about the places you loved in the dramas.",
-      "latestQuestion": "Latest",
-      "reviewsTitle": "Vivid Travel Reviews",
-      "reviewsSubtitle": "Real-time vivid Busan filming location reviews shared by travelers"
+      "reviewsTitle": "Travel Reviews",
+      "reviewsSubtitle": "K-Content location visits",
+      "freeTalkTitle": "Free Talk",
+      "freeTalkSubtitle": "Questions and free talk"
     },
     "filters": {
       "all": "All",
@@ -149,33 +169,34 @@
       "talk": "Free Talk"
     },
     "modal": {
-      "title": "Create New Post",
-      "details": "Post Details",
-      "imageHint": "Drag and drop photos here",
-      "selectComputer": "Select from computer",
-      "captionPlaceholder": "Write a caption...",
-      "locationPlaceholder": "Add location",
-      "selectedViaMap": "Selected via Google Maps",
-      "categoryTitle": "Category Settings",
-      "disclaimer": "Your post will be public on the Busan Drama Trails community for others to see.",
-      "mapTitle": "Select Location",
-      "mapPlaceholder": "Search place or address",
-      "mapConfirm": "Select this location",
+      "title": "New Post",
+      "subtitle": "What story do you want to share?",
+      "category": "Category",
+      "details": "Details",
       "photo": "Attach Photo",
       "clear": "Clear",
       "changePhoto": "Change Photo",
-      "location": "Location Tag"
+      "addPhoto": "Click to add photo",
+      "location": "Location Tag (Optional)",
+      "cancel": "Cancel",
+      "submit": "Post"
     },
     "social": {
       "kakao": "Shared to KakaoTalk! 💬",
       "line": "Shared to LINE! 🟢"
     },
     "post": {
-      "success": "Post shared successfully! ✨",
-      "imageError": "Please select a photo first!",
-      "captionError": "Please write a caption!",
-      "placeholder": "Share your own Busan drama travel tips!",
-      "submit": "Upload"
+      "categoryError": "Please select a category.",
+      "imageError": "Please attach at least one photo!",
+      "captionError": "Please write some content.",
+      "success": "Post created successfully!",
+      "fail": "Failed to create post. Please try again.",
+      "placeholder": "Share your stories with other travelers...",
+      "locationPlaceholder": "e.g. Gamcheon Culture Village"
+    },
+    "list": {
+      "latest": "Latest",
+      "popular": "Popular"
     }
   },
   "chat": {
@@ -368,7 +389,14 @@
       "added": "View My Course →",
       "carTour": "Book a Car Tour"
     },
-    "nearbyCta": "✨ Explore restaurants & cafes near {{name}}"
+    "nearbyCta": "✨ Explore restaurants & cafes near {{name}}",
+    "answers": "Answers",
+    "noAnswers": "No answers yet.",
+    "firstAnswer": "Leave the first warm answer!",
+    "answerPlaceholder": "Leave a warm answer to this question...",
+    "submit": "Submit",
+    "commentSuccess": "Comment registered successfully!",
+    "commentError": "Please enter a comment."
   },
   "myCourse": {
     "title": "My Busan Course",
@@ -426,15 +454,5 @@
       "instaHint": "Save the image and upload to your Story!",
       "imageSaveHint": "Please screenshot this page. Auto-save is under development!"
     }
-  },
-  "nearby": {
-    "explore": "Nearby Places",
-    "popular": "Popular spots within 1km",
-    "restaurants": "Restaurants",
-    "cafes": "Cafes",
-    "recommendedSignature": "Recommended Signature",
-    "mostPopularMenu": "Most popular menu by reviewers",
-    "signature": "Signature",
-    "addedToMyCourse": "Added to My Course!"
   }
 }

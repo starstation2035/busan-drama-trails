@@ -15,9 +15,10 @@ const translateAddress = (addr: string, lang: string) => {
   if (lang === "ko") return addr;
 
   let translated = addr;
+  const l = lang.toLowerCase();
 
-  if (lang === "zh-TW" || lang === "zh-CN") {
-    const isTW = lang === "zh-TW";
+  if (l === "zh-tw" || l === "tw" || l === "zh-cn" || l === "cn") {
+    const isTW = l === "zh-tw" || l === "tw";
     const dict: Record<string, string> = {
       "부산광역시 ": "釜山廣域市 ",
       "부산 ": "釜山 ",
@@ -68,7 +69,7 @@ const translateAddress = (addr: string, lang: string) => {
     return translated;
   }
 
-  if (lang === "ja") {
+  if (l === "ja") {
     const dict: Record<string, string> = {
       "부산광역시 ": "釜山広域市 ",
       "부산 ": "釜山 ",

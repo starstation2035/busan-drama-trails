@@ -10,12 +10,30 @@
     "quickStart": "빠른 시작",
     "settings": "설정",
     "movies": {
-      "woo": { "title": "이상한 변호사 우영우", "genre": "법정/휴먼" },
-      "runningman": { "title": "런닝맨", "genre": "리얼리티/액션" },
-      "pachinko": { "title": "파친코", "genre": "드라마" },
-      "attorney": { "title": "변호인", "genre": "드라마" },
-      "haeundae": { "title": "해운대", "genre": "재난" },
-      "market": { "title": "국제시장", "genre": "드라마" }
+      "woo": {
+        "title": "이상한 변호사 우영우",
+        "genre": "드라마 / 법정"
+      },
+      "runningman": {
+        "title": "런닝맨",
+        "genre": "예능"
+      },
+      "pachinko": {
+        "title": "파친코",
+        "genre": "역사 / 드라마"
+      },
+      "attorney": {
+        "title": "변호인",
+        "genre": "드라마 / 법정"
+      },
+      "haeundae": {
+        "title": "해운대",
+        "genre": "재난 / 액션"
+      },
+      "market": {
+        "title": "국제시장",
+        "genre": "드라마 / 가족"
+      }
     }
   },
   "nav": {
@@ -86,11 +104,14 @@
     }
   },
   "nearby": {
-    "openNow": "현재 영업 중",
-    "directions": "이동 정보",
-    "distanceFrom": "현 위치에서",
-    "walkAbout": "도보 약",
-    "minutes": "분"
+    "explore": "주변 탐방",
+    "popular": "반경 1km 이내 인기 장소",
+    "restaurants": "맛집",
+    "cafes": "카페",
+    "recommendedSignature": "추천 시그니처",
+    "mostPopularMenu": "리뷰어들이 가장 많이 선택한 메뉴",
+    "signature": "시그니처",
+    "addedToMyCourse": "마이코스에 찜했습니다!"
   },
   "goods": {
     "title": "공식 스토어",
@@ -121,8 +142,8 @@
     }
   },
   "community": {
-    "title": "여행자 커뮤니티",
-    "subtitle": "생생한 부산 여행 후기와 정보를 나눠보세요",
+    "title": "커뮤니티",
+    "subtitle": "부산 여행을 함께할 동행을 찾고, 생생한 후기를 공유해보세요.",
     "write": "글쓰기",
     "writeReview": "나도 후기 쓰기",
     "shareTitle": "당신의 특별한 K-콘텐츠 투어 경험도 공유해 보세요!",
@@ -134,11 +155,10 @@
     "emptyReviews": "등록된 여행후기가 없습니다.",
     "empty": "첫 번째 여행 후기를 남겨주세요!",
     "sections": {
-      "freeTalkTitle": "실시간 자유토크 Q&A",
-      "freeTalkSubtitle": "내가 사랑한 작품 속 장소, 궁금한 점을 자유롭게 물어보세요.",
-      "latestQuestion": "최신 질문",
       "reviewsTitle": "생생한 여행후기",
-      "reviewsSubtitle": "유저들이 전하는 실시간 부산 촬영지 생생 후기"
+      "reviewsSubtitle": "K-콘텐츠 촬영지 방문 인증",
+      "freeTalkTitle": "자유토크",
+      "freeTalkSubtitle": "질문 및 자유로운 대화"
     },
     "filters": {
       "all": "전체",
@@ -146,33 +166,34 @@
       "talk": "자유토크"
     },
     "modal": {
-      "title": "새 게시물 만들기",
-      "details": "정보 입력",
-      "imageHint": "사진을 이곳에 끌어다 놓으세요",
-      "selectComputer": "컴퓨터에서 선택",
-      "captionPlaceholder": "문구를 입력하세요...",
-      "locationPlaceholder": "위치 추가",
-      "selectedViaMap": "Google Maps를 통해 선택됨",
-      "categoryTitle": "카테고리 설정",
-      "disclaimer": "작성하신 게시물은 부산 드라마 트레일 커뮤니티에 공개되며, 다른 사용자들이 좋아요를 누르거나 위치 정보를 확인할 수 있습니다.",
-      "mapTitle": "위치 선택",
-      "mapPlaceholder": "장소 또는 주소 검색",
-      "mapConfirm": "이 위치로 선택",
+      "title": "새 글 쓰기",
+      "subtitle": "어떤 이야기를 나누고 싶으신가요?",
+      "category": "글 분류",
+      "details": "내용",
       "photo": "사진 첨부",
       "clear": "지우기",
       "changePhoto": "사진 변경",
-      "location": "장소 태그"
+      "addPhoto": "클릭해서 사진 추가하기",
+      "location": "장소 태그 (선택)",
+      "cancel": "취소",
+      "submit": "작성 완료"
     },
     "social": {
       "kakao": "카카오톡으로 공유되었습니다! 💬",
       "line": "라인으로 공유되었습니다! 🟢"
     },
     "post": {
-      "success": "게시물이 성공적으로 공유되었습니다! ✨",
-      "imageError": "게시할 사진을 먼저 선택해주세요!",
-      "captionError": "캡션을 입력해주세요!",
-      "placeholder": "나만의 부산 드라마 여행 팁을 공유해보세요!",
-      "submit": "업로드"
+      "categoryError": "어떤 글을 작성하실지 카테고리를 선택해주세요.",
+      "imageError": "인증 사진을 최소 1장 이상 첨부해주세요!",
+      "captionError": "내용을 작성해주세요.",
+      "success": "글이 성공적으로 등록되었습니다!",
+      "fail": "글 등록에 실패했습니다. 다시 시도해주세요.",
+      "placeholder": "다른 여행자들과 나누고 싶은 이야기를 적어보세요...",
+      "locationPlaceholder": "예: 감천문화마을"
+    },
+    "list": {
+      "latest": "최신순",
+      "popular": "인기순"
     }
   },
   "chat": {
@@ -371,7 +392,14 @@
       "added": "내 코스 보기 →",
       "carTour": "차량 투어 예약"
     },
-    "nearbyCta": "✨ {{name}} 근처 맛집 & 카페 탐방하기"
+    "nearbyCta": "✨ {{name}} 근처 맛집 & 카페 탐방하기",
+    "answers": "답변",
+    "noAnswers": "아직 등록된 답변이 없습니다.",
+    "firstAnswer": "첫 번째 따뜻한 답변을 남겨보세요!",
+    "answerPlaceholder": "이 질문에 대한 따뜻한 답변을 남겨주세요...",
+    "submit": "등록",
+    "commentSuccess": "답변이 정상적으로 등록되었습니다!",
+    "commentError": "댓글 내용을 입력해주세요."
   },
   "myCourse": {
     "title": "나의 부산 코스",
@@ -437,15 +465,5 @@
       "edit": "이동 시간 수정",
       "unit": "분"
     }
-  },
-  "nearby": {
-    "explore": "주변 탐방",
-    "popular": "반경 1km 이내 인기 장소",
-    "restaurants": "맛집",
-    "cafes": "카페",
-    "recommendedSignature": "추천 시그니처",
-    "mostPopularMenu": "리뷰어들이 가장 많이 선택한 메뉴",
-    "signature": "시그니처",
-    "addedToMyCourse": "마이코스에 찜했습니다!"
   }
 }

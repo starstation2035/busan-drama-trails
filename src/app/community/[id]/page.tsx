@@ -142,7 +142,17 @@ export default function CommunityDetail({ params }: { params: Promise<{ id: stri
               className="size-12 rounded-full border border-border bg-muted object-cover shadow-sm"
             />
             <div>
-              <h2 className="text-lg font-bold text-foreground">{post.author}</h2>
+              <h2 className="text-lg font-bold text-foreground">
+                {lang === "en" && post.author_en
+                  ? post.author_en
+                  : lang === "zh-TW" && post.author_zh_TW
+                    ? post.author_zh_TW
+                    : lang === "zh-CN" && post.author_zh_CN
+                      ? post.author_zh_CN
+                      : lang === "ja" && post.author_ja
+                        ? post.author_ja
+                        : post.author}
+              </h2>
               <div className="flex items-center gap-1.5 text-sm text-muted-foreground mt-0.5">
                 <MapPin className="size-3.5 text-primary" />
                 <span className="font-medium">
@@ -226,8 +236,28 @@ export default function CommunityDetail({ params }: { params: Promise<{ id: stri
                     />
                     <div className="flex-1 space-y-1">
                       <div className="flex items-center justify-between">
-                        <span className="text-sm font-bold text-foreground">{comment.author}</span>
-                        <span className="text-xs text-muted-foreground">{comment.createdAt}</span>
+                        <span className="text-sm font-bold text-foreground">
+                          {lang === "en" && comment.author_en
+                            ? comment.author_en
+                            : lang === "zh-TW" && comment.author_zh_TW
+                              ? comment.author_zh_TW
+                              : lang === "zh-CN" && comment.author_zh_CN
+                                ? comment.author_zh_CN
+                                : lang === "ja" && comment.author_ja
+                                  ? comment.author_ja
+                                  : comment.author}
+                        </span>
+                        <span className="text-xs text-muted-foreground">
+                          {lang === "en" && comment.createdAt_en
+                            ? comment.createdAt_en
+                            : lang === "zh-TW" && comment.createdAt_zh_TW
+                              ? comment.createdAt_zh_TW
+                              : lang === "zh-CN" && comment.createdAt_zh_CN
+                                ? comment.createdAt_zh_CN
+                                : lang === "ja" && comment.createdAt_ja
+                                  ? comment.createdAt_ja
+                                  : comment.createdAt}
+                        </span>
                       </div>
                       <p className="text-sm text-[#444444] leading-relaxed whitespace-pre-line bg-muted/30 rounded-2xl p-4.5 border border-black/5 mt-1">
                         {lang === "en" && comment.content_en 

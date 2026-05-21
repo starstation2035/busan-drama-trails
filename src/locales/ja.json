@@ -9,12 +9,30 @@
     "quickStart": "クイックスタート",
     "settings": "設定",
     "movies": {
-      "woo": { "title": "ウ・ヨンウ弁護士は天才肌", "genre": "法廷/ヒュー만" },
-      "runningman": { "title": "ランニングマン", "genre": "リアリティ/アクション" },
-      "pachinko": { "title": "パチンコ", "genre": "ドラマ" },
-      "attorney": { "title": "弁護人", "genre": "ドラマ" },
-      "haeundae": { "title": "TSUNAMI -ツナミ-", "genre": "パニック" },
-      "market": { "title": "国際市場で逢いましょう", "genre": "ドラマ" }
+      "woo": {
+        "title": "ウ・ヨンウ弁護士は天才肌",
+        "genre": "ドラマ / 法律"
+      },
+      "runningman": {
+        "title": "ランニングマン",
+        "genre": "バラエティ"
+      },
+      "pachinko": {
+        "title": "パチンコ",
+        "genre": "歴史 / ドラマ"
+      },
+      "attorney": {
+        "title": "弁護人",
+        "genre": "ドラマ / 法律"
+      },
+      "haeundae": {
+        "title": "TSUNAMI -ツナミ-",
+        "genre": "パニック / アクション"
+      },
+      "market": {
+        "title": "国際市場で逢いましょう",
+        "genre": "ドラマ / 家族"
+      }
     }
   },
   "nav": {
@@ -113,58 +131,58 @@
     }
   },
   "community": {
-    "title": "旅行者コミュニティ",
-    "subtitle": "釜山旅行のリアルな体験談を見つけよう",
+    "title": "コミュニティ",
+    "subtitle": "釜山旅行の仲間を見つけて、物語を共有しましょう。",
     "write": "投稿する",
     "writeReview": "私もレビューを書く",
     "shareTitle": "あなただけの特別なK-コンテンツ旅行をシェアしよう！",
     "shareSubtitle": "一枚の写真から始まるあなただけの旅行記",
-    "writeButton": "投稿",
+    "writeButton": "投稿する",
     "searchPlaceholder": "場所やドラマのタイトルで検索",
     "viewAll": "すべて見る",
-    "emptyTalk": "まだフリートークの投稿はありません。",
+    "emptyTalk": "フリートークの投稿はまだありません。",
     "emptyReviews": "まだレビューはありません。",
     "empty": "あなたの釜山の思い出を一番にシェアしよう！",
     "sections": {
-      "freeTalkTitle": "リアルタイム フリートーク Q&A",
-      "freeTalkSubtitle": "釜山旅行について質問してみましょう！",
-      "latestQuestion": "最新の質問",
-      "reviewsTitle": "リアルな旅行レビュー",
-      "reviewsSubtitle": "他の旅行者がおすすめするスポットはどこ？"
+      "reviewsTitle": "旅行の感想",
+      "reviewsSubtitle": "K-コンテンツのロケ地訪問",
+      "freeTalkTitle": "フリートーク",
+      "freeTalkSubtitle": "質問とフリートーク"
     },
     "filters": {
       "all": "すべて",
-      "reviews": "レビュー",
-      "talk": "トーク"
+      "reviews": "旅行の感想",
+      "talk": "フリートーク"
     },
     "modal": {
       "title": "新規投稿",
-      "details": "内容を入力",
-      "imageHint": "写真をここにドラッグ＆ドロップ",
-      "selectComputer": "PCから選択",
-      "captionPlaceholder": "キャプションを入力...",
-      "locationPlaceholder": "場所を追加",
-      "selectedViaMap": "Googleマップで選択済み",
-      "categoryTitle": "カテゴリー設定",
-      "disclaimer": "投稿した内容は釜山ドラマトレイルコミュニティに公開されます。",
-      "mapTitle": "場所を選択",
-      "mapConfirm": "この場所に設定",
-      "photo": "写真添付",
+      "subtitle": "どんな物語を共有したいですか？",
+      "category": "カテゴリー",
+      "details": "詳細",
+      "photo": "写真を添付",
       "clear": "クリア",
       "changePhoto": "写真を変更",
-      "location": "場所タグ"
+      "addPhoto": "クリックして写真を追加",
+      "location": "場所タグ (任意)",
+      "cancel": "キャンセル",
+      "submit": "投稿"
     },
     "social": {
       "kakao": "カカオ톡でシェアしました！ 💬",
       "line": "LINEでシェアしました！ 🟢"
     },
     "post": {
-      "success": "投稿가 성공적으로 공유되었습니다! ✨",
-      "imageError": "写真を先に選択してください！",
-      "categoryError": "カテゴリーを選択してください！",
-      "captionError": "キャプションを入力してください！",
-      "placeholder": "あなただけの釜山ドラマ旅のコツをシェアしよう！",
-      "submit": "アップロード"
+      "categoryError": "カテゴリーを選択してください。",
+      "imageError": "写真を少なくとも1枚添付してください！",
+      "captionError": "内容を記入してください。",
+      "success": "投稿が完了しました！",
+      "fail": "投稿に失敗しました。もう一度お試しください。",
+      "placeholder": "他の旅行者と物語を共有しましょう...",
+      "locationPlaceholder": "例: 甘川文化村"
+    },
+    "list": {
+      "latest": "最新",
+      "popular": "人気"
     }
   },
   "chat": {
@@ -325,7 +343,14 @@
       "added": "내 코스 보기 →",
       "carTour": "커뮤니티 카 투어 예약"
     },
-    "nearbyCta": "✨ {{name}} 近くのグルメ＆カフェを探索"
+    "nearbyCta": "✨ {{name}} 近くのグルメ＆カフェを探索",
+    "answers": "回答",
+    "noAnswers": "まだ登録された回答はありません。",
+    "firstAnswer": "最初の温かい回答を残してみましょう！",
+    "answerPlaceholder": "この質問に対する温かい回答を残してください...",
+    "submit": "登録",
+    "commentSuccess": "回答が正常に登録されました！",
+    "commentError": "コメントを入力してください。"
   },
   "myCourse": {
     "title": "私の釜山コース",

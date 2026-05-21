@@ -120,9 +120,17 @@ export default function Community() {
                       className="h-8.5 w-8.5 rounded-full border border-border bg-muted shrink-0 object-cover"
                     />
                     <div className="flex items-center gap-2.5 flex-1 min-w-0">
-                      <span className="text-xs font-extrabold text-foreground/80 shrink-0">
-                        {post.author}
-                      </span>
+                        <span className="text-xs font-extrabold text-foreground/80 shrink-0">
+                          {lang === "en" && post.author_en
+                            ? post.author_en
+                            : lang === "zh-TW" && post.author_zh_TW
+                              ? post.author_zh_TW
+                              : lang === "zh-CN" && post.author_zh_CN
+                                ? post.author_zh_CN
+                                : lang === "ja" && post.author_ja
+                                  ? post.author_ja
+                                  : post.author}
+                        </span>
                       <span className="h-3 w-[1px] bg-border/80 shrink-0" />
                       <p className="text-sm text-foreground/90 font-semibold truncate group-hover:text-primary transition-colors flex-1">
                         {lang === "en" && post.content_en ? post.content_en : post.content}
@@ -223,7 +231,15 @@ export default function Community() {
                             className="h-8 w-8 rounded-full border border-border bg-muted object-cover"
                           />
                           <span className="flex-1 text-sm font-bold text-foreground">
-                            {review.author}
+                            {lang === "en" && review.author_en
+                              ? review.author_en
+                              : lang === "zh-TW" && review.author_zh_TW
+                                ? review.author_zh_TW
+                                : lang === "zh-CN" && review.author_zh_CN
+                                  ? review.author_zh_CN
+                                  : lang === "ja" && review.author_ja
+                                    ? review.author_ja
+                                    : review.author}
                           </span>
                           <span className="rounded-full bg-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
                             {t(`community.filters.${review.category}`)}

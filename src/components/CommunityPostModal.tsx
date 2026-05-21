@@ -256,13 +256,11 @@ export function CommunityPostModal({ open, onClose, initialCategory }: Community
                     {/* Upload Area */}
                     <button
                       onClick={() => fileInputRef.current?.click()}
-                      className="w-full aspect-video rounded-xl border-2 border-dashed border-[#DDDDDD] bg-[#F7F7F7] hover:bg-[#F0F0F0] hover:border-[#BBBBBB] transition-colors flex flex-col items-center justify-center gap-3"
+                      className="w-full aspect-video rounded-xl border-2 border-dashed border-[#DDDDDD] bg-[#F7F7F7] flex flex-col items-center justify-center gap-3 hover:bg-[#F0F0F0] hover:border-[#BBBBBB] transition-colors"
                     >
-                      <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center">
-                        <ImageIcon className="h-5 w-5 text-[#717171]" />
-                      </div>
-                      <span className="text-[14px] font-medium text-[#717171]">
-                        {t("community.modal.selectComputer", lang === "en" ? "Select from computer" : "기기에서 사진 업로드")}
+                      <span className="text-3xl text-[#BBBBBB]">📸</span>
+                      <span className="text-[#717171] font-bold text-[14px]">
+                        {t("community.modal.addPhoto", lang === "en" ? "Click to add photo" : "클릭해서 사진 추가하기")}
                       </span>
                     </button>
                   </div>

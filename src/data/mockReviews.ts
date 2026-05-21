@@ -6,6 +6,14 @@ export interface Comment {
   content_en?: string;
   content_zh_TW?: string;
   createdAt: string;
+  createdAt_en?: string;
+  createdAt_zh_TW?: string;
+  createdAt_zh_CN?: string;
+  createdAt_ja?: string;
+  author_en?: string;
+  author_zh_TW?: string;
+  author_zh_CN?: string;
+  author_ja?: string;
 }
 
 export interface Review {
@@ -24,6 +32,10 @@ export interface Review {
   avatar: string;
   isLiked?: boolean;
   comments?: Comment[];
+  author_en?: string;
+  author_zh_TW?: string;
+  author_zh_CN?: string;
+  author_ja?: string;
 }
 
 export const MOCK_REVIEWS: Review[] = [
@@ -208,6 +220,10 @@ export const MOCK_REVIEWS: Review[] = [
     likes: 5,
     category: "talk",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Mini",
+    author_en: "BusanTraveler_Mini",
+    author_zh_TW: "釜山旅行者_Mini",
+    author_zh_CN: "釜山旅行者_Mini",
+    author_ja: "釜山トラベラー_ミニ",
     comments: [],
   },
   {
@@ -225,6 +241,10 @@ export const MOCK_REVIEWS: Review[] = [
     likes: 12,
     category: "talk",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Chul",
+    author_en: "TrainManiac_Chul",
+    author_zh_TW: "火車迷_哲伊",
+    author_zh_CN: "火车迷_哲伊",
+    author_ja: "列車マニア_チョル",
     comments: [
       {
         id: 301,
@@ -235,6 +255,14 @@ export const MOCK_REVIEWS: Review[] = [
         content_en: "If you don't have enough time, I recommend a combined course: take the Blue Capsule on the way up to enjoy the ocean view privately and leisurely, and take the cool and fast Beach Train on the way down! It's the best way to experience both. 👍",
         content_zh_TW: "如果時間不夠的話，我推薦混合路線：上去的時候搭乘可以私密又悠閒欣賞海景的膠囊列車，下來的時候搭乘涼爽又快速的海濱列車！這是能同時體驗兩者的最佳方法。 👍",
         createdAt: "2026년 5월 20일",
+        createdAt_en: "May 20, 2026",
+        createdAt_zh_TW: "2026年 5月 20日",
+        createdAt_zh_CN: "2026年 5月 20日",
+        createdAt_ja: "2026年 5月 20日",
+        author_en: "BusanSeagull_Minu",
+        author_zh_TW: "釜山海鷗_敏宇",
+        author_zh_CN: "釜山海鸥_敏宇",
+        author_ja: "釜山カモメ_ミヌ",
       },
     ],
   },
@@ -253,5 +281,9 @@ export const MOCK_REVIEWS: Review[] = [
     likes: 0,
     category: "reviews",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Junho",
+    author_en: "BusanTourer_Junho",
+    author_zh_TW: "釜山旅客_俊昊",
+    author_zh_CN: "釜山旅客_俊昊",
+    author_ja: "釜山ツアラー_ジュノ",
   },
 ];
