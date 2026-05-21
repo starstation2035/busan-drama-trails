@@ -11,7 +11,9 @@
     "spots": "拍攝地",
     "community": "社群",
     "myCourse": "我的行程",
-    "styleTest": "風格測試"
+    "styleTest": "風格測試",
+    "goods": "周邊商城",
+    "language": "語言設定 (繁中)"
   },
   "language": {
     "choose": "選擇您的語言",
@@ -27,7 +29,9 @@
   },
   "landing": {
     "hero": {
-      "badge": "One Shot Trap"
+      "badge": "One Shot Trap",
+      "title": "螢幕裡的那個地方，\n就是你下一個旅行地",
+      "subtitle": "從電影、韓劇到綜藝——找到韓國名所，打造專屬旅遊路線"
     },
     "title": "One Shot Trap",
     "subtitle": "體驗韓國文化的精髓 ✨",
@@ -45,10 +49,19 @@
       "style": "開始測試"
     },
     "stats": "50+ 拍攝地・200+ 美食・5 種語言",
+    "splitHero": {
+      "leftTitle": "拍攝地探索",
+      "leftSubtitle": "探索拍攝地點",
+      "rightTitle": "我的釜山行程",
+      "rightSubtitle": "客製化路線"
+    },
     "recentReviews": {
       "title": "最新旅行評價",
       "subtitle": "實時查看其他旅人分享的精彩故事",
-      "viewAll": "查看所有評價"
+      "viewAll": "查看所有評價",
+      "popular": "熱門",
+      "recent": "最新",
+      "readMore": "更多"
     },
     "categories": {
       "food": "美食",

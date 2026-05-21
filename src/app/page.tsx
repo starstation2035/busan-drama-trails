@@ -338,7 +338,7 @@ export default function LandingPage() {
                       </span>
                     </div>
                     <p className="text-[14px] leading-relaxed text-[#444444] line-clamp-3 font-semibold group-hover:text-primary transition-colors">
-                      "{lang === "en" && review.content_en ? review.content_en : review.content}"
+                      &ldquo;{lang === "en" && review.content_en ? review.content_en : review.content}&rdquo;
                     </p>
                   </div>
                 </div>

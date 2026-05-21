@@ -11,7 +11,9 @@
     "spots": "拍摄地",
     "community": "社区",
     "myCourse": "我的行程",
-    "styleTest": "风格测试"
+    "styleTest": "风格测试",
+    "goods": "周边商城",
+    "language": "语言设定 (简中)"
   },
   "language": {
     "choose": "选择您的语言",
@@ -27,11 +29,13 @@
   },
   "landing": {
     "hero": {
-      "badge": "One Shot Trap"
+      "badge": "One Shot Trap",
+      "title": "屏幕里的那个地方，\n就是你下一个旅行目的地",
+      "subtitle": "从电影、韩剧到综艺——找到韩国名所，打造专属旅游路线"
     },
     "title": "One Shot Trap",
     "subtitle": "体验韩国文化的精髓 ✨",
-    "tagline": "走进韩剧场景,感受釜山的小确幸 ✨",
+    "tagline": "走进韩剧场景，感受釜山的小确幸 ✨",
     "valueProp": {
       "spotsTitle": "韩剧拍摄地",
       "spotsDesc": "50+ 经典场景一次收藏",
@@ -45,10 +49,19 @@
       "style": "开始测试"
     },
     "stats": "50+ 拍摄地・200+ 美食・5 种语言",
+    "splitHero": {
+      "leftTitle": "拍摄地探索",
+      "leftSubtitle": "探索拍摄地点",
+      "rightTitle": "我的釜山行程",
+      "rightSubtitle": "定制化路线"
+    },
     "recentReviews": {
       "title": "最新旅行评价",
       "subtitle": "实时查看其他旅人分享的精彩故事",
-      "viewAll": "查看所有评价"
+      "viewAll": "查看所有评价",
+      "popular": "热门",
+      "recent": "最新",
+      "readMore": "更多"
     },
     "categories": {
       "food": "美食",
