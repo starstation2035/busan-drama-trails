@@ -164,11 +164,11 @@ export default function MyCoursePage() {
   const handleShareImage = async (platform?: "kakao" | "instagram" | "line") => {
     const node = document.getElementById("share-card");
     if (!node) {
-      toast.error("공유 화면을 찾을 수 없습니다.");
+      toast.error(t("common.shareError", "Share screen not found."));
       return;
     }
 
-    const loadingToast = toast.loading("공유 이미지를 생성하는 중...");
+    const loadingToast = toast.loading(t("common.shareLoading", "Generating share image..."));
 
     try {
       // Generate clean high resolution PNG without scale/transform glitches
@@ -240,9 +240,9 @@ export default function MyCoursePage() {
         { onConflict: "guest_id" },
       );
       if (error) throw error;
-      toast.success("코스가 성공적으로 저장되었습니다!");
+      toast.success(t("myCourse.actions.saveSuccess", "Course saved successfully!"));
     } catch (err: any) {
-      toast.error(`저장 실패: ${err.message}`);
+      toast.error(t("myCourse.actions.saveFail", `Save failed: ${err.message}`));
     } finally {
       setIsSaving(false);
     }
@@ -439,10 +439,9 @@ export default function MyCoursePage() {
                 <span className="size-2 rounded-full bg-green-400 animate-pulse" />
                 AI Optimized Path
               </div>
-              <h2 className="text-2xl font-black mb-2 tracking-tight">AI 추천 최적 경로</h2>
+              <h2 className="text-2xl font-black mb-2 tracking-tight">{t("myCourse.aiBanner.title")}</h2>
               <p className="text-white/80 text-xs leading-relaxed max-w-[80%] font-medium">
-                동선을 고려하여 가장 효율적인 방문 순서를 계산했습니다. {totalKm.toFixed(1)}km의
-                여정을 지금 확인해보세요!
+                {t("myCourse.aiBanner.subtitle", { km: totalKm.toFixed(1) })}
               </p>
             </div>
           </div>
@@ -479,7 +478,7 @@ export default function MyCoursePage() {
             onClick={() => setIsEditing(false)}
             className="flex-1 h-12 gap-2 rounded-xl font-bold shadow-md bg-emerald-600 hover:bg-emerald-700 text-white animate-in zoom-in duration-300"
           >
-            <RefreshCw className="h-4 w-4" /> 편집 완료
+            <RefreshCw className="h-4 w-4" /> {t("myCourse.actions.editDone")}
           </Button>
         ) : (
           <>
@@ -488,7 +487,7 @@ export default function MyCoursePage() {
               onClick={() => setIsEditing(true)}
               className="flex-1 h-12 gap-2 rounded-xl border-border/60 font-bold text-muted-foreground hover:text-amber-500 hover:border-amber-500/40 hover:bg-amber-500/10 transition-colors"
             >
-              <Pencil className="h-4 w-4" /> 코스 다시 짜기
+              <Pencil className="h-4 w-4" /> {t("myCourse.actions.editCourse")}
             </Button>
 
             <Sheet>
@@ -517,7 +516,7 @@ export default function MyCoursePage() {
 
                     <div className="w-full max-w-[360px] space-y-3 shrink-0">
                       <p className="text-xs font-bold text-muted-foreground text-center">
-                        원하는 플랫폼의 이미지 공유 버튼을 선택하세요! 📸
+                        {t("myCourse.actions.selectPlatform", "Select the platform to share your image! 📸")}
                       </p>
                       <div className="grid grid-cols-3 gap-2">
                         <Button
@@ -525,21 +524,21 @@ export default function MyCoursePage() {
                           className="h-12 gap-1 rounded-xl bg-[#FEE500] hover:bg-[#FEE500]/90 text-[#191919] font-bold text-xs border-none shadow-sm active:scale-95 transition-transform"
                         >
                           <MessageCircle className="size-4 fill-current" />
-                          카카오톡
+                          KakaoTalk
                         </Button>
                         <Button
                           onClick={() => handleShareImage("instagram")}
                           className="h-12 gap-1 rounded-xl bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#F56040] hover:opacity-90 text-white font-bold text-xs border-none shadow-sm active:scale-95 transition-transform"
                         >
                           <Instagram className="size-4" />
-                          인스타
+                          Instagram
                         </Button>
                         <Button
                           onClick={() => handleShareImage("line")}
                           className="h-12 gap-1 rounded-xl bg-[#06C755] hover:bg-[#06C755]/90 text-white font-bold text-xs border-none shadow-sm active:scale-95 transition-transform"
                         >
                           <Share2 className="size-4" />
-                          라인
+                          LINE
                         </Button>
                       </div>
                     </div>
@@ -559,7 +558,7 @@ export default function MyCoursePage() {
               ) : (
                 <Download className="h-4 w-4" />
               )}
-              <span className="font-bold">코스 저장</span>
+              <span className="font-bold">{t("myCourse.actions.save")}</span>
             </Button>
           </>
         )}
@@ -896,7 +895,7 @@ function CourseView({
               className="w-full h-16 rounded-3xl border-dashed border-2 border-primary/30 bg-primary/5 text-primary hover:bg-primary/10 hover:border-primary/50 gap-2 font-bold"
             >
               <Plus className="size-5" />
-              {t("myCourse.actions.addSpot", "스팟 추가하기")}
+              {t("myCourse.actions.addSpot")}
             </Button>
           </li>
         )}
@@ -949,7 +948,7 @@ function AddSpotSheet({
         <SheetHeader className="p-6 pb-2 shrink-0">
           <SheetTitle className="text-left font-black tracking-tight flex items-center gap-2">
             <Plus className="size-5 text-primary" />
-            {t("myCourse.actions.addSpot", "스팟 추가하기")}
+            {t("myCourse.actions.addSpot")}
           </SheetTitle>
           <div className="relative mt-4">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground/50" />

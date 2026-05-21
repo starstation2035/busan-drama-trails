@@ -33,7 +33,13 @@
         "title": "国际市场",
         "genre": "剧情 / 家庭"
       }
-    }
+    },
+    "search": "搜索景点...",
+    "noResults": "未找到结果",
+    "updated": "已更新",
+    "added": "已加入路线",
+    "shareError": "找不到分享画面。",
+    "shareLoading": "正在生成分享图片..."
   },
   "nav": {
     "home": "首页",
@@ -384,10 +390,28 @@
       "regen": "重新规划",
       "export": "导出",
       "exportSoon": "PDF 导出即将推出 ✨",
-      "copyLink": "复制链接"
+      "copyLink": "复制链接",
+      "addSpot": "添加景点",
+      "save": "保存",
+      "editDone": "完成编辑",
+      "editCourse": "重新规划路线",
+      "saveSuccess": "路线已成功保存！",
+      "saveFail": "保存失败",
+      "selectPlatform": "选择要分享的平台！ 📸"
     },
     "share": {
       "header": "我的釜山韩剧之旅 🎬"
+    },
+    "memo": {
+      "label": "备忘录",
+      "placeholder": "为此地点添加备忘录..."
+    },
+    "customTravel": {
+      "unit": "分钟"
+    },
+    "aiBanner": {
+      "title": "AI推荐最优路线",
+      "subtitle": "已考量动线，计算出最高效的访问顺序。立即确认{{km}}km的行程！"
     }
   },
   "nearby": {

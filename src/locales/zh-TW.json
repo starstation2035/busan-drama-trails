@@ -33,7 +33,13 @@
         "title": "國際市場",
         "genre": "劇情 / 家庭"
       }
-    }
+    },
+    "search": "搜尋景點...",
+    "noResults": "找不到結果",
+    "updated": "已更新",
+    "added": "已加入路線",
+    "shareError": "找不到分享畫面。",
+    "shareLoading": "正在生成分享圖片..."
   },
   "nav": {
     "home": "首頁",
@@ -384,10 +390,28 @@
       "regen": "重新規劃",
       "export": "匯出",
       "exportSoon": "PDF 匯出即將推出 ✨",
-      "copyLink": "複製連結"
+      "copyLink": "複製連結",
+      "addSpot": "新增景點",
+      "save": "儲存",
+      "editDone": "完成編輯",
+      "editCourse": "重新規劃路線",
+      "saveSuccess": "路線已成功儲存！",
+      "saveFail": "儲存失敗",
+      "selectPlatform": "選擇要分享的平台！ 📸"
     },
     "share": {
       "header": "我的釜山韓劇之旅 🎬"
+    },
+    "memo": {
+      "label": "備忘錄",
+      "placeholder": "為此地點添加備忘錄..."
+    },
+    "customTravel": {
+      "unit": "分"
+    },
+    "aiBanner": {
+      "title": "AI推薦最佳路線",
+      "subtitle": "已考量動線，計算出最高效的訪問順序。立即確認{{km}}km的行程！"
     }
   },
   "nearby": {

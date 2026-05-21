@@ -34,7 +34,13 @@
         "title": "Ode to My Father",
         "genre": "Drama / Family"
       }
-    }
+    },
+    "search": "Search spots...",
+    "noResults": "No results found",
+    "updated": "Updated",
+    "added": "Added to course",
+    "shareError": "Share screen not found.",
+    "shareLoading": "Generating share image..."
   },
   "nav": {
     "home": "Home",
@@ -441,10 +447,17 @@
     },
     "actions": {
       "share": "Share",
-      "regen": "Regenerate",
+      "regen": "Reorganize",
       "export": "Export",
       "exportSoon": "PDF export coming soon ✨",
-      "copyLink": "Copy Link"
+      "copyLink": "Copy Link",
+      "addSpot": "Add Spot",
+      "save": "Save",
+      "editDone": "Done Editing",
+      "editCourse": "Reorganize Course",
+      "saveSuccess": "Course saved successfully!",
+      "saveFail": "Save failed",
+      "selectPlatform": "Select the platform to share your image! 📸"
     },
     "share": {
       "header": "My Busan K-Drama Course 🎬",
@@ -455,6 +468,17 @@
       "kakaoSoon": "KakaoTalk share coming soon!",
       "instaHint": "Save the image and upload to your Story!",
       "imageSaveHint": "Please screenshot this page. Auto-save is under development!"
+    },
+    "memo": {
+      "label": "MEMO",
+      "placeholder": "Add a note for this place..."
+    },
+    "customTravel": {
+      "unit": "min"
+    },
+    "aiBanner": {
+      "title": "AI-Recommended Optimal Route",
+      "subtitle": "Calculated the most efficient visit order considering travel routes. Check your {{km}}km journey now!"
     }
   }
 }

@@ -33,7 +33,13 @@
         "title": "国際市場で逢いましょう",
         "genre": "ドラマ / 家族"
       }
-    }
+    },
+    "search": "スポットを検索...",
+    "noResults": "結果が見つかりません",
+    "updated": "更新しました",
+    "added": "コースに追加しました",
+    "shareError": "共有画面が見つかりません。",
+    "shareLoading": "共有画像を生成中..."
   },
   "nav": {
     "home": "ホーム",
@@ -408,13 +414,31 @@
     },
     "actions": {
       "share": "シェア",
-      "regen": "もう一度組み直す",
+      "regen": "再構成",
       "export": "エクスポート",
       "exportSoon": "PDF出力は近日公開 ✨",
-      "copyLink": "リンクをコピー"
+      "copyLink": "リンクをコピー",
+      "addSpot": "スポットを追加",
+      "save": "保存",
+      "editDone": "編集完了",
+      "editCourse": "コースを再構成",
+      "saveSuccess": "コースが正常に保存されました！",
+      "saveFail": "保存に失敗しました",
+      "selectPlatform": "シェアするプラットフォームを選んでください！ 📸"
     },
     "share": {
       "header": "私の釜山ドラマ巡り 🎬"
+    },
+    "memo": {
+      "label": "メモ",
+      "placeholder": "この場所のメモを追加..."
+    },
+    "customTravel": {
+      "unit": "分"
+    },
+    "aiBanner": {
+      "title": "AI推奨最適ルート",
+      "subtitle": "動線を考慮して最も効率的な訪問順を計算しました。{{km}}kmの旅をご確認ください！"
     }
   },
   "nearby": {

@@ -34,7 +34,13 @@
         "title": "국제시장",
         "genre": "드라마 / 가족"
       }
-    }
+    },
+    "search": "스팟 검색...",
+    "noResults": "결과가 없습니다",
+    "updated": "업데이트되었습니다",
+    "added": "코스에 추가되었습니다",
+    "shareError": "공유 화면을 찾을 수 없습니다.",
+    "shareLoading": "공유 이미지를 생성하는 중..."
   },
   "nav": {
     "home": "홈",
@@ -444,10 +450,17 @@
     },
     "actions": {
       "share": "공유",
-      "regen": "다시 짜기",
+      "regen": "코스 다시 짜기",
       "export": "내보내기",
       "exportSoon": "PDF 내보내기는 곧 제공돼요 ✨",
-      "copyLink": "링크 복사"
+      "copyLink": "링크 복사",
+      "addSpot": "스팟 추가하기",
+      "save": "코스 저장",
+      "editDone": "편집 완료",
+      "editCourse": "코스 다시 짜기",
+      "saveSuccess": "코스가 성공적으로 저장되었습니다!",
+      "saveFail": "저장 실패",
+      "selectPlatform": "원하는 플랫폼의 이미지 공유 버튼을 선택하세요! 📸"
     },
     "share": {
       "header": "나의 부산 K-드라마 코스 🎬",
@@ -460,12 +473,16 @@
       "imageSaveHint": "현재 페이지를 캡처하여 저장해 주세요. 자동 저장 기능은 개발 중입니다!"
     },
     "memo": {
-      "placeholder": "여행 메모를 남겨보세요...",
+      "placeholder": "이 장소에 대한 메모를 남겨보세요...",
       "label": "메모"
     },
     "customTravel": {
       "edit": "이동 시간 수정",
       "unit": "분"
+    },
+    "aiBanner": {
+      "title": "AI 추천 최적 경로",
+      "subtitle": "동선을 고려하여 가장 효율적인 방문 순서를 계산했습니다. {{km}}km의 여정을 지금 확인해보세요!"
     }
   }
 }
