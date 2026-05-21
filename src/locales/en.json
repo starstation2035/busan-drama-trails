@@ -178,6 +178,7 @@
       "changePhoto": "Change Photo",
       "addPhoto": "Click to add photo",
       "location": "Location Tag (Optional)",
+      "selectLocation": "Please select a location",
       "cancel": "Cancel",
       "submit": "Post"
     },

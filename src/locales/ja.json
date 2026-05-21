@@ -164,6 +164,7 @@
       "changePhoto": "写真を変更",
       "addPhoto": "クリックして写真を追加",
       "location": "場所タグ (任意)",
+      "selectLocation": "場所を選択してください",
       "cancel": "キャンセル",
       "submit": "投稿"
     },

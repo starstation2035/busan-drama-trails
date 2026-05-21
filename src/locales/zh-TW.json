@@ -139,6 +139,7 @@
       "changePhoto": "更換照片",
       "addPhoto": "點擊新增照片",
       "location": "打卡地點 (選填)",
+      "selectLocation": "請選擇地點",
       "cancel": "取消",
       "submit": "發布"
     },

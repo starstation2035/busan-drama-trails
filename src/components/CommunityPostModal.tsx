@@ -136,7 +136,7 @@ export function CommunityPostModal({ open, onClose, initialCategory }: Community
               onClick={handleSubmit}
               className="bg-[#FF385C] text-white font-bold px-5 h-9 rounded-full hover:bg-[#E31C5F] transition-all shadow-sm active:scale-95"
             >
-              {t("community.post.submit", lang === "en" ? "Upload" : "등록")}
+              {t("community.modal.submit", lang === "en" ? "Upload" : "등록")}
             </Button>
           </DialogHeader>
 
@@ -289,7 +289,7 @@ export function CommunityPostModal({ open, onClose, initialCategory }: Community
                         location ? "text-[#222222] font-bold" : "text-[#717171]",
                       )}
                     >
-                      {location || t("community.modal.locationPlaceholder", lang === "en" ? "Please select a location" : "장소를 선택해주세요")}
+                      {location || t("community.modal.selectLocation", lang === "en" ? "Please select a location" : "장소를 선택해주세요")}
                     </span>
                   </div>
                 </div>

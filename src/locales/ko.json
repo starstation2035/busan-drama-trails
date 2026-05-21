@@ -175,6 +175,7 @@
       "changePhoto": "사진 변경",
       "addPhoto": "클릭해서 사진 추가하기",
       "location": "장소 태그 (선택)",
+      "selectLocation": "장소를 선택해주세요",
       "cancel": "취소",
       "submit": "작성 완료"
     },
