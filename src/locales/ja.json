@@ -57,7 +57,9 @@
   },
   "landing": {
     "hero": {
-      "badge": "One Shot Trap"
+      "badge": "One Shot Trap",
+      "title": "スクリーンの向こう側が、\n次の旅先になる",
+      "subtitle": "ドラマや映画のロケ地を巡り、あなただけの釜山コースを作ろう"
     },
     "title": "One Shot Trap",
     "subtitle": "K-カルチャーを体験しよう ✨",

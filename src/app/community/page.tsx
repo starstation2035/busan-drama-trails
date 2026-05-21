@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { MessageSquare, Heart, MapPin, Search, ArrowRight, PenLine } from "lucide-react";
 import { useState } from "react";
 import { useCommunityStore } from "@/stores/useCommunityStore";
+import { getLocalizedField } from "@/data/mockReviews";
 import { CommunityPostModal } from "@/components/CommunityPostModal";
 
 const CATEGORIES = ["all", "reviews", "talk"] as const;
@@ -121,19 +122,11 @@ export default function Community() {
                     />
                     <div className="flex items-center gap-2.5 flex-1 min-w-0">
                         <span className="text-xs font-extrabold text-foreground/80 shrink-0">
-                          {lang === "en" && post.author_en
-                            ? post.author_en
-                            : lang === "zh-TW" && post.author_zh_TW
-                              ? post.author_zh_TW
-                              : lang === "zh-CN" && post.author_zh_CN
-                                ? post.author_zh_CN
-                                : lang === "ja" && post.author_ja
-                                  ? post.author_ja
-                                  : post.author}
+                        {getLocalizedField(post, "author", lang)}
                         </span>
                       <span className="h-3 w-[1px] bg-border/80 shrink-0" />
                       <p className="text-sm text-foreground/90 font-semibold truncate group-hover:text-primary transition-colors flex-1">
-                        {lang === "en" && post.content_en ? post.content_en : post.content}
+                        {getLocalizedField(post, "content", lang)}
                       </p>
                     </div>
                   </div>
@@ -200,11 +193,7 @@ export default function Community() {
                           <div className="flex items-center gap-2">
                             <MapPin className="h-4 w-4 text-primary" />
                             <span className="text-sm font-medium">
-                              {lang === "en" && review.location_en
-                                ? review.location_en
-                                : lang === "zh-TW" && review.location_zh_TW
-                                  ? review.location_zh_TW
-                                  : review.location}
+                              {getLocalizedField(review, "location", lang)}
                             </span>
                           </div>
                         </div>
@@ -231,15 +220,7 @@ export default function Community() {
                             className="h-8 w-8 rounded-full border border-border bg-muted object-cover"
                           />
                           <span className="flex-1 text-sm font-bold text-foreground">
-                            {lang === "en" && review.author_en
-                              ? review.author_en
-                              : lang === "zh-TW" && review.author_zh_TW
-                                ? review.author_zh_TW
-                                : lang === "zh-CN" && review.author_zh_CN
-                                  ? review.author_zh_CN
-                                  : lang === "ja" && review.author_ja
-                                    ? review.author_ja
-                                    : review.author}
+                            {getLocalizedField(review, "author", lang)}
                           </span>
                           <span className="rounded-full bg-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
                             {t(`community.filters.${review.category}`)}
@@ -247,11 +228,7 @@ export default function Community() {
                         </div>
 
                         <p className="mt-4 line-clamp-4 text-sm leading-relaxed text-muted-foreground">
-                          {lang === "en" && review.content_en 
-                            ? review.content_en 
-                            : lang === "zh-TW" && review.content_zh_TW
-                              ? review.content_zh_TW
-                              : review.content}
+                          {getLocalizedField(review, "content", lang)}
                         </p>
                       </div>
 

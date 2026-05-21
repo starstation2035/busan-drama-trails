@@ -859,14 +859,11 @@ export default function NearbyDiscovery({
         "송도 1913": { "en": "Songdo 1913", "zh-TW": "松島 1913", "zh-CN": "松岛 1913", "ja": "松島 1913" },
         "사천해물탕": { "en": "Sacheon Seafood Stew", "zh-TW": "四川海鮮湯", "zh-CN": "四川海鲜汤", "ja": "四川海鮮鍋" }, 
         "해물탕": { "en": "Seafood Stew", "zh-TW": "海鮮湯", "zh-CN": "海鲜汤", "ja": "海鮮鍋" },
-        "거청식당": { "en": "Geocheong Restaurant", "zh-TW": "巨清食堂", "zh-CN": "巨清食堂", "ja": "コチョン食堂" },
-        "생선구이": { "en": "Grilled Fish", "zh-TW": "烤魚", "zh-CN": "烤鱼", "ja": "焼き魚" },
         "해운대 기와집 대구탕": { "en": "Haeundae Giwajip Daegutang", "zh-TW": "海雲台瓦屋鱈魚湯", "zh-CN": "海云台瓦屋鳕鱼汤", "ja": "海雲台瓦屋タラ鍋" },
         "대구탕": { "en": "Daegutang", "zh-TW": "鱈魚湯", "zh-CN": "鳕鱼汤", "ja": "タラ鍋" },
         "옛날오막집": { "en": "Yetnal Omakjib", "zh-TW": "傳統五幕家", "zh-CN": "传统五幕家", "ja": "昔のオマク家" },
         "양대창": { "en": "Grilled Tripe", "zh-TW": "烤牛肚", "zh-CN": "烤牛肚", "ja": "ホルモン焼き" },
         "수영돼지국밥": { "en": "Suyeong Pork Rice Soup", "zh-TW": "水營豬肉湯飯", "zh-CN": "水营猪肉汤饭", "ja": "水営テジクッパ" },
-        "돼지국밥": { "en": "Pork Rice Soup", "zh-TW": "豬肉湯飯", "zh-CN": "猪肉汤饭", "ja": "テジクッパ" },
         "언양불고기부산집": { "en": "Eonyang Bulgogi Busan", "zh-TW": "彥陽烤肉釜山家", "zh-CN": "彦阳烤肉釜山家", "ja": "彦陽プルコギ釜山家" },
         "불고기": { "en": "Bulgogi", "zh-TW": "烤肉", "zh-CN": "烤肉", "ja": "プルコギ" },
         "이디야커피 부산송도해상케이블카점": { "en": "Ediya Coffee Songdo Cable Car", "zh-TW": "Ediya Coffee 松島纜車店", "zh-CN": "Ediya Coffee 松岛缆车店", "ja": "イディヤコーヒー 松島ケーブルカー店" },
@@ -909,15 +906,7 @@ export default function NearbyDiscovery({
 
         "무명일기": { "en": "Unknown Diary", "zh-TW": "無名日記", "zh-CN": "无名日记", "ja": "無名日記" },
         "창고형": { "en": "Warehouse Type", "zh-TW": "倉庫型", "zh-CN": "仓库型", "ja": "倉庫型" },
-        "구름에": { "en": "Gureume", "zh-TW": "雲端", "zh-CN": "云端", "ja": "クルメ" },
-        "디저트": { "en": "Dessert", "zh-TW": "甜點", "zh-CN": "甜点", "ja": "デザート" },
-        "피아크 (P.ARK)": { "en": "P.ARK", "zh-TW": "P.ARK", "zh-CN": "P.ARK", "ja": "P.ARK" },
-        "초대형": { "en": "Mega", "zh-TW": "超大型", "zh-CN": "超大型", "ja": "超大型" },
-        "모모스커피 영도": { "en": "Momos Coffee Yeongdo", "zh-TW": "Momos Coffee 影島", "zh-CN": "Momos Coffee 影岛", "ja": "モモスコヒー 影島" },
-        "스페셜티": { "en": "Specialty", "zh-TW": "精品咖啡", "zh-CN": "精品咖啡", "ja": "スペシャルティ" },
-        "쓰릴미": { "en": "Thrill Me", "zh-TW": "Thrill Me", "zh-CN": "Thrill Me", "ja": "スリルミー" },
-        "에테르": { "en": "Aether", "zh-TW": "Aether", "zh-CN": "Aether", "ja": "エテル" },
-        "루프탑": { "en": "Rooftop", "zh-TW": "頂樓", "zh-CN": "顶楼", "ja": "ルーフトップ" }
+
       };
 
       const koName = item.name?.ko || item.name || "";

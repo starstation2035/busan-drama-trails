@@ -7,6 +7,7 @@ import { type Review } from "@/data/mockReviews";
 import { useEffect, useRef, useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { useCommunityStore } from "@/stores/useCommunityStore";
+import { getLocalizedField } from "@/data/mockReviews";
 
 interface Poster {
   id: string;
@@ -339,11 +340,7 @@ export default function LandingPage() {
                     </div>
                     <p className="text-[14px] leading-relaxed text-[#444444] line-clamp-3 font-semibold group-hover:text-primary transition-colors">
                       &ldquo;
-                      {lang === "en" && review.content_en
-                        ? review.content_en
-                        : lang === "zh-TW" && review.content_zh_TW
-                          ? review.content_zh_TW
-                          : review.content}
+                      {getLocalizedField(review, "content", lang)}
                       &rdquo;
                     </p>
                   </div>
@@ -353,11 +350,7 @@ export default function LandingPage() {
                   <div className="flex items-center gap-1.5 text-[12px] font-bold text-[#717171]">
                     <MapPin className="h-3.5 w-3.5 text-[#FF385C]" strokeWidth={1.5} />
                     <span className="truncate max-w-[150px]">
-                      {lang === "en" && review.location_en
-                        ? review.location_en
-                        : lang === "zh-TW" && review.location_zh_TW
-                          ? review.location_zh_TW
-                          : review.location}
+                      {getLocalizedField(review, "location", lang)}
                     </span>
                   </div>
                   <span className="text-[11px] font-extrabold text-primary flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">

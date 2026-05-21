@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { ArrowLeft, Heart, Share2, MapPin, PenLine, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 import { useCommunityStore } from "@/stores/useCommunityStore";
+import { getLocalizedField } from "@/data/mockReviews";
 import { CommunityPostModal } from "@/components/CommunityPostModal";
 
 export default function CommunityDetail({ params }: { params: Promise<{ id: string }> }) {
@@ -143,24 +144,12 @@ export default function CommunityDetail({ params }: { params: Promise<{ id: stri
             />
             <div>
               <h2 className="text-lg font-bold text-foreground">
-                {lang === "en" && post.author_en
-                  ? post.author_en
-                  : lang === "zh-TW" && post.author_zh_TW
-                    ? post.author_zh_TW
-                    : lang === "zh-CN" && post.author_zh_CN
-                      ? post.author_zh_CN
-                      : lang === "ja" && post.author_ja
-                        ? post.author_ja
-                        : post.author}
+                {getLocalizedField(post, "author", lang)}
               </h2>
               <div className="flex items-center gap-1.5 text-sm text-muted-foreground mt-0.5">
                 <MapPin className="size-3.5 text-primary" />
                 <span className="font-medium">
-                  {lang === "en" && post.location_en 
-                    ? post.location_en 
-                    : lang === "zh-TW" && post.location_zh_TW
-                      ? post.location_zh_TW
-                      : post.location}
+                  {getLocalizedField(post, "location", lang)}
                 </span>
               </div>
             </div>
@@ -183,11 +172,7 @@ export default function CommunityDetail({ params }: { params: Promise<{ id: stri
             {t(`community.filters.${post.category}`)}
           </span>
           <p className="whitespace-pre-line text-[15px] leading-relaxed text-[#333333]">
-            {lang === "en" && post.content_en 
-              ? post.content_en 
-              : lang === "zh-TW" && post.content_zh_TW
-                ? post.content_zh_TW
-                : post.content}
+            {getLocalizedField(post, "content", lang)}
           </p>
         </div>
 
@@ -237,34 +222,14 @@ export default function CommunityDetail({ params }: { params: Promise<{ id: stri
                     <div className="flex-1 space-y-1">
                       <div className="flex items-center justify-between">
                         <span className="text-sm font-bold text-foreground">
-                          {lang === "en" && comment.author_en
-                            ? comment.author_en
-                            : lang === "zh-TW" && comment.author_zh_TW
-                              ? comment.author_zh_TW
-                              : lang === "zh-CN" && comment.author_zh_CN
-                                ? comment.author_zh_CN
-                                : lang === "ja" && comment.author_ja
-                                  ? comment.author_ja
-                                  : comment.author}
+                          {getLocalizedField(comment, "author", lang)}
                         </span>
                         <span className="text-xs text-muted-foreground">
-                          {lang === "en" && comment.createdAt_en
-                            ? comment.createdAt_en
-                            : lang === "zh-TW" && comment.createdAt_zh_TW
-                              ? comment.createdAt_zh_TW
-                              : lang === "zh-CN" && comment.createdAt_zh_CN
-                                ? comment.createdAt_zh_CN
-                                : lang === "ja" && comment.createdAt_ja
-                                  ? comment.createdAt_ja
-                                  : comment.createdAt}
+                          {getLocalizedField(comment, "createdAt", lang)}
                         </span>
                       </div>
                       <p className="text-sm text-[#444444] leading-relaxed whitespace-pre-line bg-muted/30 rounded-2xl p-4.5 border border-black/5 mt-1">
-                        {lang === "en" && comment.content_en 
-                          ? comment.content_en 
-                          : lang === "zh-TW" && comment.content_zh_TW
-                            ? comment.content_zh_TW
-                            : comment.content}
+                        {getLocalizedField(comment, "content", lang)}
                       </p>
                     </div>
                   </div>
