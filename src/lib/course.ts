@@ -21,6 +21,7 @@ export type RestaurantItem = {
   thumbnail: string;
   food?: Record<string, string>;
   region?: Record<LangCode, string>;
+  coords: Coords;
 };
 
 export type CafeItem = {
@@ -30,6 +31,7 @@ export type CafeItem = {
   thumbnail: string;
   vibe?: Record<string, string>;
   region?: Record<LangCode, string>;
+  coords: Coords;
 };
 
 export type AnyItem = SpotItem | RestaurantItem | CafeItem;
@@ -47,6 +49,8 @@ export const spots = spotsData as Array<{
   thumbnail: string;
   coords: Coords;
   region: Record<LangCode, string>;
+  nearby_restaurants?: string[];
+  nearby_cafes?: string[];
 }>;
 export const restaurants = restaurantsData as Array<{
   id: string;
@@ -62,6 +66,32 @@ export const cafes = cafesData as Array<{
   vibe?: Record<string, string>;
   region?: Record<LangCode, string>;
 }>;
+
+function getItemCoords(id: string, kind: "restaurant" | "cafe"): Coords {
+  const parentSpot = spots.find(s => 
+    kind === "restaurant" 
+      ? s.nearby_restaurants?.includes(id)
+      : s.nearby_cafes?.includes(id)
+  );
+
+  if (parentSpot) {
+    // Add a slight deterministic offset based on the item id so they don't overlap exactly
+    const hash = id.split('').reduce((acc: number, char: string) => acc + char.charCodeAt(0), 0);
+    const offsetLat = ((hash % 7) - 3) * 0.0006;
+    const offsetLng = (((hash >> 2) % 7) - 3) * 0.0006;
+    return {
+      lat: parentSpot.coords.lat + offsetLat,
+      lng: parentSpot.coords.lng + offsetLng
+    };
+  }
+
+  // Fallbacks for items not associated with any spot:
+  if (id === "r7") return { lat: 35.2442, lng: 129.2229 };
+  if (id === "c6") return { lat: 35.1557, lng: 129.0653 };
+  if (id === "c8") return { lat: 35.2198, lng: 129.2285 };
+
+  return { lat: 35.1795, lng: 129.0756 };
+}
 
 export function classifyFavorites(favIds: string[]): {
   spots: SpotItem[];
@@ -93,6 +123,7 @@ export function classifyFavorites(favIds: string[]): {
         thumbnail: r.thumbnail,
         food: r.food,
         region: (r as any).region,
+        coords: getItemCoords(r.id, "restaurant"),
       });
       continue;
     }
@@ -105,6 +136,7 @@ export function classifyFavorites(favIds: string[]): {
         thumbnail: c.thumbnail,
         vibe: (c as any).vibe,
         region: (c as any).region,
+        coords: getItemCoords(c.id, "cafe"),
       });
     }
   }
@@ -236,11 +268,11 @@ export function generateCourse(favIds: string[]): TimelineEntry[] {
   const dinner = rs[1] ?? (rs[0] ? null : null);
   if (dinner) insertAt("18:00", { ...dinner }, MEAL_DURATION);
 
-  // Recompute travelToNext between consecutive spots only (rough heuristic)
+  // Recompute travelToNext between consecutive items if they both have coords
   for (let i = 0; i < entries.length - 1; i++) {
     const a = entries[i].item;
     const b = entries[i + 1].item;
-    if (a.kind === "spot" && b.kind === "spot") {
+    if (a.coords && b.coords) {
       const km = haversineKm(a.coords, b.coords);
       entries[i].travelToNext = travelEstimate(km);
     } else {
