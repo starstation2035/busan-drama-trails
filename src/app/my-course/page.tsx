@@ -31,6 +31,8 @@ import {
   Coffee,
   Timer,
   Pencil,
+  GripVertical,
+  Map,
 } from "lucide-react";
 import { useAppStore, type LangCode } from "@/stores/useAppStore";
 import { Button } from "@/components/ui/button";
@@ -59,6 +61,10 @@ import { courseService } from "@/application/courseService";
 import { STYLE_META, type StyleKey } from "@/data/quiz";
 import { supabase } from "@/lib/supabase";
 import { toPng } from "html-to-image";
+import { Reorder, useDragControls } from "framer-motion";
+import dynamic from "next/dynamic";
+
+const CourseMap = dynamic(() => import("@/components/CourseMap"), { ssr: false });
 
 export default function MyCoursePage() {
   const { t, i18n } = useTranslation();
@@ -78,6 +84,7 @@ export default function MyCoursePage() {
   const [isEditing, setIsEditing] = useState(false);
   const [isAddSheetOpen, setIsAddSheetOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [showMap, setShowMap] = useState(false);
 
   const [editableCourse, setEditableCourse] = useState<EditableTimelineEntry[]>([]);
   const skipRegenRef = useRef(false);
@@ -120,6 +127,35 @@ export default function MyCoursePage() {
   }, [guestId, setFavorites]);
 
   const totalKm = useMemo(() => totalRouteKm(editableCourse), [editableCourse]);
+
+  const validMapEntries = useMemo(() => {
+    return editableCourse.filter(
+      (e) => (e.item as any)?.coords?.lat && (e.item as any)?.coords?.lng
+    );
+  }, [editableCourse]);
+
+  const getKakaoMapRouteUrl = () => {
+    if (validMapEntries.length === 0) return "https://map.kakao.com";
+    if (validMapEntries.length === 1) {
+      const spot = validMapEntries[0].item as any;
+      const name = spot.name[lang] || spot.name["en"] || "";
+      return `https://map.kakao.com/link/to/${encodeURIComponent(name)},${spot.coords.lat},${spot.coords.lng}`;
+    }
+    const start = validMapEntries[0].item as any;
+    const end = validMapEntries[validMapEntries.length - 1].item as any;
+    const startName = start.name[lang] || start.name["en"] || "";
+    const endName = end.name[lang] || end.name["en"] || "";
+    return `https://map.kakao.com/?sName=${encodeURIComponent(startName)}&eName=${encodeURIComponent(endName)}`;
+  };
+
+  const getNaverMapRouteUrl = () => {
+    if (validMapEntries.length < 2) return "https://map.naver.com";
+    const start = validMapEntries[0].item as any;
+    const end = validMapEntries[validMapEntries.length - 1].item as any;
+    const startName = start.name[lang] || start.name["en"] || "";
+    const endName = end.name[lang] || end.name["en"] || "";
+    return `https://map.naver.com/v5/directions/${start.coords.lng},${start.coords.lat},${encodeURIComponent(startName)}///${end.coords.lng},${end.coords.lat},${encodeURIComponent(endName)}/-/car`;
+  };
 
   if (favorites.length === 0) {
     return (
@@ -173,7 +209,7 @@ export default function MyCoursePage() {
     try {
       // Generate clean high resolution PNG without scale/transform glitches
       const dataUrl = await toPng(node, { 
-        backgroundColor: null,
+        backgroundColor: undefined,
         style: {
           transform: 'scale(1)',
         }
@@ -286,6 +322,27 @@ export default function MyCoursePage() {
 
     setEditableCourse(newCourse);
     toast.success(t("common.updated", "Updated"));
+  };
+
+  const handleReorder = (newCourse: EditableTimelineEntry[]) => {
+    skipRegenRef.current = true;
+
+    // Re-calculate all times starting from 09:00
+    let cursor = "09:00";
+    const updatedCourse = newCourse.map(e => ({ ...e }));
+    for (let i = 0; i < updatedCourse.length; i++) {
+      updatedCourse[i].time = cursor;
+      cursor = addMinutes(cursor, updatedCourse[i].durationMin);
+      if (i < updatedCourse.length - 1) {
+        // If travel data exists, use it, else default 10min
+        const travelMins = updatedCourse[i].travelToNext?.minutes ?? 10;
+        cursor = addMinutes(cursor, travelMins);
+      } else {
+        updatedCourse[i].travelToNext = undefined;
+      }
+    }
+
+    setEditableCourse(updatedCourse);
   };
 
   const handleRemoveEntry = (idx: number) => {
@@ -434,12 +491,36 @@ export default function MyCoursePage() {
                 <span className="size-2 rounded-full bg-green-400 animate-pulse" />
                 AI Optimized Path
               </div>
-              <h2 className="text-2xl font-black mb-2 tracking-tight">AI 추천 최적 경로</h2>
+              <div className="flex items-center justify-between gap-4 flex-wrap mb-3">
+                <h2 className="text-2xl font-black tracking-tight">AI 추천 최적 경로</h2>
+                <div className="flex items-center gap-2">
+                  <a
+                    href={getKakaoMapRouteUrl()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 px-4 py-2.5 text-xs font-black rounded-2xl bg-[#FEE500] hover:bg-[#FEE500]/90 text-[#191919] border border-[#FEE500]/10 cursor-pointer shadow-sm no-underline active:scale-95 transition-all"
+                  >
+                    <span className="font-extrabold text-[8px] bg-black/10 px-1 rounded-sm">KAKAO</span> 길찾기
+                  </a>
+                  <a
+                    href={getNaverMapRouteUrl()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 px-4 py-2.5 text-xs font-black rounded-2xl bg-[#03C75A] hover:bg-[#03C75A]/90 text-white border border-[#03C75A]/10 cursor-pointer shadow-sm no-underline active:scale-95 transition-all"
+                  >
+                    <span className="font-extrabold text-[8px] bg-white/20 px-1 rounded-sm">NAVER</span> 길찾기
+                  </a>
+                </div>
+              </div>
               <p className="text-white/80 text-xs leading-relaxed max-w-[80%] font-medium">
                 동선을 고려하여 가장 효율적인 방문 순서를 계산했습니다. {totalKm.toFixed(1)}km의
                 여정을 지금 확인해보세요!
               </p>
             </div>
+          </div>
+
+          <div className="w-full h-[320px] rounded-3xl overflow-hidden border border-border/40 shadow-md relative z-0">
+            <CourseMap course={editableCourse} lang={lang} />
           </div>
 
           <CourseView
@@ -453,6 +534,7 @@ export default function MyCoursePage() {
             onMove={handleMove}
             onRemove={handleRemoveEntry}
             onAdd={() => setIsAddSheetOpen(true)}
+            onReorder={handleReorder}
           />
         </div>
       )}
@@ -467,7 +549,7 @@ export default function MyCoursePage() {
       />
 
       {/* Bottom action bar */}
-      <div className="sticky bottom-20 z-10 flex gap-2 rounded-2xl border border-border/60 bg-background/95 p-2 shadow-xl backdrop-blur-xl md:bottom-4 animate-fade-up">
+      <div className="sticky bottom-20 z-10 flex flex-col gap-2 rounded-2xl border border-border/60 bg-background/95 p-2 shadow-xl backdrop-blur-xl md:bottom-4 animate-fade-up">
         {isEditing ? (
           <Button
             variant="default"
@@ -478,77 +560,80 @@ export default function MyCoursePage() {
           </Button>
         ) : (
           <>
-            <Button
-              variant="outline"
-              onClick={() => setIsEditing(true)}
-              className="flex-1 h-12 gap-2 rounded-xl border-border/60 font-bold text-muted-foreground hover:text-amber-500 hover:border-amber-500/40 hover:bg-amber-500/10 transition-colors"
-            >
-              <Pencil className="h-4 w-4" /> 코스 다시 짜기
-            </Button>
+            <BookingSheet course={editableCourse} />
+            <div className="flex gap-2 w-full">
+              <Button
+                variant="outline"
+                onClick={() => setIsEditing(true)}
+                className="flex-1 h-12 gap-2 rounded-xl border-border/60 font-bold text-muted-foreground hover:text-amber-500 hover:border-amber-500/40 hover:bg-amber-500/10 transition-colors px-0"
+              >
+                <Pencil className="h-4 w-4 shrink-0" /> <span className="truncate">다시 짜기</span>
+              </Button>
 
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button
-                  variant="outline"
-                  className="flex-1 h-12 gap-2 rounded-xl border-border/60 font-bold text-muted-foreground hover:text-rose-500 hover:border-rose-500/40 hover:bg-rose-500/10 transition-all active:scale-95 duration-300"
-                >
-                  <Share2 className="h-4 w-4" /> {t("myCourse.actions.share")}
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="bottom" className="h-[90vh] sm:h-[85vh] rounded-t-[32px] p-0 overflow-hidden flex flex-col bg-background">
-                <SheetHeader className="p-6 pb-0 shrink-0">
-                  <SheetTitle className="text-center font-black tracking-tight">
-                    {t("myCourse.actions.share")}
-                  </SheetTitle>
-                </SheetHeader>
-                <div className="flex-1 overflow-y-auto p-6 pb-24">
-                  <div className="space-y-6 flex flex-col items-center">
-                    <div className="w-full max-w-[280px] aspect-[9/16] shrink-0">
-                      <ShareLayout course={editableCourse} lang={lang} />
-                    </div>
-                    
-                    <div className="w-full max-w-[360px] space-y-3 shrink-0">
-                      <p className="text-xs font-bold text-muted-foreground text-center">
-                        원하는 플랫폼의 이미지 공유 버튼을 선택하세요! 📸
-                      </p>
-                      <div className="grid grid-cols-3 gap-2">
-                        <Button
-                          onClick={() => handleShareImage('kakao')}
-                          className="h-12 gap-1 rounded-xl bg-[#FEE500] hover:bg-[#FEE500]/90 text-[#191919] font-bold text-xs border-none shadow-sm active:scale-95 transition-transform"
-                        >
-                          <MessageCircle className="size-4 fill-current" />
-                          카카오톡
-                        </Button>
-                        <Button
-                          onClick={() => handleShareImage('instagram')}
-                          className="h-12 gap-1 rounded-xl bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#F56040] hover:opacity-90 text-white font-bold text-xs border-none shadow-sm active:scale-95 transition-transform"
-                        >
-                          <Instagram className="size-4" />
-                          인스타
-                        </Button>
-                        <Button
-                          onClick={() => handleShareImage('line')}
-                          className="h-12 gap-1 rounded-xl bg-[#06C755] hover:bg-[#06C755]/90 text-white font-bold text-xs border-none shadow-sm active:scale-95 transition-transform"
-                        >
-                          <Share2 className="size-4" />
-                          라인
-                        </Button>
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="flex-1 h-12 gap-2 rounded-xl border-border/60 font-bold text-muted-foreground hover:text-rose-500 hover:border-rose-500/40 hover:bg-rose-500/10 transition-all active:scale-95 duration-300 px-0"
+                  >
+                    <Share2 className="h-4 w-4 shrink-0" /> <span className="truncate">{t("myCourse.actions.share")}</span>
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="bottom" className="h-[90vh] sm:h-[85vh] w-full max-w-md mx-auto rounded-t-[32px] p-0 overflow-hidden flex flex-col bg-background">
+                  <SheetHeader className="p-6 pb-0 shrink-0">
+                    <SheetTitle className="text-center font-black tracking-tight">
+                      {t("myCourse.actions.share")}
+                    </SheetTitle>
+                  </SheetHeader>
+                  <div className="flex-1 overflow-y-auto p-6 pb-24">
+                    <div className="space-y-6 flex flex-col items-center">
+                      <div className="w-full max-w-[280px] aspect-[9/16] shrink-0">
+                        <ShareLayout course={editableCourse} lang={lang} />
+                      </div>
+                      
+                      <div className="w-full max-w-[360px] space-y-3 shrink-0">
+                        <p className="text-xs font-bold text-muted-foreground text-center">
+                          원하는 플랫폼의 이미지 공유 버튼을 선택하세요! 📸
+                        </p>
+                        <div className="grid grid-cols-3 gap-2">
+                          <Button
+                            onClick={() => handleShareImage('kakao')}
+                            className="h-12 gap-1 rounded-xl bg-[#FEE500] hover:bg-[#FEE500]/90 text-[#191919] font-bold text-xs border-none shadow-sm active:scale-95 transition-transform"
+                          >
+                            <MessageCircle className="size-4 fill-current" />
+                            카카오톡
+                          </Button>
+                          <Button
+                            onClick={() => handleShareImage('instagram')}
+                            className="h-12 gap-1 rounded-xl bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#F56040] hover:opacity-90 text-white font-bold text-xs border-none shadow-sm active:scale-95 transition-transform"
+                          >
+                            <Instagram className="size-4" />
+                            인스타
+                          </Button>
+                          <Button
+                            onClick={() => handleShareImage('line')}
+                            className="h-12 gap-1 rounded-xl bg-[#06C755] hover:bg-[#06C755]/90 text-white font-bold text-xs border-none shadow-sm active:scale-95 transition-transform"
+                          >
+                            <Share2 className="size-4" />
+                            라인
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </SheetContent>
-            </Sheet>
+                </SheetContent>
+              </Sheet>
 
-            <Button
-              variant="outline"
-              onClick={handleSaveToSupabase}
-              disabled={isSaving}
-              className="flex-1 h-12 gap-2 rounded-xl border-border/60 font-bold text-muted-foreground hover:text-indigo-600 hover:border-indigo-600/40 hover:bg-indigo-600/10 transition-colors disabled:opacity-50"
-            >
-              {isSaving ? <RefreshCw className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
-              <span className="font-bold">코스 저장</span>
-            </Button>
+              <Button
+                variant="outline"
+                onClick={handleSaveToSupabase}
+                disabled={isSaving}
+                className="flex-1 h-12 gap-2 rounded-xl border-border/60 font-bold text-muted-foreground hover:text-indigo-600 hover:border-indigo-600/40 hover:bg-indigo-600/10 transition-colors disabled:opacity-50 px-0"
+              >
+                {isSaving ? <RefreshCw className="h-4 w-4 shrink-0 animate-spin" /> : <Download className="h-4 w-4 shrink-0" />}
+                <span className="font-bold truncate">저장</span>
+              </Button>
+            </div>
           </>
         )}
       </div>
@@ -674,6 +759,7 @@ function CourseView({
   onMove,
   onRemove,
   onAdd,
+  onReorder,
 }: {
   course: EditableTimelineEntry[];
   totalKm: number;
@@ -685,6 +771,7 @@ function CourseView({
   onMove: (idx: number, direction: "up" | "down") => void;
   onRemove: (idx: number) => void;
   onAdd: () => void;
+  onReorder: (newCourse: EditableTimelineEntry[]) => void;
 }) {
   const { t } = useTranslation();
   const router = useRouter();
@@ -721,7 +808,7 @@ function CourseView({
         </div>
       )}
 
-      <ol className="relative ml-2">
+      <Reorder.Group axis="y" values={course} onReorder={onReorder} className="relative ml-2">
         <div className="absolute left-[3.2rem] top-3 bottom-10 w-0.5 bg-gradient-to-b from-primary via-muted to-muted opacity-20" />
 
         {course.map((entry, i) => {
@@ -730,7 +817,12 @@ function CourseView({
           const isLast = i === course.length - 1;
 
           return (
-            <li key={`${item.kind}-${item.id}-${i}`} className="relative pb-10 pl-16">
+            <Reorder.Item
+              key={`${item.kind}-${item.id}-${i}`}
+              value={entry}
+              dragListener={isEditing}
+              className="relative pb-10 pl-16 outline-none"
+            >
               <div className="absolute left-0 top-1 w-12 text-right">
                 <span className="text-xs font-black text-foreground tabular-nums tracking-tight">
                   {entry.time}
@@ -747,17 +839,25 @@ function CourseView({
 
               <div className="relative group">
                 <div
-                  onClick={() => item.kind === "spot" && router.push(`/spots/${item.id}`)}
                   className={`block rounded-3xl border border-border/40 bg-card p-4 shadow-sm transition-all hover:shadow-lg active:scale-[0.99] hover:-translate-y-1 ${item.kind === "spot" ? "cursor-pointer" : ""}`}
                 >
                   <div className="flex items-center gap-4">
+                    {isEditing && (
+                      <div className="flex-none cursor-grab active:cursor-grabbing text-muted-foreground hover:text-primary transition-colors">
+                        <GripVertical className="h-5 w-5" />
+                      </div>
+                    )}
                     <img
+                      onClick={() => !isEditing && item.kind === "spot" && router.push(`/spots/${item.id}`)}
                       src={item.thumbnail}
                       alt=""
                       className="h-16 w-16 rounded-2xl object-cover shadow-sm ring-1 ring-border/10"
                       loading="lazy"
                     />
-                    <div className="min-w-0 flex-1 space-y-1">
+                    <div
+                      className="min-w-0 flex-1 space-y-1"
+                      onClick={() => !isEditing && item.kind === "spot" && router.push(`/spots/${item.id}`)}
+                    >
                       <div className="flex items-center justify-between">
                         <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">
                           {kindLabel(item.kind, t)}
@@ -872,12 +972,12 @@ function CourseView({
                   </div>
                 </div>
               )}
-            </li>
+            </Reorder.Item>
           );
         })}
 
         {isEditing && (
-          <li className="relative pl-16 animate-in fade-in slide-in-from-left-4 duration-500">
+          <div className="relative pl-16 animate-in fade-in slide-in-from-left-4 duration-500 pb-10">
             <Button
               variant="outline"
               onClick={onAdd}
@@ -886,9 +986,9 @@ function CourseView({
               <Plus className="size-5" />
               {t("myCourse.actions.addSpot", "스팟 추가하기")}
             </Button>
-          </li>
+          </div>
         )}
-      </ol>
+      </Reorder.Group>
 
       <div className="flex items-center justify-between rounded-2xl bg-muted/40 px-4 py-3 text-[10px] font-black uppercase tracking-widest text-muted-foreground/60">
         <span className="flex items-center gap-2">
@@ -1079,7 +1179,7 @@ function ShareLayout({ course, lang }: { course: EditableTimelineEntry[]; lang: 
                 </h3>
                 <div className="flex items-center gap-2 text-[9px] font-bold opacity-60 uppercase tracking-wider">
                   <span className="rounded bg-white/10 px-1.5 py-0.5 text-[8px]">
-                    {t(`myCourse.kinds.${entry.item.kind}`)}
+              {t(`myCourse.kinds.${entry.item.kind}`)}
                   </span>
                   {entry.memo && <span className="line-clamp-1 italic">— {entry.memo}</span>}
                 </div>
@@ -1123,4 +1223,109 @@ function ModeIcon({ mode }: { mode: "walk" | "taxi" | "subway" | "bus" }) {
   if (mode === "taxi") return <Car className="h-3.5 w-3.5" />;
   if (mode === "bus") return <Bus className="h-3.5 w-3.5" />;
   return <TrainFront className="h-3.5 w-3.5" />;
+}
+
+function BookingSheet({ course }: { course: EditableTimelineEntry[] }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [travelDate, setTravelDate] = useState("");
+  const [name, setName] = useState("");
+  const [contact, setContact] = useState("");
+  const [requests, setRequests] = useState("");
+  
+  const courseCount = course.length;
+  const extraCount = Math.max(0, courseCount - 3);
+  const totalCost = 249000 + (extraCount * 50000);
+
+  const isValid = travelDate && name.trim() && contact.trim();
+
+  return (
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
+      <SheetTrigger asChild>
+        <Button
+          className="w-full h-12 sm:h-14 rounded-xl font-bold bg-primary text-primary-foreground hover:bg-primary/90 shadow-md transition-all active:scale-[0.98] text-[13px] sm:text-base"
+        >
+          이 코스대로 여행 예약하기 ✨
+        </Button>
+      </SheetTrigger>
+      <SheetContent side="bottom" className="h-[90vh] sm:h-[85vh] w-full max-w-md mx-auto rounded-t-[32px] p-0 flex flex-col bg-background">
+        <SheetHeader className="p-6 pb-4 border-b shrink-0">
+          <SheetTitle className="text-xl font-black">여행 예약하기</SheetTitle>
+        </SheetHeader>
+        <div className="flex-1 overflow-y-auto p-6 space-y-6 pb-24">
+          <div className="space-y-3">
+            <label className="text-sm font-bold text-foreground">예약자 성함 <span className="text-destructive">*</span></label>
+            <Input 
+              type="text" 
+              placeholder="홍길동"
+              value={name} 
+              onChange={(e) => setName(e.target.value)}
+              className="h-12 rounded-xl"
+            />
+          </div>
+
+          <div className="space-y-3">
+            <label className="text-sm font-bold text-foreground">연락처 <span className="text-destructive">*</span></label>
+            <Input 
+              type="tel" 
+              placeholder="010-0000-0000"
+              value={contact} 
+              onChange={(e) => setContact(e.target.value)}
+              className="h-12 rounded-xl"
+            />
+          </div>
+
+          <div className="space-y-3">
+            <label className="text-sm font-bold text-foreground">여행 날짜 선택 <span className="text-destructive">*</span></label>
+            <Input 
+              type="date" 
+              value={travelDate} 
+              onChange={(e) => setTravelDate(e.target.value)}
+              className="h-12 rounded-xl"
+            />
+          </div>
+
+          <div className="space-y-3">
+            <label className="text-sm font-bold text-foreground">추가 요청사항</label>
+            <Textarea 
+              placeholder="알러지, 휠체어 등 픽업 관련 특별한 요청사항이 있다면 남겨주세요."
+              value={requests}
+              onChange={(e) => setRequests(e.target.value)}
+              className="min-h-[100px] rounded-xl resize-none"
+            />
+          </div>
+          
+          <div className="space-y-4 pt-4 border-t">
+            <h3 className="text-sm font-bold text-foreground">예약 비용 안내</h3>
+            <div className="rounded-2xl bg-muted/30 p-4 space-y-3 text-sm">
+              <div className="flex justify-between items-center text-muted-foreground">
+                <span>기본 코스 (최대 3곳)</span>
+                <span className="font-medium">249,000원</span>
+              </div>
+              {extraCount > 0 && (
+                <div className="flex justify-between items-center text-muted-foreground animate-in fade-in">
+                  <span>추가 코스 ({extraCount}곳)</span>
+                  <span className="font-medium">+{ (extraCount * 50000).toLocaleString() }원</span>
+                </div>
+              )}
+              <div className="pt-3 mt-3 border-t flex justify-between items-center font-black text-lg text-primary">
+                <span>총 예약 비용</span>
+                <span>{totalCost.toLocaleString()}원</span>
+              </div>
+            </div>
+          </div>
+
+          <Button 
+            className="w-full h-14 rounded-2xl text-base font-bold bg-primary text-white"
+            disabled={!isValid}
+            onClick={() => {
+              toast.success("예약이 성공적으로 접수되었습니다!");
+              setIsOpen(false);
+            }}
+          >
+            결제하기
+          </Button>
+        </div>
+      </SheetContent>
+    </Sheet>
+  );
 }
