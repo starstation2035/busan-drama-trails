@@ -107,6 +107,14 @@ export default function MyCoursePage() {
     initializeGuestId();
   }, [initializeGuestId]);
 
+  // Set default Cheongsapo demo course if favorites is completely empty on first mount
+  useEffect(() => {
+    const currentFavs = useAppStore.getState().favorites;
+    if (!currentFavs || currentFavs.length === 0) {
+      setFavorites(["spot_001", "r12", "c7"]);
+    }
+  }, [setFavorites]);
+
   useEffect(() => {
     async function loadCourseData() {
       if (!guestId) return;

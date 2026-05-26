@@ -54,6 +54,6 @@ export const useAppStore = create<AppState>()(
         });
       },
     }),
-    { name: "busan-app-v2" },
+    { name: "busan-app-v3" },
   ),
 );
