@@ -513,7 +513,7 @@ export default function MyCoursePage() {
                     rel="noopener noreferrer"
                     className="flex items-center gap-1.5 px-4 py-2.5 text-xs font-black rounded-2xl bg-[#FEE500] hover:bg-[#FEE500]/90 text-[#191919] border border-[#FEE500]/10 cursor-pointer shadow-sm no-underline active:scale-95 transition-all"
                   >
-                    <span className="font-extrabold text-[8px] bg-black/10 px-1 rounded-sm">KAKAO</span> 길찾기
+                    <span className="font-extrabold text-[8px] bg-black/10 px-1 rounded-sm">KAKAO</span> {t("common.directions", "길찾기")}
                   </a>
                   <a
                     href={getNaverMapRouteUrl()}
@@ -521,7 +521,7 @@ export default function MyCoursePage() {
                     rel="noopener noreferrer"
                     className="flex items-center gap-1.5 px-4 py-2.5 text-xs font-black rounded-2xl bg-[#03C75A] hover:bg-[#03C75A]/90 text-white border border-[#03C75A]/10 cursor-pointer shadow-sm no-underline active:scale-95 transition-all"
                   >
-                    <span className="font-extrabold text-[8px] bg-white/20 px-1 rounded-sm">NAVER</span> 길찾기
+                    <span className="font-extrabold text-[8px] bg-white/20 px-1 rounded-sm">NAVER</span> {t("common.directions", "길찾기")}
                   </a>
                 </div>
               </div>

@@ -40,7 +40,8 @@
     "updated": "Updated",
     "added": "Added to course",
     "shareError": "Share screen not found.",
-    "shareLoading": "Generating share image..."
+    "shareLoading": "Generating share image...",
+    "directions": "Directions"
   },
   "nav": {
     "home": "Home",

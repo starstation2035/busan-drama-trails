@@ -39,7 +39,8 @@
     "updated": "已更新",
     "added": "已加入路線",
     "shareError": "找不到分享畫面。",
-    "shareLoading": "正在生成分享圖片..."
+    "shareLoading": "正在生成分享圖片...",
+    "directions": "導航"
   },
   "nav": {
     "home": "首頁",

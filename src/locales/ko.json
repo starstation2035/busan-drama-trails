@@ -40,7 +40,8 @@
     "updated": "업데이트되었습니다",
     "added": "코스에 추가되었습니다",
     "shareError": "공유 화면을 찾을 수 없습니다.",
-    "shareLoading": "공유 이미지를 생성하는 중..."
+    "shareLoading": "공유 이미지를 생성하는 중...",
+    "directions": "길찾기"
   },
   "nav": {
     "home": "홈",

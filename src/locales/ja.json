@@ -39,7 +39,8 @@
     "updated": "更新しました",
     "added": "コースに追加しました",
     "shareError": "共有画面が見つかりません。",
-    "shareLoading": "共有画像を生成中..."
+    "shareLoading": "共有画像を生成中...",
+    "directions": "ルート案内"
   },
   "nav": {
     "home": "ホーム",

@@ -39,7 +39,8 @@
     "updated": "已更新",
     "added": "已加入路线",
     "shareError": "找不到分享画面。",
-    "shareLoading": "正在生成分享图片..."
+    "shareLoading": "正在生成分享图片...",
+    "directions": "导航"
   },
   "nav": {
     "home": "首页",
