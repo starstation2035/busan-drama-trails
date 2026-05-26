@@ -396,7 +396,8 @@
     "travel": {
       "walk": "步行",
       "taxi": "計程車",
-      "subway": "地鐵"
+      "subway": "地鐵",
+      "bus": "公車"
     },
     "totals": {
       "distance": "全長約 {{km}} km",
@@ -436,6 +437,23 @@
     "aiBanner": {
       "title": "AI推薦最佳路線",
       "subtitle": "已考量動線，計算出最高效的訪問順序。立即確認{{km}}km的行程！"
+    },
+    "booking": {
+      "trigger": "預訂此行程 ✨",
+      "title": "預訂旅行行程",
+      "nameLabel": "預約人姓名",
+      "namePlaceholder": "張三",
+      "contactLabel": "聯絡方式",
+      "contactPlaceholder": "請輸入您的聯絡電話",
+      "dateLabel": "選擇旅行日期",
+      "requestsLabel": "其他特殊要求",
+      "requestsPlaceholder": "如有過敏、輪椅等接送相關的特殊要求，請留言。",
+      "costTitle": "預約費用說明",
+      "baseCourse": "基本行程 (最多3處)",
+      "extraCourse": "追加行程 ({{count}}處)",
+      "totalCost": "總預約費用",
+      "payButton": "去支付",
+      "successMsg": "預約已成功提交！"
     }
   },
   "nearby": {

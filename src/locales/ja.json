@@ -423,7 +423,8 @@
     "travel": {
       "walk": "徒歩",
       "taxi": "タクシー",
-      "subway": "地下鉄"
+      "subway": "地下鉄",
+      "bus": "バス"
     },
     "totals": {
       "distance": "全長約 {{km}} km",
@@ -463,6 +464,23 @@
     "aiBanner": {
       "title": "AI推奨最適ルート",
       "subtitle": "動線を考慮して最も効率的な訪問順を計算しました。{{km}}kmの旅をご確認ください！"
+    },
+    "booking": {
+      "trigger": "このコースで旅行を予約する ✨",
+      "title": "旅行を予約する",
+      "nameLabel": "ご予約者のお名前",
+      "namePlaceholder": "山田太郎",
+      "contactLabel": "ご連絡先",
+      "contactPlaceholder": "ご連絡先電話番号を入力してください",
+      "dateLabel": "旅行日程 of 選択",
+      "requestsLabel": "追加のご要望",
+      "requestsPlaceholder": "アレルギーや車椅子など、送迎に関する特別なご要望があればご記入ください。",
+      "costTitle": "予約費用の案内",
+      "baseCourse": "基本コース (最大3ヶ所)",
+      "extraCourse": "追加コース ({{count}}ヶ所)",
+      "totalCost": "合計予約費用",
+      "payButton": "決済する",
+      "successMsg": "予約が正常に受け付けられました！"
     }
   },
   "nearby": {

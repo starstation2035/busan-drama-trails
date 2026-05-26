@@ -1230,6 +1230,7 @@ function ModeIcon({ mode }: { mode: "walk" | "taxi" | "subway" | "bus" }) {
 }
 
 function BookingSheet({ course }: { course: EditableTimelineEntry[] }) {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [travelDate, setTravelDate] = useState("");
   const [name, setName] = useState("");
@@ -1248,19 +1249,19 @@ function BookingSheet({ course }: { course: EditableTimelineEntry[] }) {
         <Button
           className="w-full h-12 sm:h-14 rounded-xl font-bold bg-primary text-primary-foreground hover:bg-primary/90 shadow-md transition-all active:scale-[0.98] text-[13px] sm:text-base"
         >
-          이 코스대로 여행 예약하기 ✨
+          {t("myCourse.booking.trigger", "이 코스대로 여행 예약하기 ✨")}
         </Button>
       </SheetTrigger>
       <SheetContent side="bottom" className="h-[90vh] sm:h-[85vh] w-full max-w-md mx-auto rounded-t-[32px] p-0 flex flex-col bg-background">
         <SheetHeader className="p-6 pb-4 border-b shrink-0">
-          <SheetTitle className="text-xl font-black">여행 예약하기</SheetTitle>
+          <SheetTitle className="text-xl font-black">{t("myCourse.booking.title", "여행 예약하기")}</SheetTitle>
         </SheetHeader>
         <div className="flex-1 overflow-y-auto p-6 space-y-6 pb-24">
           <div className="space-y-3">
-            <label className="text-sm font-bold text-foreground">예약자 성함 <span className="text-destructive">*</span></label>
+            <label className="text-sm font-bold text-foreground">{t("myCourse.booking.nameLabel", "예약자 성함")} <span className="text-destructive">*</span></label>
             <Input 
               type="text" 
-              placeholder="홍길동"
+              placeholder={t("myCourse.booking.namePlaceholder", "홍길동")}
               value={name} 
               onChange={(e) => setName(e.target.value)}
               className="h-12 rounded-xl"
@@ -1268,10 +1269,10 @@ function BookingSheet({ course }: { course: EditableTimelineEntry[] }) {
           </div>
 
           <div className="space-y-3">
-            <label className="text-sm font-bold text-foreground">연락처 <span className="text-destructive">*</span></label>
+            <label className="text-sm font-bold text-foreground">{t("myCourse.booking.contactLabel", "연락처")} <span className="text-destructive">*</span></label>
             <Input 
               type="tel" 
-              placeholder="010-0000-0000"
+              placeholder={t("myCourse.booking.contactPlaceholder", "010-0000-0000")}
               value={contact} 
               onChange={(e) => setContact(e.target.value)}
               className="h-12 rounded-xl"
@@ -1279,7 +1280,7 @@ function BookingSheet({ course }: { course: EditableTimelineEntry[] }) {
           </div>
 
           <div className="space-y-3">
-            <label className="text-sm font-bold text-foreground">여행 날짜 선택 <span className="text-destructive">*</span></label>
+            <label className="text-sm font-bold text-foreground">{t("myCourse.booking.dateLabel", "여행 날짜 선택")} <span className="text-destructive">*</span></label>
             <Input 
               type="date" 
               value={travelDate} 
@@ -1289,9 +1290,9 @@ function BookingSheet({ course }: { course: EditableTimelineEntry[] }) {
           </div>
 
           <div className="space-y-3">
-            <label className="text-sm font-bold text-foreground">추가 요청사항</label>
+            <label className="text-sm font-bold text-foreground">{t("myCourse.booking.requestsLabel", "추가 요청사항")}</label>
             <Textarea 
-              placeholder="알러지, 휠체어 등 픽업 관련 특별한 요청사항이 있다면 남겨주세요."
+              placeholder={t("myCourse.booking.requestsPlaceholder", "알러지, 휠체어 등 픽업 관련 특별한 요청사항이 있다면 남겨주세요.")}
               value={requests}
               onChange={(e) => setRequests(e.target.value)}
               className="min-h-[100px] rounded-xl resize-none"
@@ -1299,20 +1300,20 @@ function BookingSheet({ course }: { course: EditableTimelineEntry[] }) {
           </div>
           
           <div className="space-y-4 pt-4 border-t">
-            <h3 className="text-sm font-bold text-foreground">예약 비용 안내</h3>
+            <h3 className="text-sm font-bold text-foreground">{t("myCourse.booking.costTitle", "예약 비용 안내")}</h3>
             <div className="rounded-2xl bg-muted/30 p-4 space-y-3 text-sm">
               <div className="flex justify-between items-center text-muted-foreground">
-                <span>기본 코스 (최대 3곳)</span>
+                <span>{t("myCourse.booking.baseCourse", "기본 코스 (최대 3곳)")}</span>
                 <span className="font-medium">249,000원</span>
               </div>
               {extraCount > 0 && (
                 <div className="flex justify-between items-center text-muted-foreground animate-in fade-in">
-                  <span>추가 코스 ({extraCount}곳)</span>
+                  <span>{t("myCourse.booking.extraCourse", { defaultValue: "추가 코스 ({{count}}곳)", count: extraCount })}</span>
                   <span className="font-medium">+{ (extraCount * 50000).toLocaleString() }원</span>
                 </div>
               )}
               <div className="pt-3 mt-3 border-t flex justify-between items-center font-black text-lg text-primary">
-                <span>총 예약 비용</span>
+                <span>{t("myCourse.booking.totalCost", "총 예약 비용")}</span>
                 <span>{totalCost.toLocaleString()}원</span>
               </div>
             </div>
@@ -1322,11 +1323,11 @@ function BookingSheet({ course }: { course: EditableTimelineEntry[] }) {
             className="w-full h-14 rounded-2xl text-base font-bold bg-primary text-white"
             disabled={!isValid}
             onClick={() => {
-              toast.success("예약이 성공적으로 접수되었습니다!");
+              toast.success(t("myCourse.booking.successMsg", "예약이 성공적으로 접수되었습니다!"));
               setIsOpen(false);
             }}
           >
-            결제하기
+            {t("myCourse.booking.payButton", "결제하기")}
           </Button>
         </div>
       </SheetContent>

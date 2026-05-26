@@ -439,7 +439,7 @@
       "walk": "도보",
       "taxi": "택시",
       "subway": "지하철",
-      "bus": "BUS"
+      "bus": "버스"
     },
     "totals": {
       "distance": "총 약 {{km}} km",
@@ -487,6 +487,23 @@
     "aiBanner": {
       "title": "AI 추천 최적 경로",
       "subtitle": "동선을 고려하여 가장 효율적인 방문 순서를 계산했습니다. {{km}}km의 여정을 지금 확인해보세요!"
+    },
+    "booking": {
+      "trigger": "이 코스대로 여행 예약하기 ✨",
+      "title": "여행 예약하기",
+      "nameLabel": "예약자 성함",
+      "namePlaceholder": "홍길동",
+      "contactLabel": "연락처",
+      "contactPlaceholder": "010-0000-0000",
+      "dateLabel": "여행 날짜 선택",
+      "requestsLabel": "추가 요청사항",
+      "requestsPlaceholder": "알러지, 휠체어 등 픽업 관련 특별한 요청사항이 있다면 남겨주세요.",
+      "costTitle": "예약 비용 안내",
+      "baseCourse": "기본 코스 (최대 3곳)",
+      "extraCourse": "추가 코스 ({{count}}곳)",
+      "totalCost": "총 예약 비용",
+      "payButton": "결제하기",
+      "successMsg": "예약이 성공적으로 접수되었습니다!"
     }
   }
 }

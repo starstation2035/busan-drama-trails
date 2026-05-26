@@ -436,7 +436,7 @@
       "walk": "walk",
       "taxi": "taxi",
       "subway": "subway",
-      "bus": "BUS"
+      "bus": "Bus"
     },
     "totals": {
       "distance": "Total ~{{km}} km",
@@ -483,6 +483,23 @@
     "aiBanner": {
       "title": "AI-Recommended Optimal Route",
       "subtitle": "Calculated the most efficient visit order considering travel routes. Check your {{km}}km journey now!"
+    },
+    "booking": {
+      "trigger": "Book this course ✨",
+      "title": "Book Trip",
+      "nameLabel": "Full Name",
+      "namePlaceholder": "John Doe",
+      "contactLabel": "Contact Number",
+      "contactPlaceholder": "010-0000-0000",
+      "dateLabel": "Select Travel Date",
+      "requestsLabel": "Special Requests",
+      "requestsPlaceholder": "Please let us know if you have any allergies, need wheelchair access, etc.",
+      "costTitle": "Booking Fee Information",
+      "baseCourse": "Base Course (Up to 3 spots)",
+      "extraCourse": "Extra Course ({{count}} spots)",
+      "totalCost": "Total Booking Cost",
+      "payButton": "Proceed to Payment",
+      "successMsg": "Booking submitted successfully!"
     }
   }
 }

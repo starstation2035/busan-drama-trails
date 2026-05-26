@@ -396,7 +396,8 @@
     "travel": {
       "walk": "步行",
       "taxi": "出租车",
-      "subway": "地铁"
+      "subway": "地铁",
+      "bus": "公交"
     },
     "totals": {
       "distance": "全长约 {{km}} km",
@@ -436,6 +437,23 @@
     "aiBanner": {
       "title": "AI推荐最优路线",
       "subtitle": "已考量动线，计算出最高效的访问顺序。立即确认{{km}}km的行程！"
+    },
+    "booking": {
+      "trigger": "预订此行程 ✨",
+      "title": "预订旅行行程",
+      "nameLabel": "预约人姓名",
+      "namePlaceholder": "张三",
+      "contactLabel": "联系方式",
+      "contactPlaceholder": "请输入您的联系电话",
+      "dateLabel": "选择旅行日期",
+      "requestsLabel": "其他特殊要求",
+      "requestsPlaceholder": "如有过敏、轮椅等接送相关的特殊要求，请留言。",
+      "costTitle": "预约费用说明",
+      "baseCourse": "基本行程 (最多3处)",
+      "extraCourse": "追加行程 ({{count}}处)",
+      "totalCost": "总预约费用",
+      "payButton": "去支付",
+      "successMsg": "预约已成功提交！"
     }
   },
   "nearby": {
