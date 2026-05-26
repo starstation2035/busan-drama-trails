@@ -284,7 +284,10 @@
       "shareIG": "Share to IG Story",
       "copyLink": "Copy Link",
       "shareText": "My Busan travel style is \"{{type}}\" {{icon}} — try it!",
-      "startCourse": "Start My Trip With This Course ✨"
+      "startCourse": "Start My Trip With This Course ✨",
+      "startTrip": "Start Trip ✨",
+      "viewAllSpots": "View All →",
+      "clickToChange": "Click to change"
     },
     "types": {
       "healing": {

@@ -48,7 +48,7 @@
     "myCourse": "我的行程",
     "styleTest": "风格测试",
     "goods": "周边商城",
-    "language": "语言设定 (简中)"
+    "language": "语言设定"
   },
   "language": {
     "choose": "选择您的语言",
@@ -245,7 +245,10 @@
       "shareIG": "分享到 IG 快拍",
       "copyLink": "复制链接",
       "shareText": "我的釜山旅游风格是「{{type}}」{{icon}} 你也来测!",
-      "startCourse": "就用这个行程开始旅行 ✨"
+      "startCourse": "就用这个行程开始旅行 ✨",
+      "startTrip": "开始旅行 ✨",
+      "viewAllSpots": "查看全部 →",
+      "clickToChange": "点击更改"
     },
     "types": {
       "healing": {

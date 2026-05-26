@@ -272,7 +272,10 @@
       "shareIG": "IGストーリーズでシェア",
       "copyLink": "リンクをコピー",
       "shareText": "私の釜山旅スタイルは「{{type}}」{{icon}} 試してみて!",
-      "startCourse": "このコースで旅を始める ✨"
+      "startCourse": "このコースで旅を始める ✨",
+      "startTrip": "旅行を始める ✨",
+      "viewAllSpots": "すべて見る →",
+      "clickToChange": "クリックして変更"
     },
     "types": {
       "healing": {

@@ -196,7 +196,7 @@ export default function StyleTest() {
               {t("quiz.result.recommendedTitle")}
             </h3>
             <span className="text-xs text-muted-foreground font-medium flex items-center gap-1">
-              <Repeat2 className="size-3.5" /> 클릭하여 변경
+              <Repeat2 className="size-3.5" /> {t("quiz.result.clickToChange", "클릭하여 변경")}
             </span>
           </div>
           <div className="relative space-y-3 py-2 before:absolute before:inset-y-0 before:left-8 before:w-0.5 before:bg-border/50">
@@ -288,7 +288,7 @@ export default function StyleTest() {
             className="flex flex-1 h-14 items-center justify-center rounded-2xl border-2 border-primary bg-background text-[11px] sm:text-sm font-bold text-primary shadow-sm transition-all hover:bg-primary hover:text-primary-foreground hover:shadow-lg active:scale-[0.98] px-1"
             onClick={handleStartCourse}
           >
-            여행 시작하기 ✨
+            {t("quiz.result.startTrip", "여행 시작하기 ✨")}
           </button>
 
           <a
@@ -299,7 +299,7 @@ export default function StyleTest() {
               router.push(`/spots?style=${result}`);
             }}
           >
-            모두 보기 →
+            {t("quiz.result.viewAllSpots", "모두 보기 →")}
           </a>
 
           <button

@@ -48,7 +48,7 @@
     "community": "커뮤니티",
     "myCourse": "내 코스",
     "styleTest": "스타일 테스트",
-    "goods": "굿즈 쇼핑MALL",
+    "goods": "굿즈쇼핑몰",
     "language": "언어 설정"
   },
   "language": {
@@ -287,7 +287,10 @@
       "shareIG": "IG 스토리에 공유",
       "copyLink": "링크 복사",
       "shareText": "내 부산 여행 스타일은 「{{type}}」 {{icon}} 너도 해봐!",
-      "startCourse": "이 코스 그대로 내 여행 시작하기 ✨"
+      "startCourse": "이 코스 그대로 내 여행 시작하기 ✨",
+      "startTrip": "여행 시작하기 ✨",
+      "viewAllSpots": "모두 보기 →",
+      "clickToChange": "클릭하여 변경"
     },
     "types": {
       "healing": {

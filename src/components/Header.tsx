@@ -19,7 +19,7 @@ const FLAGS: Record<string, { flag: string; native: string }> = {
   ko: { flag: "🇰🇷", native: "한국어" },
   en: { flag: "🇺🇸", native: "EN" },
   ja: { flag: "🇯🇵", native: "日本語" },
-  "zh-CN": { flag: "🇨🇳", native: "简중" },
+  "zh-CN": { flag: "🇨🇳", native: "简中" },
 };
 
 interface Props {
