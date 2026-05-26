@@ -77,7 +77,23 @@ export default function MyCoursePage() {
   const toggleFavorite = useAppStore((s) => s.toggleFavorite);
   const router = useRouter();
 
-  const { spots, restaurants, cafes } = useMemo(() => classifyFavorites(favorites), [favorites]);
+  // Combine style recommended spots with user favorites
+  const recommendedIds = useMemo(() => {
+    if (!userStyle || !STYLE_META[userStyle]) return [];
+    const meta = STYLE_META[userStyle];
+    return [
+      ...meta.recommendedSpots,
+      ...meta.recommendedRestaurants,
+      ...meta.recommendedCafes,
+    ];
+  }, [userStyle]);
+
+  const combinedIds = useMemo(() => {
+    const ids = new Set([...favorites, ...recommendedIds]);
+    return Array.from(ids);
+  }, [favorites, recommendedIds]);
+
+  const { spots, restaurants, cafes } = useMemo(() => classifyFavorites(combinedIds), [combinedIds]);
 
   const [tab, setTab] = useState<"list" | "course">("course");
   const [seed, setSeed] = useState(0);
@@ -94,13 +110,13 @@ export default function MyCoursePage() {
       skipRegenRef.current = false;
       return;
     }
-    if (favorites.length > 0) {
-      const generated = generateCourse(favorites) as EditableTimelineEntry[];
+    if (combinedIds.length > 0) {
+      const generated = generateCourse(combinedIds) as EditableTimelineEntry[];
       setEditableCourse(generated);
     } else {
       setEditableCourse([]);
     }
-  }, [favorites, seed]);
+  }, [combinedIds, seed]);
 
   // Supabase Load Logic
   useEffect(() => {
@@ -165,7 +181,7 @@ export default function MyCoursePage() {
     return `https://map.naver.com/v5/directions/${start.coords.lng},${start.coords.lat},${encodeURIComponent(startName)}///${end.coords.lng},${end.coords.lat},${encodeURIComponent(endName)}/-/car`;
   };
 
-  if (favorites.length === 0) {
+  if (combinedIds.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-center animate-fade-in">
         <div className="mb-6 text-7xl drop-shadow-xl animate-bounce-slow">🗺️</div>
@@ -416,6 +432,23 @@ export default function MyCoursePage() {
           </div>
         </div>
       </header>
+
+      {userStyle && STYLE_META[userStyle] && (
+        <div className="rounded-3xl border border-border/40 bg-card p-6 shadow-sm flex flex-col items-center justify-center text-center gap-2 mb-2 animate-fade-up relative overflow-hidden">
+          <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60">
+            {t("quiz.result.yourStyle", "당신의 여행 스타일은")}
+          </p>
+          <div className="text-4xl animate-bounce-slow my-1">
+            {STYLE_META[userStyle].icon}
+          </div>
+          <h2 className="text-xl font-black text-foreground tracking-tight">
+            {t(`quiz.types.${userStyle}.name`)}
+          </h2>
+          <p className="text-xs font-medium text-muted-foreground max-w-xs leading-relaxed">
+            {t(`quiz.types.${userStyle}.tagline`)}
+          </p>
+        </div>
+      )}
 
       {/* Stats Card */}
       <div className="relative overflow-hidden rounded-3xl border border-border/40 bg-card p-5 shadow-sm animate-fade-up">
