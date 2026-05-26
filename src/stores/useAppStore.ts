@@ -32,7 +32,7 @@ export const useAppStore = create<AppState>()(
       guestId: null,
       lang: null,
       userStyle: null,
-      favorites: [],
+      favorites: ["spot_001", "r12", "c7"],
       myCourseItems: [],
       setLang: (lang) => set({ lang }),
       initializeGuestId: () => {
